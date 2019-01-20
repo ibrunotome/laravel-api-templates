@@ -1,0 +1,25 @@
+version: '3.6'
+services:
+  sonarqube:
+    image: sonarqube:alpine
+    container_name: default-api-sonarqube
+    volumes:
+      - .:/app
+    ports:
+      - 9000:9000
+      - 9092:9092
+    networks:
+      - default-api
+
+  sonar-scanner:
+    image: openjdk:latest
+    container_name: default-api-sonar-scanner
+    command: bash -c "sleep 60 && java -jar /app/tests/sonar-scanner/sonar-scanner-cli-3.2.0.1227.jar -Dsonar.projectKey=default-api -Dsonar.sources=/app/app -Dsonar.php.tests.reportPath=/app/tests/coverage/logfile.xml -Dsonar.php.coverage.reportPaths=/app/tests/coverage/coverage.xml -Dsonar.coverage.exclusions=**Seed.php,**Factory.php,**Policy.php,**Test.php -Dsonar.sonar.exclusions=**Seed.php,**Factory.php,**Policy.php,**Test.php -Dsonar.cpd.exclusions=**Seed.php,**Factory.php,**table.php,**Policy.php,**Test.php -Dsonar.host.url=http://sonarqube:9000 -Dsonar.login=</app/tests/sonar-scanner/sonar-runner.key"
+    volumes:
+      - .:/app
+    networks:
+      - default-api
+
+networks:
+  default-api:
+    driver: bridge

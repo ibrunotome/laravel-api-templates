@@ -1,0 +1,89 @@
+version: '3.6'
+services:
+  app:
+    build:
+      context: .
+      args:
+        - ENABLE_XDEBUG=${ENABLE_XDEBUG}
+    container_name: ddd-api-app
+    ports:
+      - 80:8080
+    environment:
+      - DOCUMENT_ROOT=/app/public
+      - DISABLE_FUNCTIONS=
+      - SKIP_LOCKDOWN_DOCUMENT_ROOT=true
+      - OPCACHE_VALIDATE_TIMESTAMPS=1
+      - OPCACHE_FILE_UPDATE_PROTECTION=1
+      - OPCACHE_SAVE_COMMENTS=1
+      - OPCACHE_ENABLE_FILE_OVERRIDE=0
+    volumes:
+      - .:/app
+    depends_on:
+      - pgsql
+      - pgsql-tests
+      - pgsql-audits
+      - redis-default
+      - redis-cache
+    networks:
+      - ddd-api
+
+  pgsql:
+    image: postgres:10.4-alpine
+    container_name: ddd-api-pgsql
+    ports:
+      - 5433:5432
+    environment:
+      POSTGRES_DB: ddd
+      POSTGRES_USER: ddd
+      POSTGRES_PASSWORD: ddd
+    volumes:
+      - ddd-pgsql:/var/lib/postgresql/data
+    networks:
+      - ddd-api
+
+  pgsql-tests:
+    image: postgres:10.4-alpine
+    container_name: ddd-api-pgsql-tests
+    ports:
+      - 5434:5432
+    environment:
+      POSTGRES_DB: ddd_tests
+      POSTGRES_USER: ddd_tests
+      POSTGRES_PASSWORD: ddd_tests
+    volumes:
+      - ddd-pgsql-tests:/var/lib/postgresql/data
+    networks:
+      - ddd-api
+
+  redis-default:
+    image: redis:4.0.11
+    container_name: ddd-api-redis-default
+    volumes:
+      - ddd-redis-default:/data
+    ports:
+      - 6377:6379
+    networks:
+      - ddd-api
+
+  redis-cache:
+    image: redis:4.0.11
+    container_name: ddd-api-redis-cache
+    volumes:
+      - ddd-redis-cache:/data
+    ports:
+      - 6378:6379
+    networks:
+      - ddd-api
+
+networks:
+  ddd-api:
+    driver: bridge
+volumes:
+  ddd-pgsql:
+    driver: local
+  ddd-pgsql-tests:
+    driver: local
+  ddd-redis-default:
+    driver: local
+  ddd-redis-cache:
+    driver: local

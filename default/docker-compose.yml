@@ -1,0 +1,89 @@
+version: '3.6'
+services:
+  app:
+    build:
+      context: .
+      args:
+        - ENABLE_XDEBUG=${ENABLE_XDEBUG}
+    container_name: default-api-app
+    ports:
+      - 80:8080
+    environment:
+      - DOCUMENT_ROOT=/app/public
+      - DISABLE_FUNCTIONS=
+      - SKIP_LOCKDOWN_DOCUMENT_ROOT=true
+      - OPCACHE_VALIDATE_TIMESTAMPS=1
+      - OPCACHE_FILE_UPDATE_PROTECTION=1
+      - OPCACHE_SAVE_COMMENTS=1
+      - OPCACHE_ENABLE_FILE_OVERRIDE=0
+    volumes:
+      - .:/app
+    depends_on:
+      - pgsql
+      - pgsql-tests
+      - pgsql-audits
+      - redis-default
+      - redis-cache
+    networks:
+      - default-api
+
+  pgsql:
+    image: postgres:10.4-alpine
+    container_name: default-api-pgsql
+    ports:
+      - 5433:5432
+    environment:
+      POSTGRES_DB: default
+      POSTGRES_USER: default
+      POSTGRES_PASSWORD: default
+    volumes:
+      - default-pgsql:/var/lib/postgresql/data
+    networks:
+      - default-api
+
+  pgsql-tests:
+    image: postgres:10.4-alpine
+    container_name: default-api-pgsql-tests
+    ports:
+      - 5434:5432
+    environment:
+      POSTGRES_DB: default_tests
+      POSTGRES_USER: default_tests
+      POSTGRES_PASSWORD: default_tests
+    volumes:
+      - default-pgsql-tests:/var/lib/postgresql/data
+    networks:
+      - default-api
+
+  redis-default:
+    image: redis:4.0.11
+    container_name: default-api-redis-default
+    volumes:
+      - default-redis-default:/data
+    ports:
+      - 6377:6379
+    networks:
+      - default-api
+
+  redis-cache:
+    image: redis:4.0.11
+    container_name: default-api-redis-cache
+    volumes:
+      - default-redis-cache:/data
+    ports:
+      - 6378:6379
+    networks:
+      - default-api
+
+networks:
+  default-api:
+    driver: bridge
+volumes:
+  default-pgsql:
+    driver: local
+  default-pgsql-tests:
+    driver: local
+  default-redis-default:
+    driver: local
+  default-redis-cache:
+    driver: local
