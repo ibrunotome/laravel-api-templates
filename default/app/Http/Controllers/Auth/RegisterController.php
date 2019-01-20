@@ -2,11 +2,17 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Contracts\ProfileRepository;
+use App\Contracts\UserRepository;
 use App\Http\Controllers\Controller;
-use App\User;
+use App\Models\User;
+use App\Rules\WeakPasswordRule;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Ramsey\Uuid\Uuid;
 
 class RegisterController extends Controller
 {
@@ -24,13 +30,6 @@ class RegisterController extends Controller
     use RegistersUsers;
 
     /**
-     * Where to redirect users after registration.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/home';
-
-    /**
      * Create a new controller instance.
      *
      * @return void
@@ -38,6 +37,26 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+    }
+
+    /**
+     * The user has been registered.
+     *
+     * @param Request $request
+     * @param User    $user
+     *
+     * @return mixed
+     */
+    protected function registered(Request $request, User $user)
+    {
+        $this->guard()->logout();
+
+        $message = __(
+            'We sent a confirmation email to :email. Please follow the instructions to complete your registration.',
+            ['email' => $user->email]
+        );
+
+        return $this->respondWithCustomData(['message' => $message], Response::HTTP_CREATED);
     }
 
     /**
@@ -53,20 +72,26 @@ class RegisterController extends Controller
             'name'     => [
                 'required',
                 'string',
-                'max:255'
+                'max:255',
             ],
             'email'    => [
                 'required',
                 'string',
                 'email',
                 'max:255',
-                'unique:users'
+                'unique:users,email'
             ],
             'password' => [
                 'required',
                 'string',
-                'min:6',
-                'confirmed'
+                'min:8',
+                'confirmed',
+                new WeakPasswordRule
+            ],
+            'locale'   => [
+                'nullable',
+                'string',
+                'in:en_US,pt_BR'
             ],
         ]);
     }
@@ -76,14 +101,34 @@ class RegisterController extends Controller
      *
      * @param  array $data
      *
-     * @return \App\User
+     * @return \App\Models\User
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name'     => $data['name'],
-            'email'    => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        return DB::transaction(function () use ($data) {
+            /** @var UserRepository $userRepository */
+            $userRepository = app(UserRepository::class);
+
+            /** @var User $user */
+            $user = $userRepository->store([
+                'email'             => $data['email'],
+                'password'          => bcrypt($data['password']),
+                'is_active'         => 1,
+                'email_verified_at' => null,
+                'locale'            => $data['locale'] ?? 'pt_BR',
+            ]);
+
+            /** @var ProfileRepository $profileRepository */
+            $profileRepository = app(ProfileRepository::class);
+            $profileRepository->store([
+                'name'                        => $data['name'],
+                'email_token_confirmation'    => Uuid::uuid4(),
+                'email_token_disable_account' => Uuid::uuid4(),
+                'referral_commission_fee'     => 20,
+                'user_id'                     => $user->id,
+            ]);
+
+            return $user;
+        });
     }
 }

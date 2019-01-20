@@ -2,11 +2,21 @@
 
 namespace App\Exceptions;
 
-use Exception;
+use App\Http\ResponseTrait;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Auth\AuthenticationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Exceptions\ThrottleRequestsException;
+use Illuminate\Http\Response;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Handler extends ExceptionHandler
 {
+    use ResponseTrait;
+
     /**
      * A list of the exception types that are not reported.
      *
@@ -29,11 +39,15 @@ class Handler extends ExceptionHandler
     /**
      * Report or log an exception.
      *
-     * @param  \Exception $exception
+     * This is a great spot to send exceptions to Sentry, Bugsnag, etc.
+     *
+     * @param \Exception $exception
      *
      * @return void
+     *
+     * @throws \Exception
      */
-    public function report(Exception $exception)
+    public function report(\Exception $exception)
     {
         parent::report($exception);
     }
@@ -41,13 +55,51 @@ class Handler extends ExceptionHandler
     /**
      * Render an exception into an HTTP response.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \Exception               $exception
+     * @param \Illuminate\Http\Request $request
+     * @param \Exception               $exception
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response|\Symfony\Component\HttpFoundation\Response
      */
-    public function render($request, Exception $exception)
+    public function render($request, \Exception $exception)
     {
+        $exceptionInstance = get_class($exception);
+
+        switch ($exceptionInstance) {
+            case AuthenticationException::class:
+                $status = Response::HTTP_UNAUTHORIZED;
+                $message = 'Unauthenticated';
+                break;
+            case MethodNotAllowedHttpException::class:
+                $status = Response::HTTP_METHOD_NOT_ALLOWED;
+                $message = 'Method not allowed';
+                break;
+            case NotFoundHttpException::class:
+            case ModelNotFoundException::class:
+                $status = Response::HTTP_NOT_FOUND;
+                $message = 'The requested resource was not found';
+                break;
+            case QueryException::class:
+                $status = Response::HTTP_BAD_REQUEST;
+                $message = 'Verify query parameters';
+                break;
+            case AuthorizationException::class:
+                $status = Response::HTTP_FORBIDDEN;
+                $message = !empty($exception->getMessage()) ? $exception->getMessage() : 'Forbidden';
+                break;
+            case ThrottleRequestsException::class:
+                $status = Response::HTTP_TOO_MANY_REQUESTS;
+                $message = 'Too many attemps';
+                break;
+            default:
+                $status = $exception->getCode();
+                $message = $exception->getMessage();
+                break;
+        }
+
+        if (!empty($status) && !empty($message)) {
+            return $this->respondWithCustomData(['message' => $message], $status);
+        }
+
         return parent::render($request, $exception);
     }
 }

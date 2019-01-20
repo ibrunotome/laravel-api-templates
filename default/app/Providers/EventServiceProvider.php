@@ -2,8 +2,14 @@
 
 namespace App\Providers;
 
+use App\Listeners\Observers\AuditObserver;
+use App\Listeners\Observers\ProfileObserver;
+use App\Listeners\Observers\UserObserver;
+use App\Listeners\UserRegisteredListener;
+use App\Models\Audit;
+use App\Models\Profile;
+use App\Models\User;
 use Illuminate\Auth\Events\Registered;
-use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider
@@ -15,7 +21,7 @@ class EventServiceProvider extends ServiceProvider
      */
     protected $listen = [
         Registered::class => [
-            SendEmailVerificationNotification::class,
+            UserRegisteredListener::class,
         ],
     ];
 
@@ -27,6 +33,10 @@ class EventServiceProvider extends ServiceProvider
     public function boot()
     {
         parent::boot();
+
+        Audit::observe(AuditObserver::class);
+        User::observe(UserObserver::class);
+        Profile::observe(ProfileObserver::class);
 
         //
     }

@@ -1,0 +1,40 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateProfilesTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('profiles', function (Blueprint $table) {
+            $table->uuid('id');
+            $table->primary('id');
+
+            $table->string('name')->nullable();
+            $table->string('anti_phishing_code', 20)->nullable();
+            $table->string('email_token_confirmation', 36)->nullable();
+            $table->string('email_token_disable_account', 36)->nullable();
+            $table->timestamps(6);
+
+            $table->uuid('user_id')->unique();
+            $table->foreign('user_id')->references('id')->on('users');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('profiles');
+    }
+}

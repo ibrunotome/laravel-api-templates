@@ -21,7 +21,6 @@ services:
     depends_on:
       - pgsql
       - pgsql-tests
-      - pgsql-audits
       - redis-default
       - redis-cache
     networks:
