@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests\Feature;
+
 use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Support\Facades\Queue;

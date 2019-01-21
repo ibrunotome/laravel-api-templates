@@ -15,6 +15,9 @@ use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
  * @property string    id
  * @property string    anti_phishing_code
  * @property string    email_token_confirmation
+ * @property string    google2fa_enable
+ * @property string    google2fa_secret
+ * @property string    google2fa_url
  * @property string    name
  * @property string    user_id
  * @property \DateTime created_at
@@ -42,6 +45,9 @@ class Profile extends Model implements AuditableContract
         'anti_phishing_code',
         'email_token_confirmation',
         'email_token_disable_account',
+        'google2fa_enable',
+        'google2fa_secret',
+        'google2fa_url',
         'user_id',
     ];
 

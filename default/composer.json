@@ -17,7 +17,6 @@
     "brick/math": "^0.8.4",
     "fideloper/proxy": "^4.0",
     "fntneves/laravel-transactional-events": "^1.4",
-    "ibrunotome/geetest-captcha-laravel": "^1.0",
     "ibrunotome/google2fa-laravel": "~1.0.2",
     "jenssegers/agent": "^2.6",
     "laravel/framework": "5.7.*",

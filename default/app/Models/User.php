@@ -5,6 +5,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\Notifiable;
 use OwenIt\Auditing\Auditable;
 use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
@@ -15,13 +16,15 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
  *
  * @package App\Models
  *
- * @property string    id
- * @property string    email
- * @property bool      is_active
- * @property string    email_verified_at
- * @property string    locale
- * @property \DateTime created_at
- * @property \DateTime updated_at
+ * @property string       id
+ * @property string       email
+ * @property bool         is_active
+ * @property string       email_verified_at
+ * @property string       locale
+ * @property \DateTime    created_at
+ * @property \DateTime    updated_at
+ *
+ * @property-read Profile profile
  */
 class User extends Authenticatable implements JWTSubject, AuditableContract, MustVerifyEmail
 {
@@ -97,5 +100,39 @@ class User extends Authenticatable implements JWTSubject, AuditableContract, Mus
         }
 
         return null;
+    }
+
+    ################
+    # Relationships
+    ################
+
+    public function profile()
+    {
+        return $this->hasOne(Profile::class);
+    }
+
+    public function loginHistories()
+    {
+        return $this->hasMany(LoginHistory::class)->orderBy('created_at', 'desc')->limit(10);
+    }
+
+    public function authorizedDevices()
+    {
+        return $this->hasMany(AuthorizedDevice::class)
+            ->whereNotNull('authorized_at')
+            ->orderBy('created_at', 'desc');
+    }
+
+    public function unreadNotifications()
+    {
+        return $this->notifications()->whereNull('read_at');
+    }
+
+    public function notifications()
+    {
+        return $this->morphMany(DatabaseNotification::class, 'notifiable')
+            ->whereNotNull('read_at')
+            ->orderBy('created_at', 'desc')
+            ->limit(15);
     }
 }

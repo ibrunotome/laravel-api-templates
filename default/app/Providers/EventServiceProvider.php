@@ -3,10 +3,14 @@
 namespace App\Providers;
 
 use App\Listeners\Observers\AuditObserver;
+use App\Listeners\Observers\AuthorizedDeviceObserver;
+use App\Listeners\Observers\LoginHistoryObserver;
 use App\Listeners\Observers\ProfileObserver;
 use App\Listeners\Observers\UserObserver;
 use App\Listeners\UserRegisteredListener;
 use App\Models\Audit;
+use App\Models\AuthorizedDevice;
+use App\Models\LoginHistory;
 use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
@@ -37,6 +41,8 @@ class EventServiceProvider extends ServiceProvider
         Audit::observe(AuditObserver::class);
         User::observe(UserObserver::class);
         Profile::observe(ProfileObserver::class);
+        LoginHistory::observe(LoginHistoryObserver::class);
+        AuthorizedDevice::observe(AuthorizedDeviceObserver::class);
 
         //
     }

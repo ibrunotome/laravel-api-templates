@@ -38,3 +38,12 @@ Route::post('broadcasting/auth', 'Auth\LoginController@broadcastAuth')->name('ap
 Route::group(['middleware' => 'auth:api'], function () {
     Route::post('logout', 'Auth\LoginController@logout')->name('api.auth.logout');
 });
+
+Route::group([
+    'middleware' => [
+        'auth:api',
+        '2fa',
+    ]
+], function () {
+    Route::get('profile', 'ProfileController@profile')->name('api.profile');
+});

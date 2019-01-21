@@ -21,6 +21,9 @@ class CreateProfilesTable extends Migration
             $table->string('anti_phishing_code', 20)->nullable();
             $table->string('email_token_confirmation', 36)->nullable();
             $table->string('email_token_disable_account', 36)->nullable();
+            $table->boolean('google2fa_enable')->default(false);
+            $table->string('google2fa_secret')->nullable();
+            $table->text('google2fa_url')->nullable();
             $table->timestamps(6);
 
             $table->uuid('user_id')->unique();
