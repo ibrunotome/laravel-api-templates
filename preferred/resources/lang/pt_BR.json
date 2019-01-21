@@ -1,0 +1,15 @@
+{
+  "Your current password is not valid": "Sua senha atual não é válida",
+  "This orther cannot be canceled": "Essa ordem não pode ser cancelada",
+  "This password is just too common. Please try another!": "Senha é muito comum, use outra",
+  "Hello :name": "Olá :name",
+  "Hello": "Olá",
+  "Regards": "Saudações",
+  "If you're having trouble clicking the :text button, copy and paste the URL below into your web browser: ": "Se você está tendo problemas ao clicar no botão :text, copie e cole a url abaixo em seu navegador: ",
+  "Failed to upload the document, please try again": "Falha ao realizar o upload do documento, tente novamente",
+  "NOT DEFINED": "NÃO DEFINIDO",
+  "Automated message. Please do not reply.": "Mensagem automática. Por favor, não responda este email.",
+  "disable": "desative",
+  "If this activity is not your own operation, please :disable your account and contact us immediately.": "Se essa ativade não é sua, por favor :disable sua conta e entre em contato imediatamente.",
+  "If you're having trouble clicking the button, copy and paste this URL into your web browser:": "Se você estiver com problemas para clicar no botão, copie e cole esta URL no navegador da Web:"
+}

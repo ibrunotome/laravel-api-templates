@@ -13,9 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-########
-# AUTH
-########
+###################
+# GUEST
+###################
 
 Route::group(['middleware' => 'guest'], function () {
     Route::post('login', 'Auth\LoginController@login')->name('api.auth.login');
@@ -31,13 +31,15 @@ Route::group(['middleware' => 'guest'], function () {
     Route::post('email/verify/{token}', 'Auth\EmailVerificationController@verify')
         ->middleware('throttle:3,1')
         ->name('api.email.verify');
+
+    Route::post('devices/authorize/{token}', 'Auth\AuthorizeDeviceController@verify')
+        ->middleware('throttle:3,1')
+        ->name('api.device.authorize');
 });
 
-Route::post('broadcasting/auth', 'Auth\LoginController@broadcastAuth')->name('api.broadcasting.auth');
-
-Route::post('/account/disable/{token}', 'Auth\DisableAccountController@disable')
-    ->middleware('throttle:2,1')
-    ->name('api.account.disable');
+###################
+# JUST AUTH
+###################
 
 Route::group(['middleware' => 'auth:api'], function () {
     Route::post('logout', 'Auth\LoginController@logout')->name('api.auth.logout');
@@ -47,6 +49,10 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     Route::post('enable2fa', 'Auth\TwoFactorAuthenticationController@enable2fa')->name('api.enable2fa');
 });
+
+###################
+# 2FA
+###################
 
 Route::group([
     'middleware' => [
@@ -60,4 +66,19 @@ Route::group([
     Route::get('profile', 'ProfileController@profile')->name('api.profile');
     Route::patch('profile', 'ProfileController@update')->name('api.profile.update');
     Route::patch('profile/password', 'ProfileController@updatePassword')->name('api.profile.password.update');
+    Route::patch('profile/notifications/visualize-all', 'ProfileController@visualizeAllNotifications')
+        ->name('api.profile.notifications.visualize-all');
+
+    Route::patch('profile/notifications/{id}/visualize', 'ProfileController@visualizeNotification')
+        ->name('api.profile.notifications.visualize');
+
+    Route::delete('devices/{id}', 'Auth\AuthorizeDeviceController@destroy')
+        ->middleware('throttle:3,1')
+        ->name('api.device.destroy');
 });
+
+Route::post('broadcasting/auth', 'Auth\LoginController@broadcastAuth')->name('api.broadcasting.auth');
+
+Route::post('/account/disable/{token}', 'Auth\DisableAccountController@disable')
+    ->middleware('throttle:2,1')
+    ->name('api.account.disable');

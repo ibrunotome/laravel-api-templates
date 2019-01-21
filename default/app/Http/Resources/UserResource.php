@@ -9,7 +9,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Notifications\DatabaseNotification;
 
 /**
- * Class User
+ * Class UserResource
  *
  * @package App\Http\Resources
  *

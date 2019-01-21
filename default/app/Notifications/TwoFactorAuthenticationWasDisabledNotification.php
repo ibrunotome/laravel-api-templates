@@ -50,6 +50,6 @@ class TwoFactorAuthenticationWasDisabledNotification extends Notification implem
             ])
             ->subject(__(':app_name - Two Factor Authentication Disabled', ['app_name' => config('app.name')]))
             ->greeting(__('Two Factor Authentication Disabled'))
-            ->line(__('Your 2FA (Two Factor Authentication) was disabled. The withdrawal function is not available in 24h.'));
+            ->line(__('Your 2FA (Two Factor Authentication) was disabled.'));
     }
 }

@@ -48,12 +48,12 @@ class Kernel extends HttpKernel
         'auth'       => \Illuminate\Auth\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'bindings'   => \Illuminate\Routing\Middleware\SubstituteBindings::class,
+        'throttle'   => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'can'        => \Illuminate\Auth\Middleware\Authorize::class,
         'guest'      => \App\Http\Middleware\RedirectIfAuthenticated::class,
-        'signed'     => \Illuminate\Routing\Middleware\ValidateSignature::class,
-        'throttle'   => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         '2fa'        => \App\Http\Middleware\CheckTwoFactorAuthentication::class,
         'refresh2fa' => \App\Http\Middleware\CheckAgainTwoFactorAuthentication::class,
+        'cors'       => \Spatie\Cors\Cors::class,
     ];
 
     /**

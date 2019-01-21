@@ -10,7 +10,6 @@ use Tests\TestCase;
 
 class DisableAccountControllerTest extends TestCase
 {
-
     public function setUp()
     {
         parent::setUp();

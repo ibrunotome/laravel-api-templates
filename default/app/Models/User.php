@@ -17,9 +17,9 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
  *
  * @package App\Models
  *
- * @property string id
- * @property string email
- * @property bool   is_active
+ * @property string                id
+ * @property string                email
+ * @property bool                  is_active
  * @property string                email_verified_at
  * @property string                locale
  * @property \DateTime             created_at

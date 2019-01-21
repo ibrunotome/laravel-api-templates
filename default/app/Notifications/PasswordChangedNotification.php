@@ -50,6 +50,6 @@ class PasswordChangedNotification extends Notification implements ShouldQueue
             ])
             ->subject(__(':app_name - Password Changed', ['app_name' => config('app.name')]))
             ->greeting(__('Password Changed'))
-            ->line(__('Your password has been changed. The withdrawal function is not available in 24h.'));
+            ->line(__('Your password has been changed.'));
     }
 }

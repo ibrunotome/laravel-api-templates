@@ -1,0 +1,88 @@
+version: '3.6'
+services:
+  app:
+    build:
+      context: .
+      args:
+        - ENABLE_XDEBUG=${ENABLE_XDEBUG}
+    container_name: preferred-api-app
+    ports:
+      - 80:8080
+    environment:
+      - DOCUMENT_ROOT=/app/public
+      - DISABLE_FUNCTIONS=
+      - SKIP_LOCKDOWN_DOCUMENT_ROOT=true
+      - OPCACHE_VALIDATE_TIMESTAMPS=1
+      - OPCACHE_FILE_UPDATE_PROTECTION=1
+      - OPCACHE_SAVE_COMMENTS=1
+      - OPCACHE_ENABLE_FILE_OVERRIDE=0
+    volumes:
+      - .:/app
+    depends_on:
+      - pgsql
+      - pgsql-tests
+      - redis-default
+      - redis-cache
+    networks:
+      - preferred-api
+
+  pgsql:
+    image: postgres:10.4-alpine
+    container_name: preferred-api-pgsql
+    ports:
+      - 5433:5432
+    environment:
+      POSTGRES_DB: preferred
+      POSTGRES_USER: preferred
+      POSTGRES_PASSWORD: preferred
+    volumes:
+      - preferred-pgsql:/var/lib/postgresql/data
+    networks:
+      - preferred-api
+
+  pgsql-tests:
+    image: postgres:10.4-alpine
+    container_name: preferred-api-pgsql-tests
+    ports:
+      - 5434:5432
+    environment:
+      POSTGRES_DB: preferred_tests
+      POSTGRES_USER: preferred_tests
+      POSTGRES_PASSWORD: preferred_tests
+    volumes:
+      - preferred-pgsql-tests:/var/lib/postgresql/data
+    networks:
+      - preferred-api
+
+  redis-default:
+    image: redis:4.0.11
+    container_name: preferred-api-redis-default
+    volumes:
+      - preferred-redis-default:/data
+    ports:
+      - 6377:6379
+    networks:
+      - preferred-api
+
+  redis-cache:
+    image: redis:4.0.11
+    container_name: preferred-api-redis-cache
+    volumes:
+      - preferred-redis-cache:/data
+    ports:
+      - 6378:6379
+    networks:
+      - preferred-api
+
+networks:
+  preferred-api:
+    driver: bridge
+volumes:
+  preferred-pgsql:
+    driver: local
+  preferred-pgsql-tests:
+    driver: local
+  preferred-redis-default:
+    driver: local
+  preferred-redis-cache:
+    driver: local
