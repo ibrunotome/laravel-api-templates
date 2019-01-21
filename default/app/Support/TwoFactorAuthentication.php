@@ -9,12 +9,12 @@ class TwoFactorAuthentication extends Authenticator
 {
     protected function canPassWithoutCheckingOTP()
     {
-        if (empty($this->getUser()->passwordSecurity)) {
+        if (empty($this->getUser()->profile->google2fa_enable)) {
             return true;
         }
 
         return
-            !$this->getUser()->passwordSecurity->google2fa_enable ||
+            !$this->getUser()->profile->google2fa_enable ||
             !$this->isEnabled() ||
             $this->noUserIsAuthenticated() ||
             $this->twoFactorAuthStillValid();

@@ -45,9 +45,6 @@ class Profile extends Model implements AuditableContract
         'anti_phishing_code',
         'email_token_confirmation',
         'email_token_disable_account',
-        'google2fa_enable',
-        'google2fa_secret',
-        'google2fa_url',
         'user_id',
     ];
 

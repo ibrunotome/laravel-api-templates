@@ -35,8 +35,17 @@ Route::group(['middleware' => 'guest'], function () {
 
 Route::post('broadcasting/auth', 'Auth\LoginController@broadcastAuth')->name('api.broadcasting.auth');
 
+Route::post('/account/disable/{token}', 'Auth\DisableAccountController@disable')
+    ->middleware('throttle:2,1')
+    ->name('api.account.disable');
+
 Route::group(['middleware' => 'auth:api'], function () {
     Route::post('logout', 'Auth\LoginController@logout')->name('api.auth.logout');
+
+    Route::post('generate2faSecret', 'Auth\TwoFactorAuthenticationController@generate2faSecret')
+        ->name('api.generate2faSecret');
+
+    Route::post('enable2fa', 'Auth\TwoFactorAuthenticationController@enable2fa')->name('api.enable2fa');
 });
 
 Route::group([
@@ -45,5 +54,8 @@ Route::group([
         '2fa',
     ]
 ], function () {
+    Route::post('disable2fa', 'Auth\TwoFactorAuthenticationController@disable2fa')->name('api.disable2fa');
+    Route::post('verify2fa', 'Auth\TwoFactorAuthenticationController@verify2fa')->name('api.verify2fa');
+
     Route::get('profile', 'ProfileController@profile')->name('api.profile');
 });
