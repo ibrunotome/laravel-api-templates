@@ -17,7 +17,7 @@ class CreateProfilesTable extends Migration
             $table->uuid('id');
             $table->primary('id');
 
-            $table->string('name')->nullable();
+            $table->string('name');
             $table->string('anti_phishing_code', 20)->nullable();
             $table->string('email_token_confirmation', 36)->nullable();
             $table->string('email_token_disable_account', 36)->nullable();

@@ -97,9 +97,6 @@ class TwoFactorAuthenticationControllerTest extends TestCase
             ]);
     }
 
-    /**
-     * @group verify2fa
-     */
     public function testVerify2fa()
     {
         $authenticator = new Authenticator(request());

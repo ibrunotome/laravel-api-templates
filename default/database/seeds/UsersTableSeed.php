@@ -1,0 +1,27 @@
+<?php
+
+use App\Models\AuthorizedDevice;
+use App\Models\LoginHistory;
+use App\Models\Profile;
+use App\Models\User;
+use Illuminate\Database\Seeder;
+
+class UsersTableSeed extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        $user = factory(User::class)->create([
+            'test@test.com',
+            'email_verified_at' => now()
+        ]);
+
+        factory(Profile::class)->create(['user_id' => $user]);
+        factory(LoginHistory::class)->create(['user_id' => $user]);
+        factory(AuthorizedDevice::class)->create(['user_id' => $user]);
+    }
+}

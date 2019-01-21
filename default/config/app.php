@@ -54,7 +54,8 @@ return [
 
     'url' => env('APP_URL', 'http://localhost'),
 
-    'support_url' => env('SUPPORT_URL', 'http://localhost'),
+    'support_url'   => env('SUPPORT_URL', 'http://localhost'),
+    'support_email' => env('SUPPORT_EMAIL', 'support@example.com'),
 
     'asset_url' => env('ASSET_URL', null),
 

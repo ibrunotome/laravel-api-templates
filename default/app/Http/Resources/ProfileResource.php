@@ -35,7 +35,8 @@ class ProfileResource extends JsonResource
 
         return [
             'name'             => $this->name,
-            'antiAhishingCode' => $this->anti_phishing_code,
+            'antiPhishingCode' =>
+                !empty($this->anti_phishing_code) ? (substr($this->anti_phishing_code, 0, 2) . '**') : null,
             'google2faPassed'  => $this->google2fa_enable && $authenticator->isAuthenticated(),
             'google2faEnable'  => $this->google2fa_enable,
             'google2faSecret'  => $this->when(!$this->google2fa_enable, $this->google2fa_secret),

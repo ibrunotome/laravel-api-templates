@@ -58,4 +58,6 @@ Route::group([
     Route::post('verify2fa', 'Auth\TwoFactorAuthenticationController@verify2fa')->name('api.verify2fa');
 
     Route::get('profile', 'ProfileController@profile')->name('api.profile');
+    Route::patch('profile', 'ProfileController@update')->name('api.profile.update');
+    Route::patch('profile/password', 'ProfileController@updatePassword')->name('api.profile.password.update');
 });

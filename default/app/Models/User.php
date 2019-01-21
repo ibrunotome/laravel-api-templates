@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Notifications\ResetPasswordNotification;
 use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -16,9 +17,9 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
  *
  * @package App\Models
  *
- * @property string                id
- * @property string                email
- * @property bool                  is_active
+ * @property string id
+ * @property string email
+ * @property bool   is_active
  * @property string                email_verified_at
  * @property string                locale
  * @property \DateTime             created_at
@@ -90,6 +91,18 @@ class User extends Authenticatable implements JWTSubject, AuditableContract, Mus
     public function receivesBroadcastNotificationsOn()
     {
         return 'users.' . $this->id;
+    }
+
+    /**
+     * Send the password reset notification.
+     *
+     * @param  string $token
+     *
+     * @return void
+     */
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new ResetPasswordNotification($token));
     }
 
     public function getEmailVerifiedAtAttribute($value)

@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests;
 
-/**
- * @property string one_time_password
- */
-class EnableTwoFactorAuthenticationRequest extends FormRequest
+use App\Rules\CurrentPasswordRule;
+use App\Rules\WeakPasswordRule;
+
+class PasswordUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,10 +25,16 @@ class EnableTwoFactorAuthenticationRequest extends FormRequest
     public function rules()
     {
         return [
-            'one_time_password' => [
+            'current_password' => [
                 'required',
                 'string',
-                'size:6'
+                new CurrentPasswordRule,
+            ],
+            'password'         => [
+                'required',
+                'confirmed',
+                'min:8',
+                new WeakPasswordRule
             ],
         ];
     }

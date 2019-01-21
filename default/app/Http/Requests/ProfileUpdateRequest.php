@@ -2,10 +2,7 @@
 
 namespace App\Http\Requests;
 
-/**
- * @property string one_time_password
- */
-class EnableTwoFactorAuthenticationRequest extends FormRequest
+class ProfileUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,10 +22,15 @@ class EnableTwoFactorAuthenticationRequest extends FormRequest
     public function rules()
     {
         return [
-            'one_time_password' => [
-                'required',
+            'name'               => [
                 'string',
-                'size:6'
+                'max:250'
+            ],
+            'anti_phishing_code' => [
+                'nullable',
+                'alpha_dash',
+                'min:4',
+                'max:20'
             ],
         ];
     }

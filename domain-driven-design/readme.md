@@ -1,1 +1,3 @@
 Soon...
+
+[A domain driven design (DDD) aproach to the Laravel framework](https://medium.com/@ibrunotome/a-domain-driven-design-ddd-approach-to-the-laravel-framework-18906b3dd473)
