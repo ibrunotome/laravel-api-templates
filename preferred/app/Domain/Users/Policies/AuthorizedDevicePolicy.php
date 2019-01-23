@@ -10,7 +10,7 @@ class AuthorizedDevicePolicy
 
     public function viewAny(): bool
     {
-        return auth()->user()->hasPermissionTo('authorized_devices_list');
+        return auth()->user()->hasPermissionTo('authorized_devices_view_any');
     }
 
     public function view(): bool
@@ -20,26 +20,26 @@ class AuthorizedDevicePolicy
 
     public function create(): bool
     {
-        return false;
+        return auth()->user()->hasPermissionTo('authorized_devices_create');
     }
 
     public function update(): bool
     {
-        return false;
+        return auth()->user()->hasPermissionTo('authorized_devices_update');
     }
 
     public function delete(): bool
     {
-        return false;
+        return auth()->user()->hasPermissionTo('authorized_devices_delete');
     }
 
     public function restore(): bool
     {
-        return false;
+        return auth()->user()->hasPermissionTo('authorized_devices_restore');
     }
 
     public function forceDelete(): bool
     {
-        return false;
+        return auth()->user()->hasPermissionTo('authorized_devices_force_delete');
     }
 }

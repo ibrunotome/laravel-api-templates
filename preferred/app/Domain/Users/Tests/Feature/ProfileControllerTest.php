@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Queue;
 use Preferred\Domain\Users\Entities\AuthorizedDevice;
 use Preferred\Domain\Users\Entities\LoginHistory;
+use Preferred\Domain\Users\Entities\Permission;
 use Preferred\Domain\Users\Entities\Profile;
 use Preferred\Domain\Users\Entities\User;
 use Tests\TestCase;
@@ -59,6 +60,9 @@ class ProfileControllerTest extends TestCase
 
     public function testUpdate()
     {
+        Permission::create(['name' => 'profiles_update']);
+        $this->user->givePermissionTo('profiles_update');
+
         $this->actingAs($this->user)
             ->patchJson(route('api.profile.update'), [
                 'name'               => 'test',
@@ -71,8 +75,23 @@ class ProfileControllerTest extends TestCase
             ]);
     }
 
+    public function testCannotUpdateBecauseNotAllowed()
+    {
+        Permission::create(['name' => 'profiles_update']);
+
+        $this->actingAs($this->user)
+            ->patchJson(route('api.profile.update'), [
+                'name'               => 'test',
+                'anti_phishing_code' => 'TEST'
+            ])
+            ->assertStatus(403);
+    }
+
     public function testCannotUpdateAntiPhishingCodeBecauseNotAlphaDash()
     {
+        Permission::create(['name' => 'profiles_update']);
+        $this->user->givePermissionTo('profiles_update');
+
         $this->actingAs($this->user)
             ->patchJson(route('api.profile.update'), [
                 'anti_phishing_code' => 'Test ***',

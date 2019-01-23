@@ -10,7 +10,7 @@ class UserPolicy
 
     public function viewAny(): bool
     {
-        return auth()->user()->hasPermissionTo('users_list');
+        return auth()->user()->hasPermissionTo('users_view_any');
     }
 
     public function view(): bool
@@ -20,7 +20,7 @@ class UserPolicy
 
     public function create(): bool
     {
-        return false;
+        return auth()->user()->hasPermissionTo('users_create');
     }
 
     public function update(): bool
@@ -30,16 +30,16 @@ class UserPolicy
 
     public function delete(): bool
     {
-        return false;
+        return auth()->user()->hasPermissionTo('users_delete');
     }
 
     public function restore(): bool
     {
-        return false;
+        return auth()->user()->hasPermissionTo('users_restore');
     }
 
     public function forceDelete(): bool
     {
-        return false;
+        return auth()->user()->hasPermissionTo('users_force_delete');
     }
 }

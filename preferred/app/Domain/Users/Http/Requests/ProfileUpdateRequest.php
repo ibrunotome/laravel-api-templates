@@ -13,7 +13,7 @@ class ProfileUpdateRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return auth()->user()->hasPermissionTo('profiles_update');
     }
 
     /**

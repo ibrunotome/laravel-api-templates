@@ -10,7 +10,7 @@ class LoginHistoryPolicy
 
     public function viewAny(): bool
     {
-        return auth()->user()->hasPermissionTo('login_histories_list');
+        return auth()->user()->hasPermissionTo('login_histories_view_any');
     }
 
     public function view(): bool
@@ -20,26 +20,26 @@ class LoginHistoryPolicy
 
     public function create(): bool
     {
-        return false;
+        return auth()->user()->hasPermissionTo('login_histories_create');
     }
 
     public function update(): bool
     {
-        return false;
+        return auth()->user()->hasPermissionTo('login_histories_update');
     }
 
     public function delete(): bool
     {
-        return false;
+        return auth()->user()->hasPermissionTo('login_histories_delete');
     }
 
     public function restore(): bool
     {
-        return false;
+        return auth()->user()->hasPermissionTo('login_histories_restore');
     }
 
     public function forceDelete(): bool
     {
-        return false;
+        return auth()->user()->hasPermissionTo('login_histories_force_delete');
     }
 }

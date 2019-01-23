@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Preferred\Domain\Users\Database\Seeds\PermissionsTableSeeder;
+use Preferred\Domain\Users\Database\Seeds\RolesTableSeeder;
 use Preferred\Domain\Users\Database\Seeds\UsersTableSeed;
 
 class DatabaseSeeder extends Seeder
@@ -12,6 +14,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $this->call(RolesTableSeeder::class);
+        $this->call(PermissionsTableSeeder::class);
         $this->call(UsersTableSeed::class);
     }
 }

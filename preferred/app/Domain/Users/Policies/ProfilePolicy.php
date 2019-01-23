@@ -10,7 +10,7 @@ class ProfilePolicy
 
     public function viewAny(): bool
     {
-        return auth()->user()->hasPermissionTo('profiles_list');
+        return auth()->user()->hasPermissionTo('profiles_view_any');
     }
 
     public function view(): bool
@@ -20,7 +20,7 @@ class ProfilePolicy
 
     public function create(): bool
     {
-        return false;
+        return auth()->user()->hasPermissionTo('profiles_create');
     }
 
     public function update(): bool
@@ -30,16 +30,16 @@ class ProfilePolicy
 
     public function delete(): bool
     {
-        return false;
+        return auth()->user()->hasPermissionTo('profiles_delete');
     }
 
     public function restore(): bool
     {
-        return false;
+        return auth()->user()->hasPermissionTo('profiles_restore');
     }
 
     public function forceDelete(): bool
     {
-        return false;
+        return auth()->user()->hasPermissionTo('profiles_force_delete');
     }
 }

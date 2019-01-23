@@ -10,6 +10,7 @@ use Illuminate\Notifications\Notifiable;
 use OwenIt\Auditing\Auditable;
 use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 use Preferred\Domain\Users\Notifications\ResetPasswordNotification;
+use Spatie\Permission\Traits\HasRoles;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
 /**
@@ -32,6 +33,7 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 class User extends Authenticatable implements JWTSubject, AuditableContract, MustVerifyEmail
 {
     use Auditable;
+    use HasRoles;
     use Notifiable;
 
     public $incrementing = false;
