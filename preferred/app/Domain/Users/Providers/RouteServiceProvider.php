@@ -31,7 +31,7 @@ class RouteServiceProvider extends ServiceProvider
     }
 
     /**
-     * Define the "spa" routes for the application.
+     * Define the "api" routes for the application.
      *
      * @param  \Illuminate\Routing\Router $router
      *
@@ -112,7 +112,7 @@ class RouteServiceProvider extends ServiceProvider
                 $router->post('enable2fa', 'TwoFactorAuthenticationController@enable2fa')->name('api.enable2fa');
             });
 
-            $router->post('/account/disable/{token}', 'DisableAccountController@disable')
+            $router->post('account/disable/{token}', 'DisableAccountController@disable')
                 ->middleware('throttle:1,1')
                 ->name('api.account.disable');
 

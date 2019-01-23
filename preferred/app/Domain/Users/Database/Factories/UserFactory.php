@@ -4,6 +4,7 @@ namespace Preferred\Domain\Users\Database\Factories;
 
 use Preferred\Domain\Users\Entities\User;
 use Preferred\Infrastructure\Abstracts\AbstractModelFactory;
+use Ramsey\Uuid\Uuid;
 
 class UserFactory extends AbstractModelFactory
 {
@@ -11,12 +12,14 @@ class UserFactory extends AbstractModelFactory
 
     public function fields()
     {
+        static $password;
+
         return [
-            'email'             => $this->faker->unique()->safeEmail,
+            'id'                => Uuid::uuid4(),
+            'email'             => strtolower(str_replace('-', '', Uuid::uuid4())) . '@gmail.com',
+            'password'          => $password ?: $password = bcrypt('secretxxx'),
             'is_active'         => 1,
             'email_verified_at' => now(),
-            'password'          => bcrypt('secretxxx'),
-            'remember_token'    => str_random(10),
         ];
     }
 
