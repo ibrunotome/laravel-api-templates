@@ -24,4 +24,4 @@ A Laravel API starter kit collection for your projects
 
 ## Database structure
 
-<img width="760" alt="screenshot 2019-01-21 08 31 10" src="https://user-images.githubusercontent.com/4256471/51470884-4c8cbf80-1d5c-11e9-9e6f-13da5d04d5a3.png">
+<img width="1094" src="https://user-images.githubusercontent.com/4256471/51617742-02e6d500-1f14-11e9-9037-c17197afc03a.png">
