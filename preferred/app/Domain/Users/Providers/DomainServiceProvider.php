@@ -8,11 +8,15 @@ use Preferred\Domain\Users\Database\Factories\ProfileFactory;
 use Preferred\Domain\Users\Database\Factories\UserFactory;
 use Preferred\Domain\Users\Entities\AuthorizedDevice;
 use Preferred\Domain\Users\Entities\LoginHistory;
+use Preferred\Domain\Users\Entities\Permission;
 use Preferred\Domain\Users\Entities\Profile;
+use Preferred\Domain\Users\Entities\Role;
 use Preferred\Domain\Users\Entities\User;
 use Preferred\Domain\Users\Policies\AuthorizedDevicePolicy;
 use Preferred\Domain\Users\Policies\LoginHistoryPolicy;
+use Preferred\Domain\Users\Policies\PermissionPolicy;
 use Preferred\Domain\Users\Policies\ProfilePolicy;
+use Preferred\Domain\Users\Policies\RolePolicy;
 use Preferred\Domain\Users\Policies\UserPolicy;
 use Preferred\Infrastructure\Abstracts\AbstractServiceProvider;
 
@@ -36,10 +40,12 @@ class DomainServiceProvider extends AbstractServiceProvider
     ];
 
     protected $policies = [
-        User::class             => UserPolicy::class,
-        Profile::class          => ProfilePolicy::class,
         AuthorizedDevice::class => AuthorizedDevicePolicy::class,
         LoginHistory::class     => LoginHistoryPolicy::class,
+        User::class             => UserPolicy::class,
+        Profile::class          => ProfilePolicy::class,
+        Permission::class       => PermissionPolicy::class,
+        Role::class             => RolePolicy::class,
     ];
 
     protected $factories = [

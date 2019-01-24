@@ -2,11 +2,9 @@
 
 namespace Preferred\Infrastructure\Abstracts;
 
-use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Cache;
 use Preferred\Infrastructure\Contracts\BaseRepository;
 use Ramsey\Uuid\Uuid;
@@ -90,19 +88,7 @@ abstract class AbstractEloquentRepository implements BaseRepository
     public function findOneBy(array $criteria)
     {
         if (!$this->withoutGlobalScopes) {
-            $first = $this->model->with($this->with)
-                ->withoutGlobalScopes()
-                ->where($criteria)
-                ->orderBy('created_at', 'desc')
-                ->first();
-
-            if (!empty($first) && !empty($first->user_id) && auth()->check() && ($first->user_id != auth()->id())) {
-                throw new AuthorizationException('Forbidden', Response::HTTP_FORBIDDEN);
-            } elseif (empty($first)) {
-                throw (new ModelNotFoundException)->setModel(get_class($this->model));
-            }
-
-            return $first;
+            return $this->model->with($this->with)->where($criteria)->firstOrFail();
         }
 
         return $this->model->with($this->with)->withoutGlobalScopes()->where($criteria)->firstOrFail();

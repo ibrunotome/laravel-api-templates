@@ -28,5 +28,6 @@ class ProfileObserver implements TransactionalEvent
     {
         Cache::put($profile->id, $profile, 60);
         Cache::tags('users:' . $profile->user_id)->flush();
+        Cache::tags('profiles')->flush();
     }
 }

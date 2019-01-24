@@ -2,6 +2,7 @@
 
 namespace Preferred\Domain\Users\Tests\Feature;
 
+use Illuminate\Support\Facades\Event;
 use Preferred\Domain\Users\Entities\Profile;
 use Preferred\Domain\Users\Entities\User;
 use Tests\TestCase;
@@ -21,6 +22,8 @@ class LoginControllerTest extends TestCase
 
     public function testLogin()
     {
+        Event::fake();
+
         $this->postJson(route('api.auth.login'), [
             'email'    => $this->user->email,
             'password' => 'secretxxx',
@@ -39,7 +42,7 @@ class LoginControllerTest extends TestCase
     public function testFetchTheCurrentUser()
     {
         $this->actingAs($this->user)
-            ->getJson(route('api.profile'))
+            ->getJson(route('api.me'))
             ->assertSuccessful()
             ->assertJsonFragment([
                 'email' => $this->user->email
@@ -51,6 +54,8 @@ class LoginControllerTest extends TestCase
      */
     public function testLogout()
     {
+        Event::fake();
+
         $token = $this->postJson(route('api.auth.login'), [
             'email'    => $this->user->email,
             'password' => 'secretxxx',
@@ -59,7 +64,7 @@ class LoginControllerTest extends TestCase
         $this->postJson('/api/logout?token=' . $token)
             ->assertSuccessful();
 
-        $this->getJson('api/profile?token=' . $token)
+        $this->getJson('api/me?token=' . $token)
             ->assertStatus(401);
     }
 

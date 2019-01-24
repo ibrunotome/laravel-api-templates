@@ -19,17 +19,13 @@ class TrustedIps implements Rule
     {
         $ips = explode(',', $value);
 
-        if (is_array($ips)) {
-            foreach ($ips as $ip) {
-                if (filter_var($ip, FILTER_VALIDATE_IP) === false) {
-                    return false;
-                }
+        foreach ($ips as $ip) {
+            if (filter_var($ip, FILTER_VALIDATE_IP) === false) {
+                return false;
             }
-
-            return true;
         }
 
-        return filter_var($ips, FILTER_VALIDATE_IP) === false;
+        return true;
     }
 
     /**

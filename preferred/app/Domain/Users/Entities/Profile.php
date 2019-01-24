@@ -5,7 +5,6 @@ namespace Preferred\Domain\Users\Entities;
 use Illuminate\Database\Eloquent\Model;
 use OwenIt\Auditing\Auditable;
 use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
-use Preferred\Infrastructure\Scopes\OwnerGlobalScopeTrait;
 
 /**
  * Class Profile
@@ -28,7 +27,6 @@ use Preferred\Infrastructure\Scopes\OwnerGlobalScopeTrait;
 class Profile extends Model implements AuditableContract
 {
     use Auditable;
-    use OwnerGlobalScopeTrait;
 
     public $incrementing = false;
 

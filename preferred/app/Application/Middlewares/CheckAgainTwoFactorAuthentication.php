@@ -30,9 +30,9 @@ class CheckAgainTwoFactorAuthentication
             $twoFactorAuthenticator = new TwoFactorAuthenticator($request);
 
             if (!empty($request->one_time_password) && $twoFactorAuthenticator->verifyGoogle2FA(
-                    $user->profile->google2fa_secret,
-                    $request->one_time_password
-                ) === true) {
+                $user->profile->google2fa_secret,
+                $request->one_time_password
+            ) === true) {
                 return $next($request);
             }
 

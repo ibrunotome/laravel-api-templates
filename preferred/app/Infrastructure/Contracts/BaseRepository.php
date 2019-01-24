@@ -2,7 +2,6 @@
 
 namespace Preferred\Infrastructure\Contracts;
 
-use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -33,7 +32,6 @@ interface BaseRepository
      * @return Model
      *
      * @throws ModelNotFoundException
-     * @throws AuthorizationException
      */
     public function findOneById($id);
 
@@ -45,7 +43,6 @@ interface BaseRepository
      * @return Model
      *
      * @throws ModelNotFoundException
-     * @throws AuthorizationException
      */
     public function findOneBy(array $criteria);
 

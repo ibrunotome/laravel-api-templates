@@ -3,43 +3,87 @@
 namespace Preferred\Domain\Users\Policies;
 
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Preferred\Domain\Users\Entities\LoginHistory;
+use Preferred\Domain\Users\Entities\User;
 
 class LoginHistoryPolicy
 {
     use HandlesAuthorization;
 
-    public function viewAny(): bool
+    /**
+     * Determine whether the user can view the model.
+     *
+     * @param  \Preferred\Domain\Users\Entities\User         $user
+     * @param  \Preferred\Domain\Users\Entities\LoginHistory $model
+     *
+     * @return mixed
+     */
+    public function view(User $user, LoginHistory $model)
     {
-        return auth()->user()->hasPermissionTo('login_histories_view_any');
+        return $user->can('view login histories') || $user->id === $model->user_id;
     }
 
-    public function view(): bool
+    /**
+     * Determine whether the user can create models.
+     *
+     * @param  \Preferred\Domain\Users\Entities\User $user
+     *
+     * @return mixed
+     */
+    public function create(User $user)
     {
-        return auth()->user()->hasPermissionTo('login_histories_view');
+        return false;
     }
 
-    public function create(): bool
+    /**
+     * Determine whether the user can update the model.
+     *
+     * @param  \Preferred\Domain\Users\Entities\User         $user
+     * @param  \Preferred\Domain\Users\Entities\LoginHistory $model
+     *
+     * @return mixed
+     */
+    public function update(User $user, LoginHistory $model)
     {
-        return auth()->user()->hasPermissionTo('login_histories_create');
+        return false;
     }
 
-    public function update(): bool
+    /**
+     * Determine whether the user can delete the model.
+     *
+     * @param  \Preferred\Domain\Users\Entities\User         $user
+     * @param  \Preferred\Domain\Users\Entities\LoginHistory $model
+     *
+     * @return mixed
+     */
+    public function delete(User $user, LoginHistory $model)
     {
-        return auth()->user()->hasPermissionTo('login_histories_update');
+        return false;
     }
 
-    public function delete(): bool
+    /**
+     * Determine whether the user can restore the model.
+     *
+     * @param  \Preferred\Domain\Users\Entities\User         $user
+     * @param  \Preferred\Domain\Users\Entities\LoginHistory $model
+     *
+     * @return mixed
+     */
+    public function restore(User $user, LoginHistory $model)
     {
-        return auth()->user()->hasPermissionTo('login_histories_delete');
+        return false;
     }
 
-    public function restore(): bool
+    /**
+     * Determine whether the user can permanently delete the model.
+     *
+     * @param  \Preferred\Domain\Users\Entities\User         $user
+     * @param  \Preferred\Domain\Users\Entities\LoginHistory $model
+     *
+     * @return mixed
+     */
+    public function forceDelete(User $user, LoginHistory $model)
     {
-        return auth()->user()->hasPermissionTo('login_histories_restore');
-    }
-
-    public function forceDelete(): bool
-    {
-        return auth()->user()->hasPermissionTo('login_histories_force_delete');
+        return false;
     }
 }
