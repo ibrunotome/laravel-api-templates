@@ -45,7 +45,9 @@ class TwoFactorAuthenticationController extends Controller
         $profile->google2fa_secret = $twoFactorAuthentication->generateSecretKey(32);
 
         $google2faUrl = $twoFactorAuthentication->getQRCodeInline(
-            config('app.name'), auth()->user()->email, $profile->google2fa_secret
+            config('app.name'),
+            auth()->user()->email,
+            $profile->google2fa_secret
         );
 
         $profile->google2fa_url = $google2faUrl;
@@ -104,7 +106,8 @@ class TwoFactorAuthenticationController extends Controller
     {
         if (!(Hash::check($request->get('password'), $request->user()->password))) {
             return $this->respondWithCustomData(
-                ['message' => __('Invalid password. Please try again')], Response::HTTP_BAD_REQUEST
+                ['message' => __('Invalid password. Please try again')],
+                Response::HTTP_BAD_REQUEST
             );
         }
 

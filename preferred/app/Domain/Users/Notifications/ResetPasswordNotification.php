@@ -58,7 +58,9 @@ class ResetPasswordNotification extends Notification implements ShouldQueue
             ->subject(__(':app_name - Reset password', ['app_name' => config('app.name')]))
             ->greeting(__('Reset password'))
             ->line(__('You are receiving this email because we received a password reset request for your account.'))
-            ->action(__('Reset password'),
-                url('/password/reset/' . $this->token) . '?email=' . urlencode($notifiable->email));
+            ->action(
+                __('Reset password'),
+                url('/password/reset/' . $this->token) . '?email=' . urlencode($notifiable->email)
+            );
     }
 }

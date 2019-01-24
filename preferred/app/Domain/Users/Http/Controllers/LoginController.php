@@ -137,7 +137,8 @@ class LoginController extends Controller
 
             $message = __(
                 'Your account has been disabled, to enable it again, please contact :support_link to start the process.',
-                ['support_link' => '<a href="' . config('app.support_url') . '">' . config('app.support_url') . '</a>']);
+                ['support_link' => '<a href="' . config('app.support_url') . '">' . config('app.support_url') . '</a>']
+            );
 
             throw new LockedException($message);
         }

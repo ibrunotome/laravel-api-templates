@@ -44,7 +44,9 @@ class AccountDisabledNotification extends Notification implements ShouldQueue
         return (new MailMessage)
             ->markdown('emails.default', ['antiPhishingCode' => $antiPhishingCode])
             ->subject('Account disabled')
-            ->line(__('Your account has been disabled, to enable it again, please contact :support_link to start the process.',
-                ['support_link' => '<a href="' . config('app.support_url') . '">' . config('app.support_url') . '</a>']));
+            ->line(__(
+                'Your account has been disabled, to enable it again, please contact :support_link to start the process.',
+                ['support_link' => '<a href="' . config('app.support_url') . '">' . config('app.support_url') . '</a>']
+            ));
     }
 }

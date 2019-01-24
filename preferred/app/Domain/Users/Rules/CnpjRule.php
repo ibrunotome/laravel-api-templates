@@ -40,7 +40,6 @@ class CnpjRule implements Rule
         $resto = $soma % 11;
 
         return $value[13] == ($resto < 2 ? 0 : 11 - $resto);
-
     }
 
     /**

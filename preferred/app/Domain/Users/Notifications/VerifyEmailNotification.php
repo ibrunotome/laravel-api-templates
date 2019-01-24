@@ -54,10 +54,14 @@ class VerifyEmailNotification extends Notification implements ShouldQueue
             ->action(__('Verify Email'), url('/user/verify/' . $this->token))
             ->line('<b>' . __('5 Security Tips') . '</b>')
             ->line('<small>' . __('DO NOT give your password to anyone!') . '<br>' .
-                __('DO NOT call any phone number for someone clainming to be :app_name support!',
-                    ['app_name' => config('app.name')]) . '<br>' .
-                __('DO NOT send any money to anyone clainming to be a member of :app_name!',
-                    ['app_name' => config('app.name')]) . '<br>' .
+                __(
+                    'DO NOT call any phone number for someone clainming to be :app_name support!',
+                    ['app_name' => config('app.name')]
+                ) . '<br>' .
+                __(
+                    'DO NOT send any money to anyone clainming to be a member of :app_name!',
+                    ['app_name' => config('app.name')]
+                ) . '<br>' .
                 __('Enable Two Factor Authentication!') . '<br>' .
                 __('Make sure you are visiting :app_url', ['app_url' => config('app.url')]) . '</small>');
     }

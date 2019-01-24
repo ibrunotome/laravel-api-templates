@@ -68,8 +68,10 @@ class AuthorizedDeviceService
 
         Notification::send($user, new AuthorizeDeviceNotification($device));
 
-        $message = __('We sent a confirmation email to :email. Please follow the instructions to authorize this new device/location.',
-            ['email' => $user->email]);
+        $message = __(
+            'We sent a confirmation email to :email. Please follow the instructions to authorize this new device/location.',
+            ['email' => $user->email]
+        );
 
         return [
             'error'   => true,

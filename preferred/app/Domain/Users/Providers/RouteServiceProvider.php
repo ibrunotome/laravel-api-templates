@@ -113,8 +113,10 @@ class RouteServiceProvider extends ServiceProvider
                             ->name('api.profile.password.update');
 
                         $router
-                            ->patch('profile/notifications/visualize-all',
-                                'ProfileController@visualizeAllNotifications')
+                            ->patch(
+                                'profile/notifications/visualize-all',
+                                'ProfileController@visualizeAllNotifications'
+                            )
                             ->name('api.profile.notifications.visualize-all');
 
                         $router
