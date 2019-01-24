@@ -7,6 +7,7 @@ A Laravel API starter kit collection for your projects
 ## Features
 
 - 2FA
+- ACL
 - Audit
 - CORS
 - Device authorization
@@ -18,8 +19,10 @@ A Laravel API starter kit collection for your projects
 - Multiple localizations
 - Password reset
 - Password must not be in one of the 4 million weak passwords
+- PHPCS PSR2
 - Register
 - Swoole
+- Tests
 - uuid
 
 ## Database structure
