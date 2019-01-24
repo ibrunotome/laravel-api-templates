@@ -22,10 +22,12 @@ class AuthorizedDeviceObserver implements TransactionalEvent
     public function created(AuthorizedDevice $authorizedDevice)
     {
         Cache::tags('users:' . $authorizedDevice->user_id)->flush();
+        Cache::tags('users')->flush();
     }
 
     public function deleted(AuthorizedDevice $authorizedDevice)
     {
         Cache::tags('users:' . $authorizedDevice->user_id)->flush();
+        Cache::tags('users')->flush();
     }
 }

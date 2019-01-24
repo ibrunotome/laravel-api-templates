@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Profile;
 use App\Models\User;
 use App\Notifications\ResetPasswordNotification;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -21,14 +22,10 @@ class PasswordResetTest extends TestCase
     {
         parent::setUp();
 
-        Notification::fake();
-
         $this->user = factory(User::class)->create();
+        factory(Profile::class)->create(['user_id' => $this->user->id]);
     }
 
-    /**
-     * @group error
-     */
     public function testSubmitPasswordReset()
     {
         $token = Password::broker()->createToken($this->user);

@@ -10,7 +10,7 @@ use App\Models\User;
 use App\Notifications\VerifyEmailNotification;
 use App\Services\AuthorizedDeviceService;
 use App\Services\LoginHistoryService;
-use App\Support\TwoFactorAuthentication;
+use App\Support\TwoFactorAuthenticator;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
@@ -62,7 +62,7 @@ class LoginController extends Controller
     {
         $id = $this->guard()->id();
 
-        (new TwoFactorAuthentication($request))->logout();
+        (new TwoFactorAuthenticator($request))->logout();
         Cache::forget($id);
         Cache::tags('users:' . $id);
 
@@ -145,14 +145,15 @@ class LoginController extends Controller
     private function checkIfIsActive(User $user, Request $request)
     {
         if (!$user->is_active) {
-            (new TwoFactorAuthentication($request))->logout();
+            (new TwoFactorAuthenticator($request))->logout();
             Cache::forget($user->id);
             Cache::tags('users:' . $user->id)->flush();
             auth()->logout();
 
             $message = __(
                 'Your account has been disabled, to enable it again, please contact :support_url to start the process.',
-                ['support_url' => '<a href="' . config('app.support_url') . '">' . config('app.support_url') . '</a>']);
+                ['support_url' => '<a href="' . config('app.support_url') . '">' . config('app.support_url') . '</a>']
+            );
 
             throw new LockedException($message);
         }

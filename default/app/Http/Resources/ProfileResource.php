@@ -3,7 +3,7 @@
 namespace App\Http\Resources;
 
 use App\Models\User;
-use App\Support\TwoFactorAuthentication;
+use App\Support\TwoFactorAuthenticator;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
@@ -31,7 +31,7 @@ class ProfileResource extends JsonResource
      */
     public function toArray($request)
     {
-        $authenticator = new TwoFactorAuthentication($request);
+        $authenticator = new TwoFactorAuthenticator($request);
 
         return [
             'name'             => $this->name,

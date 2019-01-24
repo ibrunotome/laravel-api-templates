@@ -43,7 +43,7 @@ class AuthorizeDeviceNotification extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        app()->setLocale($notifiable->locale);
+        app()->setLocale($notifiable->profile->locale);
 
         $antiPhishingCode = $notifiable->profile->anti_phishing_code;
         $disableAccountToken = $notifiable->profile->email_token_disable_account;
@@ -59,8 +59,10 @@ class AuthorizeDeviceNotification extends Notification implements ShouldQueue
             ->success()
             ->subject(__(':app_name - Authorize New Device', ['app_name' => config('app.name')]))
             ->greeting(__('Authorize New Device'))
-            ->line(__('You recently attempted to sign into your :app_name account from a new device or in a new location. As a security measure, we require additional confirmation before allowing access to your :app_name account.',
-                ['app_name' => config('app.name')]))
+            ->line(__(
+                'You recently attempted to sign into your :app_name account from a new device or in a new location. As a security measure, we require additional confirmation before allowing access to your :app_name account.',
+                ['app_name' => config('app.name')]
+            ))
             ->line('Location: ' . $location . '<br>' .
                 'Device: ' . $device . '<br>' .
                 'Time: ' . now()->format('Y-m-d H:i:s') . ' (UTC)<br>' .

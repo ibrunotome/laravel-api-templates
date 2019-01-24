@@ -37,14 +37,16 @@ class AccountDisabledNotification extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        app()->setLocale($notifiable->locale);
+        app()->setLocale($notifiable->profile->locale);
 
         $antiPhishingCode = $notifiable->profile->anti_phishing_code;
 
         return (new MailMessage)
             ->markdown('emails.default', ['antiPhishingCode' => $antiPhishingCode])
             ->subject('Account disabled')
-            ->line(__('Your account has been disabled, to enable it again, please contact :support_url to start the process.',
-                ['support_url' => '<a href="' . config('app.support_url') . '">' . config('app.support_url') . '</a>']));
+            ->line(__(
+                'Your account has been disabled, to enable it again, please contact :support_url to start the process.',
+                ['support_url' => '<a href="' . config('app.support_url') . '">' . config('app.support_url') . '</a>']
+            ));
     }
 }

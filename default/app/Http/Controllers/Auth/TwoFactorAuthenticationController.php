@@ -9,7 +9,7 @@ use App\Http\Requests\DisableTwoFactorAuthenticationRequest;
 use App\Http\Requests\EnableTwoFactorAuthenticationRequest;
 use App\Models\Profile;
 use App\Models\User;
-use App\Support\TwoFactorAuthentication;
+use App\Support\TwoFactorAuthenticator;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Cache;
@@ -39,13 +39,15 @@ class TwoFactorAuthenticationController extends Controller
         /** @var Profile $profile */
         $profile = $this->profileRepository->findOneBy(['user_id' => auth()->id()]);
 
-        $twoFactorAuthentication = new TwoFactorAuthentication($request);
+        $twoFactorAuthenticator = new TwoFactorAuthenticator($request);
 
         $profile->google2fa_enable = 0;
-        $profile->google2fa_secret = $twoFactorAuthentication->generateSecretKey(32);
+        $profile->google2fa_secret = $twoFactorAuthenticator->generateSecretKey(32);
 
-        $google2faUrl = $twoFactorAuthentication->getQRCodeInline(
-            config('app.name'), auth()->user()->email, $profile->google2fa_secret
+        $google2faUrl = $twoFactorAuthenticator->getQRCodeInline(
+            config('app.name'),
+            auth()->user()->email,
+            $profile->google2fa_secret
         );
 
         $profile->google2fa_url = $google2faUrl;
@@ -70,7 +72,7 @@ class TwoFactorAuthenticationController extends Controller
     {
         /** @var Profile $profile */
         $profile = $this->profileRepository->findOneBy(['user_id' => auth()->id()]);
-        $twoFactorAuthentication = new TwoFactorAuthentication($request);
+        $twoFactorAuthentication = new TwoFactorAuthenticator($request);
         $secret = $request->one_time_password;
         $valid = $twoFactorAuthentication->verifyKey($profile->google2fa_secret, $secret);
 
@@ -104,7 +106,8 @@ class TwoFactorAuthenticationController extends Controller
     {
         if (!(Hash::check($request->get('password'), $request->user()->password))) {
             return $this->respondWithCustomData(
-                ['message' => __('Invalid password. Please try again')], Response::HTTP_BAD_REQUEST
+                ['message' => __('Invalid password. Please try again')],
+                Response::HTTP_BAD_REQUEST
             );
         }
 

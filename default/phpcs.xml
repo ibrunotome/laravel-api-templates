@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<ruleset name="PSR2">
+    <description>The PSR2 coding standard.</description>
+    <file>app</file>
+    <exclude-pattern>*/migrations/*</exclude-pattern>
+    <arg name="colors"/>
+    <arg value="np"/>
+    <ini name="memory_limit" value="128M"/>
+    <rule ref="PSR2"/>
+</ruleset>

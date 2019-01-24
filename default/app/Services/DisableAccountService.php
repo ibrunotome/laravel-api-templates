@@ -5,7 +5,7 @@ namespace App\Services;
 use App\Contracts\ProfileRepository;
 use App\Models\Profile;
 use App\Notifications\AccountDisabledNotification;
-use App\Support\TwoFactorAuthentication;
+use App\Support\TwoFactorAuthenticator;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
@@ -46,7 +46,7 @@ class DisableAccountService
     private function loggoutUserIfNecessary()
     {
         if (auth()->check()) {
-            (new TwoFactorAuthentication(request()))->logout();
+            (new TwoFactorAuthenticator(request()))->logout();
             Cache::forget(auth()->id());
             Cache::tags('users:' . auth()->id());
             auth()->logout();

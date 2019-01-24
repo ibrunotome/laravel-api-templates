@@ -57,8 +57,6 @@ return [
     'support_url'   => env('SUPPORT_URL', 'http://localhost'),
     'support_email' => env('SUPPORT_EMAIL', 'support@example.com'),
 
-    'asset_url' => env('ASSET_URL', null),
-
     /*
     |--------------------------------------------------------------------------
     | Application Timezone
@@ -83,7 +81,12 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'pt_BR',
+
+    'locales' => [
+        'pt_BR' => 'Português',
+        'en_US' => 'English'
+    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -175,6 +178,7 @@ return [
         App\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
+        App\Providers\HorizonServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\RepositoryServiceProvider::class,
 

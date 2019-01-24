@@ -3,7 +3,7 @@
 namespace App\Http\Middleware;
 
 use App\Http\ResponseTrait;
-use App\Support\TwoFactorAuthentication;
+use App\Support\TwoFactorAuthenticator;
 use Closure;
 use Illuminate\Http\Response;
 
@@ -23,9 +23,9 @@ class CheckTwoFactorAuthentication
      */
     public function handle($request, Closure $next)
     {
-        $twoFactorAuthentication = new TwoFactorAuthentication($request);
+        $twoFactorAuthenticator = new TwoFactorAuthenticator($request);
 
-        if ($twoFactorAuthentication->isAuthenticated()) {
+        if ($twoFactorAuthenticator->isAuthenticated()) {
             return $next($request);
         }
 

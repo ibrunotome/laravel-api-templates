@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use App\Http\ResponseTrait;
 use App\Models\User;
-use App\Support\TwoFactorAuthentication;
+use App\Support\TwoFactorAuthenticator;
 use Closure;
 use Illuminate\Http\Response;
 
@@ -27,10 +27,12 @@ class CheckAgainTwoFactorAuthentication
         $user = User::with(['profile'])->find(auth()->id());
 
         if (!empty($user->profile->google2fa_enable)) {
-            $twoFactorAuthentication = new TwoFactorAuthentication($request);
+            $twoFactorAuthenticator = new TwoFactorAuthenticator($request);
 
-            if (!empty($request->one_time_password) && $twoFactorAuthentication->verifyGoogle2FA
-                ($user->profile->google2fa_secret, $request->one_time_password) === true) {
+            if (!empty($request->one_time_password) && $twoFactorAuthenticator->verifyGoogle2FA(
+                $user->profile->google2fa_secret,
+                $request->one_time_password
+            ) === true) {
                 return $next($request);
             }
 

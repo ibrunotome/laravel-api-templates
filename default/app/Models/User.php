@@ -10,6 +10,7 @@ use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\Notifiable;
 use OwenIt\Auditing\Auditable;
 use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
+use Spatie\Permission\Traits\HasRoles;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
 /**
@@ -32,6 +33,7 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 class User extends Authenticatable implements JWTSubject, AuditableContract, MustVerifyEmail
 {
     use Auditable;
+    use HasRoles;
     use Notifiable;
 
     public $incrementing = false;
@@ -50,7 +52,6 @@ class User extends Authenticatable implements JWTSubject, AuditableContract, Mus
         'email',
         'password',
         'email_verified_at',
-        'locale',
     ];
 
     /**
@@ -103,6 +104,11 @@ class User extends Authenticatable implements JWTSubject, AuditableContract, Mus
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new ResetPasswordNotification($token));
+    }
+
+    public function getLocaleAttribute()
+    {
+        return $this->profile()->first()->locale;
     }
 
     public function getEmailVerifiedAtAttribute($value)

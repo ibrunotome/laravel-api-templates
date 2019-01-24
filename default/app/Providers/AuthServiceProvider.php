@@ -2,6 +2,18 @@
 
 namespace App\Providers;
 
+use App\Models\AuthorizedDevice;
+use App\Models\LoginHistory;
+use App\Models\Permission;
+use App\Models\Profile;
+use App\Models\Role;
+use App\Models\User;
+use App\Policies\AuthorizedDevicePolicy;
+use App\Policies\LoginHistoryPolicy;
+use App\Policies\PermissionPolicy;
+use App\Policies\ProfilePolicy;
+use App\Policies\RolePolicy;
+use App\Policies\UserPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -12,7 +24,12 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        'App\Model' => 'App\Policies\ModelPolicy',
+        AuthorizedDevice::class => AuthorizedDevicePolicy::class,
+        LoginHistory::class     => LoginHistoryPolicy::class,
+        User::class             => UserPolicy::class,
+        Profile::class          => ProfilePolicy::class,
+        Permission::class       => PermissionPolicy::class,
+        Role::class             => RolePolicy::class,
     ];
 
     /**

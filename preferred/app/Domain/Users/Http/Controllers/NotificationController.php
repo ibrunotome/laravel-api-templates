@@ -4,8 +4,9 @@ namespace Preferred\Domain\Users\Http\Controllers;
 
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Cache;
+use Preferred\Interfaces\Http\Controllers\Controller;
 
-class NotificationController
+class NotificationController extends Controller
 {
     /**
      * Set the read_at attribute for all non visualized notifications of user.

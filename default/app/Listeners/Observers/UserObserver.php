@@ -24,5 +24,6 @@ class UserObserver implements TransactionalEvent
         }
 
         Cache::tags('users:' . $user->id)->flush();
+        Cache::tags('users')->flush();
     }
 }

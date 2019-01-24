@@ -4,20 +4,10 @@ namespace Tests\Feature;
 
 use App\Models\Profile;
 use App\Models\User;
-use Illuminate\Support\Facades\Notification;
-use Illuminate\Support\Facades\Queue;
 use Tests\TestCase;
 
 class DisableAccountControllerTest extends TestCase
 {
-    public function setUp()
-    {
-        parent::setUp();
-
-        Queue::fake();
-        Notification::fake();
-    }
-
     public function testDisableAccount()
     {
         $user = factory(User::class)->create();

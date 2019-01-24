@@ -2,13 +2,9 @@
 
 namespace Tests\Feature;
 
-use App\Models\AuthorizedDevice;
-use App\Models\LoginHistory;
+use App\Models\Permission;
 use App\Models\Profile;
 use App\Models\User;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Notification;
-use Illuminate\Support\Facades\Queue;
 use Tests\TestCase;
 
 class ProfileControllerTest extends TestCase
@@ -23,11 +19,38 @@ class ProfileControllerTest extends TestCase
     {
         parent::setUp();
 
-        Queue::fake();
-        Notification::fake();
-
         $this->user = factory(User::class)->create();
         $this->profile = factory(Profile::class)->create(['user_id' => $this->user->id]);
+    }
+
+    public function testIndex()
+    {
+        $this->actingAs($this->user)
+            ->getJson(route('api.profiles.index'))
+            ->assertSuccessful()
+            ->assertJsonFragment([
+                'name' => $this->profile->name
+            ]);
+    }
+
+    public function testCannotIndexBecauseIsUnauthenticated()
+    {
+        $this->getJson(route('api.profiles.index'))
+            ->assertStatus(401);
+    }
+
+    /**
+     * @group show
+     * @group crud
+     */
+    public function testShowMe()
+    {
+        $this->actingAs($this->user)
+            ->getJson(route('api.profiles.me'))
+            ->assertSuccessful()
+            ->assertJsonFragment([
+                'name' => $this->profile->name
+            ]);
     }
 
     /**
@@ -36,31 +59,39 @@ class ProfileControllerTest extends TestCase
      */
     public function testShow()
     {
-        $includes = [
-            'profile',
-            'loginhistories',
-            'authorizeddevices',
-            'notifications',
-            'unreadnotifications',
-        ];
-
-        factory(LoginHistory::class)->create(['user_id' => $this->user->id]);
-        factory(AuthorizedDevice::class)->create(['user_id' => $this->user->id]);
+        Permission::create(['name' => 'view profiles']);
+        $this->user->givePermissionTo('view profiles');
 
         $this->actingAs($this->user)
-            ->getJson(route('api.profile') . '?include=' . implode(',', $includes))
+            ->getJson(route('api.profiles.show', $this->profile->id))
             ->assertSuccessful()
-            ->assertSeeText('profile')
-            ->assertSeeText('loginHistories')
-            ->assertSeeText('authorizedDevices')
-            ->assertSeeText('notifications')
-            ->assertSeeText('unreadNotifications');
+            ->assertJsonFragment([
+                'name' => $this->profile->name
+            ]);
     }
 
-    public function testUpdate()
+    /**
+     * @group show
+     * @group crud
+     */
+    public function testCannotShowBecauseNotAllowed()
+    {
+        $user2 = factory(User::class)->create();
+        factory(Profile::class)->create(['user_id' => $user2->id]);
+
+        $this->actingAs($user2)
+            ->getJson(route('api.profiles.show', $this->profile->id))
+            ->assertStatus(403);
+    }
+
+    /**
+     * @group update
+     * @group crud
+     */
+    public function testUpdateMe()
     {
         $this->actingAs($this->user)
-            ->patchJson(route('api.profile.update'), [
+            ->patchJson(route('api.profiles.me.update'), [
                 'name'               => 'test',
                 'anti_phishing_code' => 'TEST'
             ])
@@ -71,61 +102,60 @@ class ProfileControllerTest extends TestCase
             ]);
     }
 
+    /**
+     * @group update
+     * @group crud
+     */
+    public function testUpdate()
+    {
+        Permission::create(['name' => 'update profiles']);
+        $this->user->givePermissionTo('update profiles');
+
+        $user2 = factory(User::class)->create();
+        $profile2 = factory(Profile::class)->create(['user_id' => $user2->id]);
+
+        $this->actingAs($this->user)
+            ->patchJson(route('api.profiles.update', $profile2->id), [
+                'name'               => 'test',
+                'anti_phishing_code' => 'TEST'
+            ])
+            ->assertSuccessful()
+            ->assertJsonFragment([
+                'name'             => 'test',
+                'antiPhishingCode' => 'TE**'
+            ]);
+    }
+
+    /**
+     * @group update
+     * @group crud
+     */
+    public function testCannotUpdateBecauseNotAllowed()
+    {
+        $user2 = factory(User::class)->create();
+        factory(Profile::class)->create(['user_id' => $user2->id]);
+
+        $this->actingAs($user2)
+            ->patchJson(route('api.profiles.update', $this->profile->id), [
+                'name'               => 'test',
+                'anti_phishing_code' => 'TEST'
+            ])
+            ->assertStatus(403);
+    }
+
+    /**
+     * @group update
+     * @group crud
+     */
     public function testCannotUpdateAntiPhishingCodeBecauseNotAlphaDash()
     {
+        Permission::create(['name' => 'update profiles']);
+        $this->user->givePermissionTo('update profiles');
+
         $this->actingAs($this->user)
-            ->patchJson(route('api.profile.update'), [
+            ->patchJson(route('api.profiles.me.update'), [
                 'anti_phishing_code' => 'Test ***',
             ])
             ->assertStatus(422);
-    }
-
-    public function testUpdatePassword()
-    {
-        $this->actingAs($this->user)
-            ->patchJson(route('api.profile.password.update'), [
-                'current_password'      => 'secretxxx',
-                'password'              => 'ksjd2ksdjf',
-                'password_confirmation' => 'ksjd2ksdjf',
-            ])
-            ->assertSuccessful();
-
-        $this->assertTrue(Hash::check('ksjd2ksdjf', $this->user->password));
-    }
-
-    public function testCannotUpdatePasswordBecauseCurrentPasswordIsInvalid()
-    {
-        $this->actingAs($this->user)
-            ->patchJson(route('api.profile.password.update'), [
-                'current_password'      => 'secret123',
-                'password'              => 'secretxxx',
-                'password_confirmation' => 'secretxxx',
-            ])
-            ->assertStatus(422)
-            ->assertSee('Your current password is not valid');
-    }
-
-    public function testCannotUpdatePasswordBecausePasswordIsTooShort()
-    {
-        $this->actingAs($this->user)
-            ->patchJson(route('api.profile.password.update'), [
-                'current_password'      => 'secretxxx',
-                'password'              => 'secret',
-                'password_confirmation' => 'secret',
-            ])
-            ->assertStatus(422)
-            ->assertSee('The password must be at least 8 characters');
-    }
-
-    public function testCannotUpdatePasswordBecausePasswordsNotMatch()
-    {
-        $this->actingAs($this->user)
-            ->patchJson(route('api.profile.password.update'), [
-                'current_password'      => 'secretxxx',
-                'password'              => 'secret1',
-                'password_confirmation' => 'secret2',
-            ])
-            ->assertStatus(422)
-            ->assertSee('The password confirmation does not match');
     }
 }

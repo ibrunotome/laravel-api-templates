@@ -16,7 +16,6 @@ class EmailVerificationController extends Controller
         try {
             /** @var Profile $profile */
             $profile = app(ProfileRepository::class)->with(['user'])->findOneBy(['email_token_confirmation' => $token]);
-
         } catch (\Exception $exception) {
             $message = __('Invalid token for email verification');
 

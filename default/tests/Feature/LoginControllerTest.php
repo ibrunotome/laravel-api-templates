@@ -4,7 +4,6 @@ namespace Tests\Feature;
 
 use App\Models\Profile;
 use App\Models\User;
-use Illuminate\Support\Facades\Notification;
 use Tests\TestCase;
 
 class LoginControllerTest extends TestCase
@@ -15,8 +14,6 @@ class LoginControllerTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-
-        Notification::fake();
 
         $this->user = factory(User::class)->create();
         factory(Profile::class)->create(['user_id' => $this->user->id]);
@@ -42,7 +39,7 @@ class LoginControllerTest extends TestCase
     public function testFetchTheCurrentUser()
     {
         $this->actingAs($this->user)
-            ->getJson(route('api.profile'))
+            ->getJson(route('api.me'))
             ->assertSuccessful()
             ->assertJsonFragment([
                 'email' => $this->user->email
@@ -62,7 +59,7 @@ class LoginControllerTest extends TestCase
         $this->postJson('/api/logout?token=' . $token)
             ->assertSuccessful();
 
-        $this->getJson('api/profile?token=' . $token)
+        $this->getJson('api/me?token=' . $token)
             ->assertStatus(401);
     }
 

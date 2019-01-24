@@ -4,19 +4,11 @@ namespace Tests\Feature;
 
 use App\Models\Profile;
 use App\Models\User;
-use Illuminate\Support\Facades\Queue;
 use Ramsey\Uuid\Uuid;
 use Tests\TestCase;
 
 class RegisterControllerTest extends TestCase
 {
-    public function setUp()
-    {
-        parent::setUp();
-
-        Queue::fake();
-    }
-
     public function testCanRegister()
     {
         $this->postJson(route('api.auth.register'), [
