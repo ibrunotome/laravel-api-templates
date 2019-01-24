@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Cache;
 use Preferred\Domain\Users\Contracts\ProfileRepository;
 use Preferred\Domain\Users\Entities\Profile;
 use Preferred\Domain\Users\Http\Requests\ProfileUpdateRequest;
+use Preferred\Domain\Users\Http\Resources\ProfileCollection;
 use Preferred\Domain\Users\Http\Resources\ProfileResource;
 use Preferred\Interfaces\Http\Controllers\Controller;
 
@@ -18,6 +19,7 @@ class ProfileController extends Controller
     {
         $this->profileRepository = $profileRepository;
         $this->resourceItem = ProfileResource::class;
+        $this->resourceCollection = ProfileCollection::class;
         $this->authorizeResource(Profile::class);
     }
 

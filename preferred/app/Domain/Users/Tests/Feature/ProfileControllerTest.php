@@ -23,6 +23,22 @@ class ProfileControllerTest extends TestCase
         $this->profile = factory(Profile::class)->create(['user_id' => $this->user->id]);
     }
 
+    public function testIndex()
+    {
+        $this->actingAs($this->user)
+            ->getJson(route('api.profiles.index'))
+            ->assertSuccessful()
+            ->assertJsonFragment([
+                'name' => $this->profile->name
+            ]);
+    }
+
+    public function testCannotIndexBecauseIsUnauthenticated()
+    {
+        $this->getJson(route('api.profiles.index'))
+            ->assertStatus(401);
+    }
+
     /**
      * @group show
      * @group crud

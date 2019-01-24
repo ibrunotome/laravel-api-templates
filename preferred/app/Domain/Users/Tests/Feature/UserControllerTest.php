@@ -28,8 +28,6 @@ class UserControllerTest extends TestCase
      */
     public function testIndex()
     {
-        Permission::create(['name' => 'view users']);
-
         $includes = [
             'profile',
             'loginhistories',
@@ -50,8 +48,6 @@ class UserControllerTest extends TestCase
      */
     public function testCannotIndexBecauseUnauthenticated()
     {
-        Permission::create(['name' => 'view users']);
-
         $this->getJson(route('api.users.index'))
             ->assertStatus(401);
     }
@@ -62,8 +58,6 @@ class UserControllerTest extends TestCase
      */
     public function testShowMe()
     {
-        Permission::create(['name' => 'view users']);
-
         $includes = [
             'profile',
             'loginhistories',
@@ -123,8 +117,6 @@ class UserControllerTest extends TestCase
      */
     public function testUpdateMe()
     {
-        Permission::create(['name' => 'update users']);
-
         $this->actingAs($this->user)
             ->patchJson(route('api.me.update'), [
                 'email' => 'test@test.com',
