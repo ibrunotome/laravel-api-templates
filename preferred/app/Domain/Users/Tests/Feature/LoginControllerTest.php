@@ -2,7 +2,6 @@
 
 namespace Preferred\Domain\Users\Tests\Feature;
 
-use Illuminate\Support\Facades\Event;
 use Preferred\Domain\Users\Entities\Profile;
 use Preferred\Domain\Users\Entities\User;
 use Tests\TestCase;
@@ -22,8 +21,6 @@ class LoginControllerTest extends TestCase
 
     public function testLogin()
     {
-        Event::fake();
-
         $this->postJson(route('api.auth.login'), [
             'email'    => $this->user->email,
             'password' => 'secretxxx',
@@ -54,8 +51,6 @@ class LoginControllerTest extends TestCase
      */
     public function testLogout()
     {
-        Event::fake();
-
         $token = $this->postJson(route('api.auth.login'), [
             'email'    => $this->user->email,
             'password' => 'secretxxx',

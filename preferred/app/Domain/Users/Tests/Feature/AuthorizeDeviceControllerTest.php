@@ -3,6 +3,7 @@
 namespace Preferred\Domain\Users\Tests\Feature;
 
 use Preferred\Domain\Users\Entities\AuthorizedDevice;
+use Preferred\Domain\Users\Entities\Profile;
 use Preferred\Domain\Users\Entities\User;
 use Tests\TestCase;
 
@@ -17,6 +18,8 @@ class AuthorizeDeviceControllerTest extends TestCase
             'email'             => 'test@test.com',
             'password'          => bcrypt('secretxxx'),
         ]);
+
+        factory(Profile::class)->create(['user_id' => $user->id]);
 
         /** @var AuthorizedDevice $authorizedDevice */
         $authorizedDevice = factory(AuthorizedDevice::class)->create([
@@ -44,6 +47,8 @@ class AuthorizeDeviceControllerTest extends TestCase
             'password'          => bcrypt('secretxxx'),
         ]);
 
+        factory(Profile::class)->create(['user_id' => $user->id]);
+
         /** @var AuthorizedDevice $authorizedDevice */
         $authorizedDevice = factory(AuthorizedDevice::class)->create([
             'device'           => 'device',
@@ -69,6 +74,8 @@ class AuthorizeDeviceControllerTest extends TestCase
             'email'             => 'test@test.com',
             'password'          => bcrypt('secretxxx'),
         ]);
+
+        factory(Profile::class)->create(['user_id' => $user->id]);
 
         /** @var AuthorizedDevice $authorizedDevice */
         $authorizedDevice = factory(AuthorizedDevice::class)->create([

@@ -44,6 +44,7 @@ class Profile extends Model implements AuditableContract
         'email_token_confirmation',
         'email_token_disable_account',
         'user_id',
+        'locale',
     ];
 
     ################

@@ -43,7 +43,7 @@ class VerifyEmailNotification extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        app()->setLocale($notifiable->locale);
+        app()->setLocale($notifiable->profile->locale);
 
         return (new MailMessage)
             ->markdown('emails.default')

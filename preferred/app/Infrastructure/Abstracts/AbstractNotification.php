@@ -60,7 +60,7 @@ abstract class AbstractNotification extends Notification implements ShouldQueue
      */
     public function toBroadcast($notifiable)
     {
-        app()->setLocale($notifiable->locale);
+        app()->setLocale($notifiable->profile->locale);
 
         return new BroadcastMessage($this->toArray($notifiable));
     }
@@ -74,7 +74,7 @@ abstract class AbstractNotification extends Notification implements ShouldQueue
      */
     public function toArray($notifiable)
     {
-        app()->setLocale($notifiable->locale);
+        app()->setLocale($notifiable->profile->locale);
 
         return [
             'title'   => $this->title,

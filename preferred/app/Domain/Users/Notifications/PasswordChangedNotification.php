@@ -37,7 +37,7 @@ class PasswordChangedNotification extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        app()->setLocale($notifiable->locale);
+        app()->setLocale($notifiable->profile->locale);
 
         $antiPhishingCode = $notifiable->profile->anti_phishing_code;
         $disableAccountToken = $notifiable->profile->email_token_disable_account;

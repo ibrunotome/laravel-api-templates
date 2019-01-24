@@ -6,6 +6,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Password;
+use Preferred\Domain\Users\Entities\Profile;
 use Preferred\Domain\Users\Entities\User;
 use Preferred\Domain\Users\Notifications\ResetPasswordNotification;
 use Tests\TestCase;
@@ -22,6 +23,7 @@ class PasswordResetTest extends TestCase
         parent::setUp();
 
         $this->user = factory(User::class)->create();
+        factory(Profile::class)->create(['user_id' => $this->user->id]);
     }
 
     public function testSubmitPasswordReset()

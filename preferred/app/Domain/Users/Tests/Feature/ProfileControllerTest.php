@@ -77,6 +77,7 @@ class ProfileControllerTest extends TestCase
     public function testCannotShowBecauseNotAllowed()
     {
         $user2 = factory(User::class)->create();
+        factory(Profile::class)->create(['user_id' => $user2->id]);
 
         $this->actingAs($user2)
             ->getJson(route('api.profiles.show', $this->profile->id))
@@ -132,6 +133,7 @@ class ProfileControllerTest extends TestCase
     public function testCannotUpdateBecauseNotAllowed()
     {
         $user2 = factory(User::class)->create();
+        factory(Profile::class)->create(['user_id' => $user2->id]);
 
         $this->actingAs($user2)
             ->patchJson(route('api.profiles.update', $this->profile->id), [

@@ -2,6 +2,7 @@
 
 namespace Preferred\Domain\Users\Tests\Feature;
 
+use Preferred\Domain\Users\Entities\Profile;
 use Preferred\Domain\Users\Entities\User;
 
 class NotificationControllerTest
@@ -14,6 +15,7 @@ class NotificationControllerTest
         parent::setUp();
 
         $this->user = factory(User::class)->create();
+        factory(Profile::class)->create(['user_id' => $this->user->id]);
     }
 
     public function testVisualizeAllNotifications()

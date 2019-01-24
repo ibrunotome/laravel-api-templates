@@ -38,7 +38,7 @@ class ResetPasswordNotification extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        app()->setLocale($notifiable->locale);
+        app()->setLocale($notifiable->profile->locale);
 
         if (!empty($notifiable->profile)) {
             $antiPhishingCode = $notifiable->profile->anti_phishing_code;

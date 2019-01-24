@@ -37,7 +37,7 @@ class AccountDisabledNotification extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        app()->setLocale($notifiable->locale);
+        app()->setLocale($notifiable->profile->locale);
 
         $antiPhishingCode = $notifiable->profile->anti_phishing_code;
 

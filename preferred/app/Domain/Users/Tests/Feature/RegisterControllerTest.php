@@ -2,7 +2,6 @@
 
 namespace Preferred\Domain\Users\Tests\Feature;
 
-use Illuminate\Support\Facades\Queue;
 use Preferred\Domain\Users\Entities\Profile;
 use Preferred\Domain\Users\Entities\User;
 use Ramsey\Uuid\Uuid;
@@ -10,13 +9,6 @@ use Tests\TestCase;
 
 class RegisterControllerTest extends TestCase
 {
-    public function setUp()
-    {
-        parent::setUp();
-
-        Queue::fake();
-    }
-
     public function testCanRegister()
     {
         $this->postJson(route('api.auth.register'), [

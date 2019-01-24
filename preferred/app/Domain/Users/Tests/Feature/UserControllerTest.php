@@ -20,6 +20,7 @@ class UserControllerTest extends TestCase
         parent::setUp();
 
         $this->user = factory(User::class)->create();
+        factory(Profile::class)->create(['user_id' => $this->user->id]);
     }
 
     /**
@@ -136,6 +137,7 @@ class UserControllerTest extends TestCase
         Permission::create(['name' => 'update users']);
 
         $user2 = factory(User::class)->create();
+        factory(Profile::class)->create(['user_id' => $user2->id]);
 
         $this->actingAs($this->user)
             ->patchJson(route('api.users.update', $user2->id), [

@@ -52,7 +52,6 @@ class User extends Authenticatable implements JWTSubject, AuditableContract, Mus
         'email',
         'password',
         'email_verified_at',
-        'locale',
     ];
 
     /**
@@ -105,6 +104,11 @@ class User extends Authenticatable implements JWTSubject, AuditableContract, Mus
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new ResetPasswordNotification($token));
+    }
+
+    public function getLocaleAttribute()
+    {
+        return $this->profile()->first()->locale;
     }
 
     public function getEmailVerifiedAtAttribute($value)
