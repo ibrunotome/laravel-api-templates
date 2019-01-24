@@ -5,6 +5,7 @@ namespace Tests;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Queue;
 use Preferred\Application\Exceptions\Handler;
 
@@ -20,6 +21,7 @@ abstract class TestCase extends BaseTestCase
         $this->app->setLocale('en_US');
 
         Queue::fake();
+        Notification::fake();
     }
 
     protected function disableExceptionHandling()

@@ -37,9 +37,9 @@ class CheckAgainTwoFactorAuthentication
             $message = __('Invalid 2FA verification code. Please try again');
 
             return $this->respondWithCustomData([
-                'message'       => $message,
-                'is_verify2fa'  => 0,
-                'is_refresh2fa' => 1,
+                'message'      => $message,
+                'isVerify2fa'  => 0,
+                'isRefresh2fa' => 1,
             ], Response::HTTP_LOCKED);
         }
 

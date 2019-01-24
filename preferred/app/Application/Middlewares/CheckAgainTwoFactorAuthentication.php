@@ -5,7 +5,7 @@ namespace Preferred\Application\Middlewares;
 use Closure;
 use Illuminate\Http\Response;
 use Preferred\Domain\Users\Entities\User;
-use Preferred\Infrastructure\Support\TwoFactorAuthentication;
+use Preferred\Infrastructure\Support\TwoFactorAuthenticator;
 use Preferred\Interfaces\Http\Controllers\ResponseTrait;
 
 class CheckAgainTwoFactorAuthentication
@@ -24,12 +24,12 @@ class CheckAgainTwoFactorAuthentication
      */
     public function handle($request, Closure $next)
     {
-        $user = User::with(['profile'])->find(auth()->id());
+        $user = User::with(['profile:google2a_enable,google2fa_secret'])->find(auth()->id());
 
         if (!empty($user->profile->google2fa_enable)) {
-            $twoFactorAuthentication = new TwoFactorAuthentication($request);
+            $twoFactorAuthenticator = new TwoFactorAuthenticator($request);
 
-            if (!empty($request->one_time_password) && $twoFactorAuthentication->verifyGoogle2FA
+            if (!empty($request->one_time_password) && $twoFactorAuthenticator->verifyGoogle2FA
                 ($user->profile->google2fa_secret, $request->one_time_password) === true) {
                 return $next($request);
             }
@@ -37,9 +37,9 @@ class CheckAgainTwoFactorAuthentication
             $message = __('Invalid 2FA verification code. Please try again');
 
             return $this->respondWithCustomData([
-                'message'       => $message,
-                'is_verify2fa'  => 0,
-                'is_refresh2fa' => 1,
+                'message'      => $message,
+                'isVerify2fa'  => 0,
+                'isRefresh2fa' => 1,
             ], Response::HTTP_LOCKED);
         }
 

@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Notification;
 use Preferred\Domain\Users\Contracts\ProfileRepository;
 use Preferred\Domain\Users\Entities\Profile;
 use Preferred\Domain\Users\Notifications\AccountDisabledNotification;
-use Preferred\Infrastructure\Support\TwoFactorAuthentication;
+use Preferred\Infrastructure\Support\TwoFactorAuthenticator;
 
 class DisableAccountService
 {
@@ -46,7 +46,7 @@ class DisableAccountService
     private function loggoutUserIfNecessary()
     {
         if (auth()->check()) {
-            (new TwoFactorAuthentication(request()))->logout();
+            (new TwoFactorAuthenticator(request()))->logout();
             Cache::forget(auth()->id());
             Cache::tags('users:' . auth()->id());
             auth()->logout();

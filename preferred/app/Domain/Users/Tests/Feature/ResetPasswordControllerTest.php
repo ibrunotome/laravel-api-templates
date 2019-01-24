@@ -21,8 +21,6 @@ class PasswordResetTest extends TestCase
     {
         parent::setUp();
 
-        Notification::fake();
-
         $this->user = factory(User::class)->create();
     }
 

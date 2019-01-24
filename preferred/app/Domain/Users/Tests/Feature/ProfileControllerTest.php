@@ -3,8 +3,6 @@
 namespace Preferred\Domain\Users\Tests\Feature;
 
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Notification;
-use Illuminate\Support\Facades\Queue;
 use Preferred\Domain\Users\Entities\AuthorizedDevice;
 use Preferred\Domain\Users\Entities\LoginHistory;
 use Preferred\Domain\Users\Entities\Permission;
@@ -23,9 +21,6 @@ class ProfileControllerTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-
-        Queue::fake();
-        Notification::fake();
 
         $this->user = factory(User::class)->create();
         $this->profile = factory(Profile::class)->create(['user_id' => $this->user->id]);

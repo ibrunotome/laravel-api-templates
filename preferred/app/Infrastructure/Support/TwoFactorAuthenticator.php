@@ -5,7 +5,7 @@ namespace Preferred\Infrastructure\Support;
 use PragmaRX\Google2FALaravel\Exceptions\InvalidSecretKey;
 use PragmaRX\Google2FALaravel\Support\Authenticator;
 
-class TwoFactorAuthentication extends Authenticator
+class TwoFactorAuthenticator extends Authenticator
 {
     protected function canPassWithoutCheckingOTP()
     {

@@ -86,7 +86,7 @@ class TwoFactorAuthenticationController extends Controller
 
         return $this->respondWithCustomData([
             'message'          => __('Invalid 2FA verification code. Please try again'),
-            'is_verify2fa'     => 0,
+            'isVerify2fa'      => 0,
             'google2fa_enable' => 0,
         ], Response::HTTP_LOCKED);
     }

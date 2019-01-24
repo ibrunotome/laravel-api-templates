@@ -2,7 +2,6 @@
 
 namespace Preferred\Domain\Users\Tests\Feature;
 
-use Illuminate\Support\Facades\Notification;
 use Preferred\Domain\Users\Entities\Profile;
 use Preferred\Domain\Users\Entities\User;
 use Tests\TestCase;
@@ -15,8 +14,6 @@ class LoginControllerTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-
-        Notification::fake();
 
         $this->user = factory(User::class)->create();
         factory(Profile::class)->create(['user_id' => $this->user->id]);

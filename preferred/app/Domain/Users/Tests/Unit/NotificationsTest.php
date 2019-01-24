@@ -2,8 +2,6 @@
 
 namespace Preferred\Domain\Users\Tests\Unit;
 
-use Illuminate\Support\Facades\Notification;
-use Illuminate\Support\Facades\Queue;
 use Preferred\Domain\Users\Entities\Profile;
 use Preferred\Domain\Users\Entities\User;
 use Preferred\Domain\Users\Notifications\AccountDisabledNotification;
@@ -24,9 +22,6 @@ class NotificationsTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-
-        Queue::fake();
-        Notification::fake();
 
         $this->user = factory(User::class)->create();
         factory(Profile::class)->create(['user_id' => $this->user->id]);

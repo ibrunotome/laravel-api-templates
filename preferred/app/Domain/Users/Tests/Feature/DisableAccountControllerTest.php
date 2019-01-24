@@ -2,22 +2,12 @@
 
 namespace Preferred\Domain\Users\Tests\Feature;
 
-use Illuminate\Support\Facades\Notification;
-use Illuminate\Support\Facades\Queue;
 use Preferred\Domain\Users\Entities\Profile;
 use Preferred\Domain\Users\Entities\User;
 use Tests\TestCase;
 
 class DisableAccountControllerTest extends TestCase
 {
-    public function setUp()
-    {
-        parent::setUp();
-
-        Queue::fake();
-        Notification::fake();
-    }
-
     public function testDisableAccount()
     {
         $user = factory(User::class)->create();

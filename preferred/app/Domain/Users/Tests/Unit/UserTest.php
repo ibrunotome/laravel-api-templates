@@ -2,8 +2,6 @@
 
 namespace Preferred\Domain\Users\Tests\Unit;
 
-use Illuminate\Support\Facades\Notification;
-use Illuminate\Support\Facades\Queue;
 use Preferred\Domain\Users\Entities\AuthorizedDevice;
 use Preferred\Domain\Users\Entities\LoginHistory;
 use Preferred\Domain\Users\Entities\Profile;
@@ -18,9 +16,6 @@ class UserTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-
-        Queue::fake();
-        Notification::fake();
 
         $this->user = factory(User::class)->create();
     }

@@ -12,7 +12,7 @@ use Preferred\Domain\Users\Entities\User;
 use Preferred\Domain\Users\Events\TwoFactorAuthenticationWasDisabled;
 use Preferred\Domain\Users\Http\Requests\DisableTwoFactorAuthenticationRequest;
 use Preferred\Domain\Users\Http\Requests\EnableTwoFactorAuthenticationRequest;
-use Preferred\Infrastructure\Support\TwoFactorAuthentication;
+use Preferred\Infrastructure\Support\TwoFactorAuthenticator;
 use Preferred\Interfaces\Http\Controllers\Controller;
 
 class TwoFactorAuthenticationController extends Controller
@@ -39,7 +39,7 @@ class TwoFactorAuthenticationController extends Controller
         /** @var Profile $profile */
         $profile = $this->profileRepository->findOneBy(['user_id' => auth()->id()]);
 
-        $twoFactorAuthentication = new TwoFactorAuthentication($request);
+        $twoFactorAuthentication = new TwoFactorAuthenticator($request);
 
         $profile->google2fa_enable = 0;
         $profile->google2fa_secret = $twoFactorAuthentication->generateSecretKey(32);
@@ -70,7 +70,7 @@ class TwoFactorAuthenticationController extends Controller
     {
         /** @var Profile $profile */
         $profile = $this->profileRepository->findOneBy(['user_id' => auth()->id()]);
-        $twoFactorAuthentication = new TwoFactorAuthentication($request);
+        $twoFactorAuthentication = new TwoFactorAuthenticator($request);
         $secret = $request->one_time_password;
         $valid = $twoFactorAuthentication->verifyKey($profile->google2fa_secret, $secret);
 
@@ -86,7 +86,7 @@ class TwoFactorAuthenticationController extends Controller
 
         return $this->respondWithCustomData([
             'message'          => __('Invalid 2FA verification code. Please try again'),
-            'is_verify2fa'     => 0,
+            'isVerify2fa'      => 0,
             'google2fa_enable' => 0,
         ], Response::HTTP_LOCKED);
     }

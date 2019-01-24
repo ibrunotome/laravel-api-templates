@@ -17,7 +17,7 @@ use Preferred\Domain\Users\Exceptions\LockedException;
 use Preferred\Domain\Users\Notifications\VerifyEmailNotification;
 use Preferred\Domain\Users\Services\AuthorizedDeviceService;
 use Preferred\Domain\Users\Services\LoginHistoryService;
-use Preferred\Infrastructure\Support\TwoFactorAuthentication;
+use Preferred\Infrastructure\Support\TwoFactorAuthenticator;
 use Preferred\Interfaces\Http\Controllers\Controller;
 use Sujip\Ipstack\Ipstack;
 
@@ -62,7 +62,7 @@ class LoginController extends Controller
     {
         $id = $this->guard()->id();
 
-        (new TwoFactorAuthentication($request))->logout();
+        (new TwoFactorAuthenticator($request))->logout();
         Cache::forget($id);
         Cache::tags('users:' . $id);
 
@@ -109,8 +109,8 @@ class LoginController extends Controller
             $this->checkIfIsDeviceIsAuthorized($user, $data);
         } catch (LockedException $exception) {
             return $this->respondWithCustomData([
-                'message'      => $exception->getMessage(),
-                'is_verify2fa' => 0,
+                'message'     => $exception->getMessage(),
+                'isVerify2fa' => 0,
             ], Response::HTTP_LOCKED);
         }
 
@@ -130,7 +130,7 @@ class LoginController extends Controller
     private function checkIfIsActive(User $user, Request $request)
     {
         if (!$user->is_active) {
-            (new TwoFactorAuthentication($request))->logout();
+            (new TwoFactorAuthenticator($request))->logout();
             Cache::forget($user->id);
             Cache::tags('users:' . $user->id)->flush();
             auth()->logout();

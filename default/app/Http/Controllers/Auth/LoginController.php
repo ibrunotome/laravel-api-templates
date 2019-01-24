@@ -124,8 +124,8 @@ class LoginController extends Controller
             $this->checkIfIsDeviceIsAuthorized($user, $data);
         } catch (LockedException $exception) {
             return $this->respondWithCustomData([
-                'message'      => $exception->getMessage(),
-                'is_verify2fa' => 0,
+                'message'     => $exception->getMessage(),
+                'isVerify2fa' => 0,
             ], Response::HTTP_LOCKED);
         }
 
