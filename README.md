@@ -28,3 +28,7 @@ A Laravel API starter kit collection for your projects
 ## Database structure
 
 <img width="1094" src="https://user-images.githubusercontent.com/4256471/51617742-02e6d500-1f14-11e9-9037-c17197afc03a.png">
+
+## Routes
+
+<img width="1372" src="https://user-images.githubusercontent.com/4256471/51736948-9209ff00-2072-11e9-85cd-e41ef05b7993.png">
