@@ -19,7 +19,7 @@ class UsersTableSeed extends Seeder
     public function run()
     {
         $user = factory(User::class)->create([
-            'test@test.com',
+            'email'             => 'test@test.com',
             'email_verified_at' => now()
         ]);
 

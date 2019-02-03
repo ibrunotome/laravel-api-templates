@@ -53,12 +53,12 @@ class EventServiceProvider extends ServiceProvider implements TransactionalEvent
     {
         parent::boot();
 
-        User::observe(UserObserver::class);
         AuthorizedDevice::observe(AuthorizedDeviceObserver::class);
         LoginHistory::observe(LoginHistoryObserver::class);
         Permission::observe(PermissionObserver::class);
         Profile::observe(ProfileObserver::class);
         Role::observe(RoleObserver::class);
+        User::observe(UserObserver::class);
 
         //
     }

@@ -2,6 +2,7 @@
 
 namespace Preferred\Domain\Users\Http\Resources;
 
+use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
@@ -9,22 +10,21 @@ use Illuminate\Http\Resources\Json\JsonResource;
  *
  * @package Preferred\Domain\Users\Http\Resources
  *
- * @property string    id
- * @property string    device
- * @property string    platform
- * @property string    platform_version
- * @property string    browser
- * @property string    browser_version
- * @property string    city
- * @property string    country_name
- * @property \DateTime created_at
+ * @property string id
+ * @property string device
+ * @property string platform
+ * @property string platform_version
+ * @property string browser
+ * @property string browser_version
+ * @property string city
+ * @property string country_name
+ * @property string authorized_at
+ * @property Carbon created_at
  */
 class AuthorizedDeviceResource extends JsonResource
 {
     public function toArray($request)
     {
-        $milliseconds = bcdiv($this->created_at->format('u'), 1000, 0);
-
         return [
             'id'              => $this->id,
             'browser'         => $this->browser,
@@ -34,7 +34,8 @@ class AuthorizedDeviceResource extends JsonResource
             'platformVersion' => $this->platform_version,
             'city'            => $this->city,
             'countryName'     => $this->country_name,
-            'createdAt'       => $this->created_at->format('Y-m-d\TH:i:s') . '.' . $milliseconds . 'Z'
+            'authorizedAt'    => $this->authorized_at,
+            'createdAt'       => $this->created_at->format('Y-m-d\TH:i:s')
         ];
     }
 }

@@ -16,16 +16,14 @@ class CreatePermissionTables extends Migration
         $tableNames = config('permission.table_names');
 
         Schema::create($tableNames['permissions'], function (Blueprint $table) {
-            $table->uuid('id');
-            $table->primary('id');
+            $table->uuid('id')->primary();
             $table->string('name');
             $table->string('guard_name')->default('api');
             $table->timestamps();
         });
 
         Schema::create($tableNames['roles'], function (Blueprint $table) {
-            $table->uuid('id');
-            $table->primary('id');
+            $table->uuid('id')->primary();
             $table->string('name');
             $table->string('guard_name')->default('api');
             $table->timestamps();

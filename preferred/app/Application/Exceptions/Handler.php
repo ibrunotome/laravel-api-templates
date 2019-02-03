@@ -2,7 +2,6 @@
 
 namespace Preferred\Application\Exceptions;
 
-use Google\Cloud\ErrorReporting\Bootstrap;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -11,6 +10,7 @@ use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Exceptions\ThrottleRequestsException;
 use Illuminate\Http\Response;
 use Preferred\Interfaces\Http\Controllers\ResponseTrait;
+use Spatie\QueryBuilder\Exceptions\InvalidIncludeQuery;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -50,11 +50,7 @@ class Handler extends ExceptionHandler
      */
     public function report(\Exception $exception)
     {
-        if (isset($_SERVER['GAE_SERVICE'])) {
-            Bootstrap::exceptionHandler($exception);
-        } else {
-            parent::report($exception);
-        }
+        parent::report($exception);
     }
 
     /**
@@ -94,6 +90,10 @@ class Handler extends ExceptionHandler
             case ThrottleRequestsException::class:
                 $status = Response::HTTP_TOO_MANY_REQUESTS;
                 $message = 'Too many attemps';
+                break;
+            case InvalidIncludeQuery::class:
+                $status = Response::HTTP_BAD_REQUEST;
+                $message = $exception->getMessage();
                 break;
             default:
                 $status = $exception->getCode();

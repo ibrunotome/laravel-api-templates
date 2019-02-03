@@ -42,16 +42,16 @@ class DomainServiceProvider extends AbstractServiceProvider
     protected $policies = [
         AuthorizedDevice::class => AuthorizedDevicePolicy::class,
         LoginHistory::class     => LoginHistoryPolicy::class,
-        User::class             => UserPolicy::class,
-        Profile::class          => ProfilePolicy::class,
         Permission::class       => PermissionPolicy::class,
+        Profile::class          => ProfilePolicy::class,
         Role::class             => RolePolicy::class,
+        User::class             => UserPolicy::class,
     ];
 
     protected $factories = [
-        UserFactory::class,
         AuthorizedDeviceFactory::class,
         LoginHistoryFactory::class,
         ProfileFactory::class,
+        UserFactory::class,
     ];
 }

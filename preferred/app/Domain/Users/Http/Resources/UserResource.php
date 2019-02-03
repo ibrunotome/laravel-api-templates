@@ -2,6 +2,7 @@
 
 namespace Preferred\Domain\Users\Http\Resources;
 
+use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Notifications\DatabaseNotification;
 use Preferred\Domain\Users\Entities\AuthorizedDevice;
@@ -16,12 +17,12 @@ use Preferred\Domain\Users\Entities\Profile;
  * @property string                    id
  * @property string                    email
  * @property bool                      is_active
- * @property string                    email_verified_at
  * @property string                    locale
- * @property \DateTime                 created_at
- * @property \DateTime                 updated_at
+ * @property Carbon                    email_verified_at
+ * @property Carbon                    created_at
+ * @property Carbon                    updated_at
  *
- * @property-read AuthorizedDevice     authorizedDevice
+ * @property-read AuthorizedDevice     authorizedDevices
  * @property-read LoginHistory         loginHistories
  * @property-read Profile              profile
  * @property-read DatabaseNotification notifications
@@ -38,12 +39,18 @@ class UserResource extends JsonResource
      */
     public function toArray($request)
     {
+        if ($this->email_verified_at instanceof Carbon) {
+            $this->email_verified_at = $this->email_verified_at->format('Y-m-d\TH:i:s');
+        }
+
         return [
             'id'                  => $this->id,
             'email'               => $this->email,
             'isActive'            => $this->is_active,
             'emailVerifiedAt'     => $this->email_verified_at,
             'locale'              => $this->locale,
+            'createdAt'           => $this->created_at->format('Y-m-d\TH:i:s'),
+            'updatedAt'           => $this->updated_at->format('Y-m-d\TH:i:s'),
             'profile'             => new ProfileResource($this->whenLoaded('profile')),
             'loginHistories'      => LoginHistoryResource::collection($this->whenLoaded('loginhistories')),
             'authorizedDevices'   => AuthorizedDeviceResource::collection($this->whenLoaded('authorizeddevices')),

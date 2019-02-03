@@ -35,6 +35,8 @@ class EloquentUserRepository extends AbstractEloquentRepository implements UserR
         'profile',
         'authorizeddevices',
         'loginhistories',
+        'notifications',
+        'unreadnotifications',
     ];
 
     public function findByFilters()

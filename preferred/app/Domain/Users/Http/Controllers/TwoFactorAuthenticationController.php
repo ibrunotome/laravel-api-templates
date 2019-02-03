@@ -66,7 +66,6 @@ class TwoFactorAuthenticationController extends Controller
      * @param EnableTwoFactorAuthenticationRequest $request
      *
      * @return \Illuminate\Http\JsonResponse
-     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function enable2fa(EnableTwoFactorAuthenticationRequest $request)
     {

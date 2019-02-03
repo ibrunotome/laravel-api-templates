@@ -51,7 +51,6 @@ class Kernel extends HttpKernel
         'can'        => \Illuminate\Auth\Middleware\Authorize::class,
         'guest'      => \Preferred\Application\Middlewares\RedirectIfAuthenticated::class,
         '2fa'        => \Preferred\Application\Middlewares\CheckTwoFactorAuthentication::class,
-        'refresh2fa' => \Preferred\Application\Middlewares\CheckAgainTwoFactorAuthentication::class,
         'cors'       => \Spatie\Cors\Cors::class,
     ];
 

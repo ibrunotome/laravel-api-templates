@@ -13,6 +13,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        bcscale(4);
+        bcscale(15);
     }
 }

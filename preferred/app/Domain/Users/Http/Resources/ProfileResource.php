@@ -2,6 +2,7 @@
 
 namespace Preferred\Domain\Users\Http\Resources;
 
+use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Preferred\Domain\Users\Entities\User;
 use Preferred\Infrastructure\Support\TwoFactorAuthenticator;
@@ -16,6 +17,8 @@ use Preferred\Infrastructure\Support\TwoFactorAuthenticator;
  * @property string    google2fa_url
  * @property string    name
  * @property string    user_id
+ * @property Carbon    created_at
+ * @property Carbon    updated_at
  *
  * @property-read User user
  */
@@ -34,6 +37,7 @@ class ProfileResource extends JsonResource
         $twoFactorAuthenticator = new TwoFactorAuthenticator($request);
 
         return [
+            'id'               => $this->id,
             'name'             => $this->name,
             'antiPhishingCode' =>
                 !empty($this->anti_phishing_code) ? (substr($this->anti_phishing_code, 0, 2) . '**') : null,
@@ -41,6 +45,8 @@ class ProfileResource extends JsonResource
             'google2faEnable'  => $this->google2fa_enable,
             'google2faSecret'  => $this->when(!$this->google2fa_enable, $this->google2fa_secret),
             'google2faUrl'     => $this->when(!$this->google2fa_enable, $this->google2fa_url),
+            'createdAt'        => $this->created_at->format('Y-m-d\TH:i:s'),
+            'updatedAt'        => $this->updated_at->format('Y-m-d\TH:i:s')
         ];
     }
 }

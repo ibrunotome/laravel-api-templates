@@ -196,6 +196,10 @@ class LoginController extends Controller
 
     private function checkIfIsDeviceIsAuthorized(User $user, array $data)
     {
+        if (!config('app.will_check_device_is_authorized')) {
+            return;
+        }
+
         /** @var AuthorizedDeviceService $authorizedDeviceService */
         $authorizedDeviceService = app(AuthorizedDeviceService::class);
 
