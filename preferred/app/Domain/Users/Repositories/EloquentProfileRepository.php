@@ -46,7 +46,7 @@ class EloquentProfileRepository extends AbstractEloquentRepository implements Pr
     public function setNewEmailTokenConfirmation($userId)
     {
         $this->withoutGlobalScopes()
-            ->findOneBy(['user_id' => $userId])
+            ->findOneByCriteria(['user_id' => $userId])
             ->update([
                 'email_token_confirmation' => Uuid::uuid4(),
             ]);

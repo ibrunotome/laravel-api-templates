@@ -37,14 +37,14 @@ class TwoFactorAuthenticationController extends Controller
     public function generate2faSecret(Request $request)
     {
         /** @var Profile $profile */
-        $profile = $this->profileRepository->findOneBy(['user_id' => auth()->id()]);
+        $profile = $this->profileRepository->findOneByCriteria(['user_id' => auth()->id()]);
 
-        $twoFactorAuthenticator = new TwoFactorAuthenticator($request);
+        $twoFactorAuthentication = new TwoFactorAuthenticator($request);
 
         $profile->google2fa_enable = 0;
-        $profile->google2fa_secret = $twoFactorAuthenticator->generateSecretKey(32);
+        $profile->google2fa_secret = $twoFactorAuthentication->generateSecretKey(32);
 
-        $google2faUrl = $twoFactorAuthenticator->getQRCodeInline(
+        $google2faUrl = $twoFactorAuthentication->getQRCodeInline(
             config('app.name'),
             auth()->user()->email,
             $profile->google2fa_secret
@@ -66,12 +66,11 @@ class TwoFactorAuthenticationController extends Controller
      * @param EnableTwoFactorAuthenticationRequest $request
      *
      * @return \Illuminate\Http\JsonResponse
-     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function enable2fa(EnableTwoFactorAuthenticationRequest $request)
     {
         /** @var Profile $profile */
-        $profile = $this->profileRepository->findOneBy(['user_id' => auth()->id()]);
+        $profile = $this->profileRepository->findOneByCriteria(['user_id' => auth()->id()]);
         $twoFactorAuthentication = new TwoFactorAuthenticator($request);
         $secret = $request->one_time_password;
         $valid = $twoFactorAuthentication->verifyKey($profile->google2fa_secret, $secret);
@@ -112,7 +111,7 @@ class TwoFactorAuthenticationController extends Controller
         }
 
         /** @var Profile $profile */
-        $profile = $this->profileRepository->findOneBy(['user_id' => auth()->id()]);
+        $profile = $this->profileRepository->findOneByCriteria(['user_id' => auth()->id()]);
 
         $profile->google2fa_enable = 0;
         $profile->google2fa_secret = null;

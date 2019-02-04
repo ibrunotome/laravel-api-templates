@@ -2,9 +2,7 @@
 
 namespace App\Listeners;
 
-use App\Contracts\ProfileRepository;
 use App\Models\Profile;
-use App\Models\User;
 use App\Notifications\VerifyEmailNotification;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Bus\Queueable;
@@ -29,14 +27,8 @@ class UserRegisteredListener implements ShouldQueue
      */
     public function handle($event)
     {
-        /** @var User $user */
-        $user = $event->user;
-
-        /** @var ProfileRepository $profileRepository */
-        $profileRepository = app(ProfileRepository::class);
-
         /** @var Profile $profile */
-        $profile = $profileRepository->findOneBy(['user_id' => $user->id]);
+        $profile = $event->user->profile;
 
         Notification::send($event->user, new VerifyEmailNotification($profile->email_token_confirmation));
     }

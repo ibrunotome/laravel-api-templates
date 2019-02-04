@@ -15,6 +15,7 @@ class ProfileFactory extends AbstractModelFactory
         return [
             'id'                          => Uuid::uuid4(),
             'name'                        => $this->faker->name,
+            'anti_phishing_code'          => $this->faker->word,
             'email_token_confirmation'    => Uuid::uuid4(),
             'email_token_disable_account' => Uuid::uuid4(),
         ];

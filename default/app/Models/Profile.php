@@ -18,6 +18,7 @@ use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
  * @property string    google2fa_secret
  * @property string    google2fa_url
  * @property string    name
+ * @property string    locale
  * @property string    user_id
  * @property \DateTime created_at
  * @property \DateTime updated_at
@@ -29,8 +30,6 @@ class Profile extends Model implements AuditableContract
     use Auditable;
 
     public $incrementing = false;
-
-    protected $dateFormat = 'Y-m-d H:i:s.u';
 
     protected $keyType = 'string';
 
@@ -44,6 +43,7 @@ class Profile extends Model implements AuditableContract
         'email_token_confirmation',
         'email_token_disable_account',
         'user_id',
+        'locale',
     ];
 
     ################

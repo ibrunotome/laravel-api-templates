@@ -22,6 +22,11 @@ class ProfileController extends Controller
         $this->authorizeResource(Profile::class);
     }
 
+    /**
+     * List all profiles.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index()
     {
         $cacheTag = 'profiles';
@@ -34,25 +39,54 @@ class ProfileController extends Controller
         return $this->respondWithCollection($collection);
     }
 
+    /**
+     * Show a profile of current logged user.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function me()
     {
         /** @var Profile $profile */
         $profile = auth()->user()->profile;
+
         return $this->show($profile);
     }
 
+    /**
+     * Show a profile.
+     *
+     * @param Profile $profile
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function show(Profile $profile)
     {
         return $this->respondWithItem($profile);
     }
 
+    /**
+     * Update the profile of current logged user.
+     *
+     * @param ProfileUpdateRequest $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function updateMe(ProfileUpdateRequest $request)
     {
         /** @var Profile $profile */
         $profile = auth()->user()->profile;
+
         return $this->update($request, $profile);
     }
 
+    /**
+     * Update a profile.
+     *
+     * @param ProfileUpdateRequest $request
+     * @param Profile              $profile
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function update(ProfileUpdateRequest $request, Profile $profile)
     {
         $data = $request->only([

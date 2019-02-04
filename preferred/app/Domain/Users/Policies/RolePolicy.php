@@ -11,6 +11,18 @@ class RolePolicy
     use HandlesAuthorization;
 
     /**
+     * Determine whether the user can view a list of model.
+     *
+     * @param  \Preferred\Domain\Users\Entities\User $user
+     *
+     * @return mixed
+     */
+    public function viewAny(User $user)
+    {
+        return $user->can('view any roles');
+    }
+
+    /**
      * Determine whether the user can view the model.
      *
      * @param  \Preferred\Domain\Users\Entities\User $user

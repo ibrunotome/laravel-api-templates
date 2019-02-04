@@ -4,9 +4,6 @@ namespace Preferred\Domain\Users\Http\Requests;
 
 use Preferred\Interfaces\Http\Controllers\FormRequest;
 
-/**
- * @property mixed one_time_password
- */
 class EnableTwoFactorAuthenticationRequest extends FormRequest
 {
     /**
@@ -27,7 +24,11 @@ class EnableTwoFactorAuthenticationRequest extends FormRequest
     public function rules()
     {
         return [
-            'one_time_password' => 'required|string|size:6',
+            'one_time_password' => [
+                'required',
+                'string',
+                'size:6'
+            ],
         ];
     }
 }

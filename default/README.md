@@ -7,8 +7,8 @@ multiple entities, services, repositories, jobs and hundreds of routes, will be 
 
 ## Database structure
 
-<img width="1094" src="https://user-images.githubusercontent.com/4256471/51617742-02e6d500-1f14-11e9-9037-c17197afc03a.png">
+<img width="1075" src="https://user-images.githubusercontent.com/4256471/52179332-42d57400-27c0-11e9-9b10-3fbdb81f1e9e.png">
 
 ## Routes
 
-<img width="1372" src="https://user-images.githubusercontent.com/4256471/51736948-9209ff00-2072-11e9-85cd-e41ef05b7993.png">
+<img width="1372" src="https://user-images.githubusercontent.com/4256471/52185849-bac88c00-280a-11e9-946a-e2c117a16231.png">

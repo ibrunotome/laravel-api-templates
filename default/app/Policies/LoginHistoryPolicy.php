@@ -11,6 +11,18 @@ class LoginHistoryPolicy
     use HandlesAuthorization;
 
     /**
+     * Determine whether the user can view a list of model.
+     *
+     * @param  \App\Models\User $user
+     *
+     * @return mixed
+     */
+    public function viewAny(User $user)
+    {
+        return $user->can('view any login histories');
+    }
+
+    /**
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User         $user

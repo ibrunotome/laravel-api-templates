@@ -2,28 +2,28 @@
 
 namespace App\Http\Resources;
 
+use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
  * Class LoginHistoryResource
  *
- * @property string    id
- * @property string    device
- * @property string    platform
- * @property string    platform_version
- * @property string    browser
- * @property string    browser_version
- * @property string    ip
- * @property string    city
- * @property string    country_name
- * @property \DateTime created_at
+ * @package App\Http\Resources
+ *
+ * @property string device
+ * @property string platform
+ * @property string platform_version
+ * @property string browser
+ * @property string browser_version
+ * @property string ip
+ * @property string city
+ * @property string country_name
+ * @property Carbon created_at
  */
 class LoginHistoryResource extends JsonResource
 {
     public function toArray($request)
     {
-        $milliseconds = bcdiv($this->created_at->format('u'), 1000, 0);
-
         return [
             'browser'         => $this->browser,
             'browserVersion'  => $this->browser_version,
@@ -33,7 +33,7 @@ class LoginHistoryResource extends JsonResource
             'city'            => $this->city,
             'countryName'     => $this->country_name,
             'ip'              => $this->ip,
-            'createdAt'       => $this->created_at->format('Y-m-d\TH:i:s') . '.' . $milliseconds . 'Z',
+            'createdAt'       => $this->created_at->format('Y-m-d\TH:i:s'),
         ];
     }
 }

@@ -26,6 +26,7 @@ class CreateAuthorizedDevicesTable extends Migration
             $table->uuid('authorization_token');
             $table->timestamp('authorized_at')->nullable();
             $table->timestamps();
+            $table->softDeletes();
 
             $table->uuid('user_id')->index();
             $table->foreign('user_id')->references('id')->on('users');

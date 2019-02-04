@@ -2,12 +2,21 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Contracts\AuthorizedDeviceRepository;
 use App\Http\Controllers\Controller;
 use App\Models\AuthorizedDevice;
 use Illuminate\Http\Response;
 
 class AuthorizeDeviceController extends Controller
 {
+    /** @var AuthorizedDeviceRepository */
+    private $authorizedDeviceRepository;
+
+    public function __construct(AuthorizedDeviceRepository $authorizedDeviceRepository)
+    {
+        $this->authorizedDeviceRepository = $authorizedDeviceRepository;
+    }
+
     public function verify($token)
     {
         /** @var AuthorizedDevice $authorizedDevice */

@@ -23,9 +23,9 @@ class CheckTwoFactorAuthentication
      */
     public function handle($request, Closure $next)
     {
-        $twoFactorAuthenticator = new TwoFactorAuthenticator($request);
+        $twoFactorAuthentication = new TwoFactorAuthenticator($request);
 
-        if ($twoFactorAuthenticator->isAuthenticated()) {
+        if ($twoFactorAuthentication->isAuthenticated()) {
             return $next($request);
         }
 

@@ -22,24 +22,24 @@ class CnpjRule implements Rule
             return false;
         }
 
-        for ($i = 0, $j = 5, $soma = 0; $i < 12; $i++) {
-            $soma += $value[$i] * $j;
+        for ($i = 0, $j = 5, $sum = 0; $i < 12; $i++) {
+            $sum += $value[$i] * $j;
             $j = ($j == 2) ? 9 : $j - 1;
         }
 
-        $resto = $soma % 11;
-        if ($value[12] != ($resto < 2 ? 0 : 11 - $resto)) {
+        $rest = $sum % 11;
+        if ($value[12] != ($rest < 2 ? 0 : 11 - $rest)) {
             return false;
         }
 
-        for ($i = 0, $j = 6, $soma = 0; $i < 13; $i++) {
-            $soma += $value[$i] * $j;
+        for ($i = 0, $j = 6, $sum = 0; $i < 13; $i++) {
+            $sum += $value[$i] * $j;
             $j = ($j == 2) ? 9 : $j - 1;
         }
 
-        $resto = $soma % 11;
+        $rest = $sum % 11;
 
-        return $value[13] == ($resto < 2 ? 0 : 11 - $resto);
+        return $value[13] == ($rest < 2 ? 0 : 11 - $rest);
     }
 
     /**

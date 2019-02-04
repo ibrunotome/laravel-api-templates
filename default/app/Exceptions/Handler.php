@@ -10,6 +10,7 @@ use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Exceptions\ThrottleRequestsException;
 use Illuminate\Http\Response;
+use Spatie\QueryBuilder\Exceptions\InvalidIncludeQuery;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -89,6 +90,10 @@ class Handler extends ExceptionHandler
             case ThrottleRequestsException::class:
                 $status = Response::HTTP_TOO_MANY_REQUESTS;
                 $message = 'Too many attemps';
+                break;
+            case InvalidIncludeQuery::class:
+                $status = Response::HTTP_BAD_REQUEST;
+                $message = $exception->getMessage();
                 break;
             default:
                 $status = $exception->getCode();

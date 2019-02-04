@@ -15,12 +15,13 @@ class PermissionsTableSeeder extends Seeder
         app('cache')->forget('spatie.permission.cache');
 
         collect([
-            'users',
-            'profiles',
             'authorized devices',
+            'companies',
             'login histories',
-            'roles',
             'permissions',
+            'profiles',
+            'roles',
+            'users',
         ])->each(function ($type) {
             $this->createPermissions($type);
         });
@@ -28,6 +29,7 @@ class PermissionsTableSeeder extends Seeder
 
     private function createPermissions($type)
     {
+        Permission::create(['name' => "view any {$type}"]);
         Permission::create(['name' => "view {$type}"]);
         Permission::create(['name' => "create {$type}"]);
         Permission::create(['name' => "update {$type}"]);

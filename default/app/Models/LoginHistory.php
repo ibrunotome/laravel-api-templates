@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Scopes\OwnerGlobalScopeTrait;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -34,12 +33,12 @@ use Illuminate\Database\Eloquent\Model;
  */
 class LoginHistory extends Model
 {
-    use OwnerGlobalScopeTrait;
-
     const UPDATED_AT = null;
+
     protected static $unguarded = true;
+
     public $incrementing = false;
-    protected $dateFormat = 'Y-m-d H:i:s.u';
+
     protected $keyType = 'string';
 
     ################

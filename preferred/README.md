@@ -10,8 +10,8 @@ from the core to even the tests, is done directly in each domain.
 
 ## Database structure
 
-<img width="1094" src="https://user-images.githubusercontent.com/4256471/51617742-02e6d500-1f14-11e9-9037-c17197afc03a.png">
+<img width="1075" src="https://user-images.githubusercontent.com/4256471/52179332-42d57400-27c0-11e9-9b10-3fbdb81f1e9e.png">
 
 ## Routes
 
-<img width="1269" src="https://user-images.githubusercontent.com/4256471/51738521-84ef0f00-2076-11e9-875a-9dd96f85c80d.png">
+<img width="1311" src="https://user-images.githubusercontent.com/4256471/52179342-6698ba00-27c0-11e9-8ca3-775609df8292.png">

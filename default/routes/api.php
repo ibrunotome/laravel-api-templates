@@ -110,6 +110,20 @@ Route::group([
             'update' => 'api.users.update',
         ]);
 
+    Route::apiResource('companies', 'CompanyController')
+        ->only([
+            'index',
+            'show',
+            'store',
+            'update',
+        ])
+        ->names([
+            'index'  => 'api.companies.index',
+            'show'   => 'api.companies.show',
+            'store'  => 'api.companies.store',
+            'update' => 'api.companies.update',
+        ]);
+
     Route::patch('password/update', 'UserController@updatePassword')
         ->name('api.password.update');
 

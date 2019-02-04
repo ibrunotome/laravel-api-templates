@@ -77,15 +77,15 @@ abstract class AbstractEloquentRepository implements BaseRepository
         }
 
         if (!empty($this->with) || auth()->check()) {
-            return $this->findOneBy(['id' => $id]);
+            return $this->findOneByCriteria(['id' => $id]);
         }
 
         return Cache::remember($id, 60, function () use ($id) {
-            return $this->findOneBy(['id' => $id]);
+            return $this->findOneByCriteria(['id' => $id]);
         });
     }
 
-    public function findOneBy(array $criteria)
+    public function findOneByCriteria(array $criteria)
     {
         if (!$this->withoutGlobalScopes) {
             return $this->model->with($this->with)->where($criteria)->firstOrFail();

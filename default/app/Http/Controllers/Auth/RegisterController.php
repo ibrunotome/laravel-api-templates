@@ -101,7 +101,7 @@ class RegisterController extends Controller
      *
      * @param  array $data
      *
-     * @return \App\Models\User
+     * @return User
      */
     protected function create(array $data)
     {
@@ -115,7 +115,6 @@ class RegisterController extends Controller
                 'password'          => bcrypt($data['password']),
                 'is_active'         => 1,
                 'email_verified_at' => null,
-                'locale'            => $data['locale'] ?? 'pt_BR',
             ]);
 
             /** @var ProfileRepository $profileRepository */
@@ -124,8 +123,8 @@ class RegisterController extends Controller
                 'name'                        => $data['name'],
                 'email_token_confirmation'    => Uuid::uuid4(),
                 'email_token_disable_account' => Uuid::uuid4(),
-                'referral_commission_fee'     => 20,
                 'user_id'                     => $user->id,
+                'locale'                      => $data['locale'] ?? 'pt_BR',
             ]);
 
             return $user;

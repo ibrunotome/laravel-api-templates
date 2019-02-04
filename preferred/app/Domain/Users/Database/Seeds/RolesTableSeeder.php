@@ -21,17 +21,5 @@ class RolesTableSeeder extends Seeder
 
         $role = Role::create(['name' => Role::ADMIN]);
         $role->givePermissionTo(Permission::all());
-
-        ############
-        # TENANT
-        ############
-
-        Role::create(['name' => Role::TENANT]);
-
-        ############
-        # CLIENT
-        ############
-
-        Role::create(['name' => Role::CLIENT]);
     }
 }

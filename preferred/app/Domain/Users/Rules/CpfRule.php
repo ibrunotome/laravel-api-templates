@@ -22,22 +22,22 @@ class CpfRule implements Rule
             return false;
         }
 
-        for ($i = 0, $j = 10, $soma = 0; $i < 9; $i++, $j--) {
-            $soma += $value[$i] * $j;
+        for ($i = 0, $j = 10, $sum = 0; $i < 9; $i++, $j--) {
+            $sum += $value[$i] * $j;
         }
 
-        $resto = $soma % 11;
-        if ($value[9] != ($resto < 2 ? 0 : 11 - $resto)) {
+        $rest = $sum % 11;
+        if ($value[9] != ($rest < 2 ? 0 : 11 - $rest)) {
             return false;
         }
 
-        for ($i = 0, $j = 11, $soma = 0; $i < 10; $i++, $j--) {
-            $soma += $value[$i] * $j;
+        for ($i = 0, $j = 11, $sum = 0; $i < 10; $i++, $j--) {
+            $sum += $value[$i] * $j;
         }
 
-        $resto = $soma % 11;
+        $rest = $sum % 11;
 
-        return $value[10] == ($resto < 2 ? 0 : 11 - $resto);
+        return $value[10] == ($rest < 2 ? 0 : 11 - $rest);
     }
 
     /**

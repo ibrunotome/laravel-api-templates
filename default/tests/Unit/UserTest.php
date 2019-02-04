@@ -6,8 +6,6 @@ use App\Models\AuthorizedDevice;
 use App\Models\LoginHistory;
 use App\Models\Profile;
 use App\Models\User;
-use Illuminate\Support\Facades\Notification;
-use Illuminate\Support\Facades\Queue;
 use Tests\TestCase;
 
 class UserTest extends TestCase
@@ -18,9 +16,6 @@ class UserTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-
-        Queue::fake();
-        Notification::fake();
 
         $this->user = factory(User::class)->create();
     }

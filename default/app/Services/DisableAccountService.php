@@ -23,7 +23,9 @@ class DisableAccountService
     public function handle($token)
     {
         /** @var Profile $profile */
-        $profile = $this->profileRepository->with(['user'])->findOneBy(['email_token_disable_account' => $token]);
+        $profile = $this->profileRepository
+            ->with(['user'])
+            ->findOneByCriteria(['email_token_disable_account' => $token]);
 
         try {
             return DB::transaction(function () use ($profile) {

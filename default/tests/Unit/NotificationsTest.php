@@ -11,8 +11,6 @@ use App\Notifications\ResetPasswordNotification;
 use App\Notifications\SuccessfulLoginFromIpNotification;
 use App\Notifications\TwoFactorAuthenticationWasDisabledNotification;
 use App\Notifications\VerifyEmailNotification;
-use Illuminate\Support\Facades\Notification;
-use Illuminate\Support\Facades\Queue;
 use Ramsey\Uuid\Uuid;
 use Tests\TestCase;
 
@@ -24,9 +22,6 @@ class NotificationsTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-
-        Queue::fake();
-        Notification::fake();
 
         $this->user = factory(User::class)->create();
         factory(Profile::class)->create(['user_id' => $this->user->id]);

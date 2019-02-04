@@ -3,11 +3,9 @@
 namespace App\Repositories;
 
 use App\Contracts\BaseRepository;
-use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Cache;
 use Ramsey\Uuid\Uuid;
 
@@ -79,30 +77,18 @@ abstract class AbstractEloquentRepository implements BaseRepository
         }
 
         if (!empty($this->with) || auth()->check()) {
-            return $this->findOneBy(['id' => $id]);
+            return $this->findOneByCriteria(['id' => $id]);
         }
 
         return Cache::remember($id, 60, function () use ($id) {
-            return $this->findOneBy(['id' => $id]);
+            return $this->findOneByCriteria(['id' => $id]);
         });
     }
 
-    public function findOneBy(array $criteria)
+    public function findOneByCriteria(array $criteria)
     {
         if (!$this->withoutGlobalScopes) {
-            $first = $this->model->with($this->with)
-                ->withoutGlobalScopes()
-                ->where($criteria)
-                ->orderBy('created_at', 'desc')
-                ->first();
-
-            if (!empty($first) && !empty($first->user_id) && auth()->check() && ($first->user_id != auth()->id())) {
-                throw new AuthorizationException('Forbidden', Response::HTTP_FORBIDDEN);
-            } elseif (empty($first)) {
-                throw (new ModelNotFoundException)->setModel(get_class($this->model));
-            }
-
-            return $first;
+            return $this->model->with($this->with)->where($criteria)->firstOrFail();
         }
 
         return $this->model->with($this->with)->withoutGlobalScopes()->where($criteria)->firstOrFail();

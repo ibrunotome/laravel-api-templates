@@ -24,6 +24,30 @@ class UserController extends Controller
         $this->authorizeResource(User::class);
     }
 
+    /**
+     * List all users.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function index()
+    {
+        $cacheTag = 'users';
+        $cacheKey = 'users:' . auth()->id() . json_encode(request()->all());
+
+        $collection = Cache::tags($cacheTag)->remember($cacheKey, 60, function () {
+            return $this->userRepository->findByFilters();
+        });
+
+        return $this->respondWithCollection($collection);
+    }
+
+    /**
+     * Show a current logged user.
+     *
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function me(Request $request)
     {
         /** @var User $user */
@@ -31,6 +55,14 @@ class UserController extends Controller
         return $this->show($request, $user);
     }
 
+    /**
+     * Show an user.
+     *
+     * @param Request $request
+     * @param User    $user
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function show(Request $request, User $user)
     {
         $allowedIncludes = [
@@ -50,25 +82,18 @@ class UserController extends Controller
             $user = Cache::tags($cacheTag)->remember($cacheKey, 60, function () use ($with, $user) {
                 return $this->userRepository->with($with)->findOneById($user->id);
             });
-
-            return $this->respondWithItem($user);
         }
 
         return $this->respondWithItem($user);
     }
 
-    public function index()
-    {
-        $cacheTag = 'users';
-        $cacheKey = 'users:' . auth()->id() . json_encode(request()->all());
-
-        $collection = Cache::tags($cacheTag)->remember($cacheKey, 60, function () {
-            return $this->userRepository->findByFilters();
-        });
-
-        return $this->respondWithCollection($collection);
-    }
-
+    /**
+     * Update the current logged user.
+     *
+     * @param UserUpdateRequest $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function updateMe(UserUpdateRequest $request)
     {
         /** @var User $user */
@@ -76,6 +101,14 @@ class UserController extends Controller
         return $this->update($request, $user);
     }
 
+    /**
+     * Update an user.
+     *
+     * @param UserUpdateRequest $request
+     * @param User              $user
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function update(UserUpdateRequest $request, User $user)
     {
         $data = $request->only(['email']);

@@ -8,6 +8,7 @@ use App\Models\Permission;
 use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Ramsey\Uuid\Uuid;
 use Tests\TestCase;
 
 class UserControllerTest extends TestCase
@@ -29,28 +30,71 @@ class UserControllerTest extends TestCase
      */
     public function testIndex()
     {
+        Permission::create(['name' => 'view any users']);
+        $this->user->givePermissionTo('view any users');
+
         $includes = [
             'profile',
             'loginhistories',
             'authorizeddevices',
+            'notifications',
+            'unreadnotifications',
         ];
 
-        $this->actingAs($this->user)
+        $this
+            ->actingAs($this->user)
             ->getJson(route('api.users.index') . '?include=' . implode(',', $includes))
             ->assertSuccessful()
             ->assertSeeText('profile')
             ->assertSeeText('loginHistories')
-            ->assertSeeText('authorizedDevices');
+            ->assertSeeText('authorizedDevices')
+            ->assertSeeText('notifications')
+            ->assertSeeText('unreadNotifications');
     }
 
     /**
      * @group index
      * @group crud
      */
+    public function testCannotIndexBecauseInvalidInclude()
+    {
+        Permission::create(['name' => 'view any users']);
+        $this->user->givePermissionTo('view any users');
+
+        $includes = [
+            'invalidinclude',
+        ];
+
+        $this
+            ->actingAs($this->user)
+            ->getJson(route('api.users.index') . '?include=' . implode(',', $includes))
+            ->assertStatus(400)
+            ->assertSeeText('Allowed include(s) are');
+    }
+
+    /**
+     * @group index
+     * @group crud
+     * @group unauthenticated
+     */
     public function testCannotIndexBecauseUnauthenticated()
     {
-        $this->getJson(route('api.users.index'))
+        $this
+            ->getJson(route('api.users.index'))
             ->assertStatus(401);
+    }
+
+    /**
+     * @group index
+     * @group crud
+     * @group unauthorized
+     */
+    public function testCannotIndexBecauseUnauthorized()
+    {
+        $this
+            ->actingAs($this->user)
+            ->getJson(route('api.users.index'))
+            ->assertStatus(403);
     }
 
     /**
@@ -102,7 +146,8 @@ class UserControllerTest extends TestCase
         factory(LoginHistory::class)->create(['user_id' => $user2->id]);
         factory(AuthorizedDevice::class)->create(['user_id' => $user2->id]);
 
-        $this->actingAs($this->user)
+        $this
+            ->actingAs($this->user)
             ->getJson(route('api.users.show', $user2->id) . '?include=' . implode(',', $includes))
             ->assertSuccessful()
             ->assertSeeText('profile')
@@ -113,12 +158,57 @@ class UserControllerTest extends TestCase
     }
 
     /**
+     * @group show
+     * @group crud
+     */
+    public function testCannotShowBecauseModelNotFound()
+    {
+        Permission::create(['name' => 'view users']);
+        $this->user->givePermissionTo('view users');
+
+        $this
+            ->actingAs($this->user)
+            ->getJson(route('api.users.show', Uuid::uuid4()->toString()))
+            ->assertStatus(404)
+            ->assertSeeText('The requested resource was not found');
+    }
+
+    /**
+     * @group show
+     * @group crud
+     * @group unauthenticated
+     */
+    public function testCannotShowBecauseUnauthenticated()
+    {
+        $this
+            ->getJson(route('api.users.show', $this->user->id))
+            ->assertStatus(401);
+    }
+
+    /**
+     * @group show
+     * @group crud
+     * @group unauthorized
+     */
+    public function testCannotShowBecauseUnauthorized()
+    {
+        $user2 = factory(User::class)->create();
+        factory(Profile::class)->create(['user_id' => $user2->id]);
+
+        $this
+            ->actingAs($this->user)
+            ->getJson(route('api.users.show', $user2->id))
+            ->assertStatus(403);
+    }
+
+    /**
      * @group update
      * @group crud
      */
     public function testUpdateMe()
     {
-        $this->actingAs($this->user)
+        $this
+            ->actingAs($this->user)
             ->patchJson(route('api.me.update'), [
                 'email' => 'test@test.com',
             ])
@@ -131,15 +221,17 @@ class UserControllerTest extends TestCase
     /**
      * @group update
      * @group crud
+     * @group unauthorized
      */
-    public function testCannotUpdateBecauseNotAllowed()
+    public function testCannotUpdateBecauseUnauthorized()
     {
         Permission::create(['name' => 'update users']);
 
         $user2 = factory(User::class)->create();
         factory(Profile::class)->create(['user_id' => $user2->id]);
 
-        $this->actingAs($this->user)
+        $this
+            ->actingAs($this->user)
             ->patchJson(route('api.users.update', $user2->id), [
                 'email' => 'test@test.com',
             ])
@@ -151,7 +243,8 @@ class UserControllerTest extends TestCase
      */
     public function testUpdatePassword()
     {
-        $this->actingAs($this->user)
+        $this
+            ->actingAs($this->user)
             ->patchJson(route('api.password.update'), [
                 'current_password'      => 'secretxxx',
                 'password'              => 'ksjd2ksdjf',
@@ -167,7 +260,8 @@ class UserControllerTest extends TestCase
      */
     public function testCannotUpdatePasswordBecauseCurrentPasswordIsInvalid()
     {
-        $this->actingAs($this->user)
+        $this
+            ->actingAs($this->user)
             ->patchJson(route('api.password.update'), [
                 'current_password'      => 'secret123',
                 'password'              => 'secretxxx',
@@ -182,7 +276,8 @@ class UserControllerTest extends TestCase
      */
     public function testCannotUpdatePasswordBecausePasswordIsTooShort()
     {
-        $this->actingAs($this->user)
+        $this
+            ->actingAs($this->user)
             ->patchJson(route('api.password.update'), [
                 'current_password'      => 'secretxxx',
                 'password'              => 'secret',
@@ -197,7 +292,8 @@ class UserControllerTest extends TestCase
      */
     public function testCannotUpdatePasswordBecausePasswordsNotMatch()
     {
-        $this->actingAs($this->user)
+        $this
+            ->actingAs($this->user)
             ->patchJson(route('api.password.update'), [
                 'current_password'      => 'secretxxx',
                 'password'              => 'secret1',

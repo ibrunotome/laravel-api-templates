@@ -2,6 +2,7 @@
 
 namespace Preferred\Domain\Users\Http\Resources;
 
+use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
@@ -9,10 +10,10 @@ use Illuminate\Http\Resources\Json\JsonResource;
  *
  * @package Preferred\Domain\Notifications\Http\Resources
  *
- * @property string    id
- * @property array     data
- * @property \DateTime read_at
- * @property \DateTime created_at
+ * @property string id
+ * @property array  data
+ * @property Carbon read_at
+ * @property Carbon created_at
  */
 class NotificationResource extends JsonResource
 {

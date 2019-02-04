@@ -18,13 +18,17 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property string browser_version
  * @property string city
  * @property string country_name
- * @property string authorized_at
+ * @property Carbon authorized_at
  * @property Carbon created_at
  */
 class AuthorizedDeviceResource extends JsonResource
 {
     public function toArray($request)
     {
+        if ($this->authorized_at instanceof Carbon) {
+            $this->authorized_at = $this->authorized_at->format('Y-m-d\TH:i:s');
+        }
+
         return [
             'id'              => $this->id,
             'browser'         => $this->browser,

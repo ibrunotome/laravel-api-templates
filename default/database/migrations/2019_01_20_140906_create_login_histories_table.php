@@ -14,8 +14,7 @@ class CreateLoginHistoriesTable extends Migration
     public function up()
     {
         Schema::create('login_histories', function (Blueprint $table) {
-            $table->uuid('id');
-            $table->primary('id');
+            $table->uuid('id')->primary();
 
             $table->string('device', 30)->nullable();
             $table->string('platform', 30)->nullable();
@@ -33,12 +32,10 @@ class CreateLoginHistoriesTable extends Migration
             $table->string('latitude', 20)->nullable();
             $table->string('longitude', 20)->nullable();
             $table->string('zipcode', 20)->nullable();
-            $table->timestamp('created_at', 6);
+            $table->timestamp('created_at');
 
-            $table->uuid('user_id');
+            $table->uuid('user_id')->index();
             $table->foreign('user_id')->references('id')->on('users');
-
-            $table->index('user_id');
         });
     }
 

@@ -14,8 +14,7 @@ class CreateAuthorizedDevicesTable extends Migration
     public function up()
     {
         Schema::create('authorized_devices', function (Blueprint $table) {
-            $table->uuid('id');
-            $table->primary('id');
+            $table->uuid('id')->primary();
 
             $table->string('device', 30);
             $table->string('platform', 30);
@@ -25,13 +24,12 @@ class CreateAuthorizedDevicesTable extends Migration
             $table->string('city', 30)->nullable();
             $table->string('country_name', 30)->nullable();
             $table->uuid('authorization_token');
-            $table->timestamp('authorized_at', 6)->nullable();
-            $table->timestamp('created_at', 6);
+            $table->timestamp('authorized_at')->nullable();
+            $table->timestamps();
+            $table->softDeletes();
 
-            $table->uuid('user_id');
+            $table->uuid('user_id')->index();
             $table->foreign('user_id')->references('id')->on('users');
-
-            $table->index('user_id');
         });
     }
 

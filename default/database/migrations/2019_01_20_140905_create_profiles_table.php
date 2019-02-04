@@ -14,8 +14,7 @@ class CreateProfilesTable extends Migration
     public function up()
     {
         Schema::create('profiles', function (Blueprint $table) {
-            $table->uuid('id');
-            $table->primary('id');
+            $table->uuid('id')->primary();
 
             $table->string('name');
             $table->string('anti_phishing_code', 20)->nullable();
@@ -25,7 +24,7 @@ class CreateProfilesTable extends Migration
             $table->string('google2fa_secret')->nullable();
             $table->text('google2fa_url')->nullable();
             $table->string('locale', 5)->default('en_US');
-            $table->timestamps(6);
+            $table->timestamps();
 
             $table->uuid('user_id')->unique();
             $table->foreign('user_id')->references('id')->on('users');

@@ -196,11 +196,11 @@ class ProfileControllerTest extends TestCase
     public function testCannotUpdateBecauseUnauthorized()
     {
         $user2 = factory(User::class)->create();
-        $profile2 = factory(Profile::class)->create(['user_id' => $user2->id]);
+        factory(Profile::class)->create(['user_id' => $user2->id]);
 
         $this
             ->actingAs($user2)
-            ->patchJson(route('api.profiles.update', $profile2->id), [
+            ->patchJson(route('api.profiles.update', $this->profile->id), [
                 'name'               => 'test',
                 'anti_phishing_code' => 'TEST'
             ])

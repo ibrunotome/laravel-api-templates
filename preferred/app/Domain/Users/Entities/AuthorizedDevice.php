@@ -4,6 +4,7 @@ namespace Preferred\Domain\Users\Entities;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Auditable;
 use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 
@@ -31,10 +32,13 @@ use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 class AuthorizedDevice extends Model implements AuditableContract
 {
     use Auditable;
+    use SoftDeletes;
 
     protected static $unguarded = true;
 
     public $incrementing = false;
+
+    protected $dates = ['deleted_at'];
 
     protected $keyType = 'string';
 

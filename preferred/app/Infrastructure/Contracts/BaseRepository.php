@@ -44,7 +44,7 @@ interface BaseRepository
      *
      * @throws ModelNotFoundException
      */
-    public function findOneBy(array $criteria);
+    public function findOneByCriteria(array $criteria);
 
     /**
      * Search All resources by criteria

@@ -21,6 +21,7 @@ class PasswordResetListener implements ShouldQueue
     {
         /** @var ProfileRepository $profileRepository */
         $profileRepository = app(ProfileRepository::class);
+
         $profileRepository->setNewEmailTokenConfirmation($event->user->id);
 
         Notification::send($event->user, new PasswordChangedNotification());

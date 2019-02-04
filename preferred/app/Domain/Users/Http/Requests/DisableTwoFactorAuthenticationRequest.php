@@ -24,7 +24,10 @@ class DisableTwoFactorAuthenticationRequest extends FormRequest
     public function rules()
     {
         return [
-            'password' => 'required|string',
+            'password' => [
+                'required',
+                'string'
+            ],
         ];
     }
 }

@@ -2,8 +2,11 @@
 
 namespace App\Models;
 
-use App\Scopes\OwnerGlobalScopeTrait;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use OwenIt\Auditing\Auditable;
+use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 
 /**
  * Class AuthorizedDevice
@@ -19,21 +22,29 @@ use Illuminate\Database\Eloquent\Model;
  * @property string    city
  * @property string    country_name
  * @property string    authorization_token
- * @property \DateTime authorized_at
- * @property \DateTime created_at
+ * @property Carbon    authorized_at
+ * @property Carbon    created_at
+ * @property Carbon    updated_at
  * @property string    user_id
  *
  * @property-read User user
  */
-class AuthorizedDevice extends Model
+class AuthorizedDevice extends Model implements AuditableContract
 {
-    use OwnerGlobalScopeTrait;
+    use Auditable;
+    use SoftDeletes;
 
-    const UPDATED_AT = null;
     protected static $unguarded = true;
+
     public $incrementing = false;
-    protected $dateFormat = 'Y-m-d H:i:s.u';
+
+    protected $dates = ['deleted_at'];
+
     protected $keyType = 'string';
+
+    protected $casts = [
+        'id' => 'string',
+    ];
 
     ################
     # Relationships

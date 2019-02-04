@@ -3,12 +3,14 @@
 namespace App\Providers;
 
 use App\Models\AuthorizedDevice;
+use App\Models\Company;
 use App\Models\LoginHistory;
 use App\Models\Permission;
 use App\Models\Profile;
 use App\Models\Role;
 use App\Models\User;
 use App\Policies\AuthorizedDevicePolicy;
+use App\Policies\CompanyPolicy;
 use App\Policies\LoginHistoryPolicy;
 use App\Policies\PermissionPolicy;
 use App\Policies\ProfilePolicy;
@@ -25,6 +27,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         AuthorizedDevice::class => AuthorizedDevicePolicy::class,
+        Company::class          => CompanyPolicy::class,
         LoginHistory::class     => LoginHistoryPolicy::class,
         User::class             => UserPolicy::class,
         Profile::class          => ProfilePolicy::class,

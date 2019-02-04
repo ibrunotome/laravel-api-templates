@@ -70,21 +70,6 @@ class LoginController extends Controller
     }
 
     /**
-     * Validate the user login request.
-     *
-     * @param  \Illuminate\Http\Request $request
-     *
-     * @return void
-     */
-    protected function validateLogin(Request $request)
-    {
-        $request->validate([
-            $this->username() => 'required|string',
-            'password'        => 'required|string',
-        ]);
-    }
-
-    /**
      * Attempt to log the user into the application.
      *
      * @param  \Illuminate\Http\Request $request
@@ -151,8 +136,8 @@ class LoginController extends Controller
             auth()->logout();
 
             $message = __(
-                'Your account has been disabled, to enable it again, please contact :support_url to start the process.',
-                ['support_url' => '<a href="' . config('app.support_url') . '">' . config('app.support_url') . '</a>']
+                'Your account has been disabled, to enable it again, please contact :support_link to start the process.',
+                ['support_link' => '<a href="' . config('app.support_url') . '">' . config('app.support_url') . '</a>']
             );
 
             throw new LockedException($message);
@@ -163,7 +148,7 @@ class LoginController extends Controller
     {
         if (!$user->hasVerifiedEmail()) {
             /** @var Profile $profile */
-            $profile = app(ProfileRepository::class)->with(['user'])->findOneBy(['user_id' => $user->id]);
+            $profile = app(ProfileRepository::class)->with(['user'])->findOneByCriteria(['user_id' => $user->id]);
 
             Notification::send($user, new VerifyEmailNotification($profile->email_token_confirmation));
 
@@ -211,6 +196,10 @@ class LoginController extends Controller
 
     private function checkIfIsDeviceIsAuthorized(User $user, array $data)
     {
+        if (!config('app.will_check_device_is_authorized')) {
+            return;
+        }
+
         /** @var AuthorizedDeviceService $authorizedDeviceService */
         $authorizedDeviceService = app(AuthorizedDeviceService::class);
 

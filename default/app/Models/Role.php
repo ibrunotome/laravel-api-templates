@@ -10,8 +10,6 @@ class Role extends \Spatie\Permission\Models\Role implements AuditableContract
     use Auditable;
 
     const ADMIN = 'Admin';
-    const TENANT = 'Tenant';
-    const CLIENT = 'Client';
 
     public $incrementing = false;
 

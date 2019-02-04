@@ -148,7 +148,7 @@ class LoginController extends Controller
     {
         if (!$user->hasVerifiedEmail()) {
             /** @var Profile $profile */
-            $profile = app(ProfileRepository::class)->with(['user'])->findOneBy(['user_id' => $user->id]);
+            $profile = app(ProfileRepository::class)->with(['user'])->findOneByCriteria(['user_id' => $user->id]);
 
             Notification::send($user, new VerifyEmailNotification($profile->email_token_confirmation));
 

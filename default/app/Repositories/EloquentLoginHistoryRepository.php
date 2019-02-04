@@ -8,7 +8,7 @@ class EloquentLoginHistoryRepository extends AbstractEloquentRepository implemen
 {
     public function loginsWithThisIpExists(array $data): bool
     {
-        return $this->model::query()
+        return $this->model->with([])
             ->where('user_id', '=', $data['user_id'])
             ->where('ip', '=', $data['ip'])
             ->exists();

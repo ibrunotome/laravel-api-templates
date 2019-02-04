@@ -18,17 +18,19 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
  *
  * @package App\Models
  *
- * @property string                id
- * @property string                email
- * @property bool                  is_active
- * @property string                email_verified_at
- * @property string                locale
- * @property \DateTime             created_at
- * @property \DateTime             updated_at
+ * @property string                    id
+ * @property string                    email
+ * @property bool                      is_active
+ * @property Carbon                    email_verified_at
+ * @property string                    locale
+ * @property Carbon                    created_at
+ * @property Carbon                    updated_at
  *
- * @property-read AuthorizedDevice authorizedDevices
- * @property-read LoginHistory     loginHistories
- * @property-read Profile          profile
+ * @property-read AuthorizedDevice     authorizedDevices
+ * @property-read LoginHistory         loginHistories
+ * @property-read Profile              profile
+ * @property-read DatabaseNotification notifications
+ * @property-read DatabaseNotification unreadNotificatinos
  */
 class User extends Authenticatable implements JWTSubject, AuditableContract, MustVerifyEmail
 {
@@ -38,14 +40,11 @@ class User extends Authenticatable implements JWTSubject, AuditableContract, Mus
 
     public $incrementing = false;
 
-    protected $dateFormat = 'Y-m-d H:i:s.u';
-
     protected $keyType = 'string';
 
     protected $casts = [
-        'id'                => 'string',
-        'is_active'         => 'boolean',
-        'email_verified_at' => 'datetime',
+        'id'        => 'string',
+        'is_active' => 'boolean',
     ];
 
     protected $fillable = [
@@ -108,24 +107,8 @@ class User extends Authenticatable implements JWTSubject, AuditableContract, Mus
 
     public function getLocaleAttribute()
     {
-        return $this->profile()->first()->locale;
+        return $this->profile()->first()->locale ?? null;
     }
-
-    public function getEmailVerifiedAtAttribute($value)
-    {
-        if (!empty($value)) {
-            $value = Carbon::parse($value);
-
-            $milliseconds = bcdiv($value->format('u'), 1000, 0);
-            return $value->format('Y-m-d\TH:i:s') . '.' . $milliseconds . 'Z';
-        }
-
-        return null;
-    }
-
-    ################
-    # Relationships
-    ################
 
     public function profile()
     {

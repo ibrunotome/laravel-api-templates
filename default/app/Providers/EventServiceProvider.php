@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Events\TwoFactorAuthenticationWasDisabled;
 use App\Listeners\Observers\AuditObserver;
 use App\Listeners\Observers\AuthorizedDeviceObserver;
+use App\Listeners\Observers\CompanyObserver;
 use App\Listeners\Observers\LoginHistoryObserver;
 use App\Listeners\Observers\PermissionObserver;
 use App\Listeners\Observers\ProfileObserver;
@@ -15,6 +16,7 @@ use App\Listeners\TwoFactorAuthenticationWasDisabledListener;
 use App\Listeners\UserRegisteredListener;
 use App\Models\Audit;
 use App\Models\AuthorizedDevice;
+use App\Models\Company;
 use App\Models\LoginHistory;
 use App\Models\Permission;
 use App\Models\Profile;
@@ -55,6 +57,7 @@ class EventServiceProvider extends ServiceProvider
         parent::boot();
 
         Audit::observe(AuditObserver::class);
+        Company::observe(CompanyObserver::class);
         User::observe(UserObserver::class);
         AuthorizedDevice::observe(AuthorizedDeviceObserver::class);
         LoginHistory::observe(LoginHistoryObserver::class);

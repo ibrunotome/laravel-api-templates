@@ -4,8 +4,6 @@ namespace Tests\Unit;
 
 use App\Models\AuthorizedDevice;
 use App\Models\User;
-use Illuminate\Support\Facades\Notification;
-use Illuminate\Support\Facades\Queue;
 use Tests\TestCase;
 
 class AuthorizedDeviceTest extends TestCase
@@ -16,9 +14,6 @@ class AuthorizedDeviceTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-
-        Queue::fake();
-        Notification::fake();
 
         $user = factory(User::class)->create();
         $this->authorizedDevice = factory(AuthorizedDevice::class)->make(['user_id' => $user->id]);

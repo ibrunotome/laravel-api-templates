@@ -10,6 +10,8 @@ use Preferred\Infrastructure\Support\TwoFactorAuthenticator;
 /**
  * Class ProfileResource
  *
+ * @package Preferred\Domain\Users\Http\Resources
+ *
  * @property string    id
  * @property string    anti_phishing_code
  * @property string    google2fa_enable

@@ -37,7 +37,7 @@ class TwoFactorAuthenticationController extends Controller
     public function generate2faSecret(Request $request)
     {
         /** @var Profile $profile */
-        $profile = $this->profileRepository->findOneBy(['user_id' => auth()->id()]);
+        $profile = $this->profileRepository->findOneByCriteria(['user_id' => auth()->id()]);
 
         $twoFactorAuthentication = new TwoFactorAuthenticator($request);
 
@@ -70,7 +70,7 @@ class TwoFactorAuthenticationController extends Controller
     public function enable2fa(EnableTwoFactorAuthenticationRequest $request)
     {
         /** @var Profile $profile */
-        $profile = $this->profileRepository->findOneBy(['user_id' => auth()->id()]);
+        $profile = $this->profileRepository->findOneByCriteria(['user_id' => auth()->id()]);
         $twoFactorAuthentication = new TwoFactorAuthenticator($request);
         $secret = $request->one_time_password;
         $valid = $twoFactorAuthentication->verifyKey($profile->google2fa_secret, $secret);
@@ -111,7 +111,7 @@ class TwoFactorAuthenticationController extends Controller
         }
 
         /** @var Profile $profile */
-        $profile = $this->profileRepository->findOneBy(['user_id' => auth()->id()]);
+        $profile = $this->profileRepository->findOneByCriteria(['user_id' => auth()->id()]);
 
         $profile->google2fa_enable = 0;
         $profile->google2fa_secret = null;

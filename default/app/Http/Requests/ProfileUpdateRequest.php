@@ -11,7 +11,7 @@ class ProfileUpdateRequest extends FormRequest
      */
     public function authorize()
     {
-        $id = $this->segment(2) == 'me' ? auth()->user()->profile->id : $this->segment(4);
+        $id = $this->segment(2) == 'me' ? auth()->user()->profile->id : $this->segment(3);
 
         return auth()->user()->can('update profiles') || $id === auth()->user()->profile->id;
     }

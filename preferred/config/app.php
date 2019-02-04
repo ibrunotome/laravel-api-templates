@@ -54,8 +54,9 @@ return [
 
     'url' => env('APP_URL', 'http://localhost'),
 
-    'support_url'   => env('SUPPORT_URL', 'http://localhost'),
-    'support_email' => env('SUPPORT_EMAIL', 'support@example.com'),
+    'support_url'                     => env('SUPPORT_URL', 'http://localhost'),
+    'support_email'                   => env('SUPPORT_EMAIL', 'support@example.com'),
+    'will_check_device_is_authorized' => env('WILL_CHECK_DEVICE_IS_AUTHORIZED', false),
 
     /*
     |--------------------------------------------------------------------------

@@ -62,11 +62,7 @@ class CompanyController extends Controller
      */
     public function store(CompanyCreateRequest $request)
     {
-        $data = $request->only([
-            'name',
-            'is_active',
-            'max_users',
-        ]);
+        $data = $request->only((new Company)->getFillable());
 
         $company = $this->companyRepository->store($data);
 
@@ -83,11 +79,7 @@ class CompanyController extends Controller
      */
     public function update(CompanyUpdateRequest $request, Company $company)
     {
-        $data = $request->only([
-            'name',
-            'is_active',
-            'max_users',
-        ]);
+        $data = $request->only((new Company)->getFillable());
 
         $company = $this->companyRepository->update($company, $data);
 
