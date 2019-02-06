@@ -4,6 +4,7 @@ namespace App\Http;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
 use Illuminate\Support\Collection;
 
 trait ResponseTrait
@@ -33,6 +34,19 @@ trait ResponseTrait
     protected function getTimestampInMilliseconds()
     {
         return (int)bcdiv(now()->format('Uu'), 1000, 0);
+    }
+
+    /**
+     * Return no content for delete requests (status 204)
+     *
+     * @return JsonResponse
+     */
+    public function respondWithNoContent()
+    {
+        return new JsonResponse([
+            'data' => null,
+            'meta' => ['timestamp' => $this->getTimestampInMilliseconds()]
+        ], Response::HTTP_NO_CONTENT);
     }
 
     /**

@@ -22,7 +22,7 @@ Route::group(['middleware' => 'guest'], function () {
         ->middleware('throttle:3,1')
         ->name('api.email.verify');
 
-    Route::post('devices/authorize/{token}', 'Auth\AuthorizeDeviceController@verify')
+    Route::post('devices/authorize/{token}', 'Auth\AuthorizeDeviceController@authorize')
         ->middleware('throttle:3,1')
         ->name('api.device.authorize');
 

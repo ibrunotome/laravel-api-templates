@@ -78,6 +78,8 @@
       "php artisan config:clear",
       "php artisan config:cache"
     ],
-    "test": "sed -i '$ d' /opt/php72/lib/php.ini && phpunit --no-coverage"
+    "test": "sed -i '$ d' /opt/php72/lib/php.ini && phpunit --no-coverage",
+    "lint": "phpcs",
+    "lint:fix": "phpcbf"
   }
 }

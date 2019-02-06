@@ -62,7 +62,7 @@ class RouteServiceProvider extends ServiceProvider
                     ->name('api.email.verify');
 
                 $router
-                    ->post('devices/authorize/{token}', 'AuthorizeDeviceController@verify')
+                    ->post('devices/authorize/{token}', 'AuthorizeDeviceController@authorize')
                     ->middleware('throttle:3,1')
                     ->name('api.device.authorize');
 

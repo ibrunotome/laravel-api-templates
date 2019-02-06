@@ -8,7 +8,14 @@ use Preferred\Interfaces\Http\Controllers\Controller;
 
 class AuthorizeDeviceController extends Controller
 {
-    public function verify($token)
+    /**
+     * Authorize the device.
+     *
+     * @param $token
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function authorize($token)
     {
         /** @var AuthorizedDevice $authorizedDevice */
         $authorizedDevice = AuthorizedDevice::with([])
@@ -28,14 +35,23 @@ class AuthorizeDeviceController extends Controller
         return $this->respondWithCustomData(['message' => $message], Response::HTTP_BAD_REQUEST);
     }
 
+    /**
+     * Destroy the device.
+     *
+     * @param $id
+     *
+     * @return array|\Illuminate\Http\JsonResponse
+     */
     public function destroy($id)
     {
-        $model = AuthorizedDevice::with([])->findOrFail($id);
+        $model = AuthorizedDevice::with([])
+            ->where('user_id', '=', auth()->id())
+            ->findOrFail($id);
 
         try {
             $model->delete();
 
-            return $this->respondWithCustomData(['message' => __('Successfully deleted')], Response::HTTP_NO_CONTENT);
+            return $this->respondWithNoContent();
         } catch (\Exception $exception) {
             return [
                 'error'   => true,
