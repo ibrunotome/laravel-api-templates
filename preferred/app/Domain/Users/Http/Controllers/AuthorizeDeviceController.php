@@ -15,7 +15,7 @@ class AuthorizeDeviceController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function authorize($token)
+    public function authorizeDevice($token)
     {
         /** @var AuthorizedDevice $authorizedDevice */
         $authorizedDevice = AuthorizedDevice::with([])
