@@ -80,7 +80,7 @@ class UserController extends Controller
             $cacheKey = implode($with) . $user->id;
 
             $user = Cache::tags($cacheTag)->remember($cacheKey, 60, function () use ($with, $user) {
-                return $this->userRepository->with($with)->findOneById($user->id);
+                return $user->load($with);
             });
         }
 
@@ -111,7 +111,7 @@ class UserController extends Controller
      */
     public function update(UserUpdateRequest $request, User $user)
     {
-        $data = $request->only(['email']);
+        $data = $request->only(array_keys((new UserUpdateRequest)->rules()));
         $response = $this->userRepository->update($user, $data);
 
         return $this->respondWithItem($response);
