@@ -4,14 +4,21 @@ A Laravel API starter kit collection for your projects
 
 [![Build Status](https://semaphoreci.com/api/v1/ibrunotome/laravel-api-templates/branches/master/badge.svg)](https://semaphoreci.com/ibrunotome/laravel-api-templates)
 
-<img width="983" src="https://user-images.githubusercontent.com/4256471/52186144-9a99cc80-280c-11e9-8184-9193128655c2.png">
-<img width="983" src="https://user-images.githubusercontent.com/4256471/52179547-1f5ff880-27c3-11e9-87aa-f9d6397e8a28.png">
-<img width="983" src="https://user-images.githubusercontent.com/4256471/52179542-17a05400-27c3-11e9-8d07-79f28b351990.png">
+<img width="100%" src="https://user-images.githubusercontent.com/4256471/52186144-9a99cc80-280c-11e9-8184-9193128655c2.png">
+
+<img width="100%" src="https://user-images.githubusercontent.com/4256471/52179547-1f5ff880-27c3-11e9-87aa-f9d6397e8a28.png">
+
+<img width="100%" src="https://user-images.githubusercontent.com/4256471/52179542-17a05400-27c3-11e9-8d07-79f28b351990.png">
+
+## Email layout
+
+<img width="100%" alt="screenshot 2019-02-07 08 26 51" src="https://user-images.githubusercontent.com/4256471/52482466-72a5c280-2b98-11e9-9da6-35dbb791e157.png">
 
 ## Features
 
 - 2FA
 - ACL
+- Anti Phishing Code on email
 - Audit
 - CORS
 - Device authorization
@@ -28,6 +35,11 @@ A Laravel API starter kit collection for your projects
 - Swoole
 - Tests
 - uuid
+
+Soon:
+
+- Job example
+- Schedule example
 
 ## Database structure
 
