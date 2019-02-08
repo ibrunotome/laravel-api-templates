@@ -10,6 +10,10 @@ A Laravel API starter kit collection for your projects
 
 <img width="100%" src="https://user-images.githubusercontent.com/4256471/52179542-17a05400-27c3-11e9-8d07-79f28b351990.png">
 
+- Run tests with `composer test`
+- Run "lint" (phpcs) with `composer lint`
+- Run "lint:fix" (phpcbf) with `composer lint:fix`
+
 ## Email layout
 
 <img width="100%" alt="screenshot 2019-02-07 08 26 51" src="https://user-images.githubusercontent.com/4256471/52482466-72a5c280-2b98-11e9-9da6-35dbb791e157.png">
@@ -43,8 +47,8 @@ Soon:
 
 ## Database structure
 
-<img width="1075" src="https://user-images.githubusercontent.com/4256471/52179332-42d57400-27c0-11e9-9b10-3fbdb81f1e9e.png">
+<img width="100%" src="https://user-images.githubusercontent.com/4256471/52179332-42d57400-27c0-11e9-9b10-3fbdb81f1e9e.png">
 
 ## Routes
 
-<img width="1311" src="https://user-images.githubusercontent.com/4256471/52179342-6698ba00-27c0-11e9-8ca3-775609df8292.png">
+<img width="100%" src="https://user-images.githubusercontent.com/4256471/52179342-6698ba00-27c0-11e9-8ca3-775609df8292.png">
