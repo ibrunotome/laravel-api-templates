@@ -10,7 +10,7 @@ class CnpjRuleTest extends TestCase
     /** @var CnpjRule */
     private $rule;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

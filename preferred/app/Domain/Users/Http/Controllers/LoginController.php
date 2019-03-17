@@ -40,7 +40,7 @@ class LoginController extends Controller
     {
         $userId = str_replace('private-users.', '', $request->get('channel_name'));
 
-        $user = Cache::remember($userId, 60, function () use ($userId) {
+        $user = Cache::remember($userId, 3600, function () use ($userId) {
             return User::with([])->find($userId);
         });
 

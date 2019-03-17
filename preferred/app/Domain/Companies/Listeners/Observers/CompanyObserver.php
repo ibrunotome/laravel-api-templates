@@ -17,7 +17,7 @@ class CompanyObserver implements TransactionalEvent
 
     public function updated(Company $company)
     {
-        Cache::put($company->id, $company, 60);
+        Cache::put($company->id, $company, 3600);
         Cache::tags('companies')->flush();
     }
 }

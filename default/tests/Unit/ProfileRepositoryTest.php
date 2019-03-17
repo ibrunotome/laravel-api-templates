@@ -18,7 +18,7 @@ class ProfileRepositoryTest extends TestCase
     /** @var ProfileRepository */
     private $profileRepository;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

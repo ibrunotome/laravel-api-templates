@@ -12,7 +12,7 @@ class ProfileTest extends TestCase
     /** @var Profile */
     private $profile;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

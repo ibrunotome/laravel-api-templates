@@ -80,7 +80,7 @@ abstract class AbstractEloquentRepository implements BaseRepository
             return $this->findOneByCriteria(['id' => $id]);
         }
 
-        return Cache::remember($id, 60, function () use ($id) {
+        return Cache::remember($id, 3600, function () use ($id) {
             return $this->findOneByCriteria(['id' => $id]);
         });
     }

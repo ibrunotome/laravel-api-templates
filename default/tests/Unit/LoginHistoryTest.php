@@ -11,7 +11,7 @@ class LoginHistoryTest extends TestCase
     /** @var LoginHistory */
     private $loginHistory;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

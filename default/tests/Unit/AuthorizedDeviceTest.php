@@ -11,7 +11,7 @@ class AuthorizedDeviceTest extends TestCase
     /** @var AuthorizedDevice */
     private $authorizedDevice;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

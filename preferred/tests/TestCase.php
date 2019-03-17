@@ -14,7 +14,7 @@ abstract class TestCase extends BaseTestCase
     use CreatesApplication;
     use RefreshDatabase;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 

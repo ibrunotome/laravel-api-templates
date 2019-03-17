@@ -33,7 +33,7 @@ class CompanyController extends Controller
         $cacheTag = 'companies';
         $cacheKey = 'companies:' . auth()->id() . json_encode(request()->all());
 
-        $collection = Cache::tags($cacheTag)->remember($cacheKey, 60, function () {
+        $collection = Cache::tags($cacheTag)->remember($cacheKey, 3600, function () {
             return $this->companyRepository->findByFilters();
         });
 
@@ -61,7 +61,7 @@ class CompanyController extends Controller
      */
     public function store(CompanyCreateRequest $request)
     {
-        $data = $request->only((new Company)->getFillable());
+        $data = $request->only(array_keys($request->rules()));
 
         $company = $this->companyRepository->store($data);
 
@@ -78,7 +78,7 @@ class CompanyController extends Controller
      */
     public function update(CompanyUpdateRequest $request, Company $company)
     {
-        $data = $request->only((new Company)->getFillable());
+        $data = $request->only(array_keys($request->rules()));
 
         $company = $this->companyRepository->update($company, $data);
 

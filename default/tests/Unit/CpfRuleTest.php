@@ -10,7 +10,7 @@ class CpfRuleTest extends TestCase
     /** @var CpfRule */
     private $rule;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

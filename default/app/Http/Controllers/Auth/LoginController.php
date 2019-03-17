@@ -40,7 +40,7 @@ class LoginController extends Controller
     {
         $userId = str_replace('private-users.', '', $request->get('channel_name'));
 
-        $user = Cache::remember($userId, 60, function () use ($userId) {
+        $user = Cache::remember($userId, 3600, function () use ($userId) {
             return User::with([])->find($userId);
         });
 
@@ -171,27 +171,49 @@ class LoginController extends Controller
         $agent->setUserAgent($request->userAgent());
         $agent->setHttpHeaders($request->headers);
 
-        $ipstack = new Ipstack($request->ip());
+        try {
+            $ipstack = new Ipstack($request->ip());
 
-        return [
-            'user_id'          => auth()->id(),
-            'ip'               => $request->ip(),
-            'device'           => $agent->device(),
-            'platform'         => $agent->platform(),
-            'platform_version' => $agent->version($agent->platform()),
-            'browser'          => $agent->browser(),
-            'browser_version'  => $agent->version($agent->browser()),
-            'city'             => $ipstack->city(),
-            'region_code'      => $ipstack->regionCode(),
-            'region_name'      => $ipstack->region(),
-            'country_code'     => $ipstack->countryCode(),
-            'country_name'     => $ipstack->country(),
-            'continent_code'   => $ipstack->continentCode(),
-            'continent_name'   => $ipstack->continent(),
-            'latitude'         => $ipstack->latitude(),
-            'longitude'        => $ipstack->longitude(),
-            'zipcode'          => $ipstack->zip(),
-        ];
+            return [
+                'user_id'          => auth()->id(),
+                'ip'               => $request->ip(),
+                'device'           => $agent->device(),
+                'platform'         => $agent->platform(),
+                'platform_version' => $agent->version($agent->platform()),
+                'browser'          => $agent->browser(),
+                'browser_version'  => $agent->version($agent->browser()),
+                'city'             => $ipstack->city() ?? null,
+                'region_code'      => $ipstack->regionCode() ?? null,
+                'region_name'      => $ipstack->region() ?? null,
+                'country_code'     => $ipstack->countryCode() ?? null,
+                'country_name'     => $ipstack->country() ?? null,
+                'continent_code'   => $ipstack->continentCode() ?? null,
+                'continent_name'   => $ipstack->continent() ?? null,
+                'latitude'         => $ipstack->latitude() ?? null,
+                'longitude'        => $ipstack->longitude() ?? null,
+                'zipcode'          => $ipstack->zip() ?? null,
+            ];
+        } catch (\Exception $exception) {
+            return [
+                'user_id'          => auth()->id(),
+                'ip'               => $request->ip(),
+                'device'           => $agent->device(),
+                'platform'         => $agent->platform(),
+                'platform_version' => $agent->version($agent->platform()),
+                'browser'          => $agent->browser(),
+                'browser_version'  => $agent->version($agent->browser()),
+                'city'             => null,
+                'region_code'      => null,
+                'region_name'      => null,
+                'country_code'     => null,
+                'country_name'     => null,
+                'continent_code'   => null,
+                'continent_name'   => null,
+                'latitude'         => null,
+                'longitude'        => null,
+                'zipcode'          => null,
+            ];
+        }
     }
 
     private function checkIfIsDeviceIsAuthorized(User $user, array $data)

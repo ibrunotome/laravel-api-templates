@@ -34,7 +34,7 @@ class CompanyController extends Controller
         $cacheTag = 'companies';
         $cacheKey = 'companies:' . auth()->id() . json_encode(request()->all());
 
-        $collection = Cache::tags($cacheTag)->remember($cacheKey, 60, function () {
+        $collection = Cache::tags($cacheTag)->remember($cacheKey, 3600, function () {
             return $this->companyRepository->findByFilters();
         });
 

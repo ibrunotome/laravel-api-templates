@@ -18,7 +18,7 @@ class UserObserver implements TransactionalEvent
     public function updated(User $user)
     {
         if ($user->is_active) {
-            Cache::put($user->id, $user, 60);
+            Cache::put($user->id, $user, 3600);
         } else {
             Cache::forget($user->id);
         }

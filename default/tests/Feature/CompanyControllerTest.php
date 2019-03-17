@@ -16,7 +16,7 @@ class CompanyControllerTest extends TestCase
     /** @var Company */
     private $company;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

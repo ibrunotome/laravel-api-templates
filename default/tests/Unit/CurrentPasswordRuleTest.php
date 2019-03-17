@@ -14,7 +14,7 @@ class CurrentPasswordRuleTest extends TestCase
     /** @var User */
     private $user;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

@@ -10,7 +10,7 @@ class WeakPasswordRuleTest extends TestCase
     /** @var WeakPasswordRule */
     private $rule;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

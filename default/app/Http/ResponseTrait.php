@@ -33,7 +33,7 @@ trait ResponseTrait
 
     protected function getTimestampInMilliseconds()
     {
-        return (int)bcdiv(now()->format('Uu'), 1000, 0);
+        return intdiv(now()->format('Uu'), 1000);
     }
 
     /**

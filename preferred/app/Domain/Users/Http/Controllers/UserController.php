@@ -35,7 +35,7 @@ class UserController extends Controller
         $cacheTag = 'users';
         $cacheKey = 'users:' . auth()->id() . json_encode(request()->all());
 
-        $collection = Cache::tags($cacheTag)->remember($cacheKey, 60, function () {
+        $collection = Cache::tags($cacheTag)->remember($cacheKey, 3600, function () {
             return $this->userRepository->findByFilters();
         });
 
@@ -80,7 +80,7 @@ class UserController extends Controller
             $cacheTag = 'users';
             $cacheKey = implode($with) . $user->id;
 
-            $user = Cache::tags($cacheTag)->remember($cacheKey, 60, function () use ($with, $user) {
+            $user = Cache::tags($cacheTag)->remember($cacheKey, 3600, function () use ($with, $user) {
                 return $user->load($with);
             });
         }
