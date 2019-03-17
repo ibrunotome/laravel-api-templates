@@ -28,7 +28,7 @@ A Laravel API starter kit collection for your projects
 - Device authorization
 - Etag
 - Horizon
-- Laravel 5.7
+- Laravel 5.8
 - Login
 - Login history
 - Multiple localizations
