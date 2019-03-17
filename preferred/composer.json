@@ -17,6 +17,7 @@
     "brick/math": "0.8.*",
     "fideloper/proxy": "4.1.*",
     "fntneves/laravel-transactional-events": "1.8.*",
+    "hhxsv5/laravel-s": "v3.4.1",
     "ibrunotome/google2fa-laravel": "1.0.*",
     "jenssegers/agent": "2.6.*",
     "laravel/framework": "5.8.*",
@@ -28,7 +29,6 @@
     "spatie/laravel-permission": "2.36.*",
     "spatie/laravel-query-builder": "1.17.*",
     "sudiptpa/ipstack": "1.3.*",
-    "swooletw/laravel-swoole": "^2.6.0",
     "tymon/jwt-auth": "dev-develop"
   },
   "require-dev": {

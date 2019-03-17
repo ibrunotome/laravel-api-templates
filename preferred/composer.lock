@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-  "content-hash": "ece2d0895c1407e984c709591ce029bd",
+  "content-hash": "078d33e97e76ebcd28f95fa7ed3580f4",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -826,6 +826,77 @@
             "time": "2018-12-04T20:46:45+00:00"
         },
         {
+          "name": "hhxsv5/laravel-s",
+          "version": "v3.4.1",
+          "source": {
+            "type": "git",
+            "url": "https://github.com/hhxsv5/laravel-s.git",
+            "reference": "72bb3f556abd4f63a70f1a080b3af59a2f4bffc0"
+          },
+          "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/hhxsv5/laravel-s/zipball/72bb3f556abd4f63a70f1a080b3af59a2f4bffc0",
+            "reference": "72bb3f556abd4f63a70f1a080b3af59a2f4bffc0",
+            "shasum": ""
+          },
+          "require": {
+            "ext-json": "*",
+            "php": ">=5.5.9",
+            "symfony/console": ">=2.7.0"
+          },
+          "suggest": {
+            "ext-inotify": "Inotify, used to reload all worker processes when your code is modified.",
+            "ext-swoole": "Event-driven asynchronous & concurrent & coroutine networking engine with high performance for PHP, require >= 1.7.19."
+          },
+          "bin": [
+            "bin/fswatch"
+          ],
+          "type": "library",
+          "extra": {
+            "laravel": {
+              "providers": [
+                "Hhxsv5\\LaravelS\\Illuminate\\LaravelSServiceProvider"
+              ]
+            }
+          },
+          "autoload": {
+            "psr-4": {
+              "Hhxsv5\\LaravelS\\": "src"
+            }
+          },
+          "notification-url": "https://packagist.org/downloads/",
+          "license": [
+            "MIT"
+          ],
+          "authors": [
+            {
+              "name": "Xie Biao",
+              "email": "hhxsv5@sina.com"
+            }
+          ],
+          "description": "🚀LaravelS is a glue that is used to quickly integrate Swoole into Laravel or Lumen and then give them better performance and more possibilities.",
+          "homepage": "https://github.com/hhxsv5/laravel-s",
+          "keywords": [
+            "async",
+            "coroutine",
+            "http",
+            "inotify",
+            "laravel",
+            "laravel-s",
+            "lumen",
+            "performance",
+            "process",
+            "server",
+            "swoole",
+            "task",
+            "tcp",
+            "timer",
+            "udp",
+            "websocket"
+          ],
+          "time": "2019-03-17T11:01:32+00:00"
+        },
+      {
             "name": "ibrunotome/google2fa-laravel",
             "version": "v1.0.2",
             "source": {
@@ -3021,84 +3092,6 @@
                 "mailer"
             ],
           "time": "2019-03-10T07:52:41+00:00"
-        },
-        {
-            "name": "swooletw/laravel-swoole",
-          "version": "v2.6.5.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/swooletw/laravel-swoole.git",
-              "reference": "0f716e22c41eedf49853976b57b2a867d1be039c"
-            },
-            "dist": {
-                "type": "zip",
-              "url": "https://api.github.com/repos/swooletw/laravel-swoole/zipball/0f716e22c41eedf49853976b57b2a867d1be039c",
-              "reference": "0f716e22c41eedf49853976b57b2a867d1be039c",
-                "shasum": ""
-            },
-            "require": {
-              "illuminate/console": "~5.4",
-              "illuminate/contracts": "~5.4",
-              "illuminate/http": "~5.4",
-              "illuminate/support": "~5.4",
-                "php": "^7.2",
-                "predis/predis": "^1.1"
-            },
-            "require-dev": {
-                "codedungeon/phpunit-result-printer": "^0.14.0",
-              "laravel/lumen-framework": "~5.4",
-                "mockery/mockery": "~1.0",
-                "php-coveralls/php-coveralls": "^2.1",
-                "php-mock/php-mock": "^2.0",
-                "phpunit/php-code-coverage": "^6.1",
-                "phpunit/phpunit": "^7.5"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "SwooleTW\\Http\\LaravelServiceProvider"
-                    ],
-                    "aliases": {
-                        "Server": "SwooleTW\\Http\\Server\\Facades\\Server",
-                        "Table": "SwooleTW\\Http\\Server\\Facades\\Table",
-                        "Room": "SwooleTW\\Http\\Websocket\\Facades\\Room",
-                        "Websocket": "SwooleTW\\Http\\Websocket\\Facades\\Websocket"
-                    }
-                }
-            },
-            "autoload": {
-                "files": [
-                    "src/Server/helpers.php"
-                ],
-                "psr-4": {
-                    "SwooleTW\\Http\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Huang Yi",
-                    "email": "coodeer@163.com"
-                },
-                {
-                    "name": "Albert Chen",
-                    "email": "albert@unisharp.com"
-                }
-            ],
-            "description": "High performance HTTP server based on Swoole. Speed up your Laravel and Lumen applications.",
-            "keywords": [
-                "http",
-                "laravel",
-                "lumen",
-                "performance",
-                "server",
-                "swoole"
-            ],
-          "time": "2019-03-09T08:55:55+00:00"
         },
         {
             "name": "symfony/console",

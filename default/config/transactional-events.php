@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'enable' => true,
+    'enable' => false,
 
     'transactional' => [],
 

@@ -12,10 +12,7 @@ services:
       - DOCUMENT_ROOT=/app/public
       - DISABLE_FUNCTIONS=
       - SKIP_LOCKDOWN_DOCUMENT_ROOT=true
-      - OPCACHE_VALIDATE_TIMESTAMPS=1
-      - OPCACHE_FILE_UPDATE_PROTECTION=1
       - OPCACHE_SAVE_COMMENTS=1
-      - OPCACHE_ENABLE_FILE_OVERRIDE=0
     volumes:
       - .:/app
     depends_on:

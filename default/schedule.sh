@@ -1,6 +1,15 @@
 #!/bin/bash
 
-topofminute() {
+if [[ "$APP_ENV" = "production" ]]; then
+    chmod -R 755 bootstrap/cache
+    chmod -R 755 storage
+    rm -r bootstrap/cache/*.php
+    php artisan config:cache
+    php artisan route:cache
+    chown -R www-data.www-data ./
+fi
+
+loop() {
 	local now;
 
 	while true; do
@@ -15,4 +24,4 @@ topofminute() {
 	done
 }
 
-topofminute php artisan schedule:run
+loop php artisan schedule:run

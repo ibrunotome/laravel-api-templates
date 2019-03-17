@@ -8,7 +8,7 @@ RUN apt-get update -y
 RUN apt-get install unzip -y
 RUN apt-get install autoconf -y
 RUN apt-get install build-essential -y
-RUN pecl install swoole
+RUN pecl install swoole-4.2.13
 
 COPY . $APP_DIR
 RUN chown -R www-data.www-data $APP_DIR
