@@ -3,6 +3,8 @@
 /public/hot
 /public/storage
 /storage/*.key
+/storage/*.json
+/storage/*.pid
 /vendor
 .env
 .phpunit.result.cache
