@@ -32,14 +32,15 @@ class NotificationsTest extends TestCase
         $token = Uuid::uuid4();
         $notification = new VerifyEmailNotification($token);
         $this->assertEquals('notifications', $notification->queue);
-        $this->assertContains('Confirm your registration', $notification->toMail($this->user)->subject);
+        $this->assertStringContainsString('Confirm your registration', $notification->toMail($this->user)->subject);
     }
 
     public function testTwoFactorAuthenticationWasDisabledNotification()
     {
         $notification = new TwoFactorAuthenticationWasDisabledNotification();
         $this->assertEquals('notifications', $notification->queue);
-        $this->assertContains('Two Factor Authentication Disabled', $notification->toMail($this->user)->subject);
+        $this->assertStringContainsString('Two Factor Authentication Disabled',
+            $notification->toMail($this->user)->subject);
     }
 
     public function testSuccessfulLoginFromIpNotification()
@@ -66,7 +67,7 @@ class NotificationsTest extends TestCase
 
         $notification = new SuccessfulLoginFromIpNotification($mock);
         $this->assertEquals('notifications', $notification->queue);
-        $this->assertContains('Successful Login From New IP', $notification->toMail($this->user)->subject);
+        $this->assertStringContainsString('Successful Login From New IP', $notification->toMail($this->user)->subject);
     }
 
     public function testResetPasswordNotification()
@@ -75,21 +76,21 @@ class NotificationsTest extends TestCase
         $notification = new ResetPasswordNotification($token);
         $this->assertEquals('notifications', $notification->queue);
         $this->assertEquals($token, $notification->token);
-        $this->assertContains('Reset password', $notification->toMail($this->user)->subject);
+        $this->assertStringContainsString('Reset password', $notification->toMail($this->user)->subject);
     }
 
     public function testPasswordChangedNotification()
     {
         $notification = new PasswordChangedNotification();
         $this->assertEquals('notifications', $notification->queue);
-        $this->assertContains('Password Changed', $notification->toMail($this->user)->subject);
+        $this->assertStringContainsString('Password Changed', $notification->toMail($this->user)->subject);
     }
 
     public function testAccountDisabledNotification()
     {
         $notification = new AccountDisabledNotification();
         $this->assertEquals('notifications', $notification->queue);
-        $this->assertContains('Account disabled', $notification->toMail($this->user)->subject);
+        $this->assertStringContainsString('Account disabled', $notification->toMail($this->user)->subject);
     }
 
     public function testAuthorizeDeviceNotification()
@@ -110,6 +111,6 @@ class NotificationsTest extends TestCase
 
         $notification = new AuthorizeDeviceNotification($mock);
         $this->assertEquals('notifications', $notification->queue);
-        $this->assertContains('Authorize New Device', $notification->toMail($this->user)->subject);
+        $this->assertStringContainsString('Authorize New Device', $notification->toMail($this->user)->subject);
     }
 }

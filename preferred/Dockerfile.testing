@@ -30,4 +30,8 @@ libpq-dev \
 ENTRYPOINT ["/build-scripts/entrypoint.sh"]
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
 
+# Option to install xdebug
+RUN pecl install xdebug \
+&& echo "zend_extension=/opt/php72/lib/x86_64-linux-gnu/extensions/no-debug-non-zts-20170718/xdebug.so" >> /opt/php72/lib/php.ini;
+
 EXPOSE 8080

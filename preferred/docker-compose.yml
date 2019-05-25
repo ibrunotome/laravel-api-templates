@@ -3,83 +3,45 @@ services:
   app:
     build:
       context: .
-      args:
-        - ENABLE_XDEBUG=${ENABLE_XDEBUG}
     container_name: preferred-api-app
     ports:
-      - 80:8080
+    - 80:8080
     environment:
-      - DOCUMENT_ROOT=/app/public
-      - DISABLE_FUNCTIONS=
-      - SKIP_LOCKDOWN_DOCUMENT_ROOT=true
-      - OPCACHE_SAVE_COMMENTS=1
+    - DOCUMENT_ROOT=/app/public
+    - SKIP_LOCKDOWN_DOCUMENT_ROOT=true
+    - OPCACHE_SAVE_COMMENTS=1
+    - OPCACHE_VALIDATE_TIMESTAMPS=1
     volumes:
-      - .:/app
+    - .:/app
     depends_on:
-      - pgsql
-      - pgsql-tests
-      - redis-default
-      - redis-cache
-    networks:
-      - preferred-api
+    - pgsql
+    - redis
 
   pgsql:
-    image: postgres:10.4-alpine
+    image: launcher.gcr.io/google/postgresql11
     container_name: preferred-api-pgsql
     ports:
-      - 5433:5432
+    - 5432:5432
     environment:
       POSTGRES_DB: preferred
       POSTGRES_USER: preferred
       POSTGRES_PASSWORD: preferred
     volumes:
-      - preferred-pgsql:/var/lib/postgresql/data
-    networks:
-      - preferred-api
+    - preferred-pgsql:/var/lib/postgresql/data
 
-  pgsql-tests:
-    image: postgres:10.4-alpine
-    container_name: preferred-api-pgsql-tests
-    ports:
-      - 5434:5432
-    environment:
-      POSTGRES_DB: preferred_tests
-      POSTGRES_USER: preferred_tests
-      POSTGRES_PASSWORD: preferred_tests
+  redis:
+    image: launcher.gcr.io/google/redis4
+    container_name: preferred-api-redis
     volumes:
-      - preferred-pgsql-tests:/var/lib/postgresql/data
-    networks:
-      - preferred-api
-
-  redis-default:
-    image: redis:4.0.11
-    container_name: preferred-api-redis-default
-    volumes:
-      - preferred-redis-default:/data
+    - preferred-redis:/data
     ports:
-      - 6377:6379
-    networks:
-      - preferred-api
-
-  redis-cache:
-    image: redis:4.0.11
-    container_name: preferred-api-redis-cache
-    volumes:
-      - preferred-redis-cache:/data
-    ports:
-      - 6378:6379
-    networks:
-      - preferred-api
+    - 6379:6379
 
 networks:
-  preferred-api:
-    driver: bridge
+  default:
+    name: preferred-api_default
 volumes:
   preferred-pgsql:
     driver: local
-  preferred-pgsql-tests:
-    driver: local
-  preferred-redis-default:
-    driver: local
-  preferred-redis-cache:
+  preferred-redis:
     driver: local
