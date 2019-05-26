@@ -254,6 +254,8 @@ class UserControllerTest extends TestCase
             ])
             ->assertSuccessful();
 
+        $this->user->refresh();
+
         $this->assertTrue(Hash::check('ksjd2ksdjf', $this->user->password));
     }
 

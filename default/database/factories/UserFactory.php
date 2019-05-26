@@ -10,6 +10,7 @@ $factory->define(App\Models\User::class, function (Faker $faker) {
         'password'          => bcrypt('secretxxx'),
         'is_active'         => 1,
         'email_verified_at' => now(),
+        'locale'            => 'en_US',
     ];
 });
 

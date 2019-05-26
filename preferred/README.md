@@ -8,10 +8,6 @@ from the core to even the tests, is done directly on each domain.
 
 <img width="297" src="https://user-images.githubusercontent.com/4256471/51738258-d8ad2880-2075-11e9-8920-07b2d36889da.png">
 
-## Database structure
-
-<img width="1075" src="https://user-images.githubusercontent.com/4256471/52179332-42d57400-27c0-11e9-9b10-3fbdb81f1e9e.png">
-
 ## Routes
 
-<img width="1311" src="https://user-images.githubusercontent.com/4256471/52179342-6698ba00-27c0-11e9-8ca3-775609df8292.png">
+<img width="1440" alt="Screen Shot 2019-05-26 at 18 15 12" src="https://user-images.githubusercontent.com/4256471/58387250-34ff6500-7fe2-11e9-8a13-6fa3c2cc7632.png">

@@ -18,6 +18,7 @@ class UserFactory extends ModelFactory
             'password'          => bcrypt('secretxxx'),
             'is_active'         => true,
             'email_verified_at' => now(),
+            'locale'            => 'en_US',
         ];
     }
 

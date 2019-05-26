@@ -23,11 +23,13 @@ class DisableAccountController extends Controller
         $response = $this->disableAccountService->handle($token);
 
         if (!empty($response['error'])) {
+            $supportUrl = config('app.support_url');
+
             return $this->respondWithCustomData([
                 'message' => __(
                     'We could not disable your account, please try again or enter in contact with the :support_link',
                     [
-                        'support_link' => '<a href="' . config('app.support_url') . '">' . config('app.support_url') . '</a>',
+                        'support_link' => '<a href="' . $supportUrl . '">' . $supportUrl . '</a>',
                     ]
                 ),
             ], Response::HTTP_BAD_REQUEST);

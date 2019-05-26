@@ -44,7 +44,8 @@ class DisableAccountService
         } catch (\Exception $exception) {
             return [
                 'error'   => true,
-                'message' => __('We could not disable your account, please try again or enter in contact with the support'),
+                'message' => __('We could not disable your account, please try again or enter in contact with the ' .
+                    'support'),
             ];
         }
     }

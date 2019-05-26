@@ -4,9 +4,9 @@ A Laravel API starter kit collection for your projects
 
 [![Build Status](https://semaphoreci.com/api/v1/ibrunotome/laravel-api-templates/branches/master/badge.svg)](https://semaphoreci.com/ibrunotome/laravel-api-templates)
 
-<img width="100%" src="https://user-images.githubusercontent.com/4256471/52186144-9a99cc80-280c-11e9-8184-9193128655c2.png">
+<img width="100%" alt="Screen Shot 2019-05-26 at 18 17 08" src="https://user-images.githubusercontent.com/4256471/58387277-7b54c400-7fe2-11e9-8f1b-9e78e6cf3205.png">
 
-<img width="100%" alt="Screen Shot 2019-05-26 at 11 34 56" src="https://user-images.githubusercontent.com/4256471/58383209-4dec2400-7faa-11e9-8346-0d8fe90c917d.png">
+<img width="100%" alt="Screenshot 2019-05-26 18 07 03" src="https://user-images.githubusercontent.com/4256471/58387178-177dcb80-7fe1-11e9-90ec-d1ec120ef4c4.png">
 
 <img width="100%" alt="Screen Shot 2019-05-26 at 11 29 40" src="https://user-images.githubusercontent.com/4256471/58383155-8e976d80-7fa9-11e9-9241-9a1e098e91e6.png">
 
@@ -54,8 +54,8 @@ Soon:
 
 ## Database structure
 
-<img width="100%" src="https://user-images.githubusercontent.com/4256471/52179332-42d57400-27c0-11e9-9b10-3fbdb81f1e9e.png">
+<img width="100%" alt="Screen Shot 2019-05-26 at 17 55 32" src="https://user-images.githubusercontent.com/4256471/58387059-76dadc00-7fdf-11e9-92d0-adc73c630e52.png">
 
 ## Routes
 
-<img width="100%" alt="Screen Shot 2019-05-26 at 11 21 24" src="https://user-images.githubusercontent.com/4256471/58383061-678c6c00-7fa8-11e9-8655-f9b62250a8d7.png">
+<img width="100%" alt="Screen Shot 2019-05-26 at 17 56 41" src="https://user-images.githubusercontent.com/4256471/58387071-9ffb6c80-7fdf-11e9-8bd3-0b0086df73c7.png">

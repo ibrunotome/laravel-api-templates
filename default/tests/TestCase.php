@@ -14,6 +14,7 @@ abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication;
     use RefreshDatabase;
+    use AttachJwtToken;
 
     protected function setUp(): void
     {
