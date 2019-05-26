@@ -5,9 +5,8 @@ namespace Preferred\Infrastructure\Abstracts;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\BroadcastMessage;
-use Illuminate\Notifications\Notification;
 
-abstract class AbstractNotification extends Notification implements ShouldQueue
+abstract class Notification extends \Illuminate\Notifications\Notification implements ShouldQueue
 {
     use Queueable;
 

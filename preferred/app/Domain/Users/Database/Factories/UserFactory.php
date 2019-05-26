@@ -3,10 +3,10 @@
 namespace Preferred\Domain\Users\Database\Factories;
 
 use Preferred\Domain\Users\Entities\User;
-use Preferred\Infrastructure\Abstracts\AbstractModelFactory;
+use Preferred\Infrastructure\Abstracts\ModelFactory;
 use Ramsey\Uuid\Uuid;
 
-class UserFactory extends AbstractModelFactory
+class UserFactory extends ModelFactory
 {
     protected $model = User::class;
 

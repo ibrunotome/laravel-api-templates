@@ -5,10 +5,10 @@ namespace Preferred\Domain\Companies\Repositories;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Preferred\Domain\Companies\Contracts\CompanyRepository;
 use Preferred\Domain\Companies\Entities\Company;
-use Preferred\Infrastructure\Abstracts\AbstractEloquentRepository;
+use Preferred\Infrastructure\Abstracts\EloquentRepository;
 use Spatie\QueryBuilder\QueryBuilder;
 
-class EloquentCompanyRepository extends AbstractEloquentRepository implements CompanyRepository
+class EloquentCompanyRepository extends EloquentRepository implements CompanyRepository
 {
     private $defaultSort = '-created_at';
 

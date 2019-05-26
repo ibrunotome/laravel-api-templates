@@ -6,9 +6,9 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Support\Facades\Notification;
 use Preferred\Domain\Users\Contracts\ProfileRepository;
 use Preferred\Domain\Users\Notifications\PasswordChangedNotification;
-use Preferred\Infrastructure\Abstracts\AbstractListener;
+use Preferred\Infrastructure\Abstracts\Listener;
 
-class PasswordResetListener extends AbstractListener
+class PasswordResetListener extends Listener
 {
     use Queueable;
 

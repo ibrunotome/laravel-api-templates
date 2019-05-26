@@ -3,10 +3,10 @@
 namespace Preferred\Domain\Companies\Database\Factories;
 
 use Preferred\Domain\Companies\Entities\Company;
-use Preferred\Infrastructure\Abstracts\AbstractModelFactory;
+use Preferred\Infrastructure\Abstracts\ModelFactory;
 use Ramsey\Uuid\Uuid;
 
-class CompanyFactory extends AbstractModelFactory
+class CompanyFactory extends ModelFactory
 {
     protected $model = Company::class;
 

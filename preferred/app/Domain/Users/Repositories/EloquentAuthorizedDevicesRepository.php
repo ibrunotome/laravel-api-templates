@@ -3,9 +3,9 @@
 namespace Preferred\Domain\Users\Repositories;
 
 use Preferred\Domain\Users\Contracts\AuthorizedDeviceRepository;
-use Preferred\Infrastructure\Abstracts\AbstractEloquentRepository;
+use Preferred\Infrastructure\Abstracts\EloquentRepository;
 
-class EloquentAuthorizedDevicesRepository extends AbstractEloquentRepository implements AuthorizedDeviceRepository
+class EloquentAuthorizedDevicesRepository extends EloquentRepository implements AuthorizedDeviceRepository
 {
     public function doesNotHaveAuthorizedAnyDeviceYet(string $userId): bool
     {

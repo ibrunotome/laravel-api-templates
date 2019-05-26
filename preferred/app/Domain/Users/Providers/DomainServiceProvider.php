@@ -18,9 +18,9 @@ use Preferred\Domain\Users\Policies\PermissionPolicy;
 use Preferred\Domain\Users\Policies\ProfilePolicy;
 use Preferred\Domain\Users\Policies\RolePolicy;
 use Preferred\Domain\Users\Policies\UserPolicy;
-use Preferred\Infrastructure\Abstracts\AbstractServiceProvider;
+use Preferred\Infrastructure\Abstracts\ServiceProvider;
 
-class DomainServiceProvider extends AbstractServiceProvider
+class DomainServiceProvider extends ServiceProvider
 {
     protected $alias = 'users';
 

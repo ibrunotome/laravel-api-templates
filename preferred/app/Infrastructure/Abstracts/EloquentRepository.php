@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Cache;
 use Preferred\Infrastructure\Contracts\BaseRepository;
 use Ramsey\Uuid\Uuid;
 
-abstract class AbstractEloquentRepository implements BaseRepository
+abstract class EloquentRepository implements BaseRepository
 {
     /**
      * @var Model

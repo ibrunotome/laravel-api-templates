@@ -4,9 +4,9 @@ namespace Preferred\Domain\Audits\Providers;
 
 use Preferred\Domain\Audits\Entities\Audit;
 use Preferred\Domain\Audits\Policies\AuditPolicy;
-use Preferred\Infrastructure\Abstracts\AbstractServiceProvider;
+use Preferred\Infrastructure\Abstracts\ServiceProvider;
 
-class DomainServiceProvider extends AbstractServiceProvider
+class DomainServiceProvider extends ServiceProvider
 {
     protected $alias = 'audits';
 

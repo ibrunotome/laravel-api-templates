@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Factory;
  * Class ModelFactory.
  * Base Factory for usage inside domains.
  */
-abstract class AbstractModelFactory
+abstract class ModelFactory
 {
     /**
      * @var Factory

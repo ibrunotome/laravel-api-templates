@@ -5,11 +5,11 @@ namespace Preferred\Domain\Users\Repositories;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Preferred\Domain\Users\Contracts\ProfileRepository;
 use Preferred\Domain\Users\Entities\Profile;
-use Preferred\Infrastructure\Abstracts\AbstractEloquentRepository;
+use Preferred\Infrastructure\Abstracts\EloquentRepository;
 use Ramsey\Uuid\Uuid;
 use Spatie\QueryBuilder\QueryBuilder;
 
-class EloquentProfileRepository extends AbstractEloquentRepository implements ProfileRepository
+class EloquentProfileRepository extends EloquentRepository implements ProfileRepository
 {
     private $defaultSort = '-created_at';
 

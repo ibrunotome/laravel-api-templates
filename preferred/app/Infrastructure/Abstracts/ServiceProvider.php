@@ -5,7 +5,7 @@ namespace Preferred\Infrastructure\Abstracts;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider as LaravelServiceProvider;
 
-abstract class AbstractServiceProvider extends LaravelServiceProvider
+abstract class ServiceProvider extends LaravelServiceProvider
 {
     /**
      * @var string Alias for load tranlations and views

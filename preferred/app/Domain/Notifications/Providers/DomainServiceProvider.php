@@ -4,9 +4,9 @@ namespace Preferred\Domain\Notifications\Providers;
 
 use Illuminate\Notifications\DatabaseNotification;
 use Preferred\Domain\Notifications\Policies\NotificationPolicy;
-use Preferred\Infrastructure\Abstracts\AbstractServiceProvider;
+use Preferred\Infrastructure\Abstracts\ServiceProvider;
 
-class DomainServiceProvider extends AbstractServiceProvider
+class DomainServiceProvider extends ServiceProvider
 {
     protected $alias = 'notifications';
 

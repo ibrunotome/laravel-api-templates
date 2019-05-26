@@ -3,10 +3,10 @@
 namespace Preferred\Domain\Users\Database\Factories;
 
 use Preferred\Domain\Users\Entities\AuthorizedDevice;
-use Preferred\Infrastructure\Abstracts\AbstractModelFactory;
+use Preferred\Infrastructure\Abstracts\ModelFactory;
 use Ramsey\Uuid\Uuid;
 
-class AuthorizedDeviceFactory extends AbstractModelFactory
+class AuthorizedDeviceFactory extends ModelFactory
 {
     protected $model = AuthorizedDevice::class;
 

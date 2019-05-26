@@ -5,9 +5,9 @@ namespace Preferred\Domain\Companies\Providers;
 use Preferred\Domain\Companies\Database\Factories\CompanyFactory;
 use Preferred\Domain\Companies\Entities\Company;
 use Preferred\Domain\Companies\Policies\CompanyPolicy;
-use Preferred\Infrastructure\Abstracts\AbstractServiceProvider;
+use Preferred\Infrastructure\Abstracts\ServiceProvider;
 
-class DomainServiceProvider extends AbstractServiceProvider
+class DomainServiceProvider extends ServiceProvider
 {
     protected $alias = 'companies';
 

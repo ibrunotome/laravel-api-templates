@@ -6,9 +6,9 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Notification;
 use Preferred\Domain\Users\Entities\Profile;
 use Preferred\Domain\Users\Notifications\VerifyEmailNotification;
-use Preferred\Infrastructure\Abstracts\AbstractListener;
+use Preferred\Infrastructure\Abstracts\Listener;
 
-class UserRegisteredListener extends AbstractListener
+class UserRegisteredListener extends Listener
 {
     public function __construct()
     {

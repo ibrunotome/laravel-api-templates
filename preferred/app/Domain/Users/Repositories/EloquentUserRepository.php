@@ -7,10 +7,10 @@ use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Model;
 use Preferred\Domain\Users\Contracts\UserRepository;
 use Preferred\Domain\Users\Entities\User;
-use Preferred\Infrastructure\Abstracts\AbstractEloquentRepository;
+use Preferred\Infrastructure\Abstracts\EloquentRepository;
 use Spatie\QueryBuilder\QueryBuilder;
 
-class EloquentUserRepository extends AbstractEloquentRepository implements UserRepository
+class EloquentUserRepository extends EloquentRepository implements UserRepository
 {
     private $defaultSort = '-created_at';
 
