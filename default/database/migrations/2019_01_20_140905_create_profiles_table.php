@@ -23,6 +23,7 @@ class CreateProfilesTable extends Migration
             $table->boolean('google2fa_enable')->default(false);
             $table->string('google2fa_secret')->nullable();
             $table->text('google2fa_url')->nullable();
+            $table->string('locale', 5)->default('en_US');
             $table->timestamps();
 
             $table->uuid('user_id')->unique();
