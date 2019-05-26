@@ -33,14 +33,14 @@ class ResetPasswordController extends Controller
             'token'    => 'required',
             'email'    => [
                 'required',
-                'email'
+                'email',
             ],
             'password' => [
                 'required',
                 'string',
                 'confirmed',
                 'min:8',
-                new WeakPasswordRule
+                new WeakPasswordRule(),
             ],
         ];
     }
@@ -50,7 +50,6 @@ class ResetPasswordController extends Controller
      *
      * @param Request $request
      * @param  string $response
-     *
      * @return \Illuminate\Http\JsonResponse
      */
     protected function sendResetResponse(Request $request, $response)
@@ -63,7 +62,6 @@ class ResetPasswordController extends Controller
      *
      * @param  \Illuminate\Http\Request $request
      * @param  string                   $response
-     *
      * @return \Illuminate\Http\JsonResponse
      */
     protected function sendResetFailedResponse(Request $request, $response)

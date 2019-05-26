@@ -12,30 +12,23 @@ use Preferred\Domain\Users\Entities\Profile;
 /**
  * Class UserResource
  *
- * @package Preferred\Domain\Users\Http\Resources
- *
- * @property string                    id
- * @property string                    email
- * @property bool                      is_active
- * @property string                    locale
- * @property Carbon                    email_verified_at
- * @property Carbon                    created_at
- * @property Carbon                    updated_at
- *
- * @property-read AuthorizedDevice     authorizedDevices
- * @property-read LoginHistory         loginHistories
- * @property-read Profile              profile
- * @property-read DatabaseNotification notifications
- * @property-read DatabaseNotification unreadNotifications
+ * @property string                    $id
+ * @property string                    $email
+ * @property bool                      $is_active
+ * @property string                    $locale
+ * @property Carbon                    $email_verified_at
+ * @property Carbon                    $created_at
+ * @property Carbon                    $updated_at
+ * @property-read AuthorizedDevice     $authorizedDevices
+ * @property-read LoginHistory         $loginHistories
+ * @property-read Profile              $profile
+ * @property-read DatabaseNotification $notifications
+ * @property-read DatabaseNotification $unreadNotifications
  */
 class UserResource extends JsonResource
 {
     /**
-     * Transform the resource into an array.
-     *
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return array
+     * {@inheritdoc}
      */
     public function toArray($request)
     {

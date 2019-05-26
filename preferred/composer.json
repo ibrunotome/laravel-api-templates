@@ -1,10 +1,14 @@
 {
-  "name": "laravel/laravel",
+  "name": "ibrunotome/laravel-api-templates",
   "type": "project",
-  "description": "The Laravel Framework.",
+  "description": "A Laravel API starter kit collection using different structures.",
   "keywords": [
     "framework",
-    "laravel"
+    "laravel",
+    "laravel-skeleton",
+    "laravel-ddd",
+    "laravel-swoole",
+    "swoole"
   ],
   "license": "MIT",
   "require": {
@@ -70,7 +74,7 @@
     "test": "phpunit --no-coverage",
     "phpcpd": "phpcpd app/ --fuzzy --progress",
     "static:analysis": "php artisan code:analyse --level=5",
-    "insights": "php artisan insights --no-interaction --min-quality=95 --min-complexity=80 --min-architecture=90 --min-style=100",
+    "insights": "php artisan insights --no-interaction --min-quality=100 --min-complexity=85 --min-architecture=90 --min-style=100",
     "lint": [
       "phpcs",
       "phpcs app/ -sp --standard=vendor/object-calisthenics/phpcs-calisthenics-rules/src/ObjectCalisthenics/ruleset.xml --sniffs=ObjectCalisthenics.Metrics.MaxNestingLevel,ObjectCalisthenics.ControlStructures.NoElse,ObjectCalisthenics.NamingConventions.ElementNameMinimalLength"
@@ -80,8 +84,7 @@
   "config": {
     "preferred-install": "dist",
     "sort-packages": true,
-    "optimize-autoloader": true,
-    "classmap-authoritative": true
+    "optimize-autoloader": true
   },
   "minimum-stability": "RC",
   "prefer-stable": true

@@ -11,19 +11,29 @@ abstract class AbstractNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    /** @var array */
+    /**
+     * @var array
+     */
     public $data;
 
-    /** @var string */
+    /**
+     * @var string
+     */
     protected $title;
 
-    /** @var string */
+    /**
+     * @var string
+     */
     protected $message;
 
-    /** @var string */
+    /**
+     * @var string
+     */
     protected $url;
 
-    /** @var string */
+    /**
+     * @var string
+     */
     protected $color;
 
     /**
@@ -55,13 +65,10 @@ abstract class AbstractNotification extends Notification implements ShouldQueue
      * Get the broadcastable representation of the notification.
      *
      * @param $notifiable
-     *
      * @return BroadcastMessage
      */
     public function toBroadcast($notifiable)
     {
-        app()->setLocale($notifiable->profile->locale);
-
         return new BroadcastMessage($this->toArray($notifiable));
     }
 
@@ -69,18 +76,15 @@ abstract class AbstractNotification extends Notification implements ShouldQueue
      * Get the array representation of the notification.
      *
      * @param $notifiable
-     *
      * @return array
      */
     public function toArray($notifiable)
     {
-        app()->setLocale($notifiable->profile->locale);
-
         return [
             'title'   => $this->title,
             'message' => $this->message,
             'url'     => $this->url,
-            'color'   => $this->color
+            'color'   => $this->color,
         ];
     }
 }

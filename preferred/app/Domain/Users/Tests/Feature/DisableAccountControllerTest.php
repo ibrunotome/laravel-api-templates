@@ -38,6 +38,6 @@ class DisableAccountControllerTest extends TestCase
 
         $this->postJson(route('api.account.disable', [$profile->email_token_disable_account]))
             ->assertStatus(429)
-            ->assertSeeText('Too many attemps');
+            ->assertSeeText('Too many Requests');
     }
 }

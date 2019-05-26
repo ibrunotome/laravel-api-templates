@@ -12,10 +12,14 @@ use Tests\TestCase;
 
 class UserRegisteredListenerTest extends TestCase
 {
-    /** @var UserRegisteredListener */
+    /**
+     * @var UserRegisteredListener
+     */
     private $userRegisteredListener;
 
-    /** @var User */
+    /**
+     * @var User
+     */
     private $user;
 
     public function setUp(): void

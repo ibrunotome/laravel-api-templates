@@ -14,7 +14,6 @@ class PermissionPolicy
      * Determine whether the user can view a list of model.
      *
      * @param  \Preferred\Domain\Users\Entities\User $user
-     *
      * @return mixed
      */
     public function viewAny(User $user)
@@ -27,7 +26,6 @@ class PermissionPolicy
      *
      * @param  \Preferred\Domain\Users\Entities\User       $user
      * @param  \Preferred\Domain\Users\Entities\Permission $model
-     *
      * @return mixed
      */
     public function view(User $user, Permission $model)
@@ -39,7 +37,6 @@ class PermissionPolicy
      * Determine whether the user can create models.
      *
      * @param  \Preferred\Domain\Users\Entities\User $user
-     *
      * @return mixed
      */
     public function create(User $user)
@@ -52,7 +49,6 @@ class PermissionPolicy
      *
      * @param  \Preferred\Domain\Users\Entities\User       $user
      * @param  \Preferred\Domain\Users\Entities\Permission $model
-     *
      * @return mixed
      */
     public function update(User $user, Permission $model)
@@ -65,7 +61,6 @@ class PermissionPolicy
      *
      * @param  \Preferred\Domain\Users\Entities\User       $user
      * @param  \Preferred\Domain\Users\Entities\Permission $model
-     *
      * @return mixed
      */
     public function delete(User $user, Permission $model)
@@ -78,7 +73,6 @@ class PermissionPolicy
      *
      * @param  \Preferred\Domain\Users\Entities\User       $user
      * @param  \Preferred\Domain\Users\Entities\Permission $model
-     *
      * @return mixed
      */
     public function restore(User $user, Permission $model)
@@ -91,7 +85,6 @@ class PermissionPolicy
      *
      * @param  \Preferred\Domain\Users\Entities\User       $user
      * @param  \Preferred\Domain\Users\Entities\Permission $model
-     *
      * @return mixed
      */
     public function forceDelete(User $user, Permission $model)

@@ -8,23 +8,21 @@ use Preferred\Interfaces\Http\Controllers\Controller;
 
 class AuthorizeDeviceController extends Controller
 {
-    /**
-     * Authorize the device.
-     *
-     * @param $token
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function authorizeDevice($token)
+    public function authorizeDevice(string $token)
     {
-        /** @var AuthorizedDevice $authorizedDevice */
+        /**
+         * @var AuthorizedDevice $authorizedDevice
+         */
         $authorizedDevice = AuthorizedDevice::with([])
+            ->withoutGlobalScopes()
             ->where('authorization_token', '=', $token)
-            ->whereNull('authorized_at')
             ->first();
 
         if (!empty($authorizedDevice)) {
-            $authorizedDevice->update(['authorized_at' => now()]);
+            if (empty($authorizedDevice->authorized_at)) {
+                $authorizedDevice->update(['authorized_at' => now()->format('Y-m-d H:i:s.u')]);
+            }
+
             $message = __('Device/location successfully authorized');
 
             return $this->respondWithCustomData(['message' => $message], Response::HTTP_OK);
@@ -35,18 +33,9 @@ class AuthorizeDeviceController extends Controller
         return $this->respondWithCustomData(['message' => $message], Response::HTTP_BAD_REQUEST);
     }
 
-    /**
-     * Destroy the device.
-     *
-     * @param $id
-     *
-     * @return array|\Illuminate\Http\JsonResponse
-     */
-    public function destroy($id)
+    public function destroy(string $id)
     {
-        $model = AuthorizedDevice::with([])
-            ->where('user_id', '=', auth()->id())
-            ->findOrFail($id);
+        $model = AuthorizedDevice::with([])->findOrFail($id);
 
         try {
             $model->delete();
@@ -55,7 +44,7 @@ class AuthorizeDeviceController extends Controller
         } catch (\Exception $exception) {
             return [
                 'error'   => true,
-                'message' => trans('messages.exception')
+                'message' => trans('messages.exception'),
             ];
         }
     }

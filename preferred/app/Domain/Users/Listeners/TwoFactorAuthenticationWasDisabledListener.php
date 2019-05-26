@@ -19,7 +19,9 @@ class TwoFactorAuthenticationWasDisabledListener extends AbstractListener
 
     public function handle($event)
     {
-        /** @var ProfileRepository $profileRepository */
+        /**
+         * @var ProfileRepository $profileRepository
+         */
         $profileRepository = app(ProfileRepository::class);
         $profileRepository->setNewEmailTokenConfirmation($event->user->id);
 

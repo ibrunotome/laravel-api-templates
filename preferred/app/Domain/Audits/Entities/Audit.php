@@ -2,26 +2,43 @@
 
 namespace Preferred\Domain\Audits\Entities;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Audit
  *
- * @package Preferred\Domain\Audits\Entities
- *
- * @property \DateTime created_at
- * @property \DateTime updated_at
+ * @property string $old_values
+ * @property string $new_values
+ * @property Carbon $created_at
  */
 class Audit extends Model implements \OwenIt\Auditing\Contracts\Audit
 {
     use \OwenIt\Auditing\Audit;
 
-    const UPDATED_AT = null;
+    public const UPDATED_AT = null;
+
     protected static $unguarded = true;
+
     public $incrementing = false;
+
+    protected $dateFormat = 'Y-m-d H:i:s.u';
+
     protected $keyType = 'string';
+
     protected $casts = [
+        'id'         => 'string',
         'old_values' => 'json',
         'new_values' => 'json',
     ];
+
+    public function getTable(): string
+    {
+        return 'audits';
+    }
+
+    public function getConnectionName()
+    {
+        return config('database.default');
+    }
 }

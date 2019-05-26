@@ -75,7 +75,9 @@ class RegisterControllerTest extends TestCase
 
     public function testVerifyEmail()
     {
-        /** @var User $user */
+        /**
+         * @var User $user
+         */
         $user = factory(User::class)->create([
             'is_active'         => 1,
             'email_verified_at' => null,
@@ -83,7 +85,9 @@ class RegisterControllerTest extends TestCase
             'password'          => bcrypt('secretxxx'),
         ]);
 
-        /** @var Profile $profile */
+        /**
+         * @var Profile $profile
+         */
         $profile = factory(Profile::class)->create([
             'user_id'                  => $user->id,
             'email_token_confirmation' => Uuid::uuid4(),
@@ -96,7 +100,9 @@ class RegisterControllerTest extends TestCase
 
     public function testInvalidVerifyEmailToken()
     {
-        /** @var User $user */
+        /**
+         * @var User $user
+         */
         $user = factory(User::class)->create([
             'is_active'         => 1,
             'email_verified_at' => null,
@@ -106,7 +112,7 @@ class RegisterControllerTest extends TestCase
 
         factory(Profile::class)->create([
             'user_id'                  => $user->id,
-            'email_token_confirmation' => Uuid::uuid4()
+            'email_token_confirmation' => Uuid::uuid4(),
         ]);
 
         $this->post(route('api.email.verify', [Uuid::uuid4()]))

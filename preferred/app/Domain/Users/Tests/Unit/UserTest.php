@@ -10,7 +10,9 @@ use Tests\TestCase;
 
 class UserTest extends TestCase
 {
-    /** @var User */
+    /**
+     * @var User
+     */
     private $user;
 
     public function setUp(): void

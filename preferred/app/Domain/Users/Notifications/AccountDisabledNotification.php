@@ -16,37 +16,23 @@ class AccountDisabledNotification extends Notification implements ShouldQueue
         $this->onQueue('notifications');
     }
 
-    /**
-     * Get the notification's delivery channels.
-     *
-     * @param $notifiable
-     *
-     * @return array
-     */
-    public function via($notifiable)
+    public function via()
     {
         return ['mail'];
     }
 
-    /**
-     * Build the mail representation of the notification.
-     *
-     * @param  mixed $notifiable
-     *
-     * @return \Illuminate\Notifications\Messages\MailMessage
-     */
     public function toMail($notifiable)
     {
-        app()->setLocale($notifiable->profile->locale);
-
         $antiPhishingCode = $notifiable->profile->anti_phishing_code;
+        $supportLink = config('app.support_url');
 
-        return (new MailMessage)
+        return (new MailMessage())
             ->markdown('emails.default', ['antiPhishingCode' => $antiPhishingCode])
             ->subject('Account disabled')
             ->line(__(
-                'Your account has been disabled, to enable it again, please contact :support_link to start the process.',
-                ['support_link' => '<a href="' . config('app.support_url') . '">' . config('app.support_url') . '</a>']
+                'Your account has been disabled, to enable it again, please contact ' .
+                ':support_link to start the process.',
+                ['support_link' => '<a href="' . $supportLink . '">' . $supportLink . '</a>']
             ));
     }
 }

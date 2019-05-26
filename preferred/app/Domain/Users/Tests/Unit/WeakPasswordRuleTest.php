@@ -7,7 +7,9 @@ use Tests\TestCase;
 
 class WeakPasswordRuleTest extends TestCase
 {
-    /** @var WeakPasswordRule */
+    /**
+     * @var WeakPasswordRule
+     */
     private $rule;
 
     public function setUp(): void

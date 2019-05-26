@@ -9,13 +9,19 @@ use Tests\TestCase;
 
 class ProfileRepositoryTest extends TestCase
 {
-    /** @var User */
+    /**
+     * @var User
+     */
     private $user;
 
-    /** @var Profile */
+    /**
+     * @var Profile
+     */
     private $profile;
 
-    /** @var ProfileRepository */
+    /**
+     * @var ProfileRepository
+     */
     private $profileRepository;
 
     public function setUp(): void

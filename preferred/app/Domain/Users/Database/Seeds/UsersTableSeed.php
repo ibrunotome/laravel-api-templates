@@ -20,7 +20,7 @@ class UsersTableSeed extends Seeder
     {
         $user = factory(User::class)->create([
             'email'             => 'test@test.com',
-            'email_verified_at' => now()
+            'email_verified_at' => now(),
         ]);
 
         $user->assignRole(Role::ADMIN);

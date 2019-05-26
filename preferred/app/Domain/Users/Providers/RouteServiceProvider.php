@@ -7,37 +7,16 @@ use Illuminate\Routing\Router;
 
 class RouteServiceProvider extends ServiceProvider
 {
-    /**
-     * This namespace is applied to your controller routes.
-     *
-     * In addition, it is set as the URL generator's root namespace.
-     *
-     * @var string
-     */
     protected $namespace = 'Preferred\Domain\Users\Http\Controllers';
 
-    /**
-     * Define the routes for the application.
-     *
-     * @param  \Illuminate\Routing\Router $router
-     *
-     * @return void
-     */
-    public function map(Router $router)
+    public function map(Router $router): void
     {
         if (config('register.api_routes')) {
             $this->mapApiRoutes($router);
         }
     }
 
-    /**
-     * Define the "api" routes for the application.
-     *
-     * @param  \Illuminate\Routing\Router $router
-     *
-     * @return void
-     */
-    protected function mapApiRoutes(Router $router)
+    protected function mapApiRoutes(Router $router): void
     {
         $router
             ->group([
@@ -52,7 +31,7 @@ class RouteServiceProvider extends ServiceProvider
             });
     }
 
-    private function mapRoutesWhenGuest(Router $router)
+    private function mapRoutesWhenGuest(Router $router): void
     {
         $router
             ->group(['middleware' => 'guest'], function () use ($router) {
@@ -86,14 +65,14 @@ class RouteServiceProvider extends ServiceProvider
             });
     }
 
-    private function mapRoutesWhen2faIsAvailable(Router $router)
+    private function mapRoutesWhen2faIsAvailable(Router $router): void
     {
         $router
             ->group([
                 'middleware' => [
                     'auth:api',
-                    '2fa'
-                ]
+                    '2fa',
+                ],
             ], function () use ($router) {
                 $router
                     ->post('disable2fa', 'TwoFactorAuthenticationController@disable2fa')
@@ -104,8 +83,8 @@ class RouteServiceProvider extends ServiceProvider
                     ->name('api.verify2fa');
 
                 $router
-                    ->get('me/profile', 'ProfileController@me')
-                    ->name('api.profiles.me');
+                    ->get('me/profile', 'ProfileController@profile')
+                    ->name('api.profile');
 
                 $router
                     ->patch('me/profile', 'ProfileController@updateMe')
@@ -125,7 +104,7 @@ class RouteServiceProvider extends ServiceProvider
                     ]);
 
                 $router
-                    ->get('me', 'UserController@me')
+                    ->get('me', 'UserController@profile')
                     ->name('api.me');
 
                 $router
@@ -166,7 +145,7 @@ class RouteServiceProvider extends ServiceProvider
             });
     }
 
-    private function mapRoutesWhenBasicAuthIsRequired(Router $router)
+    private function mapRoutesWhenBasicAuthIsRequired(Router $router): void
     {
         $router
             ->group(['middleware' => 'auth:api'], function () use ($router) {
@@ -184,7 +163,7 @@ class RouteServiceProvider extends ServiceProvider
             });
     }
 
-    private function mapRoutesWhenAuthenticationDoesntMatter(Router $router)
+    private function mapRoutesWhenAuthenticationDoesntMatter(Router $router): void
     {
         $router
             ->post('account/disable/{token}', 'DisableAccountController@disable')

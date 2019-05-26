@@ -2,17 +2,14 @@
 
 namespace Preferred\Interfaces\Http\Controllers;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest as LaravelFormRequest;
+use Preferred\Application\Exceptions\FormValidationException;
 
 class FormRequest extends LaravelFormRequest
 {
-    /**
-     * Get the URL to redirect to on a validation error.
-     *
-     * @return string
-     */
-    protected function getRedirectUrl()
+    protected function failedValidation(Validator $validator)
     {
-        return $this->redirector->getUrlGenerator();
+        throw new FormValidationException($validator);
     }
 }

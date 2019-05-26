@@ -7,7 +7,9 @@ use Preferred\Domain\Users\Entities\User;
 
 class NotificationControllerTest
 {
-    /** @var User */
+    /**
+     * @var User
+     */
     private $user;
 
     public function setUp(): void

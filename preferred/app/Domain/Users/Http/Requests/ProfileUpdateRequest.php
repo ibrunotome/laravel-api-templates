@@ -28,13 +28,13 @@ class ProfileUpdateRequest extends FormRequest
         return [
             'name'               => [
                 'string',
-                'max:250'
+                'max:250',
             ],
             'anti_phishing_code' => [
                 'nullable',
                 'alpha_dash',
                 'min:4',
-                'max:20'
+                'max:20',
             ],
         ];
     }

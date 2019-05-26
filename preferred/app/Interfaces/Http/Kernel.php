@@ -48,7 +48,6 @@ class Kernel extends HttpKernel
         'can'        => \Illuminate\Auth\Middleware\Authorize::class,
         'guest'      => \Preferred\Application\Middlewares\RedirectIfAuthenticated::class,
         '2fa'        => \Preferred\Application\Middlewares\CheckTwoFactorAuthentication::class,
-        'cors'       => \Spatie\Cors\Cors::class,
     ];
 
 
@@ -60,7 +59,6 @@ class Kernel extends HttpKernel
      */
     protected $middlewarePriority = [
         \Preferred\Application\Middlewares\ForceAcceptJson::class,
-        \Spatie\Cors\Cors::class,
         \Preferred\Application\Middlewares\CheckForMaintenanceMode::class,
         \Illuminate\Auth\Middleware\Authenticate::class,
         \Illuminate\Routing\Middleware\SubstituteBindings::class,

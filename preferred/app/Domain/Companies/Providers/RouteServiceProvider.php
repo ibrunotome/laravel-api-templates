@@ -9,7 +9,6 @@ class RouteServiceProvider extends ServiceProvider
 {
     /**
      * This namespace is applied to your controller routes.
-     *
      * In addition, it is set as the URL generator's root namespace.
      *
      * @var string
@@ -20,7 +19,6 @@ class RouteServiceProvider extends ServiceProvider
      * Define the routes for the application.
      *
      * @param  \Illuminate\Routing\Router $router
-     *
      * @return void
      */
     public function map(Router $router)
@@ -34,7 +32,6 @@ class RouteServiceProvider extends ServiceProvider
      * Define the "api" routes for the application.
      *
      * @param  \Illuminate\Routing\Router $router
-     *
      * @return void
      */
     protected function mapApiRoutes(Router $router)
@@ -46,7 +43,7 @@ class RouteServiceProvider extends ServiceProvider
                 'middleware' => [
                     'api',
                     'auth:api',
-                    '2fa'
+                    '2fa',
                 ],
             ], function (Router $router) {
                 $router

@@ -37,7 +37,7 @@ class CreatePermissionTables extends Migration
                 $table->uuid('model_id');
                 $table->index([
                     'model_type',
-                    'model_id'
+                    'model_id',
                 ]);
 
                 $table->foreign('permission_id')
@@ -54,7 +54,7 @@ class CreatePermissionTables extends Migration
                 $table->uuid('model_id');
                 $table->index([
                     'model_type',
-                    'model_id'
+                    'model_id',
                 ]);
 
                 $table->foreign('role_id')

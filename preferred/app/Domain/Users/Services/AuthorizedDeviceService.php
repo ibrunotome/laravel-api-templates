@@ -10,7 +10,9 @@ use Ramsey\Uuid\Uuid;
 
 class AuthorizedDeviceService
 {
-    /** @var AuthorizedDeviceRepository */
+    /**
+     * @var AuthorizedDeviceRepository
+     */
     private $authorizedDeviceRepository;
 
     public function __construct(AuthorizedDeviceRepository $authorizedDeviceRepository)
@@ -20,12 +22,13 @@ class AuthorizedDeviceService
 
     public function store(User $user, array $data)
     {
-        $deviceExists = $this->authorizedDeviceRepository->deviceExists($data);
+        $device = $this->authorizedDeviceRepository->findDeviceByCriteria($data);
 
-        if (empty($deviceExists)) {
-            $isFirstDevice = $this->authorizedDeviceRepository->doesNotHaveAuthorizedDevice($data['user_id']);
+        if (empty($device)) {
+            $doesNotHaveAuthorizedAnyDeviceYet = $this->authorizedDeviceRepository
+                ->doesNotHaveAuthorizedAnyDeviceYet($data['user_id']);
 
-            if ($isFirstDevice) {
+            if ($doesNotHaveAuthorizedAnyDeviceYet) {
                 $this->authorizedDeviceRepository->store([
                     'device'              => $data['device'],
                     'platform'            => $data['platform'],
@@ -34,14 +37,16 @@ class AuthorizedDeviceService
                     'browser_version'     => $data['browser_version'],
                     'city'                => $data['city'],
                     'country_name'        => $data['country_name'],
-                    'authorization_token' => Uuid::uuid4(),
-                    'authorized_at'       => now(),
+                    'authorization_token' => Uuid::uuid4()->toString(),
+                    'authorized_at'       => now()->format('Y-m-d H:i:s.u'),
                     'user_id'             => $data['user_id'],
                 ]);
 
                 return true;
             }
-        } elseif (!empty($deviceExists->authorized_at)) {
+        }
+
+        if (!empty($device->authorized_at)) {
             return true;
         }
 
@@ -58,7 +63,7 @@ class AuthorizedDeviceService
             'browser_version'     => $data['browser_version'],
             'city'                => $data['city'],
             'country_name'        => $data['country_name'],
-            'authorization_token' => Uuid::uuid4(),
+            'authorization_token' => Uuid::uuid4()->toString(),
             'authorized_at'       => null,
             'user_id'             => $data['user_id'],
         ]);
@@ -69,13 +74,14 @@ class AuthorizedDeviceService
         Notification::send($user, new AuthorizeDeviceNotification($device));
 
         $message = __(
-            'We sent a confirmation email to :email. Please follow the instructions to authorize this new device/location.',
+            'We sent a confirmation email to :email. Please follow the instructions to authorize this new ' .
+            'device/location.',
             ['email' => $user->email]
         );
 
         return [
             'error'   => true,
-            'message' => $message
+            'message' => $message,
         ];
     }
 }

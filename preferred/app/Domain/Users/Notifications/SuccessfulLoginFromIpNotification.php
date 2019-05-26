@@ -13,47 +13,28 @@ class SuccessfulLoginFromIpNotification extends Notification implements ShouldQu
 
     private $data;
 
-    /**
-     * Create a new notification instance.
-     *
-     * @param array $data
-     */
     public function __construct(array $data)
     {
         $this->data = $data;
         $this->onQueue('notifications');
     }
 
-    /**
-     * Get the notification's delivery channels.
-     *
-     * @return array
-     */
     public function via()
     {
         return ['mail'];
     }
 
-    /**
-     * Get the mail representation of the notification.
-     *
-     * @param  mixed $notifiable
-     *
-     * @return \Illuminate\Notifications\Messages\MailMessage
-     */
     public function toMail($notifiable)
     {
-        app()->setLocale($notifiable->profile->locale);
-
         $antiPhishingCode = $notifiable->profile->anti_phishing_code;
         $disableAccountToken = $notifiable->profile->email_token_disable_account;
         $device = $this->data['browser'] . ' ' . $this->data['browser_version'] . ' (' . $this->data['platform'] . ')';
 
-        return (new MailMessage)
+        return (new MailMessage())
             ->markdown('emails.default', [
                 'antiPhishingCode'    => $antiPhishingCode,
                 'disableAccountToken' => $disableAccountToken,
-                'email'               => $notifiable->email
+                'email'               => $notifiable->email,
             ])
             ->subject(__(':app_name - Successful Login From New IP', ['app_name' => config('app.name')]))
             ->greeting(__('Successful Login From New IP'))

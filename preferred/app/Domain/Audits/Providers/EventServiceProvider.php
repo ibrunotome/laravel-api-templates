@@ -26,7 +26,5 @@ class EventServiceProvider extends ServiceProvider implements TransactionalEvent
         parent::boot();
 
         Audit::observe(AuditObserver::class);
-
-        //
     }
 }

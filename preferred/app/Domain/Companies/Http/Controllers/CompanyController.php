@@ -13,7 +13,9 @@ use Preferred\Interfaces\Http\Controllers\Controller;
 
 class CompanyController extends Controller
 {
-    /** @var CompanyRepository */
+    /**
+     * @var CompanyRepository
+     */
     private $companyRepository;
 
     public function __construct(CompanyRepository $companyRepository)
@@ -45,7 +47,6 @@ class CompanyController extends Controller
      * Show a company.
      *
      * @param Company $company
-     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function show(Company $company)
@@ -57,12 +58,11 @@ class CompanyController extends Controller
      * Store a new company.
      *
      * @param CompanyCreateRequest $request
-     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(CompanyCreateRequest $request)
     {
-        $data = $request->only((new Company)->getFillable());
+        $data = $request->only(array_keys($request->rules()));
 
         $company = $this->companyRepository->store($data);
 
@@ -74,12 +74,11 @@ class CompanyController extends Controller
      *
      * @param CompanyUpdateRequest $request
      * @param Company              $company
-     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function update(CompanyUpdateRequest $request, Company $company)
     {
-        $data = $request->only((new Company)->getFillable());
+        $data = $request->only(array_keys($request->rules()));
 
         $company = $this->companyRepository->update($company, $data);
 

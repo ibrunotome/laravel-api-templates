@@ -31,7 +31,7 @@ class UserUpdateRequest extends FormRequest
             'email' => [
                 'email',
                 'max:250',
-                'unique:users,email,' . $ignoreId
+                'unique:users,email,' . $ignoreId,
             ],
         ];
     }

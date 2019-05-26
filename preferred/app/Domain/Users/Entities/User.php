@@ -4,6 +4,7 @@ namespace Preferred\Domain\Users\Entities;
 
 use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Translation\HasLocalePreference;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\Notifiable;
@@ -16,23 +17,20 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 /**
  * Class User
  *
- * @package  Preferred\Domain\Users\Entities
- *
- * @property string                    id
- * @property string                    email
- * @property bool                      is_active
- * @property Carbon                    email_verified_at
- * @property string                    locale
- * @property Carbon                    created_at
- * @property Carbon                    updated_at
- *
- * @property-read AuthorizedDevice     authorizedDevices
- * @property-read LoginHistory         loginHistories
- * @property-read Profile              profile
- * @property-read DatabaseNotification notifications
- * @property-read DatabaseNotification unreadNotificatinos
+ * @property string                    $id
+ * @property string                    $email
+ * @property bool                      $is_active
+ * @property Carbon                    $email_verified_at
+ * @property string                    $locale
+ * @property Carbon                    $created_at
+ * @property Carbon                    $updated_at
+ * @property-read AuthorizedDevice     $authorizedDevices
+ * @property-read LoginHistory         $loginHistories
+ * @property-read Profile              $profile
+ * @property-read DatabaseNotification $notifications
+ * @property-read DatabaseNotification $unreadNotificatinos
  */
-class User extends Authenticatable implements JWTSubject, AuditableContract, MustVerifyEmail
+class User extends Authenticatable implements JWTSubject, AuditableContract, HasLocalePreference, MustVerifyEmail
 {
     use Auditable;
     use HasRoles;
@@ -50,23 +48,17 @@ class User extends Authenticatable implements JWTSubject, AuditableContract, Mus
     protected $fillable = [
         'email',
         'password',
+        'locale',
         'email_verified_at',
     ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
     /**
-     * Get the identifier that will be stored in the subject claim of the JWT.
-     *
-     * @return mixed
+     * {@inheritdoc}
      */
     public function getJWTIdentifier()
     {
@@ -74,40 +66,24 @@ class User extends Authenticatable implements JWTSubject, AuditableContract, Mus
     }
 
     /**
-     * Return a key value array, containing any custom claims to be added to the JWT.
-     *
-     * @return array
+     * {@inheritdoc}
      */
     public function getJWTCustomClaims()
     {
         return [];
     }
 
-    /**
-     * The channels the user receives notification broadcasts on.
-     *
-     * @return string
-     */
     public function receivesBroadcastNotificationsOn()
     {
         return 'users.' . $this->id;
     }
 
     /**
-     * Send the password reset notification.
-     *
-     * @param  string $token
-     *
-     * @return void
+     * {@inheritdoc}
      */
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new ResetPasswordNotification($token));
-    }
-
-    public function getLocaleAttribute()
-    {
-        return $this->profile()->first()->locale ?? null;
     }
 
     public function profile()
@@ -138,5 +114,13 @@ class User extends Authenticatable implements JWTSubject, AuditableContract, Mus
             ->whereNotNull('read_at')
             ->orderBy('created_at', 'desc')
             ->limit(15);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function preferredLocale()
+    {
+        return $this->locale;
     }
 }

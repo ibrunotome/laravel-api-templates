@@ -6,7 +6,7 @@ use Preferred\Infrastructure\Contracts\BaseRepository;
 
 interface AuthorizedDeviceRepository extends BaseRepository
 {
-    public function doesNotHaveAuthorizedDevice(string $userId): bool;
+    public function doesNotHaveAuthorizedAnyDeviceYet(string $userId): bool;
 
-    public function deviceExists(array $data);
+    public function findDeviceByCriteria(array $data);
 }

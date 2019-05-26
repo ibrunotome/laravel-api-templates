@@ -47,8 +47,6 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->singleton(ProfileRepository::class, function () {
             return new EloquentProfileRepository(new Profile());
         });
-
-        //:end-bindings:
     }
 
     /**

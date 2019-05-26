@@ -15,7 +15,7 @@ class DomainServiceProvider extends AbstractServiceProvider
     protected $hasPolicies = true;
 
     protected $policies = [
-        Audit::class => AuditPolicy::class
+        Audit::class => AuditPolicy::class,
     ];
 
     protected $providers = [

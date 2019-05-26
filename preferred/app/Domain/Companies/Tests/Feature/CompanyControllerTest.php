@@ -10,10 +10,14 @@ use Tests\TestCase;
 
 class CompanyControllerTest extends TestCase
 {
-    /** @var User */
+    /**
+     * @var User
+     */
     private $user;
 
-    /** @var Company */
+    /**
+     * @var Company
+     */
     private $company;
 
     public function setUp(): void
@@ -81,7 +85,7 @@ class CompanyControllerTest extends TestCase
             ->getJson(route('api.companies.show', $this->company->id))
             ->assertSuccessful()
             ->assertJsonFragment([
-                'name' => $this->company->name
+                'name' => $this->company->name,
             ]);
     }
 
@@ -124,7 +128,7 @@ class CompanyControllerTest extends TestCase
             ->postJson(route('api.companies.store'), [
                 'name'      => 'test',
                 'is_active' => 1,
-                'max_users' => 20
+                'max_users' => 20,
             ])
             ->assertSuccessful()
             ->assertJsonFragment([

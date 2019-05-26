@@ -7,7 +7,9 @@ use Tests\TestCase;
 
 class CnpjRuleTest extends TestCase
 {
-    /** @var CnpjRule */
+    /**
+     * @var CnpjRule
+     */
     private $rule;
 
     public function setUp(): void

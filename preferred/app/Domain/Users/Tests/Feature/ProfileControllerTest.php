@@ -9,10 +9,14 @@ use Tests\TestCase;
 
 class ProfileControllerTest extends TestCase
 {
-    /** @var User */
+    /**
+     * @var User
+     */
     private $user;
 
-    /** @var Profile */
+    /**
+     * @var Profile
+     */
     private $profile;
 
     public function setUp(): void
@@ -37,7 +41,7 @@ class ProfileControllerTest extends TestCase
             ->getJson(route('api.profiles.index'))
             ->assertSuccessful()
             ->assertJsonFragment([
-                'name' => $this->profile->name
+                'name' => $this->profile->name,
             ]);
     }
 
@@ -74,10 +78,10 @@ class ProfileControllerTest extends TestCase
     {
         $this
             ->actingAs($this->user)
-            ->getJson(route('api.profiles.me'))
+            ->getJson(route('api.profile'))
             ->assertSuccessful()
             ->assertJsonFragment([
-                'name' => $this->profile->name
+                'name' => $this->profile->name,
             ]);
     }
 
@@ -95,7 +99,7 @@ class ProfileControllerTest extends TestCase
             ->getJson(route('api.profiles.show', $this->profile->id))
             ->assertSuccessful()
             ->assertJsonFragment([
-                'name' => $this->profile->name
+                'name' => $this->profile->name,
             ]);
     }
 
@@ -137,12 +141,12 @@ class ProfileControllerTest extends TestCase
             ->actingAs($this->user)
             ->patchJson(route('api.profiles.me.update'), [
                 'name'               => 'test',
-                'anti_phishing_code' => 'TEST'
+                'anti_phishing_code' => 'TEST',
             ])
             ->assertSuccessful()
             ->assertJsonFragment([
                 'name'             => 'test',
-                'antiPhishingCode' => 'TE**'
+                'antiPhishingCode' => 'TE**',
             ]);
     }
 
@@ -162,12 +166,12 @@ class ProfileControllerTest extends TestCase
             ->actingAs($this->user)
             ->patchJson(route('api.profiles.update', $profile2->id), [
                 'name'               => 'test',
-                'anti_phishing_code' => 'TEST'
+                'anti_phishing_code' => 'TEST',
             ])
             ->assertSuccessful()
             ->assertJsonFragment([
                 'name'             => 'test',
-                'antiPhishingCode' => 'TE**'
+                'antiPhishingCode' => 'TE**',
             ]);
     }
 
@@ -183,7 +187,7 @@ class ProfileControllerTest extends TestCase
         $this
             ->patchJson(route('api.profiles.update', $profile2->id), [
                 'name'               => 'test',
-                'anti_phishing_code' => 'TEST'
+                'anti_phishing_code' => 'TEST',
             ])
             ->assertStatus(401);
     }
@@ -202,7 +206,7 @@ class ProfileControllerTest extends TestCase
             ->actingAs($user2)
             ->patchJson(route('api.profiles.update', $this->profile->id), [
                 'name'               => 'test',
-                'anti_phishing_code' => 'TEST'
+                'anti_phishing_code' => 'TEST',
             ])
             ->assertStatus(403);
     }

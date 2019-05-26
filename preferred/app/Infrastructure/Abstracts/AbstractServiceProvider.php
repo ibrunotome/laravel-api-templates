@@ -7,37 +7,54 @@ use Illuminate\Support\ServiceProvider as LaravelServiceProvider;
 
 abstract class AbstractServiceProvider extends LaravelServiceProvider
 {
-    /** @var string Alias for load tranlations and views */
+    /**
+     * @var string Alias for load tranlations and views
+     */
     protected $alias;
 
-    /** @var bool Set if will load commands */
+    /**
+     * @var bool Set if will load commands
+     */
     protected $hasCommands = false;
 
-    /** @var bool Set if will load factories */
+    /**
+     * @var bool Set if will load factories
+     */
     protected $hasFactories = false;
 
-    /** @var bool Set if will load migrations */
+    /**
+     * @var bool Set if will load migrations
+     */
     protected $hasMigrations = false;
 
-    /** @var bool Set if will load translations */
+    /**
+     * @var bool Set if will load translations
+     */
     protected $hasTranslations = false;
 
-    /** @var bool Set if will load views */
-    protected $hasViews = false;
-
-    /** @var bool Set if will load policies */
+    /**
+     * @var bool Set if will load policies
+     */
     protected $hasPolicies = false;
 
-    /** @var array List of custom Artisan commands */
+    /**
+     * @var array List of custom Artisan commands
+     */
     protected $commands = [];
 
-    /** @var array List of model factories to load */
+    /**
+     * @var array List of model factories to load
+     */
     protected $factories = [];
 
-    /** @var array List of providers to load */
+    /**
+     * @var array List of providers to load
+     */
     protected $providers = [];
 
-    /** @var array List of policies to load */
+    /**
+     * @var array List of policies to load
+     */
     protected $policies = [];
 
     /**
@@ -52,7 +69,6 @@ abstract class AbstractServiceProvider extends LaravelServiceProvider
         $this->registerFactories();
         $this->registerMigrations();
         $this->registerTranslations();
-        $this->registerViews();
     }
 
     /**
@@ -107,9 +123,7 @@ abstract class AbstractServiceProvider extends LaravelServiceProvider
      * Detects the domain base path so resources can be proper loaded on child classes.
      *
      * @param string $append
-     *
      * @return string
-     *
      * @throws \ReflectionException
      */
     protected function domainPath($append = null)
@@ -134,21 +148,6 @@ abstract class AbstractServiceProvider extends LaravelServiceProvider
     {
         if ($this->hasTranslations && config('register.translations')) {
             $this->loadJsonTranslationsFrom($this->domainPath('Resources/Lang'));
-        }
-    }
-
-    /**
-     * Register domain views.
-     *
-     * @throws \ReflectionException
-     */
-    protected function registerViews()
-    {
-        if ($this->hasViews && config('register.views')) {
-            $this->loadViewsFrom(
-                $this->domainPath('Resources/Views'),
-                $this->alias
-            );
         }
     }
 

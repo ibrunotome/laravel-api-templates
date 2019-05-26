@@ -2,6 +2,7 @@
 
 namespace Preferred\Domain\Users\Repositories;
 
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Preferred\Domain\Users\Contracts\ProfileRepository;
 use Preferred\Domain\Users\Entities\Profile;
 use Preferred\Infrastructure\Abstracts\AbstractEloquentRepository;
@@ -30,7 +31,7 @@ class EloquentProfileRepository extends AbstractEloquentRepository implements Pr
         'created_at',
     ];
 
-    public function findByFilters()
+    public function findByFilters(): LengthAwarePaginator
     {
         $perPage = (int)request()->get('limit');
         $perPage = $perPage >= 1 && $perPage <= 100 ? $perPage : 20;
@@ -46,7 +47,7 @@ class EloquentProfileRepository extends AbstractEloquentRepository implements Pr
     public function setNewEmailTokenConfirmation($userId)
     {
         $this->withoutGlobalScopes()
-            ->findOneByCriteria(['user_id' => $userId])
+            ->findOneBy(['user_id' => $userId])
             ->update([
                 'email_token_confirmation' => Uuid::uuid4(),
             ]);

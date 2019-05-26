@@ -2,6 +2,7 @@
 
 namespace Preferred\Domain\Companies\Repositories;
 
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Preferred\Domain\Companies\Contracts\CompanyRepository;
 use Preferred\Domain\Companies\Entities\Company;
 use Preferred\Infrastructure\Abstracts\AbstractEloquentRepository;
@@ -31,7 +32,7 @@ class EloquentCompanyRepository extends AbstractEloquentRepository implements Co
 
     private $allowedIncludes = [];
 
-    public function findByFilters()
+    public function findByFilters(): LengthAwarePaginator
     {
         $perPage = (int)request()->get('limit');
         $perPage = $perPage >= 1 && $perPage <= 100 ? $perPage : 20;

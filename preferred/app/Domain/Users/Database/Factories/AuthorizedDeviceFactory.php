@@ -21,7 +21,7 @@ class AuthorizedDeviceFactory extends AbstractModelFactory
                 'safari',
                 'chrome',
                 'firefox',
-                'brave'
+                'brave',
             ]),
         ];
     }

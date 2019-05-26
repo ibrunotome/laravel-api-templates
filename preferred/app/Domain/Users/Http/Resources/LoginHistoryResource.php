@@ -8,17 +8,15 @@ use Illuminate\Http\Resources\Json\JsonResource;
 /**
  * Class LoginHistoryResource
  *
- * @package Preferred\Domain\Users\Http\Resources
- *
- * @property string device
- * @property string platform
- * @property string platform_version
- * @property string browser
- * @property string browser_version
- * @property string ip
- * @property string city
- * @property string country_name
- * @property Carbon created_at
+ * @property string $device
+ * @property string $platform
+ * @property string $platform_version
+ * @property string $browser
+ * @property string $browser_version
+ * @property string $ip
+ * @property string $city
+ * @property string $country_name
+ * @property Carbon $created_at
  */
 class LoginHistoryResource extends JsonResource
 {

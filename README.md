@@ -44,6 +44,8 @@ Soon:
 
 - Job example
 - Schedule example
+- Websockets example
+- Graphql
 
 ## Database structure
 

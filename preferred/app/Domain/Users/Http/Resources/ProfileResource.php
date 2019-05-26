@@ -10,29 +10,21 @@ use Preferred\Infrastructure\Support\TwoFactorAuthenticator;
 /**
  * Class ProfileResource
  *
- * @package Preferred\Domain\Users\Http\Resources
- *
- * @property string    id
- * @property string    anti_phishing_code
- * @property string    google2fa_enable
- * @property string    google2fa_secret
- * @property string    google2fa_url
- * @property string    name
- * @property string    user_id
- * @property Carbon    created_at
- * @property Carbon    updated_at
- *
- * @property-read User user
+ * @property string    $id
+ * @property string    $anti_phishing_code
+ * @property string    $google2fa_enable
+ * @property string    $google2fa_secret
+ * @property string    $google2fa_url
+ * @property string    $name
+ * @property string    $user_id
+ * @property Carbon    $created_at
+ * @property Carbon    $updated_at
+ * @property-read User $user
  */
 class ProfileResource extends JsonResource
 {
     /**
-     * Transform the resource into an array.
-     *
-     * @param  \Illuminate\Http\Request $request
-     *
-     * @return array
-     * @throws \Exception
+     * {@inheritdoc}
      */
     public function toArray($request)
     {
@@ -48,7 +40,7 @@ class ProfileResource extends JsonResource
             'google2faSecret'  => $this->when(!$this->google2fa_enable, $this->google2fa_secret),
             'google2faUrl'     => $this->when(!$this->google2fa_enable, $this->google2fa_url),
             'createdAt'        => $this->created_at->format('Y-m-d\TH:i:s'),
-            'updatedAt'        => $this->updated_at->format('Y-m-d\TH:i:s')
+            'updatedAt'        => $this->updated_at->format('Y-m-d\TH:i:s'),
         ];
     }
 }

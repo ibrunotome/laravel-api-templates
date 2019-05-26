@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Factory;
 
 /**
  * Class ModelFactory.
- *
  * Base Factory for usage inside domains.
  */
 abstract class AbstractModelFactory
@@ -18,7 +17,7 @@ abstract class AbstractModelFactory
     protected $factory;
 
     /**
-     * @var \Illuminate\Database\Eloquent\Model
+     * @var string
      */
     protected $model;
 
@@ -47,5 +46,9 @@ abstract class AbstractModelFactory
 
     abstract public function states();
 
+    /**
+     * @return array
+     * @throws \Exception
+     */
     abstract public function fields();
 }

@@ -16,7 +16,9 @@ use Tests\TestCase;
 
 class NotificationsTest extends TestCase
 {
-    /** @var User */
+    /**
+     * @var User
+     */
     private $user;
 
     public function setUp(): void
@@ -39,8 +41,10 @@ class NotificationsTest extends TestCase
     {
         $notification = new TwoFactorAuthenticationWasDisabledNotification();
         $this->assertEquals('notifications', $notification->queue);
-        $this->assertStringContainsString('Two Factor Authentication Disabled',
-            $notification->toMail($this->user)->subject);
+        $this->assertStringContainsString(
+            'Two Factor Authentication Disabled',
+            $notification->toMail($this->user)->subject
+        );
     }
 
     public function testSuccessfulLoginFromIpNotification()

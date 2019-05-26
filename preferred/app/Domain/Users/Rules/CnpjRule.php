@@ -7,45 +7,48 @@ use Illuminate\Contracts\Validation\Rule;
 class CnpjRule implements Rule
 {
     /**
-     * Determine if the validation rule passes.
-     *
-     * @param string $attribute
-     * @param mixed  $value
-     *
-     * @return bool
+     * {@inheritdoc}
      */
     public function passes($attribute, $value)
     {
         $value = preg_replace('/[^0-9]/', '', (string)$value);
 
-        if (strlen($value) != 14) {
+        if (strlen($value) !== 14) {
             return false;
         }
 
-        for ($i = 0, $j = 5, $sum = 0; $i < 12; $i++) {
-            $sum += $value[$i] * $j;
-            $j = ($j == 2) ? 9 : $j - 1;
-        }
-
-        $rest = $sum % 11;
-        if ($value[12] != ($rest < 2 ? 0 : 11 - $rest)) {
+        if ($value === '00000000000000' || $value === '00.000.000/0000-00') {
             return false;
         }
 
-        for ($i = 0, $j = 6, $sum = 0; $i < 13; $i++) {
-            $sum += $value[$i] * $j;
-            $j = ($j == 2) ? 9 : $j - 1;
+        $index2 = 5;
+        $sum = 0;
+
+        for ($index1 = 0; $index1 < 12; $index1++) {
+            $sum += (int)$value[$index1] * $index2;
+            $index2 = $index2 === 2 ? 9 : $index2 - 1;
         }
 
-        $rest = $sum % 11;
+        $resto = $sum % 11;
+        if ((int)$value[12] !== ($resto < 2 ? 0 : 11 - $resto)) {
+            return false;
+        }
 
-        return $value[13] == ($rest < 2 ? 0 : 11 - $rest);
+        $index2 = 6;
+        $sum = 0;
+
+        for ($index1 = 0; $index1 < 13; $index1++) {
+            $sum += (int)$value[$index1] * $index2;
+            $index2 = $index2 === 2 ? 9 : $index2 - 1;
+        }
+
+        $resto = $sum % 11;
+
+        return (int)$value[13] === ($resto < 2 ? 0 : 11 - $resto);
     }
 
     /**
-     * Get the validation error message.
-     *
-     * @return string
+     * {@inheritdoc}
      */
     public function message()
     {

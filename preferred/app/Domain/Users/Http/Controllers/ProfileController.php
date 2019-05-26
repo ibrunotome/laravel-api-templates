@@ -12,7 +12,9 @@ use Preferred\Interfaces\Http\Controllers\Controller;
 
 class ProfileController extends Controller
 {
-    /** @var ProfileRepository */
+    /**
+     * @var ProfileRepository
+     */
     private $profileRepository;
 
     public function __construct(ProfileRepository $profileRepository)
@@ -45,11 +47,12 @@ class ProfileController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function me()
+    public function profile()
     {
-        /** @var Profile $profile */
+        /**
+         * @var Profile $profile
+         */
         $profile = auth()->user()->profile;
-
         return $this->show($profile);
     }
 
@@ -57,7 +60,6 @@ class ProfileController extends Controller
      * Show a profile.
      *
      * @param Profile $profile
-     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function show(Profile $profile)
@@ -69,12 +71,13 @@ class ProfileController extends Controller
      * Update the profile of current logged user.
      *
      * @param ProfileUpdateRequest $request
-     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function updateMe(ProfileUpdateRequest $request)
     {
-        /** @var Profile $profile */
+        /**
+         * @var Profile $profile
+         */
         $profile = auth()->user()->profile;
 
         return $this->update($request, $profile);
@@ -85,14 +88,13 @@ class ProfileController extends Controller
      *
      * @param ProfileUpdateRequest $request
      * @param Profile              $profile
-     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function update(ProfileUpdateRequest $request, Profile $profile)
     {
         $data = $request->only([
             'name',
-            'anti_phishing_code'
+            'anti_phishing_code',
         ]);
 
         $profile = $this->profileRepository->update($profile, $data);

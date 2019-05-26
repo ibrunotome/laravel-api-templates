@@ -2,7 +2,7 @@
 
 namespace Preferred\Infrastructure\Abstracts;
 
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Cache;
@@ -16,10 +16,14 @@ abstract class AbstractEloquentRepository implements BaseRepository
      */
     protected $model;
 
-    /** @var bool */
+    /**
+     * @var bool
+     */
     protected $withoutGlobalScopes = false;
 
-    /** @var array */
+    /**
+     * @var array
+     */
     protected $with = [];
 
     public function __construct(Model $model)
@@ -27,70 +31,87 @@ abstract class AbstractEloquentRepository implements BaseRepository
         $this->model = $model;
     }
 
-    public function with(array $with = [])
+    /**
+     * {@inheritdoc}
+     */
+    public function with(array $with = []): BaseRepository
     {
         $this->with = $with;
         return $this;
     }
 
-    public function withoutGlobalScopes()
+    /**
+     * {@inheritdoc}
+     */
+    public function withoutGlobalScopes(): BaseRepository
     {
         $this->withoutGlobalScopes = true;
         return $this;
     }
 
-    public function store(array $data)
+    /**
+     * {@inheritdoc}
+     */
+    public function store(array $data): Model
     {
         return $this->model->with([])->create($data);
     }
 
-    public function update(Model $model, array $data)
+    /**
+     * {@inheritdoc}
+     */
+    public function update(Model $model, array $data): Model
     {
         return tap($model)->update($data);
     }
 
-    public function findByCriteria(array $criteria = []): Collection
+    /**
+     * {@inheritdoc}
+     */
+    public function findByFilters(): LengthAwarePaginator
+    {
+        return $this->model->with($this->with)->paginate();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findOneById(string $id): Model
+    {
+        if (!Uuid::isValid($id)) {
+            throw (new ModelNotFoundException())->setModel(get_class($this->model));
+        }
+
+        if (!empty($this->with) || $this->authCheck()) {
+            return $this->findOneBy(['id' => $id]);
+        }
+
+        return Cache::remember($id, 3600, function () use ($id) {
+            return $this->findOneBy(['id' => $id]);
+        });
+    }
+
+    private function authCheck()
+    {
+        return auth()->check() && config('auth.defaults.guard') === 'spa';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findOneBy(array $criteria): Model
     {
         if (!$this->withoutGlobalScopes) {
             return $this->model->with($this->with)
                 ->where($criteria)
                 ->orderBy('created_at', 'desc')
-                ->get();
+                ->firstOrFail();
         }
 
         return $this->model->with($this->with)
             ->withoutGlobalScopes()
             ->where($criteria)
             ->orderBy('created_at', 'desc')
-            ->get();
-    }
-
-    public function findByFilters()
-    {
-        return $this->model->with($this->with)->paginate();
-    }
-
-    public function findOneById($id)
-    {
-        if (!Uuid::isValid($id)) {
-            throw (new ModelNotFoundException)->setModel(get_class($this->model));
-        }
-
-        if (!empty($this->with) || auth()->check()) {
-            return $this->findOneByCriteria(['id' => $id]);
-        }
-
-        return Cache::remember($id, 3600, function () use ($id) {
-            return $this->findOneByCriteria(['id' => $id]);
-        });
-    }
-
-    public function findOneByCriteria(array $criteria)
-    {
-        if (!$this->withoutGlobalScopes) {
-            return $this->model->with($this->with)->where($criteria)->firstOrFail();
-        }
-
-        return $this->model->with($this->with)->withoutGlobalScopes()->where($criteria)->firstOrFail();
+            ->firstOrFail();
     }
 }

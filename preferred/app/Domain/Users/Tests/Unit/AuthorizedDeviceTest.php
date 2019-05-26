@@ -8,7 +8,9 @@ use Tests\TestCase;
 
 class AuthorizedDeviceTest extends TestCase
 {
-    /** @var AuthorizedDevice */
+    /**
+     * @var AuthorizedDevice
+     */
     private $authorizedDevice;
 
     public function setUp(): void

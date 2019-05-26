@@ -27,7 +27,7 @@ class CompanyCreateRequest extends FormRequest
             'name'      => [
                 'required',
                 'string',
-                'max:250'
+                'max:250',
             ],
             'is_active' => [
                 'required',
@@ -36,8 +36,8 @@ class CompanyCreateRequest extends FormRequest
             'max_users' => [
                 'required',
                 'integer',
-                'between:1,32767'
-            ]
+                'between:1,32767',
+            ],
         ];
     }
 }

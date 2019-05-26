@@ -26,8 +26,6 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->singleton(CompanyRepository::class, function () {
             return new EloquentCompanyRepository(new Company());
         });
-
-        //:end-bindings:
     }
 
     /**

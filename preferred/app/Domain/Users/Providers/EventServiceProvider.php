@@ -40,8 +40,8 @@ class EventServiceProvider extends ServiceProvider implements TransactionalEvent
         ],
 
         TwoFactorAuthenticationWasDisabled::class => [
-            TwoFactorAuthenticationWasDisabledListener::class
-        ]
+            TwoFactorAuthenticationWasDisabledListener::class,
+        ],
     ];
 
     /**
@@ -59,7 +59,5 @@ class EventServiceProvider extends ServiceProvider implements TransactionalEvent
         Profile::observe(ProfileObserver::class);
         Role::observe(RoleObserver::class);
         User::observe(UserObserver::class);
-
-        //
     }
 }

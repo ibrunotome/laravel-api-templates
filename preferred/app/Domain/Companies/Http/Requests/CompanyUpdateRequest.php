@@ -26,15 +26,15 @@ class CompanyUpdateRequest extends FormRequest
         return [
             'name'      => [
                 'string',
-                'max:250'
+                'max:250',
             ],
             'is_active' => [
                 'boolean',
             ],
             'max_users' => [
                 'integer',
-                'between:1,32767'
-            ]
+                'between:1,32767',
+            ],
         ];
     }
 }

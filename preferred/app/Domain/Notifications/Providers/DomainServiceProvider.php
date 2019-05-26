@@ -15,6 +15,6 @@ class DomainServiceProvider extends AbstractServiceProvider
     protected $hasPolicies = true;
 
     protected $policies = [
-        DatabaseNotification::class => NotificationPolicy::class
+        DatabaseNotification::class => NotificationPolicy::class,
     ];
 }

@@ -8,7 +8,9 @@ use Tests\TestCase;
 
 class LoginControllerTest extends TestCase
 {
-    /** @var User */
+    /**
+     * @var User
+     */
     private $user;
 
     public function setUp(): void
@@ -21,28 +23,31 @@ class LoginControllerTest extends TestCase
 
     public function testLogin()
     {
-        $this->postJson(route('api.auth.login'), [
-            'email'    => $this->user->email,
-            'password' => 'secretxxx',
-        ])
+        $this
+            ->postJson(route('api.auth.login'), [
+                'email'    => $this->user->email,
+                'password' => 'secretxxx',
+            ])
             ->assertSuccessful()
             ->assertJsonStructure([
                 'data' => [
                     'token',
-                    'token_type',
-                    'expires_in',
+                    'tokenType',
+                    'expiresIn',
                 ],
-                'meta'
+                'meta',
             ]);
     }
 
     public function testFetchTheCurrentUser()
     {
-        $this->actingAs($this->user)
+        $this
+            ->actingAs($this->user)
             ->getJson(route('api.me'))
             ->assertSuccessful()
             ->assertJsonFragment([
-                'email' => $this->user->email
+                'email'  => $this->user->email,
+                'locale' => $this->user->locale,
             ]);
     }
 
@@ -56,34 +61,37 @@ class LoginControllerTest extends TestCase
             'password' => 'secretxxx',
         ])->json()['data']['token'];
 
-        $this->postJson('/api/logout?token=' . $token)
+        $this
+            ->postJson(route('api.auth.logout') . '?token=' . $token)
             ->assertSuccessful();
 
-        $this->getJson('api/me?token=' . $token)
+        $this
+            ->getJson(route('api.me') . '?token=' . $token)
             ->assertStatus(401);
     }
 
     public function testCannotLoginBecauseEmailIsNotVerified()
     {
-        $this->user = factory(User::class)->create(['email_verified_at' => null]);
-
+        $this->user = factory(User::class)->states('email_unverified')->create();
         factory(Profile::class)->create(['user_id' => $this->user->id]);
 
-        $this->postJson(route('api.auth.login'), [
-            'email'    => $this->user->email,
-            'password' => 'secretxxx',
-        ])->assertStatus(423);
+        $this
+            ->postJson(route('api.auth.login'), [
+                'email'    => $this->user->email,
+                'password' => 'secretxxx',
+            ])
+            ->assertStatus(423);
     }
 
     public function testCannotLoginBecauseAccountIsInactive()
     {
-        $this->user = factory(User::class)->create(['is_active' => 0]);
+        $this->user = factory(User::class)->states('inactive')->create();
 
-        factory(Profile::class)->create(['user_id' => $this->user->id]);
-
-        $this->postJson(route('api.auth.login'), [
-            'email'    => $this->user->email,
-            'password' => 'secretxxx',
-        ])->assertStatus(423);
+        $this
+            ->postJson(route('api.auth.login'), [
+                'email'    => $this->user->email,
+                'password' => 'secretxxx',
+            ])
+            ->assertStatus(423);
     }
 }

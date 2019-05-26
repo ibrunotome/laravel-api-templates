@@ -44,7 +44,6 @@ class RegisterController extends Controller
      *
      * @param Request $request
      * @param User    $user
-     *
      * @return mixed
      */
     protected function registered(Request $request, User $user)
@@ -63,7 +62,6 @@ class RegisterController extends Controller
      * Get a validator for an incoming registration request.
      *
      * @param  array $data
-     *
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
@@ -79,19 +77,19 @@ class RegisterController extends Controller
                 'string',
                 'email',
                 'max:255',
-                'unique:users,email'
+                'unique:users,email',
             ],
             'password' => [
                 'required',
                 'string',
                 'min:8',
                 'confirmed',
-                new WeakPasswordRule
+                new WeakPasswordRule(),
             ],
             'locale'   => [
                 'nullable',
                 'string',
-                'in:en_US,pt_BR'
+                'in:en_US,pt_BR',
             ],
         ]);
     }
@@ -100,16 +98,19 @@ class RegisterController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param  array $data
-     *
      * @return User
      */
     protected function create(array $data)
     {
         return DB::transaction(function () use ($data) {
-            /** @var UserRepository $userRepository */
+            /**
+             * @var UserRepository $userRepository
+             */
             $userRepository = app(UserRepository::class);
 
-            /** @var User $user */
+            /**
+             * @var User $user
+             */
             $user = $userRepository->store([
                 'email'             => $data['email'],
                 'password'          => bcrypt($data['password']),
@@ -117,7 +118,9 @@ class RegisterController extends Controller
                 'email_verified_at' => null,
             ]);
 
-            /** @var ProfileRepository $profileRepository */
+            /**
+             * @var ProfileRepository $profileRepository
+             */
             $profileRepository = app(ProfileRepository::class);
             $profileRepository->store([
                 'name'                        => $data['name'],

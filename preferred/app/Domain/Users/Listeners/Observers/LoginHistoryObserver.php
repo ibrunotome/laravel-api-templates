@@ -22,6 +22,5 @@ class LoginHistoryObserver implements TransactionalEvent
     public function created(LoginHistory $loginHistory)
     {
         Cache::tags('users:' . $loginHistory->user_id)->flush();
-        Cache::tags('users')->flush();
     }
 }

@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Notification;
 use Jenssegers\Agent\Agent;
-use Preferred\Domain\Users\Contracts\ProfileRepository;
 use Preferred\Domain\Users\Entities\Profile;
 use Preferred\Domain\Users\Entities\User;
 use Preferred\Domain\Users\Exceptions\LockedException;
@@ -36,18 +35,8 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    public function broadcastAuth(Request $request)
+    public function wsAuth(Request $request)
     {
-        $userId = str_replace('private-users.', '', $request->get('channel_name'));
-
-        $user = Cache::remember($userId, 3600, function () use ($userId) {
-            return User::with([])->find($userId);
-        });
-
-        $request->setUserResolver(function () use ($user) {
-            return $user;
-        });
-
         Broadcast::auth($request);
     }
 
@@ -55,7 +44,6 @@ class LoginController extends Controller
      * Log the user out of the application.
      *
      * @param  \Illuminate\Http\Request $request
-     *
      * @return void
      */
     public function logout(Request $request)
@@ -64,25 +52,20 @@ class LoginController extends Controller
 
         (new TwoFactorAuthenticator($request))->logout();
         Cache::forget($id);
-        Cache::tags('users:' . $id);
+        Cache::tags('users:' . $id)->flush();
 
-        $this->guard()->logout();
+        $this->guard()->logout(true);
     }
 
     /**
-     * Attempt to log the user into the application.
-     *
-     * @param  \Illuminate\Http\Request $request
-     *
-     * @return bool
+     * {@inheritdoc}
      */
     protected function attemptLogin(Request $request)
     {
-        $token = $this->guard()->setTTL(config('jwt.ttl'))->attempt($this->credentials($request));
+        $token = $this->guard()->attempt($this->credentials($request));
 
         if ($token) {
             $this->guard()->setToken($token);
-
             return true;
         }
 
@@ -93,24 +76,25 @@ class LoginController extends Controller
      * Send the response after the user was authenticated.
      *
      * @param  \Illuminate\Http\Request $request
-     *
      * @return \Illuminate\Http\JsonResponse
      */
     protected function sendLoginResponse(Request $request)
     {
-        /** @var User $user */
+        /**
+         * @var User $user
+         */
         $user = auth()->user();
 
         try {
-            $this->checkIfIsActive($user, $request);
-            $this->checkIfHasVerifiedEmail($user);
+            $this->checkUserIfIsActive($user, $request);
+            $this->checkIfUserHasVerifiedEmail($user, $request);
             $data = $this->getDeviceInfo($request);
             $data['user_id'] = $user->id;
             $this->checkIfIsDeviceIsAuthorized($user, $data);
         } catch (LockedException $exception) {
             return $this->respondWithCustomData([
                 'message'     => $exception->getMessage(),
-                'isVerify2fa' => 0,
+                'isVerify2fa' => false,
             ], Response::HTTP_LOCKED);
         }
 
@@ -121,40 +105,40 @@ class LoginController extends Controller
         $expiration = $this->guard()->getPayload()->get('exp');
 
         return $this->respondWithCustomData([
-            'token'      => $token,
-            'token_type' => 'bearer',
-            'expires_in' => $expiration - time(),
+            'token'     => $token,
+            'tokenType' => 'Bearer',
+            'expiresIn' => $expiration - time(),
         ]);
     }
 
-    private function checkIfIsActive(User $user, Request $request)
+    private function checkUserIfIsActive(User $user, Request $request)
     {
         if (!$user->is_active) {
-            (new TwoFactorAuthenticator($request))->logout();
-            Cache::forget($user->id);
-            Cache::tags('users:' . $user->id)->flush();
-            auth()->logout();
+            $this->logout($request);
+
+            $supportLink = config('app.support_url');
 
             $message = __(
-                'Your account has been disabled, to enable it again, please contact :support_link to start the process.',
-                ['support_link' => '<a href="' . config('app.support_url') . '">' . config('app.support_url') . '</a>']
+                'Your account has been disabled, to enable it again, ' .
+                'please contact :support_link to start the process.',
+                ['support_link' => '<a href="' . $supportLink . '">' . $supportLink . '</a>']
             );
 
             throw new LockedException($message);
         }
     }
 
-    private function checkIfHasVerifiedEmail(User $user)
+    private function checkIfUserHasVerifiedEmail(User $user, Request $request)
     {
         if (!$user->hasVerifiedEmail()) {
-            /** @var Profile $profile */
-            $profile = app(ProfileRepository::class)->with(['user'])->findOneByCriteria(['user_id' => $user->id]);
+            /**
+             * @var Profile $profile
+             */
+            $profile = $user->profile;
 
             Notification::send($user, new VerifyEmailNotification($profile->email_token_confirmation));
 
-            Cache::forget($user->id);
-            Cache::tags('users:' . $user->id)->flush();
-            auth()->logout();
+            $this->logout($request);
 
             $message = __(
                 'We sent a confirmation email to :email. Please follow the instructions to complete your registration.',
@@ -200,7 +184,9 @@ class LoginController extends Controller
             return;
         }
 
-        /** @var AuthorizedDeviceService $authorizedDeviceService */
+        /**
+         * @var AuthorizedDeviceService $authorizedDeviceService
+         */
         $authorizedDeviceService = app(AuthorizedDeviceService::class);
 
         $response = $authorizedDeviceService->store($user, $data);
@@ -212,7 +198,9 @@ class LoginController extends Controller
 
     private function createNewLoginHistory(User $user, array $data)
     {
-        /** @var LoginHistoryService $loginHistoryService */
+        /**
+         * @var LoginHistoryService $loginHistoryService
+         */
         $loginHistoryService = app(LoginHistoryService::class);
         $loginHistoryService->store($user, $data);
     }

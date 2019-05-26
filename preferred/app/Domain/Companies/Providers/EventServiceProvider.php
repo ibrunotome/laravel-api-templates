@@ -9,24 +9,15 @@ use Preferred\Domain\Companies\Listeners\Observers\CompanyObserver;
 
 class EventServiceProvider extends ServiceProvider implements TransactionalEvent
 {
-    /**
-     * The event listener mappings for the application.
-     *
-     * @var array
-     */
     protected $listen = [];
 
     /**
-     * Register any events for your application.
-     *
-     * @return void
+     * {@inheritdoc}
      */
     public function boot()
     {
         parent::boot();
 
         Company::observe(CompanyObserver::class);
-
-        //
     }
 }

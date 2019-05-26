@@ -27,7 +27,7 @@ class EnableTwoFactorAuthenticationRequest extends FormRequest
             'one_time_password' => [
                 'required',
                 'string',
-                'size:6'
+                'size:6',
             ],
         ];
     }

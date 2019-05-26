@@ -13,39 +13,20 @@ class VerifyEmailNotification extends Notification implements ShouldQueue
 
     private $token;
 
-    /**
-     * Create a new notification instance.
-     *
-     * @param $token
-     */
-    public function __construct($token)
+    public function __construct(string $token)
     {
         $this->token = $token;
         $this->onQueue('notifications');
     }
 
-    /**
-     * Get the notification's delivery channels.
-     **
-     * @return array
-     */
     public function via()
     {
         return ['mail'];
     }
 
-    /**
-     * Get the mail representation of the notification.
-     *
-     * @param  mixed $notifiable
-     *
-     * @return \Illuminate\Notifications\Messages\MailMessage
-     */
     public function toMail($notifiable)
     {
-        app()->setLocale($notifiable->profile->locale);
-
-        return (new MailMessage)
+        return (new MailMessage())
             ->markdown('emails.default')
             ->success()
             ->subject(__(':app_name - Confirm your registration', ['app_name' => config('app.name')]))

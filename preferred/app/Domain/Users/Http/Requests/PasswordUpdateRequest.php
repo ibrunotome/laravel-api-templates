@@ -29,13 +29,13 @@ class PasswordUpdateRequest extends FormRequest
             'current_password' => [
                 'required',
                 'string',
-                new CurrentPasswordRule,
+                new CurrentPasswordRule(),
             ],
             'password'         => [
                 'required',
                 'confirmed',
                 'min:8',
-                new WeakPasswordRule
+                new WeakPasswordRule(),
             ],
         ];
     }
