@@ -4,14 +4,14 @@ namespace App\Repositories;
 
 use App\Contracts\AuthorizedDeviceRepository;
 
-class EloquentAuthorizedDevicesRepository extends AbstractEloquentRepository implements AuthorizedDeviceRepository
+class EloquentAuthorizedDevicesRepository extends EloquentRepository implements AuthorizedDeviceRepository
 {
-    public function doesNotHaveAuthorizedDevice(string $userId): bool
+    public function doesNotHaveAuthorizedAnyDeviceYet(string $userId): bool
     {
-        return $this->model::query()->where('user_id', '=', $userId)->count(['id']) === 0;
+        return $this->model::query()->where('user_id', '=', $userId)->count('id') === 0;
     }
 
-    public function deviceExists(array $data)
+    public function findDeviceByCriteria(array $data)
     {
         return $this->model::query()
             ->where('user_id', '=', $data['user_id'])

@@ -10,13 +10,19 @@ use Tests\TestCase;
 
 class TwoFactorAuthenticationWasDisabledListenerTest extends TestCase
 {
-    /** @var TwoFactorAuthenticationWasDisabledListener */
+    /**
+     * @var TwoFactorAuthenticationWasDisabledListener
+     */
     private $twoFactorAuthenticationWasDisabledListener;
 
-    /** @var User */
+    /**
+     * @var User
+     */
     private $user;
 
-    /** @var Profile */
+    /**
+     * @var Profile
+     */
     private $profile;
 
     public function setUp(): void

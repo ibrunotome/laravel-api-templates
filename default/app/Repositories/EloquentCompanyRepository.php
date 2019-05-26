@@ -4,9 +4,10 @@ namespace App\Repositories;
 
 use App\Contracts\CompanyRepository;
 use App\Models\Company;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Spatie\QueryBuilder\QueryBuilder;
 
-class EloquentCompanyRepository extends AbstractEloquentRepository implements CompanyRepository
+class EloquentCompanyRepository extends EloquentRepository implements CompanyRepository
 {
     private $defaultSort = '-created_at';
 
@@ -30,7 +31,7 @@ class EloquentCompanyRepository extends AbstractEloquentRepository implements Co
 
     private $allowedIncludes = [];
 
-    public function findByFilters()
+    public function findByFilters(): LengthAwarePaginator
     {
         $perPage = (int)request()->get('limit');
         $perPage = $perPage >= 1 && $perPage <= 100 ? $perPage : 20;

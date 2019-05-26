@@ -11,4 +11,3 @@ parameters:
         - */Http/Controllers/LoginController.php
         - */Rules/CnpjRule.php
         - */Rules/CpfRule.php
-        - */Filters/BetweenFilter.php

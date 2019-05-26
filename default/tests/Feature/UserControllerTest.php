@@ -13,7 +13,9 @@ use Tests\TestCase;
 
 class UserControllerTest extends TestCase
 {
-    /** @var User */
+    /**
+     * @var User
+     */
     private $user;
 
     public function setUp(): void

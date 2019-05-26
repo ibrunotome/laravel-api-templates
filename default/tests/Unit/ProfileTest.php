@@ -9,7 +9,9 @@ use Tests\TestCase;
 
 class ProfileTest extends TestCase
 {
-    /** @var Profile */
+    /**
+     * @var Profile
+     */
     private $profile;
 
     public function setUp(): void

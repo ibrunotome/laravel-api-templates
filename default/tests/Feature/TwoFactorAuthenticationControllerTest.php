@@ -9,10 +9,14 @@ use Tests\TestCase;
 
 class TwoFactorAuthenticationControllerTest extends TestCase
 {
-    /** @var User */
+    /**
+     * @var User
+     */
     private $user;
 
-    /** @var Profile */
+    /**
+     * @var Profile
+     */
     private $profile;
 
     public function setUp(): void

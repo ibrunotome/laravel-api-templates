@@ -14,11 +14,11 @@ class Permission extends \Spatie\Permission\Models\Permission implements Auditab
     protected $keyType = 'string';
 
     protected $casts = [
-        'id' => 'string'
+        'id' => 'string',
     ];
 
     protected $fillable = [
         'name',
-        'guard_name'
+        'guard_name',
     ];
 }

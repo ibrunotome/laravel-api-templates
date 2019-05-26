@@ -28,11 +28,6 @@ use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvi
 
 class EventServiceProvider extends ServiceProvider
 {
-    /**
-     * The event listener mappings for the application.
-     *
-     * @var array
-     */
     protected $listen = [
         Registered::class => [
             UserRegisteredListener::class,
@@ -43,14 +38,12 @@ class EventServiceProvider extends ServiceProvider
         ],
 
         TwoFactorAuthenticationWasDisabled::class => [
-            TwoFactorAuthenticationWasDisabledListener::class
-        ]
+            TwoFactorAuthenticationWasDisabledListener::class,
+        ],
     ];
 
     /**
-     * Register any events for your application.
-     *
-     * @return void
+     * {@inheritdoc}
      */
     public function boot()
     {
@@ -64,7 +57,5 @@ class EventServiceProvider extends ServiceProvider
         Permission::observe(PermissionObserver::class);
         Profile::observe(ProfileObserver::class);
         Role::observe(RoleObserver::class);
-
-        //
     }
 }

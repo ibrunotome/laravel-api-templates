@@ -16,14 +16,12 @@ class EloquentProfileRepository extends EloquentRepository implements ProfileRep
     private $defaultSelect = [
         'name',
         'google2fa_enable',
-        'locale',
         'created_at',
         'updated_at',
     ];
 
     private $allowedFilters = [
         'google2fa_enable',
-        'locale',
     ];
 
     private $allowedSorts = [

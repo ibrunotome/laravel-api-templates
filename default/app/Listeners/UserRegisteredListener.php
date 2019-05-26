@@ -22,12 +22,13 @@ class UserRegisteredListener implements ShouldQueue
      * Handle the event.
      *
      * @param Registered $event
-     *
      * @throws \Exception
      */
     public function handle($event)
     {
-        /** @var Profile $profile */
+        /**
+         * @var Profile $profile
+         */
         $profile = $event->user->profile;
 
         Notification::send($event->user, new VerifyEmailNotification($profile->email_token_confirmation));

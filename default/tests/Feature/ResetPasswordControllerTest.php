@@ -15,7 +15,9 @@ class PasswordResetTest extends TestCase
 {
     use WithFaker;
 
-    /** @var User */
+    /**
+     * @var User
+     */
     private $user;
 
     public function setUp(): void

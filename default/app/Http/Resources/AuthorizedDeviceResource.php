@@ -7,19 +7,18 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
  * Class AuthorizedDeviceResource
+ **
  *
- * @package App\Http\Resources
- *
- * @property string id
- * @property string device
- * @property string platform
- * @property string platform_version
- * @property string browser
- * @property string browser_version
- * @property string city
- * @property string country_name
- * @property Carbon authorized_at
- * @property Carbon created_at
+ * @property string $id
+ * @property string $device
+ * @property string $platform
+ * @property string $platform_version
+ * @property string $browser
+ * @property string $browser_version
+ * @property string $city
+ * @property string $country_name
+ * @property Carbon $authorized_at
+ * @property Carbon $created_at
  */
 class AuthorizedDeviceResource extends JsonResource
 {
@@ -39,7 +38,7 @@ class AuthorizedDeviceResource extends JsonResource
             'city'            => $this->city,
             'countryName'     => $this->country_name,
             'authorizedAt'    => $this->authorized_at,
-            'createdAt'       => $this->created_at->format('Y-m-d\TH:i:s')
+            'createdAt'       => $this->created_at->format('Y-m-d\TH:i:s'),
         ];
     }
 }

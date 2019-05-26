@@ -9,9 +9,7 @@ use Laravel\Horizon\HorizonApplicationServiceProvider;
 class HorizonServiceProvider extends HorizonApplicationServiceProvider
 {
     /**
-     * Bootstrap any application services.
-     *
-     * @return void
+     * {@inheritdoc}
      */
     public function boot()
     {
@@ -22,10 +20,7 @@ class HorizonServiceProvider extends HorizonApplicationServiceProvider
     }
 
     /**
-     * Register the Horizon gate.
-     * This gate determines who can access Horizon in non-local environments.
-     *
-     * @return void
+     * {@inheritdoc}
      */
     protected function gate()
     {

@@ -4,7 +4,7 @@ namespace App\Repositories;
 
 use App\Contracts\LoginHistoryRepository;
 
-class EloquentLoginHistoryRepository extends AbstractEloquentRepository implements LoginHistoryRepository
+class EloquentLoginHistoryRepository extends EloquentRepository implements LoginHistoryRepository
 {
     public function loginsWithThisIpExists(array $data): bool
     {

@@ -16,7 +16,9 @@ use Tests\TestCase;
 
 class NotificationsTest extends TestCase
 {
-    /** @var User */
+    /**
+     * @var User
+     */
     private $user;
 
     public function setUp(): void

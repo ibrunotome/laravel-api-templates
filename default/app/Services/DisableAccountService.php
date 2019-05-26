@@ -12,7 +12,9 @@ use Illuminate\Support\Facades\Notification;
 
 class DisableAccountService
 {
-    /** @var ProfileRepository */
+    /**
+     * @var ProfileRepository
+     */
     private $profileRepository;
 
     public function __construct(ProfileRepository $profileRepository)
@@ -22,10 +24,12 @@ class DisableAccountService
 
     public function handle($token)
     {
-        /** @var Profile $profile */
+        /**
+         * @var Profile $profile
+         */
         $profile = $this->profileRepository
             ->with(['user'])
-            ->findOneByCriteria(['email_token_disable_account' => $token]);
+            ->findOneBy(['email_token_disable_account' => $token]);
 
         try {
             return DB::transaction(function () use ($profile) {
@@ -40,7 +44,7 @@ class DisableAccountService
         } catch (\Exception $exception) {
             return [
                 'error'   => true,
-                'message' => __('We could not disable your account, please try again or enter in contact with the support')
+                'message' => __('We could not disable your account, please try again or enter in contact with the support'),
             ];
         }
     }

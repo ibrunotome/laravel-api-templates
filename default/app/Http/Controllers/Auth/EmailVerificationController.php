@@ -14,15 +14,19 @@ class EmailVerificationController extends Controller
     public function verify($token)
     {
         try {
-            /** @var Profile $profile */
-            $profile = app(ProfileRepository::class)->with(['user'])->findOneByCriteria(['email_token_confirmation' => $token]);
+            /**
+             * @var Profile $profile
+             */
+            $profile = app(ProfileRepository::class)->with(['user'])->findOneBy(['email_token_confirmation' => $token]);
         } catch (\Exception $exception) {
             $message = __('Invalid token for email verification');
 
             return $this->respondWithCustomData(['message' => $message], Response::HTTP_BAD_REQUEST);
         }
 
-        /** @var User $user */
+        /**
+         * @var User $user
+         */
         $user = $profile->user;
 
         if (!$user->hasVerifiedEmail() && $user->markEmailAsVerified()) {

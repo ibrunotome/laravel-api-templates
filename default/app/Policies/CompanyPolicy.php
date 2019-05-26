@@ -14,7 +14,6 @@ class CompanyPolicy
      * Determine whether the user can view a list of model.
      *
      * @param  \App\Models\User $user
-     *
      * @return mixed
      */
     public function viewAny(User $user)
@@ -27,7 +26,6 @@ class CompanyPolicy
      *
      * @param  \App\Models\User    $user
      * @param  \App\Models\Company $model
-     *
      * @return mixed
      */
     public function view(User $user, Company $model)
@@ -39,7 +37,6 @@ class CompanyPolicy
      * Determine whether the user can create models.
      *
      * @param  \App\Models\User $user
-     *
      * @return mixed
      */
     public function create(User $user)
@@ -52,7 +49,6 @@ class CompanyPolicy
      *
      * @param  \App\Models\User    $user
      * @param  \App\Models\Company $model
-     *
      * @return mixed
      */
     public function update(User $user, Company $model)
@@ -65,7 +61,6 @@ class CompanyPolicy
      *
      * @param  \App\Models\User    $user
      * @param  \App\Models\Company $model
-     *
      * @return mixed
      */
     public function delete(User $user, Company $model)
@@ -78,7 +73,6 @@ class CompanyPolicy
      *
      * @param  \App\Models\User    $user
      * @param  \App\Models\Company $model
-     *
      * @return mixed
      */
     public function restore(User $user, Company $model)
@@ -91,7 +85,6 @@ class CompanyPolicy
      *
      * @param  \App\Models\User    $user
      * @param  \App\Models\Company $model
-     *
      * @return mixed
      */
     public function forceDelete(User $user, Company $model)

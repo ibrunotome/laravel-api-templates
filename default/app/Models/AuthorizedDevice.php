@@ -11,23 +11,20 @@ use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 /**
  * Class AuthorizedDevice
  *
- * @package App\Models
- *
- * @property string    id
- * @property string    device
- * @property string    platform
- * @property string    platform_version
- * @property string    browser
- * @property string    browser_version
- * @property string    city
- * @property string    country_name
- * @property string    authorization_token
- * @property Carbon    authorized_at
- * @property Carbon    created_at
- * @property Carbon    updated_at
- * @property string    user_id
- *
- * @property-read User user
+ * @property string    $id
+ * @property string    $device
+ * @property string    $platform
+ * @property string    $platform_version
+ * @property string    $browser
+ * @property string    $browser_version
+ * @property string    $city
+ * @property string    $country_name
+ * @property string    $authorization_token
+ * @property Carbon    $authorized_at
+ * @property Carbon    $created_at
+ * @property Carbon    $updated_at
+ * @property string    $user_id
+ * @property-read User $user
  */
 class AuthorizedDevice extends Model implements AuditableContract
 {

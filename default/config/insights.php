@@ -69,15 +69,6 @@ return [
         '_ide_helper.php',
         '_ide_helper_models.php',
         'public',
-        'app/Domain/Audits/Database',
-        'app/Domain/Companies/Database',
-        'app/Domain/Notifications/Database',
-        'app/Domain/Users/Database',
-
-        'app/Domain/Audits/Tests',
-        'app/Domain/Companies/Tests',
-        'app/Domain/Notifications/Tests',
-        'app/Domain/Users/Tests',
     ],
 
     'add' => [

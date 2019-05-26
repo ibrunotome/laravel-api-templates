@@ -17,13 +17,12 @@ class UserObserver implements TransactionalEvent
 
     public function updated(User $user)
     {
+        Cache::forget($user->id);
+
         if ($user->is_active) {
             Cache::put($user->id, $user, 60);
-        } else {
-            Cache::forget($user->id);
         }
 
         Cache::tags('users:' . $user->id)->flush();
-        Cache::tags('users')->flush();
     }
 }

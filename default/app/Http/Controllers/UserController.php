@@ -13,7 +13,9 @@ use Illuminate\Support\Facades\Cache;
 
 class UserController extends Controller
 {
-    /** @var UserRepository */
+    /**
+     * @var UserRepository
+     */
     private $userRepository;
 
     public function __construct(UserRepository $userRepository)
@@ -34,23 +36,24 @@ class UserController extends Controller
         $cacheTag = 'users';
         $cacheKey = 'users:' . auth()->id() . json_encode(request()->all());
 
-        $collection = Cache::tags($cacheTag)->remember($cacheKey, 3600, function () {
-            return $this->userRepository->findByFilters();
-        });
+        return Cache::tags($cacheTag)->remember($cacheKey, 3600, function () {
+            $collection = $this->userRepository->findByFilters();
 
-        return $this->respondWithCollection($collection);
+            return $this->respondWithCollection($collection);
+        });
     }
 
     /**
      * Show a current logged user.
      *
      * @param Request $request
-     *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function me(Request $request)
+    public function profile(Request $request)
     {
-        /** @var User $user */
+        /**
+         * @var User $user
+         */
         $user = auth()->user();
         return $this->show($request, $user);
     }
@@ -60,7 +63,6 @@ class UserController extends Controller
      *
      * @param Request $request
      * @param User    $user
-     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function show(Request $request, User $user)
@@ -91,12 +93,13 @@ class UserController extends Controller
      * Update the current logged user.
      *
      * @param UserUpdateRequest $request
-     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function updateMe(UserUpdateRequest $request)
     {
-        /** @var User $user */
+        /**
+         * @var User $user
+         */
         $user = auth()->user();
         return $this->update($request, $user);
     }
@@ -106,7 +109,6 @@ class UserController extends Controller
      *
      * @param UserUpdateRequest $request
      * @param User              $user
-     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function update(UserUpdateRequest $request, User $user)
@@ -121,12 +123,13 @@ class UserController extends Controller
      * Update password of logged user.
      *
      * @param PasswordUpdateRequest $request
-     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function updatePassword(PasswordUpdateRequest $request)
     {
-        /** @var User $user */
+        /**
+         * @var User $user
+         */
         $user = auth()->user();
         $data = $request->only(['password']);
 

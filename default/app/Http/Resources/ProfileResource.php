@@ -6,40 +6,29 @@ use App\Models\User;
 use App\Support\TwoFactorAuthenticator;
 use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Facades\Log;
 
 /**
  * Class ProfileResource
  *
- * @package App\Http\Resources
- *
- * @property string    id
- * @property string    anti_phishing_code
- * @property string    google2fa_enable
- * @property string    google2fa_secret
- * @property string    google2fa_url
- * @property string    name
- * @property string    user_id
- * @property Carbon    created_at
- * @property Carbon    updated_at
- *
- * @property-read User user
+ * @property string    $id
+ * @property string    $anti_phishing_code
+ * @property string    $google2fa_enable
+ * @property string    $google2fa_secret
+ * @property string    $google2fa_url
+ * @property string    $name
+ * @property string    $user_id
+ * @property Carbon    $created_at
+ * @property Carbon    $updated_at
+ * @property-read User $user
  */
 class ProfileResource extends JsonResource
 {
     /**
-     * Transform the resource into an array.
-     *
-     * @param  \Illuminate\Http\Request $request
-     *
-     * @return array
-     * @throws \Exception
+     * {@inheritdoc}
      */
     public function toArray($request)
     {
         $twoFactorAuthenticator = new TwoFactorAuthenticator($request);
-
-        Log::debug($this->id);
 
         return [
             'id'               => $this->id,
@@ -51,7 +40,7 @@ class ProfileResource extends JsonResource
             'google2faSecret'  => $this->when(!$this->google2fa_enable, $this->google2fa_secret),
             'google2faUrl'     => $this->when(!$this->google2fa_enable, $this->google2fa_url),
             'createdAt'        => $this->created_at->format('Y-m-d\TH:i:s'),
-            'updatedAt'        => $this->updated_at->format('Y-m-d\TH:i:s')
+            'updatedAt'        => $this->updated_at->format('Y-m-d\TH:i:s'),
         ];
     }
 }

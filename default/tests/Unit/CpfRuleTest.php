@@ -7,7 +7,9 @@ use Tests\TestCase;
 
 class CpfRuleTest extends TestCase
 {
-    /** @var CpfRule */
+    /**
+     * @var CpfRule
+     */
     private $rule;
 
     public function setUp(): void

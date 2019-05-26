@@ -7,13 +7,8 @@ use Illuminate\Support\Facades\Cache;
 
 class WeakPasswordRule implements Rule
 {
-
     /**
-     * Determine if the validation rule passes.
-     *
-     * @param string $attribute
-     * @param mixed  $value
-     * @return bool
+     * {@inheritdoc}
      */
     public function passes($attribute, $value)
     {
@@ -27,9 +22,7 @@ class WeakPasswordRule implements Rule
     }
 
     /**
-     * Get the validation error message.
-     *
-     * @return string
+     * {@inheritdoc}
      */
     public function message()
     {

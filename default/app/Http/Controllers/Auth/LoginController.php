@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Contracts\ProfileRepository;
 use App\Exceptions\LockedException;
 use App\Http\Controllers\Controller;
 use App\Models\Profile;
@@ -36,53 +35,20 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    public function broadcastAuth(Request $request)
+    public function wsAuth(Request $request)
     {
-        $userId = str_replace('private-users.', '', $request->get('channel_name'));
-
-        $user = Cache::remember($userId, 3600, function () use ($userId) {
-            return User::with([])->find($userId);
-        });
-
-        $request->setUserResolver(function () use ($user) {
-            return $user;
-        });
-
         Broadcast::auth($request);
     }
 
     /**
-     * Log the user out of the application.
-     *
-     * @param  \Illuminate\Http\Request $request
-     *
-     * @return void
-     */
-    public function logout(Request $request)
-    {
-        $id = $this->guard()->id();
-
-        (new TwoFactorAuthenticator($request))->logout();
-        Cache::forget($id);
-        Cache::tags('users:' . $id);
-
-        $this->guard()->logout();
-    }
-
-    /**
-     * Attempt to log the user into the application.
-     *
-     * @param  \Illuminate\Http\Request $request
-     *
-     * @return bool
+     * {@inheritdoc}
      */
     protected function attemptLogin(Request $request)
     {
-        $token = $this->guard()->setTTL(config('jwt.ttl'))->attempt($this->credentials($request));
+        $token = $this->guard()->attempt($this->credentials($request));
 
         if ($token) {
             $this->guard()->setToken($token);
-
             return true;
         }
 
@@ -93,24 +59,25 @@ class LoginController extends Controller
      * Send the response after the user was authenticated.
      *
      * @param  \Illuminate\Http\Request $request
-     *
      * @return \Illuminate\Http\JsonResponse
      */
     protected function sendLoginResponse(Request $request)
     {
-        /** @var User $user */
+        /**
+         * @var User $user
+         */
         $user = auth()->user();
 
         try {
-            $this->checkIfIsActive($user, $request);
-            $this->checkIfHasVerifiedEmail($user);
+            $this->checkUserIfIsActive($user, $request);
+            $this->checkIfUserHasVerifiedEmail($user, $request);
             $data = $this->getDeviceInfo($request);
             $data['user_id'] = $user->id;
             $this->checkIfIsDeviceIsAuthorized($user, $data);
         } catch (LockedException $exception) {
             return $this->respondWithCustomData([
                 'message'     => $exception->getMessage(),
-                'isVerify2fa' => 0,
+                'isVerify2fa' => false,
             ], Response::HTTP_LOCKED);
         }
 
@@ -121,40 +88,57 @@ class LoginController extends Controller
         $expiration = $this->guard()->getPayload()->get('exp');
 
         return $this->respondWithCustomData([
-            'token'      => $token,
-            'token_type' => 'bearer',
-            'expires_in' => $expiration - time(),
+            'token'     => $token,
+            'tokenType' => 'Bearer',
+            'expiresIn' => $expiration - time(),
         ]);
     }
 
-    private function checkIfIsActive(User $user, Request $request)
+    private function checkUserIfIsActive(User $user, Request $request)
     {
         if (!$user->is_active) {
-            (new TwoFactorAuthenticator($request))->logout();
-            Cache::forget($user->id);
-            Cache::tags('users:' . $user->id)->flush();
-            auth()->logout();
+            $this->logout($request);
+
+            $supportLink = config('app.support_url');
 
             $message = __(
-                'Your account has been disabled, to enable it again, please contact :support_link to start the process.',
-                ['support_link' => '<a href="' . config('app.support_url') . '">' . config('app.support_url') . '</a>']
+                'Your account has been disabled, to enable it again, ' .
+                'please contact :support_link to start the process.',
+                ['support_link' => '<a href="' . $supportLink . '">' . $supportLink . '</a>']
             );
 
             throw new LockedException($message);
         }
     }
 
-    private function checkIfHasVerifiedEmail(User $user)
+    /**
+     * Log the user out of the application.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return void
+     */
+    public function logout(Request $request)
+    {
+        $id = $this->guard()->id();
+
+        (new TwoFactorAuthenticator($request))->logout();
+        Cache::forget($id);
+        Cache::tags('users:' . $id)->flush();
+
+        $this->guard()->logout(true);
+    }
+
+    private function checkIfUserHasVerifiedEmail(User $user, Request $request)
     {
         if (!$user->hasVerifiedEmail()) {
-            /** @var Profile $profile */
-            $profile = app(ProfileRepository::class)->with(['user'])->findOneByCriteria(['user_id' => $user->id]);
+            /**
+             * @var Profile $profile
+             */
+            $profile = $user->profile;
 
             Notification::send($user, new VerifyEmailNotification($profile->email_token_confirmation));
 
-            Cache::forget($user->id);
-            Cache::tags('users:' . $user->id)->flush();
-            auth()->logout();
+            $this->logout($request);
 
             $message = __(
                 'We sent a confirmation email to :email. Please follow the instructions to complete your registration.',
@@ -171,49 +155,27 @@ class LoginController extends Controller
         $agent->setUserAgent($request->userAgent());
         $agent->setHttpHeaders($request->headers);
 
-        try {
-            $ipstack = new Ipstack($request->ip());
+        $ipstack = new Ipstack($request->ip());
 
-            return [
-                'user_id'          => auth()->id(),
-                'ip'               => $request->ip(),
-                'device'           => $agent->device(),
-                'platform'         => $agent->platform(),
-                'platform_version' => $agent->version($agent->platform()),
-                'browser'          => $agent->browser(),
-                'browser_version'  => $agent->version($agent->browser()),
-                'city'             => $ipstack->city() ?? null,
-                'region_code'      => $ipstack->regionCode() ?? null,
-                'region_name'      => $ipstack->region() ?? null,
-                'country_code'     => $ipstack->countryCode() ?? null,
-                'country_name'     => $ipstack->country() ?? null,
-                'continent_code'   => $ipstack->continentCode() ?? null,
-                'continent_name'   => $ipstack->continent() ?? null,
-                'latitude'         => $ipstack->latitude() ?? null,
-                'longitude'        => $ipstack->longitude() ?? null,
-                'zipcode'          => $ipstack->zip() ?? null,
-            ];
-        } catch (\Exception $exception) {
-            return [
-                'user_id'          => auth()->id(),
-                'ip'               => $request->ip(),
-                'device'           => $agent->device(),
-                'platform'         => $agent->platform(),
-                'platform_version' => $agent->version($agent->platform()),
-                'browser'          => $agent->browser(),
-                'browser_version'  => $agent->version($agent->browser()),
-                'city'             => null,
-                'region_code'      => null,
-                'region_name'      => null,
-                'country_code'     => null,
-                'country_name'     => null,
-                'continent_code'   => null,
-                'continent_name'   => null,
-                'latitude'         => null,
-                'longitude'        => null,
-                'zipcode'          => null,
-            ];
-        }
+        return [
+            'user_id'          => auth()->id(),
+            'ip'               => $request->ip(),
+            'device'           => $agent->device(),
+            'platform'         => $agent->platform(),
+            'platform_version' => $agent->version($agent->platform()),
+            'browser'          => $agent->browser(),
+            'browser_version'  => $agent->version($agent->browser()),
+            'city'             => $ipstack->city(),
+            'region_code'      => $ipstack->regionCode(),
+            'region_name'      => $ipstack->region(),
+            'country_code'     => $ipstack->countryCode(),
+            'country_name'     => $ipstack->country(),
+            'continent_code'   => $ipstack->continentCode(),
+            'continent_name'   => $ipstack->continent(),
+            'latitude'         => $ipstack->latitude(),
+            'longitude'        => $ipstack->longitude(),
+            'zipcode'          => $ipstack->zip(),
+        ];
     }
 
     private function checkIfIsDeviceIsAuthorized(User $user, array $data)
@@ -222,7 +184,9 @@ class LoginController extends Controller
             return;
         }
 
-        /** @var AuthorizedDeviceService $authorizedDeviceService */
+        /**
+         * @var AuthorizedDeviceService $authorizedDeviceService
+         */
         $authorizedDeviceService = app(AuthorizedDeviceService::class);
 
         $response = $authorizedDeviceService->store($user, $data);
@@ -234,7 +198,9 @@ class LoginController extends Controller
 
     private function createNewLoginHistory(User $user, array $data)
     {
-        /** @var LoginHistoryService $loginHistoryService */
+        /**
+         * @var LoginHistoryService $loginHistoryService
+         */
         $loginHistoryService = app(LoginHistoryService::class);
         $loginHistoryService->store($user, $data);
     }

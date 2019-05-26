@@ -4,10 +4,13 @@ namespace Tests\Feature;
 
 use App\Models\Profile;
 use App\Models\User;
+use Tests\TestCase;
 
-class NotificationControllerTest
+class NotificationControllerTest extends TestCase
 {
-    /** @var User */
+    /**
+     * @var User
+     */
     private $user;
 
     public function setUp(): void
@@ -20,8 +23,9 @@ class NotificationControllerTest
 
     public function testVisualizeAllNotifications()
     {
-        $this->actingAs($this->user)
-            ->patchJson(route('api.profile.notifications.visualize-all'))
+        $this
+            ->actingAs($this->user)
+            ->patchJson(route('api.notifications.visualize-all'))
             ->assertSuccessful()
             ->assertSee('OK');
     }

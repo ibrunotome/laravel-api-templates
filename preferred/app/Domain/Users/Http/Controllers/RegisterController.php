@@ -116,6 +116,7 @@ class RegisterController extends Controller
                 'password'          => bcrypt($data['password']),
                 'is_active'         => 1,
                 'email_verified_at' => null,
+                'locale'            => $data['locale'] ?? 'pt_BR',
             ]);
 
             /**
@@ -124,10 +125,9 @@ class RegisterController extends Controller
             $profileRepository = app(ProfileRepository::class);
             $profileRepository->store([
                 'name'                        => $data['name'],
-                'email_token_confirmation'    => Uuid::uuid4(),
-                'email_token_disable_account' => Uuid::uuid4(),
+                'email_token_confirmation'    => Uuid::uuid4()->toString(),
+                'email_token_disable_account' => Uuid::uuid4()->toString(),
                 'user_id'                     => $user->id,
-                'locale'                      => $data['locale'] ?? 'pt_BR',
             ]);
 
             return $user;

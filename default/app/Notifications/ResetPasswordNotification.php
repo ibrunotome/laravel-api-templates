@@ -17,42 +17,24 @@ class ResetPasswordNotification extends Notification implements ShouldQueue
         $this->onQueue('notifications');
     }
 
-    /**
-     * Get the notification's delivery channels.
-     *
-     * @param $notifiable
-     *
-     * @return array
-     */
     public function via($notifiable)
     {
         return ['mail'];
     }
 
     /**
-     * Build the mail representation of the notification.
-     *
-     * @param mixed $notifiable
-     *
-     * @return \Illuminate\Notifications\Messages\MailMessage
+     * {@inheritdoc}
      */
     public function toMail($notifiable)
     {
-        app()->setLocale($notifiable->profile->locale);
+        $antiPhishingCode = $notifiable->profile->anti_phishing_code ?? null;
+        $disableAccountToken = $notifiable->profile->email_token_disable_account ?? null;
 
-        if (!empty($notifiable->profile)) {
-            $antiPhishingCode = $notifiable->profile->anti_phishing_code;
-            $disableAccountToken = $notifiable->profile->email_token_disable_account;
-        } else {
-            $antiPhishingCode = null;
-            $disableAccountToken = null;
-        }
-
-        return (new MailMessage)
+        return (new MailMessage())
             ->markdown('emails.default', [
                 'antiPhishingCode'    => $antiPhishingCode,
                 'disableAccountToken' => $disableAccountToken,
-                'email'               => $notifiable->email
+                'email'               => $notifiable->email,
             ])
             ->level('warning')
             ->subject(__(':app_name - Reset password', ['app_name' => config('app.name')]))

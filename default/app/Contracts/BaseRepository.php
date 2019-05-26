@@ -2,82 +2,66 @@
 
 namespace App\Contracts;
 
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 interface BaseRepository
 {
     /**
-     * Set the relationships of the query
+     * Set the relationships of the query.
      *
      * @param array $with
-     *
-     * @return mixed
+     * @return BaseRepository
      */
-    public function with(array $with = []);
+    public function with(array $with = []): BaseRepository;
 
     /**
-     * Set withoutGlobalScopes attribute to true and apply it to the query
+     * Set withoutGlobalScopes attribute to true and apply it to the query.
      *
-     * @return mixed
+     * @return BaseRepository
      */
-    public function withoutGlobalScopes();
+    public function withoutGlobalScopes(): BaseRepository;
 
     /**
-     * Find a resource by id
+     * Find a resource by id.
      *
      * @param string $id
-     *
      * @return Model
-     *
      * @throws ModelNotFoundException
      */
-    public function findOneById($id);
+    public function findOneById(string $id): Model;
 
     /**
-     * Find a resource by criteria
+     * Find a resource by key value criteria.
      *
      * @param array $criteria
-     *
      * @return Model
-     *
      * @throws ModelNotFoundException
      */
-    public function findOneByCriteria(array $criteria);
+    public function findOneBy(array $criteria): Model;
 
     /**
-     * Search All resources by criteria
+     * Search All resources by spatie query builder.
      *
-     * @param array $criteria
-     *
-     * @return Collection
+     * @return LengthAwarePaginator
      */
-    public function findByCriteria(array $criteria = []): Collection;
+    public function findByFilters(): LengthAwarePaginator;
 
     /**
-     * Search All resources by spatie query builder
-     *
-     * @return Collection
-     */
-    public function findByFilters();
-
-    /**
-     * Save a resource
+     * Save a resource.
      *
      * @param array $data
-     *
      * @return Model
      */
-    public function store(array $data);
+    public function store(array $data): Model;
 
     /**
-     * Update a resource
+     * Update a resource.
      *
      * @param Model $model
      * @param array $data
-     *
      * @return Model
      */
-    public function update(Model $model, array $data);
+    public function update(Model $model, array $data): Model;
 }

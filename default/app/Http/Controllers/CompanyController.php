@@ -12,7 +12,9 @@ use Illuminate\Support\Facades\Cache;
 
 class CompanyController extends Controller
 {
-    /** @var CompanyRepository */
+    /**
+     * @var CompanyRepository
+     */
     private $companyRepository;
 
     public function __construct(CompanyRepository $companyRepository)
@@ -44,7 +46,6 @@ class CompanyController extends Controller
      * Show a company.
      *
      * @param Company $company
-     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function show(Company $company)
@@ -56,7 +57,6 @@ class CompanyController extends Controller
      * Store a new company.
      *
      * @param CompanyCreateRequest $request
-     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(CompanyCreateRequest $request)
@@ -73,7 +73,6 @@ class CompanyController extends Controller
      *
      * @param CompanyUpdateRequest $request
      * @param Company              $company
-     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function update(CompanyUpdateRequest $request, Company $company)

@@ -8,7 +8,9 @@ use Illuminate\Http\Response;
 
 class DisableAccountController extends Controller
 {
-    /** @var DisableAccountService */
+    /**
+     * @var DisableAccountService
+     */
     public $disableAccountService;
 
     public function __construct(DisableAccountService $disableAccountService)
@@ -25,9 +27,9 @@ class DisableAccountController extends Controller
                 'message' => __(
                     'We could not disable your account, please try again or enter in contact with the :support_link',
                     [
-                        'support_link' => '<a href="' . config('app.support_url') . '">' . config('app.support_url') . '</a>'
+                        'support_link' => '<a href="' . config('app.support_url') . '">' . config('app.support_url') . '</a>',
                     ]
-                )
+                ),
             ], Response::HTTP_BAD_REQUEST);
         }
 

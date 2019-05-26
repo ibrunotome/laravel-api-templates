@@ -7,14 +7,7 @@ use Illuminate\Support\Facades\Cache;
 
 class NotificationController extends Controller
 {
-    /**
-     * Set the read_at attribute for all non visualized notifications of user.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     *
-     * @throws \Throwable
-     */
-    public function visualizeAll()
+    public function visualizeAllNotifications()
     {
         $user = auth()->user();
 
@@ -25,16 +18,7 @@ class NotificationController extends Controller
         return $this->respondWithCustomData(['message' => 'OK'], Response::HTTP_OK);
     }
 
-    /**
-     * Set the read_at attribute to a given notification.
-     *
-     * @param $id
-     *
-     * @return \Illuminate\Http\JsonResponse
-     *
-     * @throws \Throwable
-     */
-    public function visualize($id)
+    public function visualizeNotification(string $id)
     {
         $user = auth()->user();
 

@@ -35,21 +35,9 @@ class UserFactory extends ModelFactory
             ];
         });
 
-        $this->factory->state($this->model, 'verified', function () {
-            return [
-                'verified_at' => now()->format('Y-m-d H:i:s.u'),
-            ];
-        });
-
-        $this->factory->state($this->model, 'unverified', function () {
-            return [
-                'verified_at' => null,
-            ];
-        });
-
         $this->factory->state($this->model, 'email_verified', function () {
             return [
-                'email_verified_at' => now()->format('Y-m-d H:i:s.u'),
+                'email_verified_at' => now()->format('Y-m-d H:i:s'),
             ];
         });
 

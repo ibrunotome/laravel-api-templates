@@ -9,10 +9,14 @@ use Tests\TestCase;
 
 class ProfileControllerTest extends TestCase
 {
-    /** @var User */
+    /**
+     * @var User
+     */
     private $user;
 
-    /** @var Profile */
+    /**
+     * @var Profile
+     */
     private $profile;
 
     public function setUp(): void
@@ -74,7 +78,7 @@ class ProfileControllerTest extends TestCase
     {
         $this
             ->actingAs($this->user)
-            ->getJson(route('api.profiles.me'))
+            ->getJson(route('api.profile'))
             ->assertSuccessful()
             ->assertJsonFragment([
                 'name' => $this->profile->name

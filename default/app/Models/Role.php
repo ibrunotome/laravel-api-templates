@@ -9,18 +9,18 @@ class Role extends \Spatie\Permission\Models\Role implements AuditableContract
 {
     use Auditable;
 
-    const ADMIN = 'Admin';
+    public const ADMIN = 'Admin';
 
     public $incrementing = false;
 
     protected $keyType = 'string';
 
     protected $casts = [
-        'id' => 'string'
+        'id' => 'string',
     ];
 
     protected $fillable = [
         'name',
-        'guard_name'
+        'guard_name',
     ];
 }

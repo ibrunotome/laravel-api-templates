@@ -64,7 +64,7 @@ Route::group([
     'middleware' => [
         'auth:api',
         '2fa',
-    ]
+    ],
 ], function () {
     Route::post('disable2fa', 'Auth\TwoFactorAuthenticationController@disable2fa')
         ->name('api.disable2fa');
@@ -72,8 +72,8 @@ Route::group([
     Route::post('verify2fa', 'Auth\TwoFactorAuthenticationController@verify2fa')
         ->name('api.verify2fa');
 
-    Route::get('me/profile', 'ProfileController@me')
-        ->name('api.profiles.me');
+    Route::get('me/profile', 'ProfileController@showMe')
+        ->name('api.profile');
 
     Route::patch('me/profile', 'ProfileController@updateMe')
         ->name('api.profiles.me.update');
@@ -90,7 +90,7 @@ Route::group([
             'update' => 'api.profiles.update',
         ]);
 
-    Route::get('me', 'UserController@me')
+    Route::get('me', 'UserController@profile')
         ->name('api.me');
 
     Route::patch('me', 'UserController@updateMe')
@@ -127,10 +127,10 @@ Route::group([
     Route::patch('password/update', 'UserController@updatePassword')
         ->name('api.password.update');
 
-    Route::patch('notifications/visualize-all', 'NotificationController@visualizeAll')
+    Route::patch('notifications/visualize-all', 'NotificationController@visualizeAllNotifications')
         ->name('api.notifications.visualize-all');
 
-    Route::patch('notifications/{id}/visualize', 'NotificationController@visualize')
+    Route::patch('notifications/{id}/visualize', 'NotificationController@visualizeNotification')
         ->name('api.notifications.visualize');
 
     Route::delete('devices/{id}', 'Auth\AuthorizeDeviceController@destroy')
@@ -138,7 +138,10 @@ Route::group([
         ->name('api.device.destroy');
 });
 
-Route::post('broadcasting/auth', 'Auth\LoginController@broadcastAuth')->name('api.broadcasting.auth');
+Route::get('ping', 'UtilController@serverTime')
+    ->name('api.server.ping');
+
+Route::post('ws/auth', 'Auth\LoginController@wsAuth')->name('api.ws.auth');
 
 Route::post('/account/disable/{token}', 'Auth\DisableAccountController@disable')
     ->middleware('throttle:1,1')

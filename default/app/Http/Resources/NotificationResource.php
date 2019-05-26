@@ -8,12 +8,10 @@ use Illuminate\Http\Resources\Json\JsonResource;
 /**
  * Class Notifications
  *
- * @package App\Http\Resources
- *
- * @property string id
- * @property array  data
- * @property Carbon read_at
- * @property Carbon created_at
+ * @property string $id
+ * @property array  $data
+ * @property Carbon $read_at
+ * @property Carbon $created_at
  */
 class NotificationResource extends JsonResource
 {
@@ -21,7 +19,6 @@ class NotificationResource extends JsonResource
      * Transform the resource into an array.
      *
      * @param  \Illuminate\Http\Request $request
-     *
      * @return array
      */
     public function toArray($request)
