@@ -141,5 +141,5 @@ Route::group([
 Route::post('broadcasting/auth', 'Auth\LoginController@broadcastAuth')->name('api.broadcasting.auth');
 
 Route::post('/account/disable/{token}', 'Auth\DisableAccountController@disable')
-    ->middleware('throttle:2,1')
+    ->middleware('throttle:1,1')
     ->name('api.account.disable');

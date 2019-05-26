@@ -64,6 +64,15 @@ return [
             'url'    => env('AWS_URL'),
         ],
 
+        'gcs' => [
+            'driver'   => 's3',
+            'key'      => env('GCS_KEY'),
+            'secret'   => env('GCS_SECRET'),
+            'region'   => env('GCS_REGION'),
+            'bucket'   => env('GCS_BUCKET'),
+            'endpoint' => 'https://storage.googleapis.com'
+        ]
+
     ],
 
 ];

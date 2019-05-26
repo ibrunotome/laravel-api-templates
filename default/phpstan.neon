@@ -1,0 +1,14 @@
+includes:
+    - ./vendor/nunomaduro/larastan/extension.neon
+parameters:
+    ignoreErrors:
+        - '#PHPDoc tag @param has invalid value \(\$notifiable\):.*#'
+        - '#Call to an undefined method Illuminate\\Database\\Query\\Builder::firstOrFail\(\)#'
+        - '#Call to an undefined method Illuminate\\Database\\Query\\Builder::findOrFail\(\)#'
+    excludes_analyse:
+        - */Database/Migrations/*.php
+        - */Tests/*/*.php
+        - */Http/Controllers/LoginController.php
+        - */Rules/CnpjRule.php
+        - */Rules/CpfRule.php
+        - */Filters/BetweenFilter.php

@@ -1,14 +1,5 @@
 #!/bin/bash
 
-if [[ "$APP_ENV" = "production" ]]; then
-    chmod -R 755 bootstrap/cache
-    chmod -R 755 storage
-    rm -r bootstrap/cache/*.php
-    php artisan config:cache
-    php artisan route:cache
-    chown -R www-data.www-data ./
-fi
-
 loop() {
 	local now;
 
@@ -24,4 +15,9 @@ loop() {
 	done
 }
 
-loop php artisan schedule:run
+if [[ "$APP_ENV" = "production" ]]; then
+    php artisan config:cache
+    php artisan route:cache
+    chown -R www-data.www-data ./
+    loop php artisan schedule:run
+fi
