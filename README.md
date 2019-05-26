@@ -6,13 +6,19 @@ A Laravel API starter kit collection for your projects
 
 <img width="100%" src="https://user-images.githubusercontent.com/4256471/52186144-9a99cc80-280c-11e9-8184-9193128655c2.png">
 
-<img width="100%" src="https://user-images.githubusercontent.com/4256471/52179547-1f5ff880-27c3-11e9-87aa-f9d6397e8a28.png">
+<img width="100%" alt="Screen Shot 2019-05-26 at 11 26 18" src="https://user-images.githubusercontent.com/4256471/58383128-192b9d00-7fa9-11e9-84fa-35737b66d1b0.png">
 
-<img width="100%" src="https://user-images.githubusercontent.com/4256471/52179542-17a05400-27c3-11e9-8d07-79f28b351990.png">
+<img width="100%" alt="Screen Shot 2019-05-26 at 11 29 40" src="https://user-images.githubusercontent.com/4256471/58383155-8e976d80-7fa9-11e9-9241-9a1e098e91e6.png">
+
+<img width="100%" alt="Screen Shot 2019-05-26 at 11 24 15" src="https://user-images.githubusercontent.com/4256471/58383105-ce118a00-7fa8-11e9-8f87-d783652e3310.png">
 
 - Run tests with `composer test`
 - Run "lint" (phpcs) with `composer lint`
 - Run "lint:fix" (phpcbf) with `composer lint:fix`
+- Run phpcpd with `composer phpcpd`
+- Run php static analysis (level 5) with `composer static:analysis`
+- Run nunomaduro/phpinsights with `php artisan insights`
+
 
 ## Email layout
 
@@ -53,4 +59,4 @@ Soon:
 
 ## Routes
 
-<img width="100%" src="https://user-images.githubusercontent.com/4256471/52179342-6698ba00-27c0-11e9-8ca3-775609df8292.png">
+<img width="100%" alt="Screen Shot 2019-05-26 at 11 21 24" src="https://user-images.githubusercontent.com/4256471/58383061-678c6c00-7fa8-11e9-8655-f9b62250a8d7.png">

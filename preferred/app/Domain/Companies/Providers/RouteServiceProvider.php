@@ -7,34 +7,16 @@ use Illuminate\Routing\Router;
 
 class RouteServiceProvider extends ServiceProvider
 {
-    /**
-     * This namespace is applied to your controller routes.
-     * In addition, it is set as the URL generator's root namespace.
-     *
-     * @var string
-     */
     protected $namespace = 'Preferred\Domain\Companies\Http\Controllers';
 
-    /**
-     * Define the routes for the application.
-     *
-     * @param  \Illuminate\Routing\Router $router
-     * @return void
-     */
-    public function map(Router $router)
+    public function map(Router $router): void
     {
         if (config('register.api_routes')) {
             $this->mapApiRoutes($router);
         }
     }
 
-    /**
-     * Define the "api" routes for the application.
-     *
-     * @param  \Illuminate\Routing\Router $router
-     * @return void
-     */
-    protected function mapApiRoutes(Router $router)
+    protected function mapApiRoutes(Router $router): void
     {
         $router
             ->group([

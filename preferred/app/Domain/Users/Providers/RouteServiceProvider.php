@@ -131,11 +131,11 @@ class RouteServiceProvider extends ServiceProvider
                     ->name('api.password.update');
 
                 $router
-                    ->patch('notifications/visualize-all', 'NotificationController@visualizeAll')
+                    ->patch('notifications/visualize-all', 'NotificationController@visualizeAllNotifications')
                     ->name('api.notifications.visualize-all');
 
                 $router
-                    ->patch('notifications/{id}/visualize', 'NotificationController@visualize')
+                    ->patch('notifications/{id}/visualize', 'NotificationController@visualizeNotification')
                     ->name('api.notifications.visualize');
 
                 $router
@@ -171,7 +171,11 @@ class RouteServiceProvider extends ServiceProvider
             ->name('api.account.disable');
 
         $router
-            ->post('broadcasting/auth', 'LoginController@broadcastAuth')
-            ->name('api.broadcasting.auth');
+            ->get('ping', 'UtilController@serverTime')
+            ->name('api.server.ping');
+
+        $router
+            ->post('ws/auth', 'LoginController@wsAuth')
+            ->name('api.ws.auth');
     }
 }
