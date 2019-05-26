@@ -6,7 +6,7 @@ A Laravel API starter kit collection for your projects
 
 <img width="100%" src="https://user-images.githubusercontent.com/4256471/52186144-9a99cc80-280c-11e9-8184-9193128655c2.png">
 
-<img width="100%" alt="Screen Shot 2019-05-26 at 11 26 18" src="https://user-images.githubusercontent.com/4256471/58383128-192b9d00-7fa9-11e9-84fa-35737b66d1b0.png">
+<img width="100%" alt="Screen Shot 2019-05-26 at 11 34 56" src="https://user-images.githubusercontent.com/4256471/58383209-4dec2400-7faa-11e9-8346-0d8fe90c917d.png">
 
 <img width="100%" alt="Screen Shot 2019-05-26 at 11 29 40" src="https://user-images.githubusercontent.com/4256471/58383155-8e976d80-7fa9-11e9-9241-9a1e098e91e6.png">
 
@@ -18,11 +18,6 @@ A Laravel API starter kit collection for your projects
 - Run phpcpd with `composer phpcpd`
 - Run php static analysis (level 5) with `composer static:analysis`
 - Run nunomaduro/phpinsights with `php artisan insights`
-
-
-## Email layout
-
-<img width="100%" alt="screenshot 2019-02-07 08 26 51" src="https://user-images.githubusercontent.com/4256471/52482466-72a5c280-2b98-11e9-9da6-35dbb791e157.png">
 
 ## Features
 
@@ -52,6 +47,10 @@ Soon:
 - Schedule example
 - Websockets example
 - Graphql
+
+## Email layout
+
+<img width="100%" alt="screenshot 2019-02-07 08 26 51" src="https://user-images.githubusercontent.com/4256471/52482466-72a5c280-2b98-11e9-9da6-35dbb791e157.png">
 
 ## Database structure
 
