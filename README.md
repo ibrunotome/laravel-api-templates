@@ -41,9 +41,11 @@ Soon:
 - Websockets example
 - Graphql example
 
+## Up and running
+
 The container used is created from Google Cloud Platform official php-docker + swoole and can be found here: https://github.com/ibrunotome/docker-laravel-appengine
 
-- Set the .env variables
+- Set the .env variables, see .env.example that is already configured to point to pgsql and redis services
 - Run the container with `docker-compose up`
 - Run the migrations with `docker-compose run app bash -c "php artisan migrate:fresh"`
 
