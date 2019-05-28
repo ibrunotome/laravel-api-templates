@@ -4,6 +4,32 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Horizon Domain
+    |--------------------------------------------------------------------------
+    |
+    | This is the subdomain where Horizon will be accessible from. If this
+    | setting is null, Horizon will reside under the same domain as the
+    | application. Otherwise, this value will serve as the subdomain.
+    |
+    */
+
+    'domain' => null,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Horizon Path
+    |--------------------------------------------------------------------------
+    |
+    | This is the URI path where Horizon will be accessible from. Feel free
+    | to change this path to anything you like. Note that the URI will not
+    | affect the paths of its internal API that aren't exposed to users.
+    |
+    */
+
+    'path' => 'horizon',
+
+    /*
+    |--------------------------------------------------------------------------
     | Horizon Redis Connection
     |--------------------------------------------------------------------------
     |
@@ -14,7 +40,6 @@ return [
     */
 
     'use' => 'default',
-
 
     /*
     |--------------------------------------------------------------------------
@@ -54,7 +79,8 @@ return [
     */
 
     'waits' => [
-        'redis:default' => 60,
+        'redis:default'              => 60,
+        'redis:notifications'        => 60,
     ],
 
     /*
@@ -69,8 +95,9 @@ return [
     */
 
     'trim' => [
-        'recent' => 60,
-        'failed' => 10080,
+        'recent'    => 60,
+        'failed'    => 10080,
+        'monitored' => 10080,
     ],
 
     /*
@@ -114,21 +141,27 @@ return [
 
     'environments' => [
         'production' => [
-            'supervisor-1' => [
+            'default'     => [
                 'connection' => 'redis',
-                'queue'      => ['default'],
-                'balance'    => 'simple',
+                'queue'      => [
+                    'default',
+                    'notifications',
+                ],
                 'processes'  => 10,
+                'balance'    => 'auto',
                 'tries'      => 3,
             ],
         ],
 
         'local' => [
-            'supervisor-1' => [
+            'default'     => [
                 'connection' => 'redis',
-                'queue'      => ['default'],
-                'balance'    => 'simple',
-                'processes'  => 3,
+                'queue'      => [
+                    'default',
+                    'notifications',
+                ],
+                'processes'  => 10,
+                'balance'    => 'auto',
                 'tries'      => 3,
             ],
         ],

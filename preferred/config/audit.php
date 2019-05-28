@@ -23,7 +23,7 @@ return [
     |
     */
 
-    'implementation' => \Preferred\Domain\Audits\Entities\Audit::class,
+    'implementation' => Preferred\Domain\Audits\Entities\Audit::class,
 
     /*
     |--------------------------------------------------------------------------

@@ -23,7 +23,7 @@ return [
     |
     */
 
-    'implementation' => \App\Models\Audit::class,
+    'implementation' => App\Models\Audit::class,
 
     /*
     |--------------------------------------------------------------------------
