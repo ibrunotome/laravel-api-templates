@@ -1,6 +1,6 @@
 # laravel-api-templates
 
-A Laravel API starter kit collection for your projects
+A Laravel API starter kit collection using different structures. Dockerized with Google App Engine container + swoole.
 
 [![Build Status](https://semaphoreci.com/api/v1/ibrunotome/laravel-api-templates/branches/master/badge.svg)](https://semaphoreci.com/ibrunotome/laravel-api-templates)
 
@@ -25,13 +25,14 @@ A Laravel API starter kit collection for your projects
 - Laravel 5.8
 - Login
 - Login history
-- Multiple localizations
+- Multiple localizations, preconfigured with en_US and pt_BR
 - Password reset
 - Password must not be in one of the 4 million weak passwords
 - PHPCS PSR2, phpinsights and sonarqube analysis
 - Register
 - Swoole
 - Tests
+- Transactional events: Listen to events and send notifications only if the transaction is commited
 - uuid
 
 Soon:

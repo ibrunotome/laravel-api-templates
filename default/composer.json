@@ -1,10 +1,11 @@
 {
   "name": "ibrunotome/laravel-api-templates",
   "type": "project",
-  "description": "A Laravel API starter kit collection using different structures.",
+  "description": "A Laravel API starter kit collection using different structures. Dockerized with Google App Engine container + swoole.",
   "keywords": [
     "framework",
     "laravel",
+    "laravel-api",
     "laravel-skeleton",
     "laravel-ddd",
     "laravel-swoole",

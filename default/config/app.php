@@ -82,7 +82,7 @@ return [
     |
     */
 
-    'locale' => 'pt_BR',
+    'locale' => 'en_US',
 
     'locales' => [
         'pt_BR' => 'Português',
@@ -100,7 +100,7 @@ return [
     |
     */
 
-    'fallback_locale' => 'en',
+    'fallback_locale' => 'pt_BR',
 
     /*
     |--------------------------------------------------------------------------
