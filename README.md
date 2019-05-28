@@ -12,13 +12,6 @@ A Laravel API starter kit collection for your projects
 
 <img width="100%" alt="Screen Shot 2019-05-26 at 11 24 15" src="https://user-images.githubusercontent.com/4256471/58383105-ce118a00-7fa8-11e9-8f87-d783652e3310.png">
 
-- Run tests with `composer test`
-- Run "lint" (phpcs) with `composer lint`
-- Run "lint:fix" (phpcbf) with `composer lint:fix`
-- Run phpcpd with `composer phpcpd`
-- Run php static analysis (level 5) with `composer static:analysis`
-- Run nunomaduro/phpinsights with `php artisan insights`
-
 ## Features
 
 - 2FA
@@ -35,7 +28,7 @@ A Laravel API starter kit collection for your projects
 - Multiple localizations
 - Password reset
 - Password must not be in one of the 4 million weak passwords
-- PHPCS PSR2
+- PHPCS PSR2, phpinsights and sonarqube analysis
 - Register
 - Swoole
 - Tests
@@ -46,7 +39,28 @@ Soon:
 - Job example
 - Schedule example
 - Websockets example
-- Graphql
+- Graphql example
+
+The container used is created from Google Cloud Platform official php-docker + swoole and can be found here: https://github.com/ibrunotome/docker-laravel-appengine
+
+- Set the .env variables
+- Run the container with `docker-compose up`
+- Run the migrations with `docker-compose run app bash -c "php artisan migrate:fresh"`
+
+And it's up and running :)
+
+You have the following commands preconfigured:
+
+The container with xdebug installed is in another Dockerfile, the `Dockerfile.testing`, you can get into this container using: `docker-compose -f docker-compose.testing.yml run app-tests bash` and then:
+
+- Run tests with `composer test`
+- Run "lint" (phpcs) with `composer lint`
+- Run "lint and fix" (phpcbf) with `composer lint:fix`
+- Run phpcpd with `composer phpcpd`
+- Run php static analysis (level 5) with `composer static:analysis`
+- Run nunomaduro/phpinsights with `php artisan insights`
+
+To see sonarqube analysis, simple run `docker-compose -f docker-compose.sonarqube.yml up`, the quality profile used is PSR-2.
 
 ## Email layout
 
