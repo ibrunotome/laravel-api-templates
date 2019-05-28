@@ -49,8 +49,6 @@ The container used is created from Google Cloud Platform official php-docker + s
 
 And it's up and running :)
 
-You have the following commands preconfigured:
-
 The container with xdebug installed is in another Dockerfile, the `Dockerfile.testing`, you can get into this container using: `docker-compose -f docker-compose.testing.yml run app-tests bash` and then:
 
 - Run tests with `composer test`
