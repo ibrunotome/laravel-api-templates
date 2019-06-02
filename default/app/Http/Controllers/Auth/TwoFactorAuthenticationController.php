@@ -9,11 +9,13 @@ use App\Http\Requests\DisableTwoFactorAuthenticationRequest;
 use App\Http\Requests\EnableTwoFactorAuthenticationRequest;
 use App\Models\Profile;
 use App\Models\User;
+use App\Support\ExceptionFormat;
 use App\Support\TwoFactorAuthenticator;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class TwoFactorAuthenticationController extends Controller
 {
@@ -43,22 +45,20 @@ class TwoFactorAuthenticationController extends Controller
 
         $twoFactorAuthentication = new TwoFactorAuthenticator($request);
 
-        $profile->google2fa_enable = 0;
+        $profile->google2fa_enable = false;
         $profile->google2fa_secret = $twoFactorAuthentication->generateSecretKey(32);
-
-        $google2faUrl = $twoFactorAuthentication->getQRCodeInline(
+        $google2faUrl = $twoFactorAuthentication->getQRCodeUrl(
             config('app.name'),
             auth()->user()->email,
             $profile->google2fa_secret
         );
-
         $profile->google2fa_url = $google2faUrl;
         $profile->save();
 
         return $this->respondWithCustomData([
-            'message'          => __('Secret Key generated. Follow the next steps'),
-            'google2fa_secret' => $profile->google2fa_secret,
-            'google2fa_url'    => $google2faUrl,
+            'message'         => __('Secret Key generated. Follow the next steps'),
+            'google2faSecret' => $profile->google2fa_secret,
+            'google2faUrl'    => $google2faUrl,
         ]);
     }
 
@@ -75,23 +75,30 @@ class TwoFactorAuthenticationController extends Controller
          */
         $profile = $this->profileRepository->findOneBy(['user_id' => auth()->id()]);
         $twoFactorAuthentication = new TwoFactorAuthenticator($request);
-        $secret = $request->one_time_password;
-        $valid = $twoFactorAuthentication->verifyKey($profile->google2fa_secret, $secret);
+        $secret = $request->input('one_time_password');
 
-        if ($valid) {
-            $profile->google2fa_enable = 1;
-            $profile->save();
+        try {
+            $valid = $twoFactorAuthentication->verifyKey($profile->google2fa_secret, $secret);
 
-            return $this->respondWithCustomData([
-                'message'          => __('2FA is enabled successfully'),
-                'google2fa_enable' => 1,
-            ]);
+            if ($valid) {
+                $profile->google2fa_enable = true;
+                $profile->save();
+
+                $twoFactorAuthentication->login();
+
+                return $this->respondWithCustomData([
+                    'message'         => __('2FA is enabled successfully'),
+                    'google2faEnable' => true,
+                ]);
+            }
+        } catch (\Exception $exception) {
+            Log::error(ExceptionFormat::log($exception));
         }
 
         return $this->respondWithCustomData([
             'message'          => __('Invalid 2FA verification code. Please try again'),
-            'isVerify2fa'      => 0,
-            'google2fa_enable' => 0,
+            'isVerify2fa'      => false,
+            'google2faEnable' => false,
         ], Response::HTTP_LOCKED);
     }
 
@@ -116,7 +123,7 @@ class TwoFactorAuthenticationController extends Controller
          */
         $profile = $this->profileRepository->findOneBy(['user_id' => auth()->id()]);
 
-        $profile->google2fa_enable = 0;
+        $profile->google2fa_enable = false;
         $profile->google2fa_secret = null;
         $profile->google2fa_url = null;
         $profile->save();
@@ -129,7 +136,7 @@ class TwoFactorAuthenticationController extends Controller
 
         return $this->respondWithCustomData([
             'message'          => __('2FA is now disabled'),
-            'google2fa_enable' => 0,
+            'google2faEnable' => false,
         ]);
     }
 

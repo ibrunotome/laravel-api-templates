@@ -100,7 +100,7 @@ class TwoFactorAuthenticationControllerTest extends TestCase
     {
         $twoFactorAuthenticator = new TwoFactorAuthenticator(request());
 
-        $this->profile->google2fa_enable = 1;
+        $this->profile->google2fa_enable = true;
         $this->profile->google2fa_secret = $twoFactorAuthenticator->generateSecretKey(32);
         $this->profile->save();
 

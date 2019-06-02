@@ -41,7 +41,7 @@ class TwoFactorAuthenticationControllerTest extends TestCase
     {
         $twoFactorAuthenticator = new TwoFactorAuthenticator(request());
 
-        $this->profile->google2fa_enable = 0;
+        $this->profile->google2fa_enable = false;
         $this->profile->google2fa_secret = $twoFactorAuthenticator->generateSecretKey(32);
         $this->profile->save();
 
@@ -51,16 +51,16 @@ class TwoFactorAuthenticationControllerTest extends TestCase
             ->postJson(route('api.enable2fa'), ['one_time_password' => $otp])
             ->assertSuccessful()
             ->assertJsonFragment([
-                'message'          => '2FA is enabled successfully',
-                'google2fa_enable' => 1,
+                'message'         => '2FA is enabled successfully',
+                'google2faEnable' => true,
             ]);
 
         $this->actingAs($this->user)
             ->postJson(route('api.enable2fa'), ['one_time_password' => '123456'])
             ->assertStatus(423)
             ->assertJsonFragment([
-                'message'          => 'Invalid 2FA verification code. Please try again',
-                'google2fa_enable' => 0,
+                'message'         => 'Invalid 2FA verification code. Please try again',
+                'google2faEnable' => false,
             ]);
     }
 
@@ -68,7 +68,7 @@ class TwoFactorAuthenticationControllerTest extends TestCase
     {
         $twoFactorAuthenticator = new TwoFactorAuthenticator(request());
 
-        $this->profile->google2fa_enable = 1;
+        $this->profile->google2fa_enable = true;
         $this->profile->google2fa_secret = $twoFactorAuthenticator->generateSecretKey(32);
         $this->profile->save();
 
@@ -77,7 +77,7 @@ class TwoFactorAuthenticationControllerTest extends TestCase
         $this->actingAs($this->user)
             ->postJson(route('api.disable2fa'), [
                 'password'          => '12345678',
-                'one_time_password' => $oneTimePassword
+                'one_time_password' => $oneTimePassword,
             ])
             ->assertStatus(400)
             ->assertJsonFragment([
@@ -87,12 +87,12 @@ class TwoFactorAuthenticationControllerTest extends TestCase
         $this->actingAs($this->user)
             ->postJson(route('api.disable2fa'), [
                 'password'          => 'secretxxx',
-                'one_time_password' => $oneTimePassword
+                'one_time_password' => $oneTimePassword,
             ])
             ->assertSuccessful()
             ->assertJsonFragment([
                 'message'          => '2FA is now disabled',
-                'google2fa_enable' => 0,
+                'google2faEnable' => false,
             ]);
     }
 
@@ -100,7 +100,7 @@ class TwoFactorAuthenticationControllerTest extends TestCase
     {
         $twoFactorAuthenticator = new TwoFactorAuthenticator(request());
 
-        $this->profile->google2fa_enable = 1;
+        $this->profile->google2fa_enable = true;
         $this->profile->google2fa_secret = $twoFactorAuthenticator->generateSecretKey(32);
         $this->profile->save();
 

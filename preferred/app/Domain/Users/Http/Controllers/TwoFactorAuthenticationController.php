@@ -6,12 +6,14 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Preferred\Domain\Users\Contracts\ProfileRepository;
 use Preferred\Domain\Users\Entities\Profile;
 use Preferred\Domain\Users\Entities\User;
 use Preferred\Domain\Users\Events\TwoFactorAuthenticationWasDisabled;
 use Preferred\Domain\Users\Http\Requests\DisableTwoFactorAuthenticationRequest;
 use Preferred\Domain\Users\Http\Requests\EnableTwoFactorAuthenticationRequest;
+use Preferred\Infrastructure\Support\ExceptionFormat;
 use Preferred\Infrastructure\Support\TwoFactorAuthenticator;
 use Preferred\Interfaces\Http\Controllers\Controller;
 
@@ -44,7 +46,7 @@ class TwoFactorAuthenticationController extends Controller
         $twoFactorAuthentication = new TwoFactorAuthenticator($request);
         $profile->google2fa_enable = false;
         $profile->google2fa_secret = $twoFactorAuthentication->generateSecretKey(32);
-        $google2faUrl = $twoFactorAuthentication->getQRCodeInline(
+        $google2faUrl = $twoFactorAuthentication->getQRCodeUrl(
             config('app.name'),
             auth()->user()->email,
             $profile->google2fa_secret
@@ -74,18 +76,23 @@ class TwoFactorAuthenticationController extends Controller
 
         $twoFactorAuthentication = new TwoFactorAuthenticator($request);
         $secret = $request->input('one_time_password');
-        $valid = $twoFactorAuthentication->verifyKey($profile->google2fa_secret, $secret);
 
-        if ($valid) {
-            $profile->google2fa_enable = true;
-            $profile->save();
+        try {
+            $valid = $twoFactorAuthentication->verifyKey($profile->google2fa_secret, $secret);
 
-            $twoFactorAuthentication->login();
+            if ($valid) {
+                $profile->google2fa_enable = true;
+                $profile->save();
 
-            return $this->respondWithCustomData([
-                'message'         => __('2FA is enabled successfully'),
-                'google2faEnable' => true,
-            ]);
+                $twoFactorAuthentication->login();
+
+                return $this->respondWithCustomData([
+                    'message'         => __('2FA is enabled successfully'),
+                    'google2faEnable' => true,
+                ]);
+            }
+        } catch (\Exception $exception) {
+            Log::error(ExceptionFormat::log($exception));
         }
 
         return $this->respondWithCustomData([

@@ -18,7 +18,6 @@
     "ext-json": "*",
     "ext-pcntl": "*",
     "ext-pdo": "*",
-    "bacon/bacon-qr-code": "1.0.3",
     "beyondcode/laravel-websockets": "^1.1",
     "fideloper/proxy": "4.1.*",
     "fntneves/laravel-transactional-events": "1.8.*",
