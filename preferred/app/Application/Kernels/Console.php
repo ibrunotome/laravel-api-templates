@@ -1,11 +1,11 @@
 <?php
 
-namespace Preferred\Interfaces\Console;
+namespace Preferred\Application\Kernels;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
-class Kernel extends ConsoleKernel
+class Console extends ConsoleKernel
 {
     protected $commands = [];
 

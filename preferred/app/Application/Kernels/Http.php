@@ -1,10 +1,10 @@
 <?php
 
-namespace Preferred\Interfaces\Http;
+namespace Preferred\Application\Kernels;
 
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
-class Kernel extends HttpKernel
+class Http extends HttpKernel
 {
     /**
      * The application's global HTTP middleware stack.
