@@ -74,3 +74,13 @@ To see sonarqube analysis, simple run `docker-compose -f docker-compose.sonarqub
 ## Routes
 
 <img width="100%" alt="Screen Shot 2019-05-26 at 17 56 41" src="https://user-images.githubusercontent.com/4256471/58387071-9ffb6c80-7fdf-11e9-8bd3-0b0086df73c7.png">
+
+## Author
+
+| [<img src="https://avatars3.githubusercontent.com/u/4256471?v=4" width=115><br><sub>@ibrunotome</sub>](https://github.com/ibrunotome) |
+| :---: |
+
+## Contributors
+
+| [<img src="https://avatars1.githubusercontent.com/u/22486914?v=4" width=115><br><sub>@crcms</sub>](https://github.com/crcms) |
+| :---: |
