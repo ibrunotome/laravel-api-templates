@@ -1,6 +1,6 @@
 <?php
 
-namespace Preferred\Interfaces\Http;
+namespace Preferred\Application\Http;
 
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -13,13 +13,13 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $middleware = [
-        \Preferred\Application\Middlewares\ForceAcceptJson::class,
-        \Preferred\Application\Middlewares\CheckForMaintenanceMode::class,
+        \Preferred\Application\Http\Middlewares\ForceAcceptJson::class,
+        \Preferred\Application\Http\Middlewares\CheckForMaintenanceMode::class,
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
-        \Preferred\Application\Middlewares\TrimStrings::class,
+        \Preferred\Application\Http\Middlewares\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
-        \Preferred\Application\Middlewares\TrustProxies::class,
-        \Preferred\Application\Middlewares\SetLocale::class,
+        \Preferred\Application\Http\Middlewares\TrustProxies::class,
+        \Preferred\Application\Http\Middlewares\SetLocale::class,
         \Illuminate\Http\Middleware\SetCacheHeaders::class,
     ];
 
@@ -46,8 +46,8 @@ class Kernel extends HttpKernel
         'bindings'   => \Illuminate\Routing\Middleware\SubstituteBindings::class,
         'throttle'   => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'can'        => \Illuminate\Auth\Middleware\Authorize::class,
-        'guest'      => \Preferred\Application\Middlewares\RedirectIfAuthenticated::class,
-        '2fa'        => \Preferred\Application\Middlewares\CheckTwoFactorAuthentication::class,
+        'guest'      => \Preferred\Application\Http\Middlewares\RedirectIfAuthenticated::class,
+        '2fa'        => \Preferred\Application\Http\Middlewares\CheckTwoFactorAuthentication::class,
     ];
 
 
@@ -58,16 +58,16 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $middlewarePriority = [
-        \Preferred\Application\Middlewares\ForceAcceptJson::class,
-        \Preferred\Application\Middlewares\CheckForMaintenanceMode::class,
+        \Preferred\Application\Http\Middlewares\ForceAcceptJson::class,
+        \Preferred\Application\Http\Middlewares\CheckForMaintenanceMode::class,
         \Illuminate\Auth\Middleware\Authenticate::class,
         \Illuminate\Routing\Middleware\SubstituteBindings::class,
         \Illuminate\Auth\Middleware\Authorize::class,
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
-        \Preferred\Application\Middlewares\TrimStrings::class,
+        \Preferred\Application\Http\Middlewares\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
-        \Preferred\Application\Middlewares\TrustProxies::class,
-        \Preferred\Application\Middlewares\SetLocale::class,
+        \Preferred\Application\Http\Middlewares\TrustProxies::class,
+        \Preferred\Application\Http\Middlewares\SetLocale::class,
         \Illuminate\Http\Middleware\SetCacheHeaders::class,
     ];
 }
