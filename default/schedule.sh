@@ -15,9 +15,4 @@ loop() {
 	done
 }
 
-if [[ "$APP_ENV" = "production" ]]; then
-    php artisan config:cache
-    php artisan route:cache
-    chown -R www-data.www-data ./
-    loop php artisan schedule:run
-fi
+loop php artisan schedule:run >> /dev/null 2>&1

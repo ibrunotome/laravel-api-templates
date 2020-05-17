@@ -1,7 +1,6 @@
 # Default Laravel structure
 
-This is Laravel's default structure. Personally I do not like to use this structure, because when the project has
-multiple entities, services, repositories, jobs and hundreds of routes, will be a little tricky to maintain this.
+This is Laravel's default structure. 
 
 <img width="295" src="https://user-images.githubusercontent.com/4256471/51738321-07c39a00-2076-11e9-830f-b9479b7980d6.png">
 
