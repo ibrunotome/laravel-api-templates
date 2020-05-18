@@ -10,10 +10,7 @@ use Ramsey\Uuid\Uuid;
 
 class AuthorizedDeviceService
 {
-    /**
-     * @var AuthorizedDeviceRepository
-     */
-    private $authorizedDeviceRepository;
+    private AuthorizedDeviceRepository $authorizedDeviceRepository;
 
     public function __construct(AuthorizedDeviceRepository $authorizedDeviceRepository)
     {

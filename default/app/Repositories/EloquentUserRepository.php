@@ -11,9 +11,9 @@ use Spatie\QueryBuilder\QueryBuilder;
 
 class EloquentUserRepository extends EloquentRepository implements UserRepository
 {
-    private $defaultSort = '-created_at';
+    private string $defaultSort = '-created_at';
 
-    private $defaultSelect = [
+    private array $defaultSelect = [
         'id',
         'email',
         'is_active',
@@ -22,16 +22,16 @@ class EloquentUserRepository extends EloquentRepository implements UserRepositor
         'updated_at',
     ];
 
-    private $allowedFilters = [
+    private array $allowedFilters = [
         'is_active',
     ];
 
-    private $allowedSorts = [
+    private array $allowedSorts = [
         'updated_at',
         'created_at',
     ];
 
-    private $allowedIncludes = [
+    private array $allowedIncludes = [
         'profile',
         'authorizeddevices',
         'loginhistories',

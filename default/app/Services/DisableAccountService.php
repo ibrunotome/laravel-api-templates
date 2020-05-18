@@ -6,16 +6,14 @@ use App\Contracts\ProfileRepository;
 use App\Models\Profile;
 use App\Notifications\AccountDisabledNotification;
 use App\Support\TwoFactorAuthenticator;
+use Exception;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
 
 class DisableAccountService
 {
-    /**
-     * @var ProfileRepository
-     */
-    private $profileRepository;
+    private ProfileRepository $profileRepository;
 
     public function __construct(ProfileRepository $profileRepository)
     {
@@ -41,7 +39,7 @@ class DisableAccountService
 
                 return true;
             });
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             return [
                 'error'   => true,
                 'message' => __('We could not disable your account, please try again or enter in contact with the ' .

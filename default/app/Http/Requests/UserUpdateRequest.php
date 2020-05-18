@@ -13,7 +13,7 @@ class UserUpdateRequest extends FormRequest
     {
         $id = $this->segment(2) === 'me' ? auth()->id() : $this->segment(3);
 
-        return auth()->user()->can('update users') || $id === auth()->id();
+        return $this->user()->can('update users') || $id === auth()->id();
     }
 
     /**

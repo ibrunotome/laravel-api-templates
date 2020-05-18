@@ -11,10 +11,7 @@ use Illuminate\Support\Facades\Cache;
 
 class ProfileController extends Controller
 {
-    /**
-     * @var ProfileRepository
-     */
-    private $profileRepository;
+    private ProfileRepository $profileRepository;
 
     public function __construct(ProfileRepository $profileRepository)
     {
@@ -34,7 +31,7 @@ class ProfileController extends Controller
         $cacheTag = 'profiles';
         $cacheKey = 'profiles:' . auth()->id() . json_encode(request()->all());
 
-        $collection = Cache::tags($cacheTag)->remember($cacheKey, 3600, function () {
+        $collection = Cache::tags($cacheTag)->remember($cacheKey, now()->addHour(), function () {
             return $this->profileRepository->findByFilters();
         });
 

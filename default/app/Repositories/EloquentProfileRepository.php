@@ -10,20 +10,20 @@ use Spatie\QueryBuilder\QueryBuilder;
 
 class EloquentProfileRepository extends EloquentRepository implements ProfileRepository
 {
-    private $defaultSort = '-created_at';
+    private string $defaultSort = '-created_at';
 
-    private $defaultSelect = [
+    private array $defaultSelect = [
         'name',
         'google2fa_enable',
         'created_at',
         'updated_at',
     ];
 
-    private $allowedFilters = [
+    private array $allowedFilters = [
         'google2fa_enable',
     ];
 
-    private $allowedSorts = [
+    private array $allowedSorts = [
         'updated_at',
         'created_at',
     ];

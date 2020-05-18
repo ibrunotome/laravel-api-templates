@@ -13,7 +13,7 @@ class LoginHistoryPolicy
     /**
      * Determine whether the user can view a list of model.
      *
-     * @param  \App\Models\User $user
+     * @param \App\Models\User $user
      * @return mixed
      */
     public function viewAny(User $user)
@@ -24,8 +24,8 @@ class LoginHistoryPolicy
     /**
      * Determine whether the user can view the model.
      *
-     * @param  \App\Models\User         $user
-     * @param  \App\Models\LoginHistory $model
+     * @param \App\Models\User         $user
+     * @param \App\Models\LoginHistory $model
      * @return mixed
      */
     public function view(User $user, LoginHistory $model)
@@ -36,10 +36,9 @@ class LoginHistoryPolicy
     /**
      * Determine whether the user can create models.
      *
-     * @param  \App\Models\User $user
      * @return mixed
      */
-    public function create(User $user)
+    public function create()
     {
         return false;
     }
@@ -47,11 +46,9 @@ class LoginHistoryPolicy
     /**
      * Determine whether the user can update the model.
      *
-     * @param  \App\Models\User         $user
-     * @param  \App\Models\LoginHistory $model
      * @return mixed
      */
-    public function update(User $user, LoginHistory $model)
+    public function update()
     {
         return false;
     }
@@ -59,11 +56,9 @@ class LoginHistoryPolicy
     /**
      * Determine whether the user can delete the model.
      *
-     * @param  \App\Models\User         $user
-     * @param  \App\Models\LoginHistory $model
      * @return mixed
      */
-    public function delete(User $user, LoginHistory $model)
+    public function delete()
     {
         return false;
     }
@@ -71,11 +66,9 @@ class LoginHistoryPolicy
     /**
      * Determine whether the user can restore the model.
      *
-     * @param  \App\Models\User         $user
-     * @param  \App\Models\LoginHistory $model
      * @return mixed
      */
-    public function restore(User $user, LoginHistory $model)
+    public function restore()
     {
         return false;
     }
@@ -83,11 +76,9 @@ class LoginHistoryPolicy
     /**
      * Determine whether the user can permanently delete the model.
      *
-     * @param  \App\Models\User         $user
-     * @param  \App\Models\LoginHistory $model
      * @return mixed
      */
-    public function forceDelete(User $user, LoginHistory $model)
+    public function forceDelete()
     {
         return false;
     }

@@ -9,9 +9,9 @@ use Spatie\QueryBuilder\QueryBuilder;
 
 class EloquentCompanyRepository extends EloquentRepository implements CompanyRepository
 {
-    private $defaultSort = '-created_at';
+    private string $defaultSort = '-created_at';
 
-    private $defaultSelect = [
+    private array $defaultSelect = [
         'id',
         'name',
         'is_active',
@@ -20,16 +20,16 @@ class EloquentCompanyRepository extends EloquentRepository implements CompanyRep
         'updated_at',
     ];
 
-    private $allowedFilters = [
+    private array $allowedFilters = [
         'is_active',
     ];
 
-    private $allowedSorts = [
+    private array $allowedSorts = [
         'updated_at',
         'created_at',
     ];
 
-    private $allowedIncludes = [];
+    private array $allowedIncludes = [];
 
     public function findByFilters(): LengthAwarePaginator
     {

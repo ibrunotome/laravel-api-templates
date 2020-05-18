@@ -12,10 +12,7 @@ use Illuminate\Support\Facades\Cache;
 
 class CompanyController extends Controller
 {
-    /**
-     * @var CompanyRepository
-     */
-    private $companyRepository;
+    private CompanyRepository $companyRepository;
 
     public function __construct(CompanyRepository $companyRepository)
     {
@@ -35,7 +32,7 @@ class CompanyController extends Controller
         $cacheTag = 'companies';
         $cacheKey = 'companies:' . auth()->id() . json_encode(request()->all());
 
-        $collection = Cache::tags($cacheTag)->remember($cacheKey, 3600, function () {
+        $collection = Cache::tags($cacheTag)->remember($cacheKey, now()->addHour(), function () {
             return $this->companyRepository->findByFilters();
         });
 
@@ -61,7 +58,7 @@ class CompanyController extends Controller
      */
     public function store(CompanyCreateRequest $request)
     {
-        $data = $request->only(array_keys($request->rules()));
+        $data = $request->validated();
 
         $company = $this->companyRepository->store($data);
 
@@ -77,7 +74,7 @@ class CompanyController extends Controller
      */
     public function update(CompanyUpdateRequest $request, Company $company)
     {
-        $data = $request->only(array_keys($request->rules()));
+        $data = $request->validated();
 
         $company = $this->companyRepository->update($company, $data);
 

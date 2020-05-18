@@ -11,7 +11,7 @@ class CompanyCreateRequest extends FormRequest
      */
     public function authorize()
     {
-        return auth()->user()->can('create companies');
+        return $this->user()->can('create companies');
     }
 
     /**

@@ -9,10 +9,7 @@ use Illuminate\Support\Facades\Notification;
 
 class LoginHistoryService
 {
-    /**
-     * @var LoginHistoryRepository
-     */
-    private $loginHistoryRepository;
+    private LoginHistoryRepository $loginHistoryRepository;
 
     public function __construct(LoginHistoryRepository $loginHistoryRepository)
     {

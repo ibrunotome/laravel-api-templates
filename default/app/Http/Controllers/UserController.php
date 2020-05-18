@@ -13,10 +13,7 @@ use Illuminate\Support\Facades\Cache;
 
 class UserController extends Controller
 {
-    /**
-     * @var UserRepository
-     */
-    private $userRepository;
+    private UserRepository $userRepository;
 
     public function __construct(UserRepository $userRepository)
     {
@@ -36,7 +33,7 @@ class UserController extends Controller
         $cacheTag = 'users';
         $cacheKey = 'users:' . auth()->id() . json_encode(request()->all());
 
-        return Cache::tags($cacheTag)->remember($cacheKey, 3600, function () {
+        return Cache::tags($cacheTag)->remember($cacheKey, now()->addHour(), function () {
             $collection = $this->userRepository->findByFilters();
 
             return $this->respondWithCollection($collection);
@@ -81,7 +78,7 @@ class UserController extends Controller
             $cacheTag = 'users';
             $cacheKey = implode($with) . $user->id;
 
-            $user = Cache::tags($cacheTag)->remember($cacheKey, 3600, function () use ($with, $user) {
+            $user = Cache::tags($cacheTag)->remember($cacheKey, now()->addHour(), function () use ($with, $user) {
                 return $user->load($with);
             });
         }
@@ -113,7 +110,7 @@ class UserController extends Controller
      */
     public function update(UserUpdateRequest $request, User $user)
     {
-        $data = $request->only(array_keys($request->rules()));
+        $data = $request->validated();
         $response = $this->userRepository->update($user, $data);
 
         return $this->respondWithItem($response);

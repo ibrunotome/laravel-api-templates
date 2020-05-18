@@ -14,7 +14,6 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Notification;
 use Jenssegers\Agent\Agent;
@@ -35,11 +34,6 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    public function wsAuth(Request $request)
-    {
-        Broadcast::auth($request);
-    }
-
     /**
      * {@inheritdoc}
      */
@@ -58,7 +52,7 @@ class LoginController extends Controller
     /**
      * Send the response after the user was authenticated.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     protected function sendLoginResponse(Request $request)
@@ -114,7 +108,7 @@ class LoginController extends Controller
     /**
      * Log the user out of the application.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request $request
      * @return void
      */
     public function logout(Request $request)

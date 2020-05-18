@@ -19,9 +19,9 @@ class FormValidationException extends \Illuminate\Validation\ValidationException
     /**
      * Create a new exception instance.
      *
-     * @param  \Illuminate\Contracts\Validation\Validator $validator
-     * @param  \Symfony\Component\HttpFoundation\Response $response
-     * @param  string                                     $errorBag
+     * @param \Illuminate\Contracts\Validation\Validator $validator
+     * @param \Symfony\Component\HttpFoundation\Response $response
+     * @param string                                     $errorBag
      * @return void
      */
     public function __construct($validator, $response = null, $errorBag = 'default')

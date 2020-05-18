@@ -11,7 +11,7 @@ class AuthorizeDeviceNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    private $data;
+    private array $data;
 
     public function __construct(array $data)
     {

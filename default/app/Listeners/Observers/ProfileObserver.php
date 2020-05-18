@@ -12,7 +12,7 @@ class ProfileObserver implements TransactionalEvent
 {
     public function creating(Model $model)
     {
-        $model->id = Uuid::uuid4();
+        $model->setAttribute('id', $model->getAttribute('id') ?? Uuid::uuid4()->toString());
 
         if (auth()->check()) {
             $model->user_id = auth()->id();

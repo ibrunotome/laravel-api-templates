@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\AuthorizedDevice;
+use Exception;
 use Illuminate\Http\Response;
 
 class AuthorizeDeviceController extends Controller
@@ -41,7 +42,7 @@ class AuthorizeDeviceController extends Controller
             $model->delete();
 
             return $this->respondWithNoContent();
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             return [
                 'error'   => true,
                 'message' => trans('messages.exception'),

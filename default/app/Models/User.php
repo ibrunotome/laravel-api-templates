@@ -3,9 +3,11 @@
 namespace App\Models;
 
 use App\Notifications\ResetPasswordNotification;
-use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Contracts\Translation\HasLocalePreference;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\Notifiable;
@@ -15,20 +17,45 @@ use Spatie\Permission\Traits\HasRoles;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
 /**
- * Class User
+ * App\Models\User
  *
- * @property string                    $id
- * @property string                    $email
- * @property bool                      $is_active
- * @property Carbon                    $email_verified_at
- * @property string                    $locale
- * @property Carbon                    $created_at
- * @property Carbon                    $updated_at
- * @property-read AuthorizedDevice     $authorizedDevices
- * @property-read LoginHistory         $loginHistories
- * @property-read Profile              $profile
- * @property-read DatabaseNotification $notifications
- * @property-read DatabaseNotification $unreadNotificatinos
+ * @property string                                                                                                         $id
+ * @property string                                                                                                         $email
+ * @property string                                                                                                         $password
+ * @property bool                                                                                                           $is_active
+ * @property string|null                                                                                                    $email_verified_at
+ * @property string                                                                                                         $locale
+ * @property string|null                                                                                                    $remember_token
+ * @property \Illuminate\Support\Carbon|null                                                                                $created_at
+ * @property \Illuminate\Support\Carbon|null                                                                                $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Audit[]                                              $audits
+ * @property-read int|null                                                                                                  $audits_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\AuthorizedDevice[]                                   $authorizedDevices
+ * @property-read int|null                                                                                                  $authorized_devices_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\LoginHistory[]                                       $loginHistories
+ * @property-read int|null                                                                                                  $login_histories_count
+ * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
+ * @property-read int|null                                                                                                  $notifications_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Permission[]                                         $permissions
+ * @property-read int|null                                                                                                  $permissions_count
+ * @property-read \App\Models\Profile|null                                                                                  $profile
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Role[]                                               $roles
+ * @property-read int|null                                                                                                  $roles_count
+ * @method static Builder|User newModelQuery()
+ * @method static Builder|User newQuery()
+ * @method static Builder|User permission($permissions)
+ * @method static Builder|User query()
+ * @method static Builder|User role($roles, $guard = null)
+ * @method static Builder|User whereCreatedAt($value)
+ * @method static Builder|User whereEmail($value)
+ * @method static Builder|User whereEmailVerifiedAt($value)
+ * @method static Builder|User whereId($value)
+ * @method static Builder|User whereIsActive($value)
+ * @method static Builder|User whereLocale($value)
+ * @method static Builder|User wherePassword($value)
+ * @method static Builder|User whereRememberToken($value)
+ * @method static Builder|User whereUpdatedAt($value)
+ * @mixin \Eloquent
  */
 class User extends Authenticatable implements JWTSubject, AuditableContract, HasLocalePreference, MustVerifyEmail
 {
@@ -86,12 +113,12 @@ class User extends Authenticatable implements JWTSubject, AuditableContract, Has
         $this->notify(new ResetPasswordNotification($token));
     }
 
-    public function profile()
+    public function profile(): HasOne
     {
         return $this->hasOne(Profile::class);
     }
 
-    public function loginHistories()
+    public function loginHistories(): HasMany
     {
         return $this->hasMany(LoginHistory::class)->orderBy('created_at', 'desc')->limit(10);
     }
@@ -112,8 +139,7 @@ class User extends Authenticatable implements JWTSubject, AuditableContract, Has
     {
         return $this->morphMany(DatabaseNotification::class, 'notifiable')
             ->whereNotNull('read_at')
-            ->orderBy('created_at', 'desc')
-            ->limit(15);
+            ->orderBy('created_at', 'desc');
     }
 
     /**

@@ -2,14 +2,44 @@
 
 namespace App\Models;
 
-use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class Audit
+ * App\Models\Audit
  *
- * @property Carbon $created_at
- * @property Carbon $updated_at
+ * @property string                                             $id
+ * @property string|null                                        $user_id
+ * @property string|null                                        $user_type
+ * @property string                                             $event
+ * @property string                                             $auditable_id
+ * @property string                                             $auditable_type
+ * @property array|null                                         $old_values
+ * @property array|null                                         $new_values
+ * @property string|null                                        $url
+ * @property string|null                                        $ip_address
+ * @property string|null                                        $user_agent
+ * @property string|null                                        $tags
+ * @property \Illuminate\Support\Carbon                         $created_at
+ * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $auditable
+ * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $user
+ * @method static Builder|Audit newModelQuery()
+ * @method static Builder|Audit newQuery()
+ * @method static Builder|Audit query()
+ * @method static Builder|Audit whereAuditableId($value)
+ * @method static Builder|Audit whereAuditableType($value)
+ * @method static Builder|Audit whereCreatedAt($value)
+ * @method static Builder|Audit whereEvent($value)
+ * @method static Builder|Audit whereId($value)
+ * @method static Builder|Audit whereIpAddress($value)
+ * @method static Builder|Audit whereNewValues($value)
+ * @method static Builder|Audit whereOldValues($value)
+ * @method static Builder|Audit whereTags($value)
+ * @method static Builder|Audit whereUrl($value)
+ * @method static Builder|Audit whereUserAgent($value)
+ * @method static Builder|Audit whereUserId($value)
+ * @method static Builder|Audit whereUserType($value)
+ * @mixin \Eloquent
  */
 class Audit extends Model implements \OwenIt\Auditing\Contracts\Audit
 {

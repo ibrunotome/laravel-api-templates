@@ -11,6 +11,7 @@ use App\Models\Profile;
 use App\Models\User;
 use App\Support\ExceptionFormat;
 use App\Support\TwoFactorAuthenticator;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Cache;
@@ -91,13 +92,13 @@ class TwoFactorAuthenticationController extends Controller
                     'google2faEnable' => true,
                 ]);
             }
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             Log::error(ExceptionFormat::log($exception));
         }
 
         return $this->respondWithCustomData([
-            'message'          => __('Invalid 2FA verification code. Please try again'),
-            'isVerify2fa'      => false,
+            'message'         => __('Invalid 2FA verification code. Please try again'),
+            'isVerify2fa'     => false,
             'google2faEnable' => false,
         ], Response::HTTP_LOCKED);
     }
@@ -135,7 +136,7 @@ class TwoFactorAuthenticationController extends Controller
         event(new TwoFactorAuthenticationWasDisabled($user));
 
         return $this->respondWithCustomData([
-            'message'          => __('2FA is now disabled'),
+            'message'         => __('2FA is now disabled'),
             'google2faEnable' => false,
         ]);
     }

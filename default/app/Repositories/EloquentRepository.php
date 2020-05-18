@@ -11,20 +11,11 @@ use Ramsey\Uuid\Uuid;
 
 abstract class EloquentRepository implements BaseRepository
 {
-    /**
-     * @var Model
-     */
-    protected $model;
+    protected Model $model;
 
-    /**
-     * @var bool
-     */
-    protected $withoutGlobalScopes = false;
+    protected bool $withoutGlobalScopes = false;
 
-    /**
-     * @var array
-     */
-    protected $with = [];
+    protected array $with = [];
 
     public function __construct(Model $model)
     {
@@ -54,7 +45,7 @@ abstract class EloquentRepository implements BaseRepository
      */
     public function store(array $data): Model
     {
-        return $this->model->with([])->create($data);
+        return $this->model->create($data);
     }
 
     /**
@@ -86,7 +77,7 @@ abstract class EloquentRepository implements BaseRepository
             return $this->findOneBy(['id' => $id]);
         }
 
-        return Cache::remember($id, 3600, function () use ($id) {
+        return Cache::remember($id, now()->addHour(), function () use ($id) {
             return $this->findOneBy(['id' => $id]);
         });
     }

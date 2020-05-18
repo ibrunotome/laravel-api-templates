@@ -11,7 +11,7 @@ class SuccessfulLoginFromIpNotification extends Notification implements ShouldQu
 {
     use Queueable;
 
-    private $data;
+    private array $data;
 
     public function __construct(array $data)
     {
