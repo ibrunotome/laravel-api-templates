@@ -5,7 +5,6 @@ namespace Tests\Feature;
 use App\Models\AuthorizedDevice;
 use App\Models\LoginHistory;
 use App\Models\Permission;
-use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Ramsey\Uuid\Uuid;
@@ -23,7 +22,6 @@ class UserControllerTest extends TestCase
         parent::setUp();
 
         $this->user = factory(User::class)->create();
-        factory(Profile::class)->create(['user_id' => $this->user->id]);
     }
 
     /**
@@ -36,7 +34,6 @@ class UserControllerTest extends TestCase
         $this->user->givePermissionTo('view any users');
 
         $includes = [
-            'profile',
             'loginhistories',
             'authorizeddevices',
             'notifications',
@@ -47,7 +44,6 @@ class UserControllerTest extends TestCase
             ->actingAs($this->user)
             ->getJson(route('api.users.index') . '?include=' . implode(',', $includes))
             ->assertSuccessful()
-            ->assertSeeText('profile')
             ->assertSeeText('loginHistories')
             ->assertSeeText('authorizedDevices')
             ->assertSeeText('notifications')
@@ -106,7 +102,6 @@ class UserControllerTest extends TestCase
     public function testShowMe()
     {
         $includes = [
-            'profile',
             'loginhistories',
             'authorizeddevices',
             'notifications',
@@ -119,7 +114,6 @@ class UserControllerTest extends TestCase
         $this->actingAs($this->user)
             ->getJson(route('api.me') . '?include=' . implode(',', $includes))
             ->assertSuccessful()
-            ->assertSeeText('profile')
             ->assertSeeText('loginHistories')
             ->assertSeeText('authorizedDevices')
             ->assertSeeText('notifications')
@@ -136,7 +130,6 @@ class UserControllerTest extends TestCase
         $this->user->givePermissionTo('view users');
 
         $includes = [
-            'profile',
             'loginhistories',
             'authorizeddevices',
             'notifications',
@@ -144,7 +137,6 @@ class UserControllerTest extends TestCase
         ];
 
         $user2 = factory(User::class)->create();
-        factory(Profile::class)->create(['user_id' => $user2->id]);
         factory(LoginHistory::class)->create(['user_id' => $user2->id]);
         factory(AuthorizedDevice::class)->create(['user_id' => $user2->id]);
 
@@ -152,7 +144,6 @@ class UserControllerTest extends TestCase
             ->actingAs($this->user)
             ->getJson(route('api.users.show', $user2->id) . '?include=' . implode(',', $includes))
             ->assertSuccessful()
-            ->assertSeeText('profile')
             ->assertSeeText('loginHistories')
             ->assertSeeText('authorizedDevices')
             ->assertSeeText('notifications')
@@ -195,7 +186,6 @@ class UserControllerTest extends TestCase
     public function testCannotShowBecauseUnauthorized()
     {
         $user2 = factory(User::class)->create();
-        factory(Profile::class)->create(['user_id' => $user2->id]);
 
         $this
             ->actingAs($this->user)
@@ -230,7 +220,6 @@ class UserControllerTest extends TestCase
         Permission::create(['name' => 'update users']);
 
         $user2 = factory(User::class)->create();
-        factory(Profile::class)->create(['user_id' => $user2->id]);
 
         $this
             ->actingAs($this->user)
@@ -305,5 +294,22 @@ class UserControllerTest extends TestCase
             ])
             ->assertStatus(422)
             ->assertSee('The password confirmation does not match');
+    }
+
+    /**
+     * @group update
+     * @group crud
+     */
+    public function testCannotUpdateAntiPhishingCodeBecauseNotAlphaDash()
+    {
+        Permission::create(['name' => 'update users']);
+        $this->user->givePermissionTo('update users');
+
+        $this
+            ->actingAs($this->user)
+            ->patchJson(route('api.profiles.me.update'), [
+                'anti_phishing_code' => 'Test ***',
+            ])
+            ->assertStatus(422);
     }
 }

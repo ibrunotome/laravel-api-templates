@@ -7,7 +7,6 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Contracts\Translation\HasLocalePreference;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\Notifiable;
@@ -20,11 +19,18 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
  * App\Models\User
  *
  * @property string                                                                                                         $id
+ * @property string                                                                                                         $name
  * @property string                                                                                                         $email
  * @property string                                                                                                         $password
  * @property bool                                                                                                           $is_active
  * @property string|null                                                                                                    $email_verified_at
  * @property string                                                                                                         $locale
+ * @property string|null                                                                                                    $anti_phishing_code
+ * @property string|null                                                                                                    $email_token_confirmation
+ * @property string|null                                                                                                    $email_token_disable_account
+ * @property bool                                                                                                           $google2fa_enable
+ * @property string|null                                                                                                    $google2fa_secret
+ * @property string|null                                                                                                    $google2fa_url
  * @property string|null                                                                                                    $remember_token
  * @property \Illuminate\Support\Carbon|null                                                                                $created_at
  * @property \Illuminate\Support\Carbon|null                                                                                $updated_at
@@ -38,7 +44,6 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
  * @property-read int|null                                                                                                  $notifications_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Permission[]                                         $permissions
  * @property-read int|null                                                                                                  $permissions_count
- * @property-read \App\Models\Profile|null                                                                                  $profile
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Role[]                                               $roles
  * @property-read int|null                                                                                                  $roles_count
  * @method static Builder|User newModelQuery()
@@ -46,12 +51,19 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
  * @method static Builder|User permission($permissions)
  * @method static Builder|User query()
  * @method static Builder|User role($roles, $guard = null)
+ * @method static Builder|User whereAntiPhishingCode($value)
  * @method static Builder|User whereCreatedAt($value)
  * @method static Builder|User whereEmail($value)
+ * @method static Builder|User whereEmailTokenConfirmation($value)
+ * @method static Builder|User whereEmailTokenDisableAccount($value)
  * @method static Builder|User whereEmailVerifiedAt($value)
+ * @method static Builder|User whereGoogle2faEnable($value)
+ * @method static Builder|User whereGoogle2faSecret($value)
+ * @method static Builder|User whereGoogle2faUrl($value)
  * @method static Builder|User whereId($value)
  * @method static Builder|User whereIsActive($value)
  * @method static Builder|User whereLocale($value)
+ * @method static Builder|User whereName($value)
  * @method static Builder|User wherePassword($value)
  * @method static Builder|User whereRememberToken($value)
  * @method static Builder|User whereUpdatedAt($value)
@@ -73,6 +85,10 @@ class User extends Authenticatable implements JWTSubject, AuditableContract, Has
     ];
 
     protected $fillable = [
+        'name',
+        'anti_phishing_code',
+        'email_token_confirmation',
+        'email_token_disable_account',
         'email',
         'password',
         'locale',
@@ -111,11 +127,6 @@ class User extends Authenticatable implements JWTSubject, AuditableContract, Has
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new ResetPasswordNotification($token));
-    }
-
-    public function profile(): HasOne
-    {
-        return $this->hasOne(Profile::class);
     }
 
     public function loginHistories(): HasMany

@@ -34,7 +34,7 @@ services:
     depends_on:
       - pgsql
       - redis
-      -
+
   schedule:
     image: ibrunotome/php:7.4
     container_name: default-schedule

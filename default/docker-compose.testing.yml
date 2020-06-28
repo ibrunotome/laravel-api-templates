@@ -1,6 +1,6 @@
 version: '3.6'
 services:
-  app-testing:
+  app:
     build:
       context: .
       dockerfile: Dockerfile.testing
@@ -19,10 +19,10 @@ services:
       - ./php.testing.ini:/usr/local/etc/php/php.ini
       - ./www.conf:/usr/local/etc/php-fpm.d/www.conf
     depends_on:
-      - pgsql-testing
-      - redis-testing
+      - pgsql
+      - redis
 
-  pgsql-testing:
+  pgsql:
     image: launcher.gcr.io/google/postgresql11
     container_name: default-pgsql-testing
     ports:
@@ -34,7 +34,7 @@ services:
     volumes:
       - ./volumes/testing/pgsql:/var/lib/postgresql/data
 
-  redis-testing:
+  redis:
     image: redis:5.0.5-alpine
     container_name: default-redis-testing
     restart: always

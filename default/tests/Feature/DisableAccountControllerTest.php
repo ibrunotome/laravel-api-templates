@@ -2,7 +2,6 @@
 
 namespace Tests\Feature;
 
-use App\Models\Profile;
 use App\Models\User;
 use Tests\TestCase;
 
@@ -11,9 +10,8 @@ class DisableAccountControllerTest extends TestCase
     public function testDisableAccount()
     {
         $user = factory(User::class)->create();
-        $profile = factory(Profile::class)->create(['user_id' => $user->id]);
 
-        $this->postJson(route('api.account.disable', [$profile->email_token_disable_account]))
+        $this->postJson(route('api.account.disable', [$user->email_token_disable_account]))
             ->assertSuccessful()
             ->assertSeeText('Your account was successfully disabled');
     }
@@ -21,9 +19,8 @@ class DisableAccountControllerTest extends TestCase
     public function testDisableAccountWillFailBecauseMethodNotAllowed()
     {
         $user = factory(User::class)->create();
-        $profile = factory(Profile::class)->create(['user_id' => $user->id]);
 
-        $this->putJson(route('api.account.disable', [$profile->email_token_disable_account]))
+        $this->putJson(route('api.account.disable', [$user->email_token_disable_account]))
             ->assertStatus(405)
             ->assertSeeText('Method not allowed');
     }
@@ -31,12 +28,11 @@ class DisableAccountControllerTest extends TestCase
     public function testTooManyRequests()
     {
         $user = factory(User::class)->create();
-        $profile = factory(Profile::class)->create(['user_id' => $user->id]);
 
-        $this->postJson(route('api.account.disable', [$profile->email_token_disable_account]))
+        $this->postJson(route('api.account.disable', [$user->email_token_disable_account]))
             ->assertSuccessful();
 
-        $this->postJson(route('api.account.disable', [$profile->email_token_disable_account]))
+        $this->postJson(route('api.account.disable', [$user->email_token_disable_account]))
             ->assertStatus(429)
             ->assertSeeText('Too many Requests');
     }

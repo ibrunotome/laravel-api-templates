@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Model;
+use Ramsey\Uuid\Uuid;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class EloquentUserRepository extends EloquentRepository implements UserRepository
@@ -62,5 +63,14 @@ class EloquentUserRepository extends EloquentRepository implements UserRepositor
         }
 
         return parent::update($model, $data);
+    }
+
+    public function setNewEmailTokenConfirmation($userId)
+    {
+        $this->withoutGlobalScopes()
+            ->findOneById($userId)
+            ->update([
+                'email_token_confirmation' => Uuid::uuid4()->toString(),
+            ]);
     }
 }

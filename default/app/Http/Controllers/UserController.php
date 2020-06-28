@@ -65,7 +65,6 @@ class UserController extends Controller
     public function show(Request $request, User $user)
     {
         $allowedIncludes = [
-            'profile',
             'loginhistories',
             'authorizeddevices',
             'notifications',

@@ -72,23 +72,11 @@ Route::group([
     Route::post('verify2fa', 'Auth\TwoFactorAuthenticationController@verify2fa')
         ->name('api.verify2fa');
 
-    Route::get('me/profile', 'ProfileController@showMe')
+    Route::get('me/profile', 'UserController@profile')
         ->name('api.profile');
 
-    Route::patch('me/profile', 'ProfileController@updateMe')
+    Route::patch('me/profile', 'UserController@updateMe')
         ->name('api.profiles.me.update');
-
-    Route::apiResource('profiles', 'ProfileController')
-        ->only([
-            'index',
-            'show',
-            'update',
-        ])
-        ->names([
-            'index'  => 'api.profiles.index',
-            'show'   => 'api.profiles.show',
-            'update' => 'api.profiles.update',
-        ]);
 
     Route::get('me', 'UserController@profile')
         ->name('api.me');

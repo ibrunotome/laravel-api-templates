@@ -2,7 +2,6 @@
 
 namespace Tests\Unit;
 
-use App\Models\Profile;
 use App\Models\User;
 use App\Notifications\AccountDisabledNotification;
 use App\Notifications\AuthorizeDeviceNotification;
@@ -26,7 +25,6 @@ class NotificationsTest extends TestCase
         parent::setUp();
 
         $this->user = factory(User::class)->create();
-        factory(Profile::class)->create(['user_id' => $this->user->id]);
     }
 
     public function testVerifyEmailNotification()
@@ -41,7 +39,10 @@ class NotificationsTest extends TestCase
     {
         $notification = new TwoFactorAuthenticationWasDisabledNotification();
         $this->assertEquals('notifications', $notification->queue);
-        $this->assertStringContainsString('Two Factor Authentication Disabled', $notification->toMail($this->user)->subject);
+        $this->assertStringContainsString(
+            'Two Factor Authentication Disabled',
+            $notification->toMail($this->user)->subject
+        );
     }
 
     public function testSuccessfulLoginFromIpNotification()

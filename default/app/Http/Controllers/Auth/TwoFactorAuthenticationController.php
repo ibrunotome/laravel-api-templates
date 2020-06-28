@@ -7,7 +7,6 @@ use App\Events\TwoFactorAuthenticationWasDisabled;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DisableTwoFactorAuthenticationRequest;
 use App\Http\Requests\EnableTwoFactorAuthenticationRequest;
-use App\Models\Profile;
 use App\Models\User;
 use App\Support\ExceptionFormat;
 use App\Support\TwoFactorAuthenticator;
@@ -21,16 +20,6 @@ use Illuminate\Support\Facades\Log;
 class TwoFactorAuthenticationController extends Controller
 {
     /**
-     * @var ProfileRepository $profileRepository
-     */
-    private $profileRepository;
-
-    public function __construct(ProfileRepository $profileRepository)
-    {
-        $this->profileRepository = $profileRepository;
-    }
-
-    /**
      * Generate a new 2fa entry for current logged user.
      *
      * @param Request $request
@@ -39,26 +28,26 @@ class TwoFactorAuthenticationController extends Controller
      */
     public function generate2faSecret(Request $request)
     {
-        /**
-         * @var Profile $profile
-         */
-        $profile = $this->profileRepository->findOneBy(['user_id' => auth()->id()]);
-
         $twoFactorAuthentication = new TwoFactorAuthenticator($request);
 
-        $profile->google2fa_enable = false;
-        $profile->google2fa_secret = $twoFactorAuthentication->generateSecretKey(32);
+        /**
+         * @var User $user
+         */
+        $user = auth()->user();
+
+        $user->google2fa_enable = false;
+        $user->google2fa_secret = $twoFactorAuthentication->generateSecretKey(32);
         $google2faUrl = $twoFactorAuthentication->getQRCodeUrl(
             config('app.name'),
-            auth()->user()->email,
-            $profile->google2fa_secret
+            $user->email,
+            $user->google2fa_secret
         );
-        $profile->google2fa_url = $google2faUrl;
-        $profile->save();
+        $user->google2fa_url = $google2faUrl;
+        $user->save();
 
         return $this->respondWithCustomData([
             'message'         => __('Secret Key generated. Follow the next steps'),
-            'google2faSecret' => $profile->google2fa_secret,
+            'google2faSecret' => $user->google2fa_secret,
             'google2faUrl'    => $google2faUrl,
         ]);
     }
@@ -71,19 +60,20 @@ class TwoFactorAuthenticationController extends Controller
      */
     public function enable2fa(EnableTwoFactorAuthenticationRequest $request)
     {
-        /**
-         * @var Profile $profile
-         */
-        $profile = $this->profileRepository->findOneBy(['user_id' => auth()->id()]);
         $twoFactorAuthentication = new TwoFactorAuthenticator($request);
         $secret = $request->input('one_time_password');
 
+        /**
+         * @var User $user
+         */
+        $user = auth()->user();
+
         try {
-            $valid = $twoFactorAuthentication->verifyKey($profile->google2fa_secret, $secret);
+            $valid = $twoFactorAuthentication->verifyKey($user->google2fa_secret, $secret);
 
             if ($valid) {
-                $profile->google2fa_enable = true;
-                $profile->save();
+                $user->google2fa_enable = true;
+                $user->save();
 
                 $twoFactorAuthentication->login();
 
@@ -112,22 +102,22 @@ class TwoFactorAuthenticationController extends Controller
      */
     public function disable2fa(DisableTwoFactorAuthenticationRequest $request)
     {
-        if (!Hash::check($request->get('password'), $request->user()->password)) {
+        /**
+         * @var User $user
+         */
+        $user = auth()->user();
+
+        if (!Hash::check($request->get('password'), $user->password)) {
             return $this->respondWithCustomData(
                 ['message' => __('Invalid password. Please try again')],
                 Response::HTTP_BAD_REQUEST
             );
         }
 
-        /**
-         * @var Profile $profile
-         */
-        $profile = $this->profileRepository->findOneBy(['user_id' => auth()->id()]);
-
-        $profile->google2fa_enable = false;
-        $profile->google2fa_secret = null;
-        $profile->google2fa_url = null;
-        $profile->save();
+        $user->google2fa_enable = false;
+        $user->google2fa_secret = null;
+        $user->google2fa_url = null;
+        $user->save();
 
         /**
          * @var User $user

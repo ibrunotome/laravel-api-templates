@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Contracts\ProfileRepository;
 use App\Contracts\UserRepository;
 use App\Http\Controllers\Controller;
 use App\Models\User;
@@ -10,7 +9,6 @@ use App\Rules\WeakPasswordRule;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Ramsey\Uuid\Uuid;
 
@@ -99,38 +97,29 @@ class RegisterController extends Controller
      *
      * @param array $data
      * @return User
+     * @throws \Exception
      */
     protected function create(array $data)
     {
-        return DB::transaction(function () use ($data) {
-            /**
-             * @var UserRepository $userRepository
-             */
-            $userRepository = app(UserRepository::class);
+        /**
+         * @var UserRepository $userRepository
+         */
+        $userRepository = app(UserRepository::class);
 
-            /**
-             * @var User $user
-             */
-            $user = $userRepository->store([
-                'email'             => $data['email'],
-                'password'          => bcrypt($data['password']),
-                'is_active'         => 1,
-                'email_verified_at' => null,
-                'locale'            => $data['locale'] ?? 'pt_BR',
-            ]);
+        /**
+         * @var User $user
+         */
+        $user = $userRepository->store([
+            'email'                       => $data['email'],
+            'name'                        => $data['name'],
+            'email_token_confirmation'    => Uuid::uuid4()->toString(),
+            'email_token_disable_account' => Uuid::uuid4()->toString(),
+            'password'                    => bcrypt($data['password']),
+            'is_active'                   => 1,
+            'email_verified_at'           => null,
+            'locale'                      => $data['locale'] ?? 'pt_BR',
+        ]);
 
-            /**
-             * @var ProfileRepository $profileRepository
-             */
-            $profileRepository = app(ProfileRepository::class);
-            $profileRepository->store([
-                'name'                        => $data['name'],
-                'email_token_confirmation'    => Uuid::uuid4()->toString(),
-                'email_token_disable_account' => Uuid::uuid4()->toString(),
-                'user_id'                     => $user->id,
-            ]);
-
-            return $user;
-        });
+        return $user;
     }
 }

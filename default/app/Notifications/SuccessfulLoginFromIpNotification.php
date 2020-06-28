@@ -26,8 +26,8 @@ class SuccessfulLoginFromIpNotification extends Notification implements ShouldQu
 
     public function toMail($notifiable)
     {
-        $antiPhishingCode = $notifiable->profile->anti_phishing_code;
-        $disableAccountToken = $notifiable->profile->email_token_disable_account;
+        $antiPhishingCode = $notifiable->anti_phishing_code;
+        $disableAccountToken = $notifiable->email_token_disable_account;
         $device = $this->data['browser'] . ' ' . $this->data['browser_version'] . ' (' . $this->data['platform'] . ')';
 
         return (new MailMessage())

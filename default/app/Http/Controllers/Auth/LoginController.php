@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Auth;
 
 use App\Exceptions\LockedException;
 use App\Http\Controllers\Controller;
-use App\Models\Profile;
 use App\Models\User;
 use App\Notifications\VerifyEmailNotification;
 use App\Services\AuthorizedDeviceService;
@@ -125,12 +124,7 @@ class LoginController extends Controller
     private function checkIfUserHasVerifiedEmail(User $user, Request $request)
     {
         if (!$user->hasVerifiedEmail()) {
-            /**
-             * @var Profile $profile
-             */
-            $profile = $user->profile;
-
-            Notification::send($user, new VerifyEmailNotification($profile->email_token_confirmation));
+            Notification::send($user, new VerifyEmailNotification($user->email_token_confirmation));
 
             $this->logout($request);
 

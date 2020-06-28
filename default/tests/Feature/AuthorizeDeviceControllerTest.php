@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use App\Models\AuthorizedDevice;
-use App\Models\Profile;
 use App\Models\User;
 use Ramsey\Uuid\Uuid;
 use Tests\TestCase;
@@ -68,8 +67,6 @@ class AuthorizeDeviceControllerTest extends TestCase
             'email'    => 'test@test.com',
             'password' => bcrypt('secretxxx'),
         ]);
-
-        factory(Profile::class)->create(['user_id' => $user->id]);
 
         /**
          * @var AuthorizedDevice $authorizedDevice

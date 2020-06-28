@@ -23,7 +23,7 @@ class AccountDisabledNotification extends Notification implements ShouldQueue
 
     public function toMail($notifiable)
     {
-        $antiPhishingCode = $notifiable->profile->anti_phishing_code;
+        $antiPhishingCode = $notifiable->anti_phishing_code;
         $supportLink = config('app.support_url');
 
         return (new MailMessage())

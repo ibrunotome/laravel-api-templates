@@ -2,7 +2,6 @@
 
 namespace Tests\Feature;
 
-use App\Models\Profile;
 use App\Models\User;
 use Ramsey\Uuid\Uuid;
 use Tests\TestCase;
@@ -79,21 +78,14 @@ class RegisterControllerTest extends TestCase
          * @var User $user
          */
         $user = factory(User::class)->create([
-            'is_active'         => 1,
-            'email_verified_at' => null,
-            'email'             => 'test@test.com',
-            'password'          => bcrypt('secretxxx'),
-        ]);
-
-        /**
-         * @var Profile $profile
-         */
-        $profile = factory(Profile::class)->create([
-            'user_id'                  => $user->id,
+            'is_active'                => 1,
+            'email_verified_at'        => null,
             'email_token_confirmation' => Uuid::uuid4(),
+            'email'                    => 'test@test.com',
+            'password'                 => bcrypt('secretxxx'),
         ]);
 
-        $this->post(route('api.email.verify', [$profile->email_token_confirmation]))
+        $this->post(route('api.email.verify', [$user->email_token_confirmation]))
             ->assertStatus(200)
             ->assertSee('Email successfully verified');
     }
@@ -108,11 +100,6 @@ class RegisterControllerTest extends TestCase
             'email_verified_at' => null,
             'email'             => 'test@test.com',
             'password'          => bcrypt('secretxxx'),
-        ]);
-
-        factory(Profile::class)->create([
-            'user_id'                  => $user->id,
-            'email_token_confirmation' => Uuid::uuid4(),
         ]);
 
         $this->post(route('api.email.verify', [Uuid::uuid4()]))

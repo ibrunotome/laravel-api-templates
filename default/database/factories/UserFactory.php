@@ -5,12 +5,16 @@ use Ramsey\Uuid\Uuid;
 
 $factory->define(App\Models\User::class, function (Faker $faker) {
     return [
-        'id'                => Uuid::uuid4(),
-        'email'             => strtolower(str_replace('-', '', Uuid::uuid4())) . '@gmail.com',
-        'password'          => bcrypt('secretxxx'),
-        'is_active'         => 1,
-        'email_verified_at' => now(),
-        'locale'            => 'en_US',
+        'id'                          => Uuid::uuid4(),
+        'name'                        => $faker->name,
+        'anti_phishing_code'          => $faker->word,
+        'email_token_confirmation'    => Uuid::uuid4(),
+        'email_token_disable_account' => Uuid::uuid4(),
+        'email'                       => strtolower(str_replace('-', '', Uuid::uuid4())) . '@gmail.com',
+        'password'                    => bcrypt('secretxxx'),
+        'is_active'                   => 1,
+        'email_verified_at'           => now(),
+        'locale'                      => 'en_US',
     ];
 });
 

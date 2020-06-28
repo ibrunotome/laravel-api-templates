@@ -2,7 +2,7 @@
 
 namespace App\Listeners;
 
-use App\Contracts\ProfileRepository;
+use App\Contracts\UserRepository;
 use App\Notifications\PasswordChangedNotification;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -12,19 +12,17 @@ class PasswordResetListener implements ShouldQueue
 {
     use Queueable;
 
-    public function __construct()
+    private UserRepository $userRepository;
+
+    public function __construct(UserRepository $userRepository)
     {
+        $this->userRepository = $userRepository;
         $this->onQueue('notifications');
     }
 
     public function handle($event)
     {
-        /**
-         * @var ProfileRepository $profileRepository
-         */
-        $profileRepository = app(ProfileRepository::class);
-
-        $profileRepository->setNewEmailTokenConfirmation($event->user->id);
+        $this->userRepository->setNewEmailTokenConfirmation($event->user->id);
 
         Notification::send($event->user, new PasswordChangedNotification());
     }

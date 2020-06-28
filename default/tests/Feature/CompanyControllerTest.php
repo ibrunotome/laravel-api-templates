@@ -4,7 +4,6 @@ namespace Tests\Feature;
 
 use App\Models\Company;
 use App\Models\Permission;
-use App\Models\Profile;
 use App\Models\User;
 use Tests\TestCase;
 
@@ -25,8 +24,6 @@ class CompanyControllerTest extends TestCase
         parent::setUp();
 
         $this->user = factory(User::class)->create();
-        factory(Profile::class)->create(['user_id' => $this->user->id]);
-
         $this->company = factory(Company::class)->create();
     }
 
@@ -85,7 +82,7 @@ class CompanyControllerTest extends TestCase
             ->getJson(route('api.companies.show', $this->company->id))
             ->assertSuccessful()
             ->assertJsonFragment([
-                'name' => $this->company->name
+                'name' => $this->company->name,
             ]);
     }
 
@@ -128,7 +125,7 @@ class CompanyControllerTest extends TestCase
             ->postJson(route('api.companies.store'), [
                 'name'      => 'test',
                 'is_active' => 1,
-                'max_users' => 20
+                'max_users' => 20,
             ])
             ->assertSuccessful()
             ->assertJsonFragment([

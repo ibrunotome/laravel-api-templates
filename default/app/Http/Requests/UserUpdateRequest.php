@@ -26,10 +26,20 @@ class UserUpdateRequest extends FormRequest
         $ignoreId = $this->segment(2) === 'me' ? auth()->id() : $this->segment(3);
 
         return [
-            'email' => [
+            'email'              => [
                 'email',
                 'max:250',
                 'unique:users,email,' . $ignoreId,
+            ],
+            'name'               => [
+                'string',
+                'max:250',
+            ],
+            'anti_phishing_code' => [
+                'nullable',
+                'alpha_dash',
+                'min:4',
+                'max:20',
             ],
         ];
     }

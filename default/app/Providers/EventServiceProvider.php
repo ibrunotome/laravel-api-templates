@@ -8,7 +8,6 @@ use App\Listeners\Observers\AuthorizedDeviceObserver;
 use App\Listeners\Observers\CompanyObserver;
 use App\Listeners\Observers\LoginHistoryObserver;
 use App\Listeners\Observers\PermissionObserver;
-use App\Listeners\Observers\ProfileObserver;
 use App\Listeners\Observers\RoleObserver;
 use App\Listeners\Observers\UserObserver;
 use App\Listeners\PasswordResetListener;
@@ -19,7 +18,6 @@ use App\Models\AuthorizedDevice;
 use App\Models\Company;
 use App\Models\LoginHistory;
 use App\Models\Permission;
-use App\Models\Profile;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Auth\Events\PasswordReset;
@@ -55,7 +53,6 @@ class EventServiceProvider extends ServiceProvider
         AuthorizedDevice::observe(AuthorizedDeviceObserver::class);
         LoginHistory::observe(LoginHistoryObserver::class);
         Permission::observe(PermissionObserver::class);
-        Profile::observe(ProfileObserver::class);
         Role::observe(RoleObserver::class);
     }
 }

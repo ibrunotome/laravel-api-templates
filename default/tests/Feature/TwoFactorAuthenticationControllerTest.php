@@ -2,7 +2,6 @@
 
 namespace Tests\Feature;
 
-use App\Models\Profile;
 use App\Models\User;
 use App\Support\TwoFactorAuthenticator;
 use Tests\TestCase;
@@ -14,17 +13,11 @@ class TwoFactorAuthenticationControllerTest extends TestCase
      */
     private $user;
 
-    /**
-     * @var Profile
-     */
-    private $profile;
-
     public function setUp(): void
     {
         parent::setUp();
 
         $this->user = factory(User::class)->create();
-        $this->profile = factory(Profile::class)->create(['user_id' => $this->user->id]);
     }
 
     public function testGenerate2faSecret()
@@ -41,11 +34,11 @@ class TwoFactorAuthenticationControllerTest extends TestCase
     {
         $twoFactorAuthenticator = new TwoFactorAuthenticator(request());
 
-        $this->profile->google2fa_enable = false;
-        $this->profile->google2fa_secret = $twoFactorAuthenticator->generateSecretKey(32);
-        $this->profile->save();
+        $this->user->google2fa_enable = false;
+        $this->user->google2fa_secret = $twoFactorAuthenticator->generateSecretKey(32);
+        $this->user->save();
 
-        $otp = $twoFactorAuthenticator->getCurrentOtp($this->profile->google2fa_secret);
+        $otp = $twoFactorAuthenticator->getCurrentOtp($this->user->google2fa_secret);
 
         $this->actingAs($this->user)
             ->postJson(route('api.enable2fa'), ['one_time_password' => $otp])
@@ -68,11 +61,11 @@ class TwoFactorAuthenticationControllerTest extends TestCase
     {
         $twoFactorAuthenticator = new TwoFactorAuthenticator(request());
 
-        $this->profile->google2fa_enable = true;
-        $this->profile->google2fa_secret = $twoFactorAuthenticator->generateSecretKey(32);
-        $this->profile->save();
+        $this->user->google2fa_enable = true;
+        $this->user->google2fa_secret = $twoFactorAuthenticator->generateSecretKey(32);
+        $this->user->save();
 
-        $oneTimePassword = $twoFactorAuthenticator->getCurrentOtp($this->profile->google2fa_secret);
+        $oneTimePassword = $twoFactorAuthenticator->getCurrentOtp($this->user->google2fa_secret);
 
         $this->actingAs($this->user)
             ->postJson(route('api.disable2fa'), [
@@ -91,7 +84,7 @@ class TwoFactorAuthenticationControllerTest extends TestCase
             ])
             ->assertSuccessful()
             ->assertJsonFragment([
-                'message'          => '2FA is now disabled',
+                'message'         => '2FA is now disabled',
                 'google2faEnable' => false,
             ]);
     }
@@ -100,9 +93,9 @@ class TwoFactorAuthenticationControllerTest extends TestCase
     {
         $twoFactorAuthenticator = new TwoFactorAuthenticator(request());
 
-        $this->profile->google2fa_enable = true;
-        $this->profile->google2fa_secret = $twoFactorAuthenticator->generateSecretKey(32);
-        $this->profile->save();
+        $this->user->google2fa_enable = true;
+        $this->user->google2fa_secret = $twoFactorAuthenticator->generateSecretKey(32);
+        $this->user->save();
 
         $this->actingAs($this->user)
             ->postJson(route('api.verify2fa'))
@@ -111,7 +104,7 @@ class TwoFactorAuthenticationControllerTest extends TestCase
                 'message' => 'Invalid 2FA verification code. Please try again',
             ]);
 
-        $oneTimePassword = $twoFactorAuthenticator->getCurrentOtp($this->profile->google2fa_secret);
+        $oneTimePassword = $twoFactorAuthenticator->getCurrentOtp($this->user->google2fa_secret);
 
         $this->actingAs($this->user)
             ->postJson(route('api.verify2fa'), ['one_time_password' => $oneTimePassword])

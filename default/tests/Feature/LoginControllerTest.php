@@ -2,7 +2,6 @@
 
 namespace Tests\Feature;
 
-use App\Models\Profile;
 use App\Models\User;
 use Tests\TestCase;
 
@@ -18,7 +17,6 @@ class LoginControllerTest extends TestCase
         parent::setUp();
 
         $this->user = factory(User::class)->create();
-        factory(Profile::class)->create(['user_id' => $this->user->id]);
     }
 
     public function testLogin()
@@ -73,7 +71,6 @@ class LoginControllerTest extends TestCase
     public function testCannotLoginBecauseEmailIsNotVerified()
     {
         $this->user = factory(User::class)->states('email_unverified')->create();
-        factory(Profile::class)->create(['user_id' => $this->user->id]);
 
         $this
             ->postJson(route('api.auth.login'), [

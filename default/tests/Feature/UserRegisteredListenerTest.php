@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use App\Listeners\UserRegisteredListener;
-use App\Models\Profile;
 use App\Models\User;
 use App\Notifications\VerifyEmailNotification;
 use Illuminate\Auth\Events\Registered;
@@ -28,7 +27,6 @@ class UserRegisteredListenerTest extends TestCase
 
         $this->userRegisteredListener = $this->app->make(UserRegisteredListener::class);
         $this->user = factory(User::class)->create();
-        factory(Profile::class)->create(['user_id' => $this->user->id]);
     }
 
     public function testHandle()

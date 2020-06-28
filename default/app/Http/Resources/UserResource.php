@@ -2,28 +2,14 @@
 
 namespace App\Http\Resources;
 
-use App\Models\AuthorizedDevice;
-use App\Models\LoginHistory;
-use App\Models\Profile;
+use App\Support\TwoFactorAuthenticator;
 use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Notifications\DatabaseNotification;
 
 /**
  * Class UserResource
  *
- * @property string                    $id
- * @property string                    $email
- * @property bool                      $is_active
- * @property string                    $locale
- * @property Carbon                    $email_verified_at
- * @property Carbon                    $created_at
- * @property Carbon                    $updated_at
- * @property-read AuthorizedDevice     $authorizedDevices
- * @property-read LoginHistory         $loginHistories
- * @property-read Profile              $profile
- * @property-read DatabaseNotification $notifications
- * @property-read DatabaseNotification $unreadNotifications
+ * @mixin \App\Models\User
  */
 class UserResource extends JsonResource
 {
@@ -39,15 +25,23 @@ class UserResource extends JsonResource
             $this->email_verified_at = $this->email_verified_at->format('Y-m-d\TH:i:s');
         }
 
+        $twoFactorAuthenticator = new TwoFactorAuthenticator($request);
+
         return [
             'id'                  => $this->id,
             'email'               => $this->email,
+            'name'                => $this->name,
+            'antiPhishingCode'    =>
+                !empty($this->anti_phishing_code) ? substr($this->anti_phishing_code, 0, 2) . '**' : null,
+            'google2faPassed'     => $this->google2fa_enable && $twoFactorAuthenticator->isAuthenticated(),
+            'google2faEnable'     => $this->google2fa_enable,
+            'google2faSecret'     => $this->when(!$this->google2fa_enable, $this->google2fa_secret),
+            'google2faUrl'        => $this->when(!$this->google2fa_enable, $this->google2fa_url),
             'isActive'            => $this->is_active,
             'emailVerifiedAt'     => $this->email_verified_at,
             'locale'              => $this->locale,
             'createdAt'           => $this->created_at->format('Y-m-d\TH:i:s'),
             'updatedAt'           => $this->updated_at->format('Y-m-d\TH:i:s'),
-            'profile'             => new ProfileResource($this->whenLoaded('profile')),
             'loginHistories'      => LoginHistoryResource::collection($this->whenLoaded('loginhistories')),
             'authorizedDevices'   => AuthorizedDeviceResource::collection($this->whenLoaded('authorizeddevices')),
             'notifications'       => NotificationResource::collection($this->whenLoaded('notifications')),

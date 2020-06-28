@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
-use App\Contracts\ProfileRepository;
-use App\Models\Profile;
+use App\Contracts\UserRepository;
+use App\Models\User;
 use App\Notifications\AccountDisabledNotification;
 use App\Support\TwoFactorAuthenticator;
 use Exception;
@@ -13,27 +13,25 @@ use Illuminate\Support\Facades\Notification;
 
 class DisableAccountService
 {
-    private ProfileRepository $profileRepository;
+    private UserRepository $userRepository;
 
-    public function __construct(ProfileRepository $profileRepository)
+    public function __construct(UserRepository $userRepository)
     {
-        $this->profileRepository = $profileRepository;
+        $this->userRepository = $userRepository;
     }
 
     public function handle($token)
     {
         /**
-         * @var Profile $profile
+         * @var User $user
          */
-        $profile = $this->profileRepository
-            ->with(['user'])
-            ->findOneBy(['email_token_disable_account' => $token]);
+        $user = $this->userRepository->findOneBy(['email_token_disable_account' => $token]);
 
         try {
-            return DB::transaction(function () use ($profile) {
-                $profile->user->update(['is_active' => 0]);
+            return DB::transaction(function () use ($user) {
+                $user->update(['is_active' => 0]);
 
-                Notification::send($profile->user, new AccountDisabledNotification());
+                Notification::send($user, new AccountDisabledNotification());
 
                 $this->loggoutUserIfNecessary();
 
