@@ -51,8 +51,6 @@ class Audit extends Model implements \OwenIt\Auditing\Contracts\Audit
 
     public $incrementing = false;
 
-    protected $dateFormat = 'Y-m-d H:i:s.u';
-
     protected $keyType = 'string';
 
     protected $casts = [

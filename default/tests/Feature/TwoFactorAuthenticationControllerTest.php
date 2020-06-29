@@ -8,10 +8,7 @@ use Tests\TestCase;
 
 class TwoFactorAuthenticationControllerTest extends TestCase
 {
-    /**
-     * @var User
-     */
-    private $user;
+    private User $user;
 
     public function setUp(): void
     {

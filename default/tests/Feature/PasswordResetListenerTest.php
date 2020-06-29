@@ -9,15 +9,9 @@ use Tests\TestCase;
 
 class PasswordResetListenerTest extends TestCase
 {
-    /**
-     * @var PasswordResetListener
-     */
-    private $passwordResetListener;
+    private PasswordResetListener $passwordResetListener;
 
-    /**
-     * @var User
-     */
-    private $user;
+    private User $user;
 
     public function setUp(): void
     {

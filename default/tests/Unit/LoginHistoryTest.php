@@ -8,10 +8,7 @@ use Tests\TestCase;
 
 class LoginHistoryTest extends TestCase
 {
-    /**
-     * @var LoginHistory
-     */
-    private $loginHistory;
+    private LoginHistory $loginHistory;
 
     public function setUp(): void
     {

@@ -101,9 +101,6 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        /**
-         * @var UserRepository $userRepository
-         */
         $userRepository = app(UserRepository::class);
 
         /**

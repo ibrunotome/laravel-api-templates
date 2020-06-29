@@ -8,10 +8,7 @@ use Illuminate\Http\Response;
 
 class DisableAccountController extends Controller
 {
-    /**
-     * @var DisableAccountService
-     */
-    public $disableAccountService;
+    public DisableAccountService $disableAccountService;
 
     public function __construct(DisableAccountService $disableAccountService)
     {

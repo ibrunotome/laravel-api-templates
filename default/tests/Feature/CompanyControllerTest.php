@@ -9,15 +9,9 @@ use Tests\TestCase;
 
 class CompanyControllerTest extends TestCase
 {
-    /**
-     * @var User
-     */
-    private $user;
+    private User $user;
 
-    /**
-     * @var Company
-     */
-    private $company;
+    private Company $company;
 
     public function setUp(): void
     {

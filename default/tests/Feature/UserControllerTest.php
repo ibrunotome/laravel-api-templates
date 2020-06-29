@@ -12,10 +12,7 @@ use Tests\TestCase;
 
 class UserControllerTest extends TestCase
 {
-    /**
-     * @var User
-     */
-    private $user;
+    private User $user;
 
     public function setUp(): void
     {

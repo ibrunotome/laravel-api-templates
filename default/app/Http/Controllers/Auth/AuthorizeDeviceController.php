@@ -11,17 +11,14 @@ class AuthorizeDeviceController extends Controller
 {
     public function authorizeDevice(string $token)
     {
-        /**
-         * @var AuthorizedDevice $authorizedDevice
-         */
-        $authorizedDevice = AuthorizedDevice::with([])
+        $authorizedDevice = AuthorizedDevice::query()
             ->withoutGlobalScopes()
             ->where('authorization_token', '=', $token)
             ->first();
 
         if (!empty($authorizedDevice)) {
             if (empty($authorizedDevice->authorized_at)) {
-                $authorizedDevice->update(['authorized_at' => now()->format('Y-m-d H:i:s.u')]);
+                $authorizedDevice->update(['authorized_at' => now()]);
             }
 
             $message = __('Device/location successfully authorized');
@@ -36,17 +33,16 @@ class AuthorizeDeviceController extends Controller
 
     public function destroy(string $id)
     {
-        $model = AuthorizedDevice::with([])->findOrFail($id);
+        $model = AuthorizedDevice::findOrFail($id);
 
         try {
             $model->delete();
 
             return $this->respondWithNoContent();
         } catch (Exception $exception) {
-            return [
-                'error'   => true,
-                'message' => trans('messages.exception'),
-            ];
+            $message = __('Could not delete the authorized device');
+
+            return $this->respondWithCustomData(['message' => $message], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 }
