@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\User;
+use Illuminate\Http\Response;
 use Tests\TestCase;
 
 class LoginControllerTest extends TestCase
@@ -39,7 +40,7 @@ class LoginControllerTest extends TestCase
         $this
             ->actingAs($this->user)
             ->getJson(route('api.me'))
-            ->assertSuccessful()
+            ->assertOk()
             ->assertJsonFragment([
                 'email'  => $this->user->email,
                 'locale' => $this->user->locale,
@@ -62,7 +63,7 @@ class LoginControllerTest extends TestCase
 
         $this
             ->getJson(route('api.me') . '?token=' . $token)
-            ->assertStatus(401);
+            ->assertUnauthorized();
     }
 
     public function testCannotLoginBecauseEmailIsNotVerified()
@@ -74,7 +75,7 @@ class LoginControllerTest extends TestCase
                 'email'    => $this->user->email,
                 'password' => 'secretxxx',
             ])
-            ->assertStatus(423);
+            ->assertStatus(Response::HTTP_LOCKED);
     }
 
     public function testCannotLoginBecauseAccountIsInactive()
@@ -86,6 +87,6 @@ class LoginControllerTest extends TestCase
                 'email'    => $this->user->email,
                 'password' => 'secretxxx',
             ])
-            ->assertStatus(423);
+            ->assertStatus(Response::HTTP_LOCKED);
     }
 }

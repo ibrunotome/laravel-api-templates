@@ -7,8 +7,6 @@ use Illuminate\Support\Facades\Route;
 
 class RouteServiceProvider extends ServiceProvider
 {
-    protected $namespace = 'App\Http\Controllers';
-
     public function map(): void
     {
         $this->mapApiRoutes();

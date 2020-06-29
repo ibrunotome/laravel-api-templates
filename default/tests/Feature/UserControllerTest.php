@@ -6,6 +6,7 @@ use App\Models\AuthorizedDevice;
 use App\Models\LoginHistory;
 use App\Models\Permission;
 use App\Models\User;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 use Ramsey\Uuid\Uuid;
 use Tests\TestCase;
@@ -40,7 +41,7 @@ class UserControllerTest extends TestCase
         $this
             ->actingAs($this->user)
             ->getJson(route('api.users.index') . '?include=' . implode(',', $includes))
-            ->assertSuccessful()
+            ->assertOk()
             ->assertSeeText('loginHistories')
             ->assertSeeText('authorizedDevices')
             ->assertSeeText('notifications')
@@ -63,7 +64,7 @@ class UserControllerTest extends TestCase
         $this
             ->actingAs($this->user)
             ->getJson(route('api.users.index') . '?include=' . implode(',', $includes))
-            ->assertStatus(400)
+            ->assertStatus(Response::HTTP_BAD_REQUEST)
             ->assertSeeText('Allowed include(s) are');
     }
 
@@ -76,7 +77,7 @@ class UserControllerTest extends TestCase
     {
         $this
             ->getJson(route('api.users.index'))
-            ->assertStatus(401);
+            ->assertStatus(Response::HTTP_UNAUTHORIZED);
     }
 
     /**
@@ -89,7 +90,7 @@ class UserControllerTest extends TestCase
         $this
             ->actingAs($this->user)
             ->getJson(route('api.users.index'))
-            ->assertStatus(403);
+            ->assertStatus(Response::HTTP_FORBIDDEN);
     }
 
     /**
@@ -110,7 +111,7 @@ class UserControllerTest extends TestCase
 
         $this->actingAs($this->user)
             ->getJson(route('api.me') . '?include=' . implode(',', $includes))
-            ->assertSuccessful()
+            ->assertOk()
             ->assertSeeText('loginHistories')
             ->assertSeeText('authorizedDevices')
             ->assertSeeText('notifications')
@@ -140,7 +141,7 @@ class UserControllerTest extends TestCase
         $this
             ->actingAs($this->user)
             ->getJson(route('api.users.show', $user2->id) . '?include=' . implode(',', $includes))
-            ->assertSuccessful()
+            ->assertOk()
             ->assertSeeText('loginHistories')
             ->assertSeeText('authorizedDevices')
             ->assertSeeText('notifications')
@@ -159,7 +160,7 @@ class UserControllerTest extends TestCase
         $this
             ->actingAs($this->user)
             ->getJson(route('api.users.show', Uuid::uuid4()->toString()))
-            ->assertStatus(404)
+            ->assertStatus(Response::HTTP_NOT_FOUND)
             ->assertSeeText('The requested resource was not found');
     }
 
@@ -172,7 +173,7 @@ class UserControllerTest extends TestCase
     {
         $this
             ->getJson(route('api.users.show', $this->user->id))
-            ->assertStatus(401);
+            ->assertStatus(Response::HTTP_UNAUTHORIZED);
     }
 
     /**
@@ -187,7 +188,7 @@ class UserControllerTest extends TestCase
         $this
             ->actingAs($this->user)
             ->getJson(route('api.users.show', $user2->id))
-            ->assertStatus(403);
+            ->assertStatus(Response::HTTP_FORBIDDEN);
     }
 
     /**
@@ -223,7 +224,7 @@ class UserControllerTest extends TestCase
             ->patchJson(route('api.users.update', $user2->id), [
                 'email' => 'test@test.com',
             ])
-            ->assertStatus(403);
+            ->assertStatus(Response::HTTP_FORBIDDEN);
     }
 
     /**
@@ -257,7 +258,7 @@ class UserControllerTest extends TestCase
                 'password'              => 'secretxxx',
                 'password_confirmation' => 'secretxxx',
             ])
-            ->assertStatus(422)
+            ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
             ->assertSee('Your current password is not valid');
     }
 
@@ -273,7 +274,7 @@ class UserControllerTest extends TestCase
                 'password'              => 'secret',
                 'password_confirmation' => 'secret',
             ])
-            ->assertStatus(422)
+            ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
             ->assertSee('The password must be at least 8 characters');
     }
 
@@ -289,7 +290,7 @@ class UserControllerTest extends TestCase
                 'password'              => 'secret1',
                 'password_confirmation' => 'secret2',
             ])
-            ->assertStatus(422)
+            ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
             ->assertSee('The password confirmation does not match');
     }
 
@@ -304,9 +305,9 @@ class UserControllerTest extends TestCase
 
         $this
             ->actingAs($this->user)
-            ->patchJson(route('api.profiles.me.update'), [
+            ->patchJson(route('api.me.update'), [
                 'anti_phishing_code' => 'Test ***',
             ])
-            ->assertStatus(422);
+            ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 }

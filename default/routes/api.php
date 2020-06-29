@@ -1,5 +1,17 @@
 <?php
 
+use App\Http\Controllers\Auth\AuthorizeDeviceController;
+use App\Http\Controllers\Auth\DisableAccountController;
+use App\Http\Controllers\Auth\EmailVerificationController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\Auth\TwoFactorAuthenticationController;
+use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\UtilController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,25 +30,25 @@ use Illuminate\Support\Facades\Route;
 ###################
 
 Route::group(['middleware' => 'guest'], function () {
-    Route::post('email/verify/{token}', 'Auth\EmailVerificationController@verify')
+    Route::post('email/verify/{token}', [EmailVerificationController::class, 'verify'])
         ->middleware('throttle:3,1')
         ->name('api.email.verify');
 
-    Route::post('devices/authorize/{token}', 'Auth\AuthorizeDeviceController@authorizeDevice')
+    Route::post('devices/authorize/{token}', [AuthorizeDeviceController::class, 'authorizeDevice'])
         ->middleware('throttle:3,1')
         ->name('api.device.authorize');
 
-    Route::post('login', 'Auth\LoginController@login')
+    Route::post('login', [LoginController::class, 'login'])
         ->name('api.auth.login');
 
-    Route::post('register', 'Auth\RegisterController@register')
+    Route::post('register', [RegisterController::class, 'register'])
         ->name('api.auth.register');
 
-    Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')
+    Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])
         ->middleware('throttle:5,1')
         ->name('api.reset.email-link');
 
-    Route::post('password/reset', 'Auth\ResetPasswordController@reset')
+    Route::post('password/reset', [ResetPasswordController::class, 'reset'])
         ->middleware('throttle:5,1')
         ->name('api.reset.password');
 });
@@ -46,13 +58,13 @@ Route::group(['middleware' => 'guest'], function () {
 ###################
 
 Route::group(['middleware' => 'auth:api'], function () {
-    Route::post('logout', 'Auth\LoginController@logout')
+    Route::post('logout', [LoginController::class, 'logout'])
         ->name('api.auth.logout');
 
-    Route::post('generate2faSecret', 'Auth\TwoFactorAuthenticationController@generate2faSecret')
+    Route::post('generate2faSecret', [TwoFactorAuthenticationController::class, 'generate2faSecret'])
         ->name('api.generate2faSecret');
 
-    Route::post('enable2fa', 'Auth\TwoFactorAuthenticationController@enable2fa')
+    Route::post('enable2fa', [TwoFactorAuthenticationController::class, 'enable2fa'])
         ->name('api.enable2fa');
 });
 
@@ -66,25 +78,19 @@ Route::group([
         '2fa',
     ],
 ], function () {
-    Route::post('disable2fa', 'Auth\TwoFactorAuthenticationController@disable2fa')
+    Route::post('disable2fa', [TwoFactorAuthenticationController::class, 'disable2fa'])
         ->name('api.disable2fa');
 
-    Route::post('verify2fa', 'Auth\TwoFactorAuthenticationController@verify2fa')
+    Route::post('verify2fa', [TwoFactorAuthenticationController::class, 'verify2fa'])
         ->name('api.verify2fa');
 
-    Route::get('me/profile', 'UserController@profile')
-        ->name('api.profile');
-
-    Route::patch('me/profile', 'UserController@updateMe')
-        ->name('api.profiles.me.update');
-
-    Route::get('me', 'UserController@profile')
+    Route::get('me', [UserController::class, 'profile'])
         ->name('api.me');
 
-    Route::patch('me', 'UserController@updateMe')
+    Route::patch('me', [UserController::class, 'updateMe'])
         ->name('api.me.update');
 
-    Route::apiResource('users', 'UserController')
+    Route::apiResource('users', UserController::class)
         ->only([
             'index',
             'show',
@@ -98,7 +104,7 @@ Route::group([
             'update' => 'api.users.update',
         ]);
 
-    Route::apiResource('companies', 'CompanyController')
+    Route::apiResource('companies', CompanyController::class)
         ->only([
             'index',
             'show',
@@ -112,25 +118,23 @@ Route::group([
             'update' => 'api.companies.update',
         ]);
 
-    Route::patch('password/update', 'UserController@updatePassword')
+    Route::patch('password/update', [UserController::class, 'updatePassword'])
         ->name('api.password.update');
 
-    Route::patch('notifications/visualize-all', 'NotificationController@visualizeAllNotifications')
+    Route::patch('notifications/visualize-all', [NotificationController::class, 'visualizeAllNotifications'])
         ->name('api.notifications.visualize-all');
 
-    Route::patch('notifications/{id}/visualize', 'NotificationController@visualizeNotification')
+    Route::patch('notifications/{id}/visualize', [NotificationController::class, 'visualizeNotification'])
         ->name('api.notifications.visualize');
 
-    Route::delete('devices/{id}', 'Auth\AuthorizeDeviceController@destroy')
+    Route::delete('devices/{id}', [AuthorizeDeviceController::class, 'destroy'])
         ->middleware('throttle:3,1')
         ->name('api.device.destroy');
 });
 
-Route::get('ping', 'UtilController@serverTime')
+Route::get('ping', [UtilController::class, 'serverTime'])
     ->name('api.server.ping');
 
-Route::post('ws/auth', 'Auth\LoginController@wsAuth')->name('api.ws.auth');
-
-Route::post('/account/disable/{token}', 'Auth\DisableAccountController@disable')
+Route::post('/account/disable/{token}', [DisableAccountController::class, 'disable'])
     ->middleware('throttle:1,1')
     ->name('api.account.disable');

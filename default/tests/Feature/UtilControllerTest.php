@@ -10,7 +10,7 @@ class UtilControllerTest extends TestCase
     {
         $this
             ->getJson(route('api.server.ping'))
-            ->assertSuccessful()
+            ->assertOk()
             ->assertJsonStructure([
                 'data',
                 'meta',

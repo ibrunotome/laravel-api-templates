@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\User;
+use Illuminate\Http\Response;
 use Ramsey\Uuid\Uuid;
 use Tests\TestCase;
 
@@ -16,7 +17,7 @@ class RegisterControllerTest extends TestCase
             'password'              => 'secretxxx-test',
             'password_confirmation' => 'secretxxx-test',
         ])
-            ->assertStatus(201)
+            ->assertStatus(Response::HTTP_CREATED)
             ->assertSee('We sent a confirmation email to test@test.com');
     }
 
@@ -28,7 +29,7 @@ class RegisterControllerTest extends TestCase
             'password'              => 'secret',
             'password_confirmation' => 'secret',
         ])
-            ->assertStatus(422)
+            ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
             ->assertSee('The password must be at least 8 characters');
     }
 
@@ -40,7 +41,7 @@ class RegisterControllerTest extends TestCase
             'password'              => 'secretxxx',
             'password_confirmation' => 'secretxxx',
         ])
-            ->assertStatus(422)
+            ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
             ->assertSee('This password is just too common. Please try another!');
     }
 
@@ -52,7 +53,7 @@ class RegisterControllerTest extends TestCase
             'password'              => 'secretxxx1',
             'password_confirmation' => 'secretxxx2',
         ])
-            ->assertStatus(422)
+            ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
             ->assertSee('The password confirmation does not match');
     }
 
@@ -68,7 +69,7 @@ class RegisterControllerTest extends TestCase
             'password'              => 'secretxxx-test',
             'password_confirmation' => 'secretxxx-test',
         ])
-            ->assertStatus(422)
+            ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
             ->assertSee('email has already been taken');
     }
 
@@ -86,16 +87,13 @@ class RegisterControllerTest extends TestCase
         ]);
 
         $this->post(route('api.email.verify', [$user->email_token_confirmation]))
-            ->assertStatus(200)
+            ->assertOk()
             ->assertSee('Email successfully verified');
     }
 
     public function testInvalidVerifyEmailToken()
     {
-        /**
-         * @var User $user
-         */
-        $user = factory(User::class)->create([
+        factory(User::class)->create([
             'is_active'         => 1,
             'email_verified_at' => null,
             'email'             => 'test@test.com',
@@ -103,7 +101,7 @@ class RegisterControllerTest extends TestCase
         ]);
 
         $this->post(route('api.email.verify', [Uuid::uuid4()]))
-            ->assertStatus(400)
+            ->assertStatus(Response::HTTP_BAD_REQUEST)
             ->assertSee('Invalid token for email verification');
     }
 }

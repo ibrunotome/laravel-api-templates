@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\Company;
 use App\Models\Permission;
 use App\Models\User;
+use Illuminate\Http\Response;
 use Tests\TestCase;
 
 class CompanyControllerTest extends TestCase
@@ -32,7 +33,7 @@ class CompanyControllerTest extends TestCase
 
         $this->actingAs($this->user)
             ->getJson(route('api.companies.index'))
-            ->assertSuccessful()
+            ->assertOk()
             ->assertJsonFragment([
                 'name'     => $this->company->name,
                 'maxUsers' => $this->company->max_users,
@@ -42,24 +43,24 @@ class CompanyControllerTest extends TestCase
     /**
      * @group show
      * @group crud
-     * @group unauthenticated
+     * @group unauthorized
      */
-    public function testCannotIndexBecauseIsUnauthenticated()
+    public function testCannotIndexBecauseIsUnauthorized()
     {
         $this->getJson(route('api.companies.index'))
-            ->assertStatus(401);
+            ->assertUnauthorized();
     }
 
     /**
      * @group show
      * @group crud
-     * @group unauthorized
+     * @group forbidden
      */
-    public function testCannotIndexBecauseUnauthorized()
+    public function testCannotIndexBecauseForbidden()
     {
         $this->actingAs($this->user)
             ->getJson(route('api.companies.index'))
-            ->assertStatus(403);
+            ->assertForbidden();
     }
 
     /**
@@ -74,7 +75,7 @@ class CompanyControllerTest extends TestCase
         $this
             ->actingAs($this->user)
             ->getJson(route('api.companies.show', $this->company->id))
-            ->assertSuccessful()
+            ->assertOk()
             ->assertJsonFragment([
                 'name' => $this->company->name,
             ]);
@@ -83,26 +84,26 @@ class CompanyControllerTest extends TestCase
     /**
      * @group show
      * @group crud
-     * @group unauthenticated
+     * @group unauthorized
      */
-    public function testCannotShowBecauseIsUnauthenticated()
+    public function testCannotShowBecauseIsUnauthorized()
     {
         $this
             ->getJson(route('api.companies.show', $this->company->id))
-            ->assertStatus(401);
+            ->assertUnauthorized();
     }
 
     /**
      * @group show
      * @group crud
-     * @group unauthorized
+     * @group forbidden
      */
-    public function testCannotShowBecauseUnauthorized()
+    public function testCannotShowBecauseForbidden()
     {
         $this
             ->actingAs($this->user)
             ->getJson(route('api.companies.show', $this->company->id))
-            ->assertStatus(403);
+            ->assertForbidden();
     }
 
     /**
@@ -121,7 +122,7 @@ class CompanyControllerTest extends TestCase
                 'is_active' => 1,
                 'max_users' => 20,
             ])
-            ->assertSuccessful()
+            ->assertStatus(Response::HTTP_CREATED)
             ->assertJsonFragment([
                 'name'     => 'test',
                 'isActive' => true,
@@ -144,7 +145,7 @@ class CompanyControllerTest extends TestCase
                 'name'      => 'test',
                 'max_users' => 3,
             ])
-            ->assertStatus(422)
+            ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
             ->assertSeeText('is_active');
 
         $this
@@ -154,22 +155,8 @@ class CompanyControllerTest extends TestCase
                 'is_active' => 'test',
                 'max_users' => 0,
             ])
-            ->assertStatus(422)
+            ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
             ->assertSeeText('max_users');
-    }
-
-    /**
-     * @group store
-     * @group crud
-     * @group unauthenticated
-     */
-    public function testCannotStoreBecauseIsUnauthenticated()
-    {
-        $this
-            ->postJson(route('api.companies.store'), [
-                'name' => 'test',
-            ])
-            ->assertStatus(401);
     }
 
     /**
@@ -177,14 +164,28 @@ class CompanyControllerTest extends TestCase
      * @group crud
      * @group unauthorized
      */
-    public function testCannotStoreBecauseUnauthorized()
+    public function testCannotStoreBecauseIsUnauthorized()
+    {
+        $this
+            ->postJson(route('api.companies.store'), [
+                'name' => 'test',
+            ])
+            ->assertUnauthorized();
+    }
+
+    /**
+     * @group store
+     * @group crud
+     * @group forbidden
+     */
+    public function testCannotStoreBecauseForbidden()
     {
         $this
             ->actingAs($this->user)
             ->postJson(route('api.companies.store'), [
                 'name' => 'test',
             ])
-            ->assertStatus(403);
+            ->assertForbidden();
     }
 
     /**
@@ -201,7 +202,7 @@ class CompanyControllerTest extends TestCase
             ->patchJson(route('api.companies.update', $this->company->id), [
                 'name' => 'test',
             ])
-            ->assertSuccessful()
+            ->assertOk()
             ->assertJsonFragment([
                 'name' => 'test',
             ]);
@@ -210,29 +211,29 @@ class CompanyControllerTest extends TestCase
     /**
      * @group update
      * @group crud
-     * @group unauthenticated
+     * @group unauthorized
      */
-    public function testCannotUpdateBecauseIsUnauthenticated()
+    public function testCannotUpdateBecauseIsUnauthorized()
     {
         $this
             ->patchJson(route('api.companies.update', $this->company->id), [
                 'name' => 'test',
             ])
-            ->assertStatus(401);
+            ->assertUnauthorized();
     }
 
     /**
      * @group update
      * @group crud
-     * @group unauthorized
+     * @group forbidden
      */
-    public function testCannotUpdateBecauseUnauthorized()
+    public function testCannotUpdateBecauseForbidden()
     {
         $this
             ->actingAs($this->user)
             ->patchJson(route('api.companies.update', $this->company->id), [
                 'name' => 'test',
             ])
-            ->assertStatus(403);
+            ->assertForbidden();
     }
 }

@@ -21,7 +21,7 @@ class NotificationControllerTest extends TestCase
         $this
             ->actingAs($this->user)
             ->patchJson(route('api.notifications.visualize-all'))
-            ->assertSuccessful()
+            ->assertOk()
             ->assertSee('OK');
     }
 }

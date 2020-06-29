@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\AuthorizedDevice;
 use App\Models\User;
+use Illuminate\Http\Response;
 use Ramsey\Uuid\Uuid;
 use Tests\TestCase;
 
@@ -35,7 +36,7 @@ class AuthorizeDeviceControllerTest extends TestCase
         ]);
 
         $this->postJson(route('api.device.authorize', $authorizedDevice->authorization_token))
-            ->assertStatus(200)
+            ->assertOk()
             ->assertSee('Device\/location successfully authorized');
     }
 
@@ -52,7 +53,7 @@ class AuthorizeDeviceControllerTest extends TestCase
         ]);
 
         $this->postJson(route('api.device.authorize', Uuid::uuid4()->toString()))
-            ->assertStatus(400)
+            ->assertStatus(Response::HTTP_BAD_REQUEST)
             ->assertSee('Invalid token for authorize new device\/location');
     }
 
@@ -84,6 +85,6 @@ class AuthorizeDeviceControllerTest extends TestCase
         $this
             ->actingAs($user)
             ->deleteJson(route('api.device.destroy', $authorizedDevice->id))
-            ->assertStatus(204);
+            ->assertStatus(Response::HTTP_NO_CONTENT);
     }
 }

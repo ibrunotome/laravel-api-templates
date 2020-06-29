@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\User;
 use App\Support\TwoFactorAuthenticator;
+use Illuminate\Http\Response;
 use Tests\TestCase;
 
 class TwoFactorAuthenticationControllerTest extends TestCase
@@ -47,7 +48,7 @@ class TwoFactorAuthenticationControllerTest extends TestCase
 
         $this->actingAs($this->user)
             ->postJson(route('api.enable2fa'), ['one_time_password' => '123456'])
-            ->assertStatus(423)
+            ->assertStatus(Response::HTTP_LOCKED)
             ->assertJsonFragment([
                 'message'         => 'Invalid 2FA verification code. Please try again',
                 'google2faEnable' => false,
@@ -69,7 +70,7 @@ class TwoFactorAuthenticationControllerTest extends TestCase
                 'password'          => '12345678',
                 'one_time_password' => $oneTimePassword,
             ])
-            ->assertStatus(400)
+            ->assertStatus(Response::HTTP_BAD_REQUEST)
             ->assertJsonFragment([
                 'message' => 'Invalid password. Please try again',
             ]);
@@ -96,7 +97,7 @@ class TwoFactorAuthenticationControllerTest extends TestCase
 
         $this->actingAs($this->user)
             ->postJson(route('api.verify2fa'))
-            ->assertStatus(423)
+            ->assertStatus(Response::HTTP_LOCKED)
             ->assertJsonFragment([
                 'message' => 'Invalid 2FA verification code. Please try again',
             ]);
