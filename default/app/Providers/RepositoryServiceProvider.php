@@ -3,15 +3,12 @@
 namespace App\Providers;
 
 use App\Contracts\AuthorizedDeviceRepository;
-use App\Contracts\CompanyRepository;
 use App\Contracts\LoginHistoryRepository;
 use App\Contracts\UserRepository;
 use App\Models\AuthorizedDevice;
-use App\Models\Company;
 use App\Models\LoginHistory;
 use App\Models\User;
 use App\Repositories\EloquentAuthorizedDevicesRepository;
-use App\Repositories\EloquentCompanyRepository;
 use App\Repositories\EloquentLoginHistoryRepository;
 use App\Repositories\EloquentUserRepository;
 use Illuminate\Support\ServiceProvider;
@@ -36,10 +33,6 @@ class RepositoryServiceProvider extends ServiceProvider
             return new EloquentAuthorizedDevicesRepository(new AuthorizedDevice());
         });
 
-        $this->app->singleton(CompanyRepository::class, function () {
-            return new EloquentCompanyRepository(new Company());
-        });
-
         $this->app->singleton(LoginHistoryRepository::class, function () {
             return new EloquentLoginHistoryRepository(new LoginHistory());
         });
@@ -60,7 +53,6 @@ class RepositoryServiceProvider extends ServiceProvider
     {
         return [
             AuthorizedDeviceRepository::class,
-            CompanyRepository::class,
             LoginHistoryRepository::class,
             UserRepository::class,
         ];

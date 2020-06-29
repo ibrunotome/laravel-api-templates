@@ -8,7 +8,6 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\TwoFactorAuthenticationController;
-use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UtilController;
@@ -102,20 +101,6 @@ Route::group([
             'show'   => 'api.users.show',
             'store'  => 'api.users.store',
             'update' => 'api.users.update',
-        ]);
-
-    Route::apiResource('companies', CompanyController::class)
-        ->only([
-            'index',
-            'show',
-            'store',
-            'update',
-        ])
-        ->names([
-            'index'  => 'api.companies.index',
-            'show'   => 'api.companies.show',
-            'store'  => 'api.companies.store',
-            'update' => 'api.companies.update',
         ]);
 
     Route::patch('password/update', [UserController::class, 'updatePassword'])

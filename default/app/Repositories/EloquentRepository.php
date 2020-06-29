@@ -73,18 +73,13 @@ abstract class EloquentRepository implements BaseRepository
             throw (new ModelNotFoundException())->setModel(get_class($this->model));
         }
 
-        if (!empty($this->with) || $this->authCheck()) {
+        if (!empty($this->with) || auth()->check()) {
             return $this->findOneBy(['id' => $id]);
         }
 
         return Cache::remember($id, now()->addHour(), function () use ($id) {
             return $this->findOneBy(['id' => $id]);
         });
-    }
-
-    private function authCheck()
-    {
-        return auth()->check() && config('auth.defaults.guard') === 'spa';
     }
 
     /**
@@ -95,14 +90,14 @@ abstract class EloquentRepository implements BaseRepository
         if (!$this->withoutGlobalScopes) {
             return $this->model->with($this->with)
                 ->where($criteria)
-                ->orderBy('created_at', 'desc')
+                ->orderByDesc('created_at')
                 ->firstOrFail();
         }
 
         return $this->model->with($this->with)
             ->withoutGlobalScopes()
             ->where($criteria)
-            ->orderBy('created_at', 'desc')
+            ->orderByDesc('created_at')
             ->firstOrFail();
     }
 }

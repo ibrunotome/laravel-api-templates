@@ -131,14 +131,14 @@ class User extends Authenticatable implements JWTSubject, AuditableContract, Has
 
     public function loginHistories(): HasMany
     {
-        return $this->hasMany(LoginHistory::class)->orderBy('created_at', 'desc')->limit(10);
+        return $this->hasMany(LoginHistory::class)->orderByDesc('created_at')->limit(10);
     }
 
     public function authorizedDevices()
     {
         return $this->hasMany(AuthorizedDevice::class)
             ->whereNotNull('authorized_at')
-            ->orderBy('created_at', 'desc');
+            ->orderByDesc('created_at');
     }
 
     public function unreadNotifications()
@@ -150,7 +150,7 @@ class User extends Authenticatable implements JWTSubject, AuditableContract, Has
     {
         return $this->morphMany(DatabaseNotification::class, 'notifiable')
             ->whereNotNull('read_at')
-            ->orderBy('created_at', 'desc');
+            ->orderByDesc('created_at');
     }
 
     /**
