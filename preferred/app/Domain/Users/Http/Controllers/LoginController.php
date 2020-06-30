@@ -41,23 +41,6 @@ class LoginController extends Controller
     }
 
     /**
-     * Log the user out of the application.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return void
-     */
-    public function logout(Request $request)
-    {
-        $id = $this->guard()->id();
-
-        (new TwoFactorAuthenticator($request))->logout();
-        Cache::forget($id);
-        Cache::tags('users:' . $id)->flush();
-
-        $this->guard()->logout(true);
-    }
-
-    /**
      * {@inheritdoc}
      */
     protected function attemptLogin(Request $request)
@@ -75,7 +58,7 @@ class LoginController extends Controller
     /**
      * Send the response after the user was authenticated.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     protected function sendLoginResponse(Request $request)
@@ -126,6 +109,23 @@ class LoginController extends Controller
 
             throw new LockedException($message);
         }
+    }
+
+    /**
+     * Log the user out of the application.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return void
+     */
+    public function logout(Request $request)
+    {
+        $id = $this->guard()->id();
+
+        (new TwoFactorAuthenticator($request))->logout();
+        Cache::forget($id);
+        Cache::tags('users:' . $id)->flush();
+
+        $this->guard()->logout(true);
     }
 
     private function checkIfUserHasVerifiedEmail(User $user, Request $request)

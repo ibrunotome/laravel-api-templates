@@ -2,6 +2,7 @@
 
 namespace Preferred\Domain\Users\Http\Controllers;
 
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Cache;
@@ -91,7 +92,7 @@ class TwoFactorAuthenticationController extends Controller
                     'google2faEnable' => true,
                 ]);
             }
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             Log::error(ExceptionFormat::log($exception));
         }
 

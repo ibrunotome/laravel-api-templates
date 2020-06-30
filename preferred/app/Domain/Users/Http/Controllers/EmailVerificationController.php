@@ -2,6 +2,7 @@
 
 namespace Preferred\Domain\Users\Http\Controllers;
 
+use Exception;
 use Illuminate\Http\Response;
 use Preferred\Domain\Users\Contracts\ProfileRepository;
 use Preferred\Domain\Users\Entities\Profile;
@@ -18,7 +19,7 @@ class EmailVerificationController extends Controller
              * @var Profile $profile
              */
             $profile = app(ProfileRepository::class)->with(['user'])->findOneBy(['email_token_confirmation' => $token]);
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             $message = __('Invalid token for email verification');
 
             return $this->respondWithCustomData(['message' => $message], Response::HTTP_BAD_REQUEST);

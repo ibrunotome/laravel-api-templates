@@ -8,10 +8,7 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 
 trait AttachJwtToken
 {
-    /**
-     * @var User
-     */
-    protected $loginUser;
+    protected User $loginUser;
 
     /**
      * @param \Illuminate\Contracts\Auth\Authenticatable $user

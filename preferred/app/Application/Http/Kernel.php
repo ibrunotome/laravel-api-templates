@@ -2,7 +2,22 @@
 
 namespace Preferred\Application\Http;
 
+use Illuminate\Auth\Middleware\Authenticate;
+use Illuminate\Auth\Middleware\AuthenticateWithBasicAuth;
+use Illuminate\Auth\Middleware\Authorize;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
+use Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull;
+use Illuminate\Foundation\Http\Middleware\ValidatePostSize;
+use Illuminate\Http\Middleware\SetCacheHeaders;
+use Illuminate\Routing\Middleware\SubstituteBindings;
+use Illuminate\Routing\Middleware\ThrottleRequests;
+use Preferred\Application\Http\Middlewares\CheckForMaintenanceMode;
+use Preferred\Application\Http\Middlewares\CheckTwoFactorAuthentication;
+use Preferred\Application\Http\Middlewares\ForceAcceptJson;
+use Preferred\Application\Http\Middlewares\RedirectIfAuthenticated;
+use Preferred\Application\Http\Middlewares\SetLocale;
+use Preferred\Application\Http\Middlewares\TrimStrings;
+use Preferred\Application\Http\Middlewares\TrustProxies;
 
 class Kernel extends HttpKernel
 {
@@ -13,14 +28,14 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $middleware = [
-        \Preferred\Application\Http\Middlewares\ForceAcceptJson::class,
-        \Preferred\Application\Http\Middlewares\CheckForMaintenanceMode::class,
-        \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
-        \Preferred\Application\Http\Middlewares\TrimStrings::class,
-        \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
-        \Preferred\Application\Http\Middlewares\TrustProxies::class,
-        \Preferred\Application\Http\Middlewares\SetLocale::class,
-        \Illuminate\Http\Middleware\SetCacheHeaders::class,
+        ForceAcceptJson::class,
+        CheckForMaintenanceMode::class,
+        ValidatePostSize::class,
+        TrimStrings::class,
+        ConvertEmptyStringsToNull::class,
+        TrustProxies::class,
+        SetLocale::class,
+        SetCacheHeaders::class,
     ];
 
     /**
@@ -41,13 +56,13 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'auth'       => \Illuminate\Auth\Middleware\Authenticate::class,
-        'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
-        'bindings'   => \Illuminate\Routing\Middleware\SubstituteBindings::class,
-        'throttle'   => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'can'        => \Illuminate\Auth\Middleware\Authorize::class,
-        'guest'      => \Preferred\Application\Http\Middlewares\RedirectIfAuthenticated::class,
-        '2fa'        => \Preferred\Application\Http\Middlewares\CheckTwoFactorAuthentication::class,
+        'auth'       => Authenticate::class,
+        'auth.basic' => AuthenticateWithBasicAuth::class,
+        'bindings'   => SubstituteBindings::class,
+        'throttle'   => ThrottleRequests::class,
+        'can'        => Authorize::class,
+        'guest'      => RedirectIfAuthenticated::class,
+        '2fa'        => CheckTwoFactorAuthentication::class,
     ];
 
 
@@ -58,16 +73,16 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $middlewarePriority = [
-        \Preferred\Application\Http\Middlewares\ForceAcceptJson::class,
-        \Preferred\Application\Http\Middlewares\CheckForMaintenanceMode::class,
-        \Illuminate\Auth\Middleware\Authenticate::class,
-        \Illuminate\Routing\Middleware\SubstituteBindings::class,
-        \Illuminate\Auth\Middleware\Authorize::class,
-        \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
-        \Preferred\Application\Http\Middlewares\TrimStrings::class,
-        \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
-        \Preferred\Application\Http\Middlewares\TrustProxies::class,
-        \Preferred\Application\Http\Middlewares\SetLocale::class,
-        \Illuminate\Http\Middleware\SetCacheHeaders::class,
+        ForceAcceptJson::class,
+        CheckForMaintenanceMode::class,
+        Authenticate::class,
+        SubstituteBindings::class,
+        Authorize::class,
+        ValidatePostSize::class,
+        TrimStrings::class,
+        ConvertEmptyStringsToNull::class,
+        TrustProxies::class,
+        SetLocale::class,
+        SetCacheHeaders::class,
     ];
 }

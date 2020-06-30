@@ -9,12 +9,13 @@
 namespace App\Exceptions;
 
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
 
 class FormValidationException extends \Illuminate\Validation\ValidationException
 {
     public $validator;
 
-    public $status = 422;
+    public $status = Response::HTTP_UNPROCESSABLE_ENTITY;
 
     /**
      * Create a new exception instance.

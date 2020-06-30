@@ -2,6 +2,7 @@
 
 namespace Preferred\Domain\Users\Http\Controllers;
 
+use Exception;
 use Illuminate\Http\Response;
 use Preferred\Domain\Users\Entities\AuthorizedDevice;
 use Preferred\Interfaces\Http\Controllers\Controller;
@@ -10,9 +11,6 @@ class AuthorizeDeviceController extends Controller
 {
     public function authorizeDevice(string $token)
     {
-        /**
-         * @var AuthorizedDevice $authorizedDevice
-         */
         $authorizedDevice = AuthorizedDevice::with([])
             ->withoutGlobalScopes()
             ->where('authorization_token', '=', $token)
@@ -20,7 +18,7 @@ class AuthorizeDeviceController extends Controller
 
         if (!empty($authorizedDevice)) {
             if (empty($authorizedDevice->authorized_at)) {
-                $authorizedDevice->update(['authorized_at' => now()->format('Y-m-d H:i:s.u')]);
+                $authorizedDevice->update(['authorized_at' => now()->format('Y-m-d H:i:s')]);
             }
 
             $message = __('Device/location successfully authorized');
@@ -41,11 +39,10 @@ class AuthorizeDeviceController extends Controller
             $model->delete();
 
             return $this->respondWithNoContent();
-        } catch (\Exception $exception) {
-            return [
-                'error'   => true,
-                'message' => trans('messages.exception'),
-            ];
+        } catch (Exception $exception) {
+            $message = __('Could not delete the authorized device');
+
+            return $this->respondWithCustomData(['message' => $message], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 }

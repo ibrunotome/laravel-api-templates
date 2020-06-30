@@ -178,7 +178,6 @@ return [
          * Domain Service Providers
          */
         Preferred\Domain\Audits\Providers\DomainServiceProvider::class,
-        Preferred\Domain\Companies\Providers\DomainServiceProvider::class,
         Preferred\Domain\Users\Providers\DomainServiceProvider::class,
         Preferred\Domain\Notifications\Providers\DomainServiceProvider::class,
     ],

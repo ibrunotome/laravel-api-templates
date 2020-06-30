@@ -4,6 +4,7 @@ namespace Preferred\Infrastructure\Abstracts;
 
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider as LaravelServiceProvider;
+use ReflectionClass;
 
 abstract class ServiceProvider extends LaravelServiceProvider
 {
@@ -128,7 +129,7 @@ abstract class ServiceProvider extends LaravelServiceProvider
      */
     protected function domainPath($append = null)
     {
-        $reflection = new \ReflectionClass($this);
+        $reflection = new ReflectionClass($this);
 
         $realPath = realpath(dirname($reflection->getFileName()) . '/../');
 

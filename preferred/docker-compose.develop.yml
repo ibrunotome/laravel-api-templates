@@ -1,0 +1,94 @@
+version: '3.6'
+services:
+  nginx:
+    image: nginx:1.17-alpine
+    container_name: default-nginx
+    restart: always
+    volumes:
+      - ./public:/var/www/public
+      - ./nginx.develop.conf:/etc/nginx/nginx.conf
+    ports:
+      - 80:80
+    depends_on:
+      - app
+    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+
+  app:
+    build:
+      context: .
+      args:
+        - COMPOSER_FLAGS=--prefer-dist --optimize-autoloader
+    command: /usr/local/sbin/php-fpm
+    container_name: default-app
+    restart: always
+    ports:
+      - 9000:9000
+    environment:
+      - OPCACHE_SAVE_COMMENTS=1
+      - OPCACHE_VALIDATE_TIMESTAMPS=1
+      - OPCACHE_REVALIDATE_FREQ=0
+    volumes:
+      - .:/var/www
+      - ./php.ini:/usr/local/etc/php/php.ini
+      - ./www.conf:/usr/local/etc/php-fpm.d/www.conf
+    depends_on:
+      - pgsql
+      - redis
+
+  schedule:
+    image: ibrunotome/php:7.4
+    container_name: default-schedule
+    restart: always
+    command:
+      - /bin/bash
+      - -c
+      - |
+        chmod +x schedule.sh
+        /var/www/schedule.sh
+    environment:
+      - OPCACHE_SAVE_COMMENTS=0
+      - OPCACHE_VALIDATE_TIMESTAMPS=0
+      - OPCACHE_REVALIDATE_FREQ=0
+    volumes:
+      - .:/var/www
+      - ./php.ini:/usr/local/etc/php/php.ini
+    depends_on:
+      - pgsql
+      - redis
+
+  queue:
+    image: ibrunotome/php:7.4
+    container_name: default-queue
+    restart: always
+    command: php artisan horizon
+    environment:
+      - OPCACHE_SAVE_COMMENTS=0
+      - OPCACHE_VALIDATE_TIMESTAMPS=0
+      - OPCACHE_REVALIDATE_FREQ=0
+    volumes:
+      - .:/var/www
+      - ./php.ini:/usr/local/etc/php/php.ini
+    depends_on:
+      - pgsql
+      - redis
+
+  pgsql:
+    image: launcher.gcr.io/google/postgresql11
+    container_name: default-pgsql
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_DB: default
+      POSTGRES_USER: default
+      POSTGRES_PASSWORD: default
+    volumes:
+      - ./volumes/develop/pgsql:/var/lib/postgresql/data
+
+  redis:
+    image: redis:5.0.5-alpine
+    container_name: default-redis
+    restart: always
+    ports:
+      - 6379:6379
+    volumes:
+      - ./volumes/develop/redis:/data

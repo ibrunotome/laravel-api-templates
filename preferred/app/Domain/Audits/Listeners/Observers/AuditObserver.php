@@ -10,6 +10,6 @@ class AuditObserver implements TransactionalEvent
 {
     public function creating(Model $model)
     {
-        $model->id = Uuid::uuid4();
+        $model->setAttribute('id', $model->getAttribute('id') ?? Uuid::uuid4()->toString());
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Preferred\Domain\Users\Services;
 
+use Exception;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
@@ -41,7 +42,7 @@ class DisableAccountService
 
                 return true;
             });
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             return [
                 'error'   => true,
                 'message' => __('We could not disable your account, please try again or enter in contact with the ' .

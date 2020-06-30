@@ -2,9 +2,11 @@
 
 namespace Preferred\Infrastructure\Support;
 
+use Exception;
+
 final class ExceptionFormat
 {
-    public static function log(\Exception $exception)
+    public static function log(Exception $exception)
     {
         $message = 'File:' . $exception->getFile() . PHP_EOL;
         $message .= 'Line:' . $exception->getLine() . PHP_EOL;

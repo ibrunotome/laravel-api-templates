@@ -1,48 +1,44 @@
 version: '3.6'
 services:
-  app-tests:
+  app:
     build:
       context: .
       dockerfile: Dockerfile.testing
-    container_name: preferred-api-app-tests
+      args:
+        - COMPOSER_FLAGS=--no-progress --no-suggest --prefer-dist
+    container_name: default-app-testing
     ports:
-    - 80:8080
+      - 9000:9000
     environment:
-    - DOCUMENT_ROOT=/app/public
-    - SKIP_LOCKDOWN_DOCUMENT_ROOT=true
-    - OPCACHE_SAVE_COMMENTS=1
-    - OPCACHE_VALIDATE_TIMESTAMPS=1
+      - APP_ENV=testing
+      - OPCACHE_SAVE_COMMENTS=1
+      - OPCACHE_VALIDATE_TIMESTAMPS=1
+      - OPCACHE_REVALIDATE_FREQ=0
     volumes:
-    - .:/app
+      - .:/var/www
+      - ./php.testing.ini:/usr/local/etc/php/php.ini
+      - ./www.conf:/usr/local/etc/php-fpm.d/www.conf
     depends_on:
-    - pgsql-tests
-    - redis-tests
+      - pgsql
+      - redis
 
-  pgsql-tests:
+  pgsql:
     image: launcher.gcr.io/google/postgresql11
-    container_name: preferred-api-pgsql-tests
+    container_name: default-pgsql-testing
     ports:
-    - 5434:5432
+      - 5432:5432
     environment:
-      POSTGRES_DB: preferred_tests
-      POSTGRES_USER: preferred_tests
-      POSTGRES_PASSWORD: preferred_tests
+      POSTGRES_DB: default_testing
+      POSTGRES_USER: default_testing
+      POSTGRES_PASSWORD: default_testing
     volumes:
-    - preferred-pgsql-tests:/var/lib/postgresql/data
+      - ./volumes/testing/pgsql:/var/lib/postgresql/data
 
-  redis-tests:
-    image: launcher.gcr.io/google/redis4
-    container_name: preferred-api-redis-tests
-    volumes:
-    - preferred-redis-tests:/data
+  redis:
+    image: redis:5.0.5-alpine
+    container_name: default-redis-testing
+    restart: always
     ports:
-    - 6378:6379
-
-networks:
-  default:
-    name: preferred-api_default
-volumes:
-  preferred-pgsql-tests:
-    driver: local
-  preferred-redis-tests:
-    driver: local
+      - 6379:6379
+    volumes:
+      - ./volumes/testing/redis:/data

@@ -14,8 +14,8 @@ class AuthorizedDeviceObserver implements TransactionalEvent
     {
         $model->setAttribute('id', $model->getAttribute('id') ?? Uuid::uuid4()->toString());
 
-        if (auth()->check()) {
-            $model->user_id = auth()->id();
+        if (is_null($model->getAttribute('user_id')) && auth()->check()) {
+            $model->setAttribute('user_id', auth()->id());
         }
     }
 

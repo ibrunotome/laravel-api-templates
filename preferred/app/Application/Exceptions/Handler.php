@@ -2,6 +2,7 @@
 
 namespace Preferred\Application\Exceptions;
 
+use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -26,7 +27,7 @@ class Handler extends ExceptionHandler
      * @param \Exception               $exception
      * @return \Illuminate\Http\Response|\Symfony\Component\HttpFoundation\Response
      */
-    public function render($request, \Exception $exception)
+    public function render($request, Exception $exception)
     {
         $exceptionInstance = get_class($exception);
 

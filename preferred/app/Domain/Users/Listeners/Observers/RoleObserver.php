@@ -11,7 +11,7 @@ class RoleObserver
 {
     public function creating(Model $model)
     {
-        $model->id = Uuid::uuid4();
+        $model->setAttribute('id', $model->getAttribute('id') ?? Uuid::uuid4()->toString());
         $model->guard_name = 'api';
     }
 

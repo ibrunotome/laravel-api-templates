@@ -13,7 +13,7 @@ class AuthorizedDevicePolicy
     /**
      * Determine whether the user can view a list of model.
      *
-     * @param  \Preferred\Domain\Users\Entities\User $user
+     * @param \Preferred\Domain\Users\Entities\User $user
      * @return mixed
      */
     public function viewAny(User $user)
@@ -24,8 +24,8 @@ class AuthorizedDevicePolicy
     /**
      * Determine whether the user can view the model.
      *
-     * @param  \Preferred\Domain\Users\Entities\User             $user
-     * @param  \Preferred\Domain\Users\Entities\AuthorizedDevice $model
+     * @param \Preferred\Domain\Users\Entities\User             $user
+     * @param \Preferred\Domain\Users\Entities\AuthorizedDevice $model
      * @return mixed
      */
     public function view(User $user, AuthorizedDevice $model)
@@ -36,7 +36,7 @@ class AuthorizedDevicePolicy
     /**
      * Determine whether the user can create models.
      *
-     * @param  \Preferred\Domain\Users\Entities\User $user
+     * @param \Preferred\Domain\Users\Entities\User $user
      * @return mixed
      */
     public function create(User $user)
@@ -47,8 +47,8 @@ class AuthorizedDevicePolicy
     /**
      * Determine whether the user can update the model.
      *
-     * @param  \Preferred\Domain\Users\Entities\User             $user
-     * @param  \Preferred\Domain\Users\Entities\AuthorizedDevice $model
+     * @param \Preferred\Domain\Users\Entities\User             $user
+     * @param \Preferred\Domain\Users\Entities\AuthorizedDevice $model
      * @return mixed
      */
     public function update(User $user, AuthorizedDevice $model)
@@ -59,8 +59,8 @@ class AuthorizedDevicePolicy
     /**
      * Determine whether the user can delete the model.
      *
-     * @param  \Preferred\Domain\Users\Entities\User             $user
-     * @param  \Preferred\Domain\Users\Entities\AuthorizedDevice $model
+     * @param \Preferred\Domain\Users\Entities\User             $user
+     * @param \Preferred\Domain\Users\Entities\AuthorizedDevice $model
      * @return mixed
      */
     public function delete(User $user, AuthorizedDevice $model)
@@ -71,8 +71,8 @@ class AuthorizedDevicePolicy
     /**
      * Determine whether the user can restore the model.
      *
-     * @param  \Preferred\Domain\Users\Entities\User             $user
-     * @param  \Preferred\Domain\Users\Entities\AuthorizedDevice $model
+     * @param \Preferred\Domain\Users\Entities\User             $user
+     * @param \Preferred\Domain\Users\Entities\AuthorizedDevice $model
      * @return mixed
      */
     public function restore(User $user, AuthorizedDevice $model)
@@ -83,8 +83,8 @@ class AuthorizedDevicePolicy
     /**
      * Determine whether the user can permanently delete the model.
      *
-     * @param  \Preferred\Domain\Users\Entities\User             $user
-     * @param  \Preferred\Domain\Users\Entities\AuthorizedDevice $model
+     * @param \Preferred\Domain\Users\Entities\User             $user
+     * @param \Preferred\Domain\Users\Entities\AuthorizedDevice $model
      * @return mixed
      */
     public function forceDelete(User $user, AuthorizedDevice $model)

@@ -1,33 +1,20 @@
-FROM gcr.io/google-appengine/php72:latest
+FROM ibrunotome/php:7.4-fpm
 
-ARG COMPOSER_FLAGS='--no-dev --prefer-dist --ignore-platform-reqs --optimize-autoloader'
-ENV COMPOSER_FLAGS=${COMPOSER_FLAGS}
-ENV SWOOLE_VERSION=4.3.4
+ARG COMPOSER_FLAGS
 
-COPY . $APP_DIR
+WORKDIR /var/www
 
-RUN apt-get update -y \
-&& apt-get install -y \
-unzip \
-autoconf \
-build-essential \
-libmpdec-dev \
-libpq-dev \
-&& pecl install decimal \
-&& curl -o /tmp/swoole.tar.gz https://github.com/swoole/swoole-src/archive/v$SWOOLE_VERSION.tar.gz -L \
-&& tar zxvf /tmp/swoole.tar.gz \
-&& cd swoole-src* \
-&& phpize \
-&& ./configure \
---enable-coroutine \
---enable-async-redis \
---enable-coroutine-postgresql \
-&& make \
-&& make install \
-&& chown -R www-data.www-data $APP_DIR \
-&& /build-scripts/composer.sh;
+COPY . /var/www
 
-ENTRYPOINT ["/build-scripts/entrypoint.sh"]
-CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
+RUN composer install $COMPOSER_FLAGS \
+    && mv php.ini /usr/local/etc/php/php.ini \
+    && mv www.conf /usr/local/etc/php-fpm.d/www.conf \
+    && chown -R 0:www-data /var/www \
+    && find /var/www -type f -exec chmod 664 {} \; \
+    && find /var/www -type d -exec chmod 775 {} \; \
+    && chgrp -R www-data storage bootstrap/cache \
+    && chmod -R ug+rwx storage bootstrap/cache
 
-EXPOSE 8080
+CMD ["/usr/local/sbin/php-fpm"]
+
+EXPOSE 9000

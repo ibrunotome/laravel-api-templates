@@ -7,7 +7,6 @@ parameters:
         - '#Call to an undefined method Illuminate\\Database\\Query\\Builder::findOrFail\(\)#'
     excludes_analyse:
         - */Database/Migrations/*.php
-        - */Tests/*/*.php
-        - */Http/Controllers/LoginController.php
+        - */Http/Controllers/Auth/LoginController.php
         - */Rules/CnpjRule.php
         - */Rules/CpfRule.php

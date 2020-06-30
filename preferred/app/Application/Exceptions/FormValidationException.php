@@ -3,19 +3,20 @@
 namespace Preferred\Application\Exceptions;
 
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
 
 class FormValidationException extends \Illuminate\Validation\ValidationException
 {
     public $validator;
 
-    public $status = 422;
+    public $status = Response::HTTP_UNPROCESSABLE_ENTITY;
 
     /**
      * Create a new exception instance.
      *
-     * @param  \Illuminate\Contracts\Validation\Validator $validator
-     * @param  \Symfony\Component\HttpFoundation\Response $response
-     * @param  string                                     $errorBag
+     * @param \Illuminate\Contracts\Validation\Validator $validator
+     * @param \Symfony\Component\HttpFoundation\Response $response
+     * @param string                                     $errorBag
      * @return void
      */
     public function __construct($validator, $response = null, $errorBag = 'default')

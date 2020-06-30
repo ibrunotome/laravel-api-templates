@@ -13,7 +13,7 @@ class RolePolicy
     /**
      * Determine whether the user can view a list of model.
      *
-     * @param  \Preferred\Domain\Users\Entities\User $user
+     * @param \Preferred\Domain\Users\Entities\User $user
      * @return mixed
      */
     public function viewAny(User $user)
@@ -24,8 +24,8 @@ class RolePolicy
     /**
      * Determine whether the user can view the model.
      *
-     * @param  \Preferred\Domain\Users\Entities\User $user
-     * @param  \Preferred\Domain\Users\Entities\Role $model
+     * @param \Preferred\Domain\Users\Entities\User $user
+     * @param \Preferred\Domain\Users\Entities\Role $model
      * @return mixed
      */
     public function view(User $user, Role $model)
@@ -36,7 +36,7 @@ class RolePolicy
     /**
      * Determine whether the user can create models.
      *
-     * @param  \Preferred\Domain\Users\Entities\User $user
+     * @param \Preferred\Domain\Users\Entities\User $user
      * @return mixed
      */
     public function create(User $user)
@@ -47,8 +47,8 @@ class RolePolicy
     /**
      * Determine whether the user can update the model.
      *
-     * @param  \Preferred\Domain\Users\Entities\User $user
-     * @param  \Preferred\Domain\Users\Entities\Role $model
+     * @param \Preferred\Domain\Users\Entities\User $user
+     * @param \Preferred\Domain\Users\Entities\Role $model
      * @return mixed
      */
     public function update(User $user, Role $model)
@@ -59,8 +59,8 @@ class RolePolicy
     /**
      * Determine whether the user can delete the model.
      *
-     * @param  \Preferred\Domain\Users\Entities\User $user
-     * @param  \Preferred\Domain\Users\Entities\Role $model
+     * @param \Preferred\Domain\Users\Entities\User $user
+     * @param \Preferred\Domain\Users\Entities\Role $model
      * @return mixed
      */
     public function delete(User $user, Role $model)
@@ -71,8 +71,8 @@ class RolePolicy
     /**
      * Determine whether the user can restore the model.
      *
-     * @param  \Preferred\Domain\Users\Entities\User $user
-     * @param  \Preferred\Domain\Users\Entities\Role $model
+     * @param \Preferred\Domain\Users\Entities\User $user
+     * @param \Preferred\Domain\Users\Entities\Role $model
      * @return mixed
      */
     public function restore(User $user, Role $model)
@@ -83,8 +83,8 @@ class RolePolicy
     /**
      * Determine whether the user can permanently delete the model.
      *
-     * @param  \Preferred\Domain\Users\Entities\User $user
-     * @param  \Preferred\Domain\Users\Entities\Role $model
+     * @param \Preferred\Domain\Users\Entities\User $user
+     * @param \Preferred\Domain\Users\Entities\Role $model
      * @return mixed
      */
     public function forceDelete(User $user, Role $model)

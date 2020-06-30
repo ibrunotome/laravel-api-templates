@@ -12,7 +12,7 @@ class UserObserver implements TransactionalEvent
 {
     public function creating(Model $model)
     {
-        $model->id = Uuid::uuid4();
+        $model->setAttribute('id', $model->getAttribute('id') ?? Uuid::uuid4()->toString());
     }
 
     public function updated(User $user)
