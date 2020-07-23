@@ -2,7 +2,7 @@ version: '3.6'
 services:
   nginx:
     image: nginx:1.17-alpine
-    container_name: default-nginx
+    container_name: default-structure-nginx
     restart: always
     volumes:
       - ./public:/var/www/public
@@ -19,7 +19,7 @@ services:
       args:
         - COMPOSER_FLAGS=--prefer-dist --optimize-autoloader
     command: /usr/local/sbin/php-fpm
-    container_name: default-app
+    container_name: default-structure-app
     restart: always
     ports:
       - 9000:9000
@@ -37,7 +37,7 @@ services:
 
   schedule:
     image: ibrunotome/php:7.4
-    container_name: default-schedule
+    container_name: default-structure-schedule
     restart: always
     command:
       - /bin/bash
@@ -58,7 +58,7 @@ services:
 
   queue:
     image: ibrunotome/php:7.4
-    container_name: default-queue
+    container_name: default-structure-queue
     restart: always
     command: php artisan horizon
     environment:
@@ -74,7 +74,7 @@ services:
 
   pgsql:
     image: launcher.gcr.io/google/postgresql11
-    container_name: default-pgsql
+    container_name: default-structure-pgsql
     ports:
       - 5432:5432
     environment:
@@ -86,7 +86,7 @@ services:
 
   redis:
     image: redis:5.0.5-alpine
-    container_name: default-redis
+    container_name: default-structure-redis
     restart: always
     ports:
       - 6379:6379

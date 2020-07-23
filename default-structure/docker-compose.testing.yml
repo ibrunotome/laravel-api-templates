@@ -6,7 +6,7 @@ services:
       dockerfile: Dockerfile.testing
       args:
         - COMPOSER_FLAGS=--no-progress --no-suggest --prefer-dist
-    container_name: default-app-testing
+    container_name: default-structure-app-testing
     ports:
       - 9000:9000
     environment:
@@ -24,7 +24,7 @@ services:
 
   pgsql:
     image: launcher.gcr.io/google/postgresql11
-    container_name: default-pgsql-testing
+    container_name: default-structure-pgsql-testing
     ports:
       - 5432:5432
     environment:
@@ -36,7 +36,7 @@ services:
 
   redis:
     image: redis:5.0.5-alpine
-    container_name: default-redis-testing
+    container_name: default-structure-redis-testing
     restart: always
     ports:
       - 6379:6379
