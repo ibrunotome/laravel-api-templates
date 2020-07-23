@@ -112,7 +112,7 @@ return [
          * instance to the check, this key determines what attribute on the
          * Permissions model is used to cache against.
          *
-         * Ideally, this should match your preferred way of checking permissions, eg:
+         * Ideally, this should match your modular-structure way of checking permissions, eg:
          * `$user->can('view-posts')` would be 'name'.
          */
 

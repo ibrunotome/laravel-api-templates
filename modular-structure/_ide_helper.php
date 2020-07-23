@@ -9669,7 +9669,7 @@ namespace Illuminate\Support\Facades {
          * Associates a format with mime types.
          *
          * @param string $format The format
-         * @param string|array $mimeTypes The associated mime types (the preferred one must be the first as it will be used as the content type)
+         * @param string|array $mimeTypes The associated mime types (the modular-structure one must be the first as it will be used as the content type)
          * @static 
          */ 
         public static function setFormat($format, $mimeTypes)
@@ -9894,7 +9894,7 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
-         * Gets the preferred format for the response by inspecting, in the following order:
+         * Gets the modular-structure format for the response by inspecting, in the following order:
          *   * the request format set using setRequestFormat
          *   * the values of the Accept HTTP header
          * 
@@ -9911,10 +9911,10 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
-         * Returns the preferred language.
+         * Returns the modular-structure language.
          *
          * @param string[] $locales An array of ordered available locales
-         * @return string|null The preferred locale
+         * @return string|null The modular-structure locale
          * @static 
          */ 
         public static function getPreferredLanguage($locales = null)
