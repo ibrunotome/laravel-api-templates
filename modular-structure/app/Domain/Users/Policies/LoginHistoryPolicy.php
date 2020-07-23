@@ -1,10 +1,10 @@
 <?php
 
-namespace Preferred\Domain\Users\Policies;
+namespace App\Domain\Users\Policies;
 
 use Illuminate\Auth\Access\HandlesAuthorization;
-use Preferred\Domain\Users\Entities\LoginHistory;
-use Preferred\Domain\Users\Entities\User;
+use App\Domain\Users\Entities\LoginHistory;
+use App\Domain\Users\Entities\User;
 
 class LoginHistoryPolicy
 {
@@ -13,7 +13,7 @@ class LoginHistoryPolicy
     /**
      * Determine whether the user can view a list of model.
      *
-     * @param \Preferred\Domain\Users\Entities\User $user
+     * @param \App\Domain\Users\Entities\User $user
      * @return mixed
      */
     public function viewAny(User $user)
@@ -24,8 +24,8 @@ class LoginHistoryPolicy
     /**
      * Determine whether the user can view the model.
      *
-     * @param \Preferred\Domain\Users\Entities\User         $user
-     * @param \Preferred\Domain\Users\Entities\LoginHistory $model
+     * @param \App\Domain\Users\Entities\User         $user
+     * @param \App\Domain\Users\Entities\LoginHistory $model
      * @return mixed
      */
     public function view(User $user, LoginHistory $model)

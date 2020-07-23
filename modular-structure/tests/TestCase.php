@@ -7,7 +7,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Queue;
-use Preferred\Application\Exceptions\Handler;
+use App\Application\Exceptions\Handler;
 
 abstract class TestCase extends BaseTestCase
 {

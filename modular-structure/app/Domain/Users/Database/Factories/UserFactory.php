@@ -1,9 +1,9 @@
 <?php
 
-namespace Preferred\Domain\Users\Database\Factories;
+namespace App\Domain\Users\Database\Factories;
 
-use Preferred\Domain\Users\Entities\User;
-use Preferred\Infrastructure\Abstracts\ModelFactory;
+use App\Domain\Users\Entities\User;
+use App\Infrastructure\Abstracts\ModelFactory;
 use Ramsey\Uuid\Uuid;
 
 class UserFactory extends ModelFactory

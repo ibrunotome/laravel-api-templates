@@ -1,11 +1,11 @@
 <?php
 
-namespace Preferred\Domain\Audits\Providers;
+namespace App\Domain\Audits\Providers;
 
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Neves\Events\Contracts\TransactionalEvent;
-use Preferred\Domain\Audits\Entities\Audit;
-use Preferred\Domain\Audits\Listeners\Observers\AuditObserver;
+use App\Domain\Audits\Entities\Audit;
+use App\Domain\Audits\Listeners\Observers\AuditObserver;
 
 class EventServiceProvider extends ServiceProvider implements TransactionalEvent
 {

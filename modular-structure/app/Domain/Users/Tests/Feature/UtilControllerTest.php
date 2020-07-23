@@ -1,6 +1,6 @@
 <?php
 
-namespace Preferred\Domain\Users\Tests\Feature;
+namespace App\Domain\Users\Tests\Feature;
 
 use Tests\TestCase;
 

@@ -1,12 +1,12 @@
 <?php
 
-namespace Preferred\Domain\Users\Http\Controllers;
+namespace App\Domain\Users\Http\Controllers;
 
 use Exception;
 use Illuminate\Http\Response;
-use Preferred\Domain\Users\Contracts\UserRepository;
-use Preferred\Domain\Users\Events\EmailWasVerifiedEvent;
-use Preferred\Interfaces\Http\Controllers\Controller;
+use App\Domain\Users\Contracts\UserRepository;
+use App\Domain\Users\Events\EmailWasVerifiedEvent;
+use App\Interfaces\Http\Controllers\Controller;
 
 class EmailVerificationController extends Controller
 {

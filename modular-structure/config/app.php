@@ -171,15 +171,15 @@ return [
         /*
          * Application Service Providers...
          */
-        Preferred\Application\Providers\AppServiceProvider::class,
-        Preferred\Application\Providers\HorizonServiceProvider::class,
+        App\Application\Providers\AppServiceProvider::class,
+        App\Application\Providers\HorizonServiceProvider::class,
 
         /*
          * Domain Service Providers
          */
-        Preferred\Domain\Audits\Providers\DomainServiceProvider::class,
-        Preferred\Domain\Users\Providers\DomainServiceProvider::class,
-        Preferred\Domain\Notifications\Providers\DomainServiceProvider::class,
+        App\Domain\Audits\Providers\DomainServiceProvider::class,
+        App\Domain\Users\Providers\DomainServiceProvider::class,
+        App\Domain\Notifications\Providers\DomainServiceProvider::class,
     ],
 
     /*

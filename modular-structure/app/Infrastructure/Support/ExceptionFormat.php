@@ -1,6 +1,6 @@
 <?php
 
-namespace Preferred\Infrastructure\Support;
+namespace App\Infrastructure\Support;
 
 use Exception;
 

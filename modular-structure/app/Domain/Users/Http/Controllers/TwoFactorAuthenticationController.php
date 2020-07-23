@@ -1,6 +1,6 @@
 <?php
 
-namespace Preferred\Domain\Users\Http\Controllers;
+namespace App\Domain\Users\Http\Controllers;
 
 use Exception;
 use Illuminate\Http\Request;
@@ -8,12 +8,12 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
-use Preferred\Domain\Users\Events\TwoFactorAuthenticationWasDisabled;
-use Preferred\Domain\Users\Http\Requests\DisableTwoFactorAuthenticationRequest;
-use Preferred\Domain\Users\Http\Requests\EnableTwoFactorAuthenticationRequest;
-use Preferred\Infrastructure\Support\ExceptionFormat;
-use Preferred\Infrastructure\Support\TwoFactorAuthenticator;
-use Preferred\Interfaces\Http\Controllers\Controller;
+use App\Domain\Users\Events\TwoFactorAuthenticationWasDisabled;
+use App\Domain\Users\Http\Requests\DisableTwoFactorAuthenticationRequest;
+use App\Domain\Users\Http\Requests\EnableTwoFactorAuthenticationRequest;
+use App\Infrastructure\Support\ExceptionFormat;
+use App\Infrastructure\Support\TwoFactorAuthenticator;
+use App\Interfaces\Http\Controllers\Controller;
 
 class TwoFactorAuthenticationController extends Controller
 {

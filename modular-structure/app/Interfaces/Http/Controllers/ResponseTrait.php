@@ -1,6 +1,6 @@
 <?php
 
-namespace Preferred\Interfaces\Http\Controllers;
+namespace App\Interfaces\Http\Controllers;
 
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Model;

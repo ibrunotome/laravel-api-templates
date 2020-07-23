@@ -1,6 +1,6 @@
 <?php
 
-namespace Preferred\Domain\Users\Tests\Feature;
+namespace App\Domain\Users\Tests\Feature;
 
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\Response;
@@ -8,8 +8,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
-use Preferred\Domain\Users\Entities\User;
-use Preferred\Domain\Users\Notifications\ResetPasswordNotification;
+use App\Domain\Users\Entities\User;
+use App\Domain\Users\Notifications\ResetPasswordNotification;
 use Tests\TestCase;
 
 class PasswordResetTest extends TestCase

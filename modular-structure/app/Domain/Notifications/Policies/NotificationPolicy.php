@@ -1,6 +1,6 @@
 <?php
 
-namespace Preferred\Domain\Notifications\Policies;
+namespace App\Domain\Notifications\Policies;
 
 use Illuminate\Auth\Access\HandlesAuthorization;
 

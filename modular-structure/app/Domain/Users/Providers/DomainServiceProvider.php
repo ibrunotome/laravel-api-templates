@@ -1,21 +1,21 @@
 <?php
 
-namespace Preferred\Domain\Users\Providers;
+namespace App\Domain\Users\Providers;
 
-use Preferred\Domain\Users\Database\Factories\AuthorizedDeviceFactory;
-use Preferred\Domain\Users\Database\Factories\LoginHistoryFactory;
-use Preferred\Domain\Users\Database\Factories\UserFactory;
-use Preferred\Domain\Users\Entities\AuthorizedDevice;
-use Preferred\Domain\Users\Entities\LoginHistory;
-use Preferred\Domain\Users\Entities\Permission;
-use Preferred\Domain\Users\Entities\Role;
-use Preferred\Domain\Users\Entities\User;
-use Preferred\Domain\Users\Policies\AuthorizedDevicePolicy;
-use Preferred\Domain\Users\Policies\LoginHistoryPolicy;
-use Preferred\Domain\Users\Policies\PermissionPolicy;
-use Preferred\Domain\Users\Policies\RolePolicy;
-use Preferred\Domain\Users\Policies\UserPolicy;
-use Preferred\Infrastructure\Abstracts\ServiceProvider;
+use App\Domain\Users\Database\Factories\AuthorizedDeviceFactory;
+use App\Domain\Users\Database\Factories\LoginHistoryFactory;
+use App\Domain\Users\Database\Factories\UserFactory;
+use App\Domain\Users\Entities\AuthorizedDevice;
+use App\Domain\Users\Entities\LoginHistory;
+use App\Domain\Users\Entities\Permission;
+use App\Domain\Users\Entities\Role;
+use App\Domain\Users\Entities\User;
+use App\Domain\Users\Policies\AuthorizedDevicePolicy;
+use App\Domain\Users\Policies\LoginHistoryPolicy;
+use App\Domain\Users\Policies\PermissionPolicy;
+use App\Domain\Users\Policies\RolePolicy;
+use App\Domain\Users\Policies\UserPolicy;
+use App\Infrastructure\Abstracts\ServiceProvider;
 
 class DomainServiceProvider extends ServiceProvider
 {

@@ -1,17 +1,17 @@
 <?php
 
-namespace Preferred\Domain\Users\Providers;
+namespace App\Domain\Users\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Preferred\Domain\Users\Contracts\AuthorizedDeviceRepository;
-use Preferred\Domain\Users\Contracts\LoginHistoryRepository;
-use Preferred\Domain\Users\Contracts\UserRepository;
-use Preferred\Domain\Users\Entities\AuthorizedDevice;
-use Preferred\Domain\Users\Entities\LoginHistory;
-use Preferred\Domain\Users\Entities\User;
-use Preferred\Domain\Users\Repositories\EloquentAuthorizedDevicesRepository;
-use Preferred\Domain\Users\Repositories\EloquentLoginHistoryRepository;
-use Preferred\Domain\Users\Repositories\EloquentUserRepository;
+use App\Domain\Users\Contracts\AuthorizedDeviceRepository;
+use App\Domain\Users\Contracts\LoginHistoryRepository;
+use App\Domain\Users\Contracts\UserRepository;
+use App\Domain\Users\Entities\AuthorizedDevice;
+use App\Domain\Users\Entities\LoginHistory;
+use App\Domain\Users\Entities\User;
+use App\Domain\Users\Repositories\EloquentAuthorizedDevicesRepository;
+use App\Domain\Users\Repositories\EloquentLoginHistoryRepository;
+use App\Domain\Users\Repositories\EloquentUserRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {

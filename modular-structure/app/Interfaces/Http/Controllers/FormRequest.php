@@ -1,10 +1,10 @@
 <?php
 
-namespace Preferred\Interfaces\Http\Controllers;
+namespace App\Interfaces\Http\Controllers;
 
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest as LaravelFormRequest;
-use Preferred\Application\Exceptions\FormValidationException;
+use App\Application\Exceptions\FormValidationException;
 
 class FormRequest extends LaravelFormRequest
 {

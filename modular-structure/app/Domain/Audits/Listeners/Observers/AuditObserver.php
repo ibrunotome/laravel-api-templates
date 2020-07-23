@@ -1,6 +1,6 @@
 <?php
 
-namespace Preferred\Domain\Audits\Listeners\Observers;
+namespace App\Domain\Audits\Listeners\Observers;
 
 use Illuminate\Database\Eloquent\Model;
 use Neves\Events\Contracts\TransactionalEvent;

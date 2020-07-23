@@ -1,12 +1,12 @@
 <?php
 
-namespace Preferred\Domain\Users\Listeners;
+namespace App\Domain\Users\Listeners;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Support\Facades\Notification;
-use Preferred\Domain\Users\Contracts\UserRepository;
-use Preferred\Domain\Users\Notifications\TwoFactorAuthenticationWasDisabledNotification;
-use Preferred\Infrastructure\Abstracts\Listener;
+use App\Domain\Users\Contracts\UserRepository;
+use App\Domain\Users\Notifications\TwoFactorAuthenticationWasDisabledNotification;
+use App\Infrastructure\Abstracts\Listener;
 
 class TwoFactorAuthenticationWasDisabledListener extends Listener
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Preferred\Domain\Users\Entities;
+namespace App\Domain\Users\Entities;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Contracts\Translation\HasLocalePreference;
@@ -10,7 +10,7 @@ use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\Notifiable;
 use OwenIt\Auditing\Auditable;
 use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
-use Preferred\Domain\Users\Notifications\ResetPasswordNotification;
+use App\Domain\Users\Notifications\ResetPasswordNotification;
 use Spatie\Permission\Traits\HasRoles;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
@@ -33,17 +33,17 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
  * @property string|null                                                                                                    $remember_token
  * @property \Illuminate\Support\Carbon|null                                                                                $created_at
  * @property \Illuminate\Support\Carbon|null                                                                                $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\Preferred\Domain\Audits\Entities\Audit[]                        $audits
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Domain\Audits\Entities\Audit[]                        $audits
  * @property-read int|null                                                                                                  $audits_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\Preferred\Domain\Users\Entities\AuthorizedDevice[]              $authorizedDevices
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Domain\Users\Entities\AuthorizedDevice[]              $authorizedDevices
  * @property-read int|null                                                                                                  $authorized_devices_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\Preferred\Domain\Users\Entities\LoginHistory[]                  $loginHistories
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Domain\Users\Entities\LoginHistory[]                  $loginHistories
  * @property-read int|null                                                                                                  $login_histories_count
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
  * @property-read int|null                                                                                                  $notifications_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\Preferred\Domain\Users\Entities\Permission[]                    $permissions
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Domain\Users\Entities\Permission[]                    $permissions
  * @property-read int|null                                                                                                  $permissions_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\Preferred\Domain\Users\Entities\Role[]                          $roles
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Domain\Users\Entities\Role[]                          $roles
  * @property-read int|null                                                                                                  $roles_count
  * @method static Builder|User newModelQuery()
  * @method static Builder|User newQuery()

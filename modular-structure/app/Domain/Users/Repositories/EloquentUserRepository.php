@@ -1,13 +1,13 @@
 <?php
 
-namespace Preferred\Domain\Users\Repositories;
+namespace App\Domain\Users\Repositories;
 
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Model;
-use Preferred\Domain\Users\Contracts\UserRepository;
-use Preferred\Domain\Users\Entities\User;
-use Preferred\Infrastructure\Abstracts\EloquentRepository;
+use App\Domain\Users\Contracts\UserRepository;
+use App\Domain\Users\Entities\User;
+use App\Infrastructure\Abstracts\EloquentRepository;
 use Ramsey\Uuid\Uuid;
 use Spatie\QueryBuilder\QueryBuilder;
 

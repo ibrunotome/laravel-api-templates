@@ -1,10 +1,10 @@
 <?php
 
-namespace Preferred\Domain\Audits\Providers;
+namespace App\Domain\Audits\Providers;
 
-use Preferred\Domain\Audits\Entities\Audit;
-use Preferred\Domain\Audits\Policies\AuditPolicy;
-use Preferred\Infrastructure\Abstracts\ServiceProvider;
+use App\Domain\Audits\Entities\Audit;
+use App\Domain\Audits\Policies\AuditPolicy;
+use App\Infrastructure\Abstracts\ServiceProvider;
 
 class DomainServiceProvider extends ServiceProvider
 {

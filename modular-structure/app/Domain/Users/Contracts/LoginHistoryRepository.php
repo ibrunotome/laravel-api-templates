@@ -1,8 +1,8 @@
 <?php
 
-namespace Preferred\Domain\Users\Contracts;
+namespace App\Domain\Users\Contracts;
 
-use Preferred\Infrastructure\Contracts\BaseRepository;
+use App\Infrastructure\Contracts\BaseRepository;
 
 interface LoginHistoryRepository extends BaseRepository
 {

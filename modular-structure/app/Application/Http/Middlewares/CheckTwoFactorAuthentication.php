@@ -1,11 +1,11 @@
 <?php
 
-namespace Preferred\Application\Http\Middlewares;
+namespace App\Application\Http\Middlewares;
 
 use Closure;
 use Illuminate\Http\Response;
-use Preferred\Infrastructure\Support\TwoFactorAuthenticator;
-use Preferred\Interfaces\Http\Controllers\ResponseTrait;
+use App\Infrastructure\Support\TwoFactorAuthenticator;
+use App\Interfaces\Http\Controllers\ResponseTrait;
 
 class CheckTwoFactorAuthentication
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Preferred\Infrastructure\Abstracts;
+namespace App\Infrastructure\Abstracts;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;

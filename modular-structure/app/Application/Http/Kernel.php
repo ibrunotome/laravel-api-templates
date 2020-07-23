@@ -1,6 +1,6 @@
 <?php
 
-namespace Preferred\Application\Http;
+namespace App\Application\Http;
 
 use Illuminate\Auth\Middleware\Authenticate;
 use Illuminate\Auth\Middleware\AuthenticateWithBasicAuth;
@@ -11,13 +11,13 @@ use Illuminate\Foundation\Http\Middleware\ValidatePostSize;
 use Illuminate\Http\Middleware\SetCacheHeaders;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Routing\Middleware\ThrottleRequests;
-use Preferred\Application\Http\Middlewares\CheckForMaintenanceMode;
-use Preferred\Application\Http\Middlewares\CheckTwoFactorAuthentication;
-use Preferred\Application\Http\Middlewares\ForceAcceptJson;
-use Preferred\Application\Http\Middlewares\RedirectIfAuthenticated;
-use Preferred\Application\Http\Middlewares\SetLocale;
-use Preferred\Application\Http\Middlewares\TrimStrings;
-use Preferred\Application\Http\Middlewares\TrustProxies;
+use App\Application\Http\Middlewares\CheckForMaintenanceMode;
+use App\Application\Http\Middlewares\CheckTwoFactorAuthentication;
+use App\Application\Http\Middlewares\ForceAcceptJson;
+use App\Application\Http\Middlewares\RedirectIfAuthenticated;
+use App\Application\Http\Middlewares\SetLocale;
+use App\Application\Http\Middlewares\TrimStrings;
+use App\Application\Http\Middlewares\TrustProxies;
 
 class Kernel extends HttpKernel
 {

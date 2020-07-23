@@ -1,10 +1,10 @@
 <?php
 
-namespace Preferred\Domain\Users\Http\Controllers;
+namespace App\Domain\Users\Http\Controllers;
 
 use Illuminate\Http\Response;
-use Preferred\Domain\Users\Services\DisableAccountService;
-use Preferred\Interfaces\Http\Controllers\Controller;
+use App\Domain\Users\Services\DisableAccountService;
+use App\Interfaces\Http\Controllers\Controller;
 
 class DisableAccountController extends Controller
 {

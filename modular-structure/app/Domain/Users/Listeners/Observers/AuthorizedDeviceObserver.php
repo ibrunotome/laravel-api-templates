@@ -1,11 +1,11 @@
 <?php
 
-namespace Preferred\Domain\Users\Listeners\Observers;
+namespace App\Domain\Users\Listeners\Observers;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
 use Neves\Events\Contracts\TransactionalEvent;
-use Preferred\Domain\Users\Entities\AuthorizedDevice;
+use App\Domain\Users\Entities\AuthorizedDevice;
 use Ramsey\Uuid\Uuid;
 
 class AuthorizedDeviceObserver implements TransactionalEvent

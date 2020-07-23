@@ -1,9 +1,9 @@
 <?php
 
-namespace Preferred\Domain\Users\Database\Factories;
+namespace App\Domain\Users\Database\Factories;
 
-use Preferred\Domain\Users\Entities\LoginHistory;
-use Preferred\Infrastructure\Abstracts\ModelFactory;
+use App\Domain\Users\Entities\LoginHistory;
+use App\Infrastructure\Abstracts\ModelFactory;
 use Ramsey\Uuid\Uuid;
 
 class LoginHistoryFactory extends ModelFactory

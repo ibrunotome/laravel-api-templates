@@ -1,9 +1,9 @@
 <?php
 
-namespace Preferred\Domain\Users\Tests\Unit;
+namespace App\Domain\Users\Tests\Unit;
 
-use Preferred\Domain\Users\Entities\User;
-use Preferred\Domain\Users\Rules\CurrentPasswordRule;
+use App\Domain\Users\Entities\User;
+use App\Domain\Users\Rules\CurrentPasswordRule;
 use Tests\TestCase;
 
 class CurrentPasswordRuleTest extends TestCase

@@ -1,11 +1,11 @@
 <?php
 
-namespace Preferred\Domain\Users\Services;
+namespace App\Domain\Users\Services;
 
 use Illuminate\Support\Facades\Notification;
-use Preferred\Domain\Users\Contracts\LoginHistoryRepository;
-use Preferred\Domain\Users\Entities\User;
-use Preferred\Domain\Users\Notifications\SuccessfulLoginFromIpNotification;
+use App\Domain\Users\Contracts\LoginHistoryRepository;
+use App\Domain\Users\Entities\User;
+use App\Domain\Users\Notifications\SuccessfulLoginFromIpNotification;
 
 class LoginHistoryService
 {

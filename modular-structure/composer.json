@@ -49,7 +49,7 @@
       "database/seeds"
     ],
     "psr-4": {
-      "Preferred\\": "app/"
+      "App\\": "app/"
     }
   },
   "autoload-dev": {

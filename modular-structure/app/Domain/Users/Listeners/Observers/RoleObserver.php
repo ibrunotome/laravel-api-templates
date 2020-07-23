@@ -1,10 +1,10 @@
 <?php
 
-namespace Preferred\Domain\Users\Listeners\Observers;
+namespace App\Domain\Users\Listeners\Observers;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
-use Preferred\Domain\Users\Entities\Role;
+use App\Domain\Users\Entities\Role;
 use Ramsey\Uuid\Uuid;
 
 class RoleObserver

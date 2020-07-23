@@ -1,6 +1,6 @@
 <?php
 
-namespace Preferred\Domain\Users\Rules;
+namespace App\Domain\Users\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
 

@@ -1,10 +1,10 @@
 <?php
 
-namespace Preferred\Domain\Users\Tests\Feature;
+namespace App\Domain\Users\Tests\Feature;
 
 use Illuminate\Auth\Events\PasswordReset;
-use Preferred\Domain\Users\Entities\User;
-use Preferred\Domain\Users\Listeners\PasswordResetListener;
+use App\Domain\Users\Entities\User;
+use App\Domain\Users\Listeners\PasswordResetListener;
 use Tests\TestCase;
 
 class PasswordResetListenerTest extends TestCase

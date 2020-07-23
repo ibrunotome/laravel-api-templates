@@ -1,12 +1,12 @@
 <?php
 
-namespace Preferred\Domain\Users\Http\Controllers;
+namespace App\Domain\Users\Http\Controllers;
 
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Preferred\Domain\Users\Rules\WeakPasswordRule;
-use Preferred\Interfaces\Http\Controllers\Controller;
+use App\Domain\Users\Rules\WeakPasswordRule;
+use App\Interfaces\Http\Controllers\Controller;
 
 class ResetPasswordController extends Controller
 {

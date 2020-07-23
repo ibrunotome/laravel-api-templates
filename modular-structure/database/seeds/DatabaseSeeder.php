@@ -1,10 +1,10 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Preferred\Domain\Companies\Database\Seeds\CompaniesTableSeed;
-use Preferred\Domain\Users\Database\Seeds\PermissionsTableSeeder;
-use Preferred\Domain\Users\Database\Seeds\RolesTableSeeder;
-use Preferred\Domain\Users\Database\Seeds\UsersTableSeed;
+use App\Domain\Companies\Database\Seeds\CompaniesTableSeed;
+use App\Domain\Users\Database\Seeds\PermissionsTableSeeder;
+use App\Domain\Users\Database\Seeds\RolesTableSeeder;
+use App\Domain\Users\Database\Seeds\UsersTableSeed;
 
 class DatabaseSeeder extends Seeder
 {

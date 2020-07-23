@@ -1,10 +1,10 @@
 <?php
 
-namespace Preferred\Domain\Users\Database\Seeds;
+namespace App\Domain\Users\Database\Seeds;
 
 use Illuminate\Database\Seeder;
-use Preferred\Domain\Users\Entities\Permission;
-use Preferred\Domain\Users\Entities\Role;
+use App\Domain\Users\Entities\Permission;
+use App\Domain\Users\Entities\Role;
 
 class RolesTableSeeder extends Seeder
 {

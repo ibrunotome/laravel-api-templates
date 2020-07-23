@@ -1,13 +1,13 @@
 <?php
 
-namespace Preferred\Domain\Users\Providers;
+namespace App\Domain\Users\Providers;
 
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Routing\Router;
 
 class RouteServiceProvider extends ServiceProvider
 {
-    protected $namespace = 'Preferred\Domain\Users\Http\Controllers';
+    protected $namespace = 'App\Domain\Users\Http\Controllers';
 
     public function map(Router $router): void
     {

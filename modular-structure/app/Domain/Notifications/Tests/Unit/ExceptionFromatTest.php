@@ -1,9 +1,9 @@
 <?php
 
-namespace Preferred\Domain\Notifications\Tests\Unit;
+namespace App\Domain\Notifications\Tests\Unit;
 
 use Exception;
-use Preferred\Infrastructure\Support\ExceptionFormat;
+use App\Infrastructure\Support\ExceptionFormat;
 use Tests\TestCase;
 
 class ExceptionFromatTest extends TestCase

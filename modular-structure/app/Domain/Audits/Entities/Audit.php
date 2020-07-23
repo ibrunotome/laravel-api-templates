@@ -1,6 +1,6 @@
 <?php
 
-namespace Preferred\Domain\Audits\Entities;
+namespace App\Domain\Audits\Entities;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;

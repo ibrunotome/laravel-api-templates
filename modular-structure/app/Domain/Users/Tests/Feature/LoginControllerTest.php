@@ -1,9 +1,9 @@
 <?php
 
-namespace Preferred\Domain\Users\Tests\Feature;
+namespace App\Domain\Users\Tests\Feature;
 
 use Illuminate\Http\Response;
-use Preferred\Domain\Users\Entities\User;
+use App\Domain\Users\Entities\User;
 use Tests\TestCase;
 
 class LoginControllerTest extends TestCase

@@ -1,10 +1,10 @@
 <?php
 
-namespace Preferred\Domain\Users\Tests\Feature;
+namespace App\Domain\Users\Tests\Feature;
 
-use Preferred\Domain\Users\Entities\User;
-use Preferred\Domain\Users\Events\TwoFactorAuthenticationWasDisabled;
-use Preferred\Domain\Users\Listeners\TwoFactorAuthenticationWasDisabledListener;
+use App\Domain\Users\Entities\User;
+use App\Domain\Users\Events\TwoFactorAuthenticationWasDisabled;
+use App\Domain\Users\Listeners\TwoFactorAuthenticationWasDisabledListener;
 use Tests\TestCase;
 
 class TwoFactorAuthenticationWasDisabledListenerTest extends TestCase

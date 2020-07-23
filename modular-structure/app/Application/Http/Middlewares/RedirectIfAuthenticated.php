@@ -1,9 +1,9 @@
 <?php
 
-namespace Preferred\Application\Http\Middlewares;
+namespace App\Application\Http\Middlewares;
 
 use Closure;
-use Preferred\Interfaces\Http\Controllers\ResponseTrait;
+use App\Interfaces\Http\Controllers\ResponseTrait;
 
 class RedirectIfAuthenticated
 {

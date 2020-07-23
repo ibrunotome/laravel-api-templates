@@ -1,15 +1,15 @@
 <?php
 
-namespace Preferred\Domain\Users\Tests\Unit;
+namespace App\Domain\Users\Tests\Unit;
 
-use Preferred\Domain\Users\Entities\User;
-use Preferred\Domain\Users\Notifications\AccountDisabledNotification;
-use Preferred\Domain\Users\Notifications\AuthorizeDeviceNotification;
-use Preferred\Domain\Users\Notifications\PasswordChangedNotification;
-use Preferred\Domain\Users\Notifications\ResetPasswordNotification;
-use Preferred\Domain\Users\Notifications\SuccessfulLoginFromIpNotification;
-use Preferred\Domain\Users\Notifications\TwoFactorAuthenticationWasDisabledNotification;
-use Preferred\Domain\Users\Notifications\VerifyEmailNotification;
+use App\Domain\Users\Entities\User;
+use App\Domain\Users\Notifications\AccountDisabledNotification;
+use App\Domain\Users\Notifications\AuthorizeDeviceNotification;
+use App\Domain\Users\Notifications\PasswordChangedNotification;
+use App\Domain\Users\Notifications\ResetPasswordNotification;
+use App\Domain\Users\Notifications\SuccessfulLoginFromIpNotification;
+use App\Domain\Users\Notifications\TwoFactorAuthenticationWasDisabledNotification;
+use App\Domain\Users\Notifications\VerifyEmailNotification;
 use Ramsey\Uuid\Uuid;
 use Tests\TestCase;
 

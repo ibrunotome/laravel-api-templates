@@ -1,11 +1,11 @@
 <?php
 
-namespace Preferred\Domain\Users\Services;
+namespace App\Domain\Users\Services;
 
 use Illuminate\Support\Facades\Notification;
-use Preferred\Domain\Users\Contracts\AuthorizedDeviceRepository;
-use Preferred\Domain\Users\Entities\User;
-use Preferred\Domain\Users\Notifications\AuthorizeDeviceNotification;
+use App\Domain\Users\Contracts\AuthorizedDeviceRepository;
+use App\Domain\Users\Entities\User;
+use App\Domain\Users\Notifications\AuthorizeDeviceNotification;
 use Ramsey\Uuid\Uuid;
 
 class AuthorizedDeviceService

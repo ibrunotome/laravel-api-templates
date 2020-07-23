@@ -1,6 +1,6 @@
 <?php
 
-namespace Preferred\Domain\Users\Entities;
+namespace App\Domain\Users\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -25,9 +25,9 @@ use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
  * @property \Illuminate\Support\Carbon|null                                                         $updated_at
  * @property \Illuminate\Support\Carbon|null                                                         $deleted_at
  * @property string                                                                                  $user_id
- * @property-read \Illuminate\Database\Eloquent\Collection|\Preferred\Domain\Audits\Entities\Audit[] $audits
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Domain\Audits\Entities\Audit[] $audits
  * @property-read int|null                                                                           $audits_count
- * @property-read \Preferred\Domain\Users\Entities\User                                              $user
+ * @property-read \App\Domain\Users\Entities\User                                              $user
  * @method static \Illuminate\Database\Eloquent\Builder|AuthorizedDevice newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|AuthorizedDevice newQuery()
  * @method static Builder|AuthorizedDevice onlyTrashed()

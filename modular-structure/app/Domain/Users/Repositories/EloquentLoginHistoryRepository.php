@@ -1,9 +1,9 @@
 <?php
 
-namespace Preferred\Domain\Users\Repositories;
+namespace App\Domain\Users\Repositories;
 
-use Preferred\Domain\Users\Contracts\LoginHistoryRepository;
-use Preferred\Infrastructure\Abstracts\EloquentRepository;
+use App\Domain\Users\Contracts\LoginHistoryRepository;
+use App\Infrastructure\Abstracts\EloquentRepository;
 
 class EloquentLoginHistoryRepository extends EloquentRepository implements LoginHistoryRepository
 {

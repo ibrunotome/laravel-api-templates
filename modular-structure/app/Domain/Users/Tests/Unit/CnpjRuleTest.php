@@ -1,8 +1,8 @@
 <?php
 
-namespace Preferred\Domain\Users\Tests\Unit;
+namespace App\Domain\Users\Tests\Unit;
 
-use Preferred\Domain\Users\Rules\CnpjRule;
+use App\Domain\Users\Rules\CnpjRule;
 use Tests\TestCase;
 
 class CnpjRuleTest extends TestCase

@@ -1,13 +1,13 @@
 <?php
 
-namespace Preferred\Domain\Users\Http\Resources;
+namespace App\Domain\Users\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
  * Class LoginHistoryResource
  *
- * @mixin \Preferred\Domain\Users\Entities\LoginHistory
+ * @mixin \App\Domain\Users\Entities\LoginHistory
  */
 class LoginHistoryResource extends JsonResource
 {

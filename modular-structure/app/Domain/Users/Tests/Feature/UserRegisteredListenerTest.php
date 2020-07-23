@@ -1,12 +1,12 @@
 <?php
 
-namespace Preferred\Domain\Users\Tests\Feature;
+namespace App\Domain\Users\Tests\Feature;
 
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Notification;
-use Preferred\Domain\Users\Entities\User;
-use Preferred\Domain\Users\Listeners\UserRegisteredListener;
-use Preferred\Domain\Users\Notifications\VerifyEmailNotification;
+use App\Domain\Users\Entities\User;
+use App\Domain\Users\Listeners\UserRegisteredListener;
+use App\Domain\Users\Notifications\VerifyEmailNotification;
 use Tests\TestCase;
 
 class UserRegisteredListenerTest extends TestCase

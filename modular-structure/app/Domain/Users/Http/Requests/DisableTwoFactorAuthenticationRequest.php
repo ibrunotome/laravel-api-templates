@@ -1,8 +1,8 @@
 <?php
 
-namespace Preferred\Domain\Users\Http\Requests;
+namespace App\Domain\Users\Http\Requests;
 
-use Preferred\Interfaces\Http\Controllers\FormRequest;
+use App\Interfaces\Http\Controllers\FormRequest;
 
 class DisableTwoFactorAuthenticationRequest extends FormRequest
 {

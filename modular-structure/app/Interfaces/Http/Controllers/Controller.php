@@ -1,6 +1,6 @@
 <?php
 
-namespace Preferred\Interfaces\Http\Controllers;
+namespace App\Interfaces\Http\Controllers;
 
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Routing\Controller as BaseController;

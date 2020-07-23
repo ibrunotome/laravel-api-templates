@@ -1,9 +1,9 @@
 <?php
 
-namespace Preferred\Domain\Users\Database\Seeds;
+namespace App\Domain\Users\Database\Seeds;
 
 use Illuminate\Database\Seeder;
-use Preferred\Domain\Users\Entities\Permission;
+use App\Domain\Users\Entities\Permission;
 
 class PermissionsTableSeeder extends Seeder
 {

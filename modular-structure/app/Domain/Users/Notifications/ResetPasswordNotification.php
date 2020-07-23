@@ -1,6 +1,6 @@
 <?php
 
-namespace Preferred\Domain\Users\Notifications;
+namespace App\Domain\Users\Notifications;
 
 use Illuminate\Auth\Notifications\ResetPassword as Notification;
 use Illuminate\Bus\Queueable;

@@ -1,13 +1,13 @@
 <?php
 
-namespace Preferred\Domain\Users\Tests\Feature;
+namespace App\Domain\Users\Tests\Feature;
 
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
-use Preferred\Domain\Users\Entities\AuthorizedDevice;
-use Preferred\Domain\Users\Entities\LoginHistory;
-use Preferred\Domain\Users\Entities\Permission;
-use Preferred\Domain\Users\Entities\User;
+use App\Domain\Users\Entities\AuthorizedDevice;
+use App\Domain\Users\Entities\LoginHistory;
+use App\Domain\Users\Entities\Permission;
+use App\Domain\Users\Entities\User;
 use Ramsey\Uuid\Uuid;
 use Tests\TestCase;
 

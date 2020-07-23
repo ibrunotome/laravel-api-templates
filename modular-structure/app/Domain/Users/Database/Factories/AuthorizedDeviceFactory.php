@@ -1,9 +1,9 @@
 <?php
 
-namespace Preferred\Domain\Users\Database\Factories;
+namespace App\Domain\Users\Database\Factories;
 
-use Preferred\Domain\Users\Entities\AuthorizedDevice;
-use Preferred\Infrastructure\Abstracts\ModelFactory;
+use App\Domain\Users\Entities\AuthorizedDevice;
+use App\Infrastructure\Abstracts\ModelFactory;
 use Ramsey\Uuid\Uuid;
 
 class AuthorizedDeviceFactory extends ModelFactory

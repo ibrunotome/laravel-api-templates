@@ -1,12 +1,12 @@
 <?php
 
-namespace Preferred\Infrastructure\Abstracts;
+namespace App\Infrastructure\Abstracts;
 
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Cache;
-use Preferred\Infrastructure\Contracts\BaseRepository;
+use App\Infrastructure\Contracts\BaseRepository;
 use Ramsey\Uuid\Uuid;
 
 abstract class EloquentRepository implements BaseRepository

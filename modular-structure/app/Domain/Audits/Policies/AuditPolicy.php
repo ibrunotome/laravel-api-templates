@@ -1,6 +1,6 @@
 <?php
 
-namespace Preferred\Domain\Audits\Policies;
+namespace App\Domain\Audits\Policies;
 
 use Illuminate\Auth\Access\HandlesAuthorization;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Preferred\Domain\Users\Http\Resources;
+namespace App\Domain\Users\Http\Resources;
 
 use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -8,7 +8,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 /**
  * Class AuthorizedDeviceResource
  *
- * @mixin \Preferred\Domain\Users\Entities\AuthorizedDevice
+ * @mixin \App\Domain\Users\Entities\AuthorizedDevice
  */
 class AuthorizedDeviceResource extends JsonResource
 {

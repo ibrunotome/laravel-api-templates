@@ -1,10 +1,10 @@
 <?php
 
-namespace Preferred\Domain\Users\Tests\Feature;
+namespace App\Domain\Users\Tests\Feature;
 
 use Illuminate\Http\Response;
-use Preferred\Domain\Users\Entities\User;
-use Preferred\Infrastructure\Support\TwoFactorAuthenticator;
+use App\Domain\Users\Entities\User;
+use App\Infrastructure\Support\TwoFactorAuthenticator;
 use Tests\TestCase;
 
 class TwoFactorAuthenticationControllerTest extends TestCase

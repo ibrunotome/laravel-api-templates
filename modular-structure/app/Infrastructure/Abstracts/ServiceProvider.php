@@ -1,6 +1,6 @@
 <?php
 
-namespace Preferred\Infrastructure\Abstracts;
+namespace App\Infrastructure\Abstracts;
 
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider as LaravelServiceProvider;

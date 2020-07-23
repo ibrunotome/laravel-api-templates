@@ -2,7 +2,7 @@
 
 namespace Tests;
 
-use Preferred\Domain\Users\Entities\User;
+use App\Domain\Users\Entities\User;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 trait AttachJwtToken

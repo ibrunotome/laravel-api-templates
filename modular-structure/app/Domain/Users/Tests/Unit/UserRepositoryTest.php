@@ -1,9 +1,9 @@
 <?php
 
-namespace Preferred\Domain\Users\Tests\Unit;
+namespace App\Domain\Users\Tests\Unit;
 
-use Preferred\Domain\Users\Contracts\UserRepository;
-use Preferred\Domain\Users\Entities\User;
+use App\Domain\Users\Contracts\UserRepository;
+use App\Domain\Users\Entities\User;
 use Tests\TestCase;
 
 class UserRepositoryTest extends TestCase

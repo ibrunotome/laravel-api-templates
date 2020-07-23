@@ -1,14 +1,14 @@
 <?php
 
-namespace Preferred\Domain\Users\Services;
+namespace App\Domain\Users\Services;
 
 use Exception;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
-use Preferred\Domain\Users\Contracts\UserRepository;
-use Preferred\Domain\Users\Notifications\AccountDisabledNotification;
-use Preferred\Infrastructure\Support\TwoFactorAuthenticator;
+use App\Domain\Users\Contracts\UserRepository;
+use App\Domain\Users\Notifications\AccountDisabledNotification;
+use App\Infrastructure\Support\TwoFactorAuthenticator;
 
 class DisableAccountService
 {

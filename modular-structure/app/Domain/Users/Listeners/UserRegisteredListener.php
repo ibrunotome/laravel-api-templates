@@ -1,12 +1,12 @@
 <?php
 
-namespace Preferred\Domain\Users\Listeners;
+namespace App\Domain\Users\Listeners;
 
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Bus\Queueable;
 use Illuminate\Support\Facades\Notification;
-use Preferred\Domain\Users\Notifications\VerifyEmailNotification;
-use Preferred\Infrastructure\Abstracts\Listener;
+use App\Domain\Users\Notifications\VerifyEmailNotification;
+use App\Infrastructure\Abstracts\Listener;
 
 class UserRegisteredListener extends Listener
 {

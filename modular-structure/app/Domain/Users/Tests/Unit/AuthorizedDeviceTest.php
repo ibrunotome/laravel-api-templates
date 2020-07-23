@@ -1,9 +1,9 @@
 <?php
 
-namespace Preferred\Domain\Users\Tests\Unit;
+namespace App\Domain\Users\Tests\Unit;
 
-use Preferred\Domain\Users\Entities\AuthorizedDevice;
-use Preferred\Domain\Users\Entities\User;
+use App\Domain\Users\Entities\AuthorizedDevice;
+use App\Domain\Users\Entities\User;
 use Tests\TestCase;
 
 class AuthorizedDeviceTest extends TestCase

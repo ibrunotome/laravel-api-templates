@@ -1,9 +1,9 @@
 <?php
 
-namespace Preferred\Domain\Users\Events;
+namespace App\Domain\Users\Events;
 
 use Illuminate\Queue\SerializesModels;
-use Preferred\Domain\Users\Entities\User;
+use App\Domain\Users\Entities\User;
 
 class TwoFactorAuthenticationWasDisabled
 {

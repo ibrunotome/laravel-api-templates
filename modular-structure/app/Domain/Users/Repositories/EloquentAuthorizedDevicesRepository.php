@@ -1,9 +1,9 @@
 <?php
 
-namespace Preferred\Domain\Users\Repositories;
+namespace App\Domain\Users\Repositories;
 
-use Preferred\Domain\Users\Contracts\AuthorizedDeviceRepository;
-use Preferred\Infrastructure\Abstracts\EloquentRepository;
+use App\Domain\Users\Contracts\AuthorizedDeviceRepository;
+use App\Infrastructure\Abstracts\EloquentRepository;
 
 class EloquentAuthorizedDevicesRepository extends EloquentRepository implements AuthorizedDeviceRepository
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Preferred\Application\Providers;
+namespace App\Application\Providers;
 
 use Illuminate\Session\SessionServiceProvider;
 use Illuminate\Support\ServiceProvider;

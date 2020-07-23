@@ -1,16 +1,16 @@
 <?php
 
-namespace Preferred\Domain\Users\Http\Controllers;
+namespace App\Domain\Users\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
-use Preferred\Domain\Users\Contracts\UserRepository;
-use Preferred\Domain\Users\Entities\User;
-use Preferred\Domain\Users\Http\Requests\PasswordUpdateRequest;
-use Preferred\Domain\Users\Http\Requests\UserUpdateRequest;
-use Preferred\Domain\Users\Http\Resources\UserCollection;
-use Preferred\Domain\Users\Http\Resources\UserResource;
-use Preferred\Interfaces\Http\Controllers\Controller;
+use App\Domain\Users\Contracts\UserRepository;
+use App\Domain\Users\Entities\User;
+use App\Domain\Users\Http\Requests\PasswordUpdateRequest;
+use App\Domain\Users\Http\Requests\UserUpdateRequest;
+use App\Domain\Users\Http\Resources\UserCollection;
+use App\Domain\Users\Http\Resources\UserResource;
+use App\Interfaces\Http\Controllers\Controller;
 
 class UserController extends Controller
 {

@@ -1,10 +1,10 @@
 <?php
 
-namespace Preferred\Domain\Notifications\Providers;
+namespace App\Domain\Notifications\Providers;
 
 use Illuminate\Notifications\DatabaseNotification;
-use Preferred\Domain\Notifications\Policies\NotificationPolicy;
-use Preferred\Infrastructure\Abstracts\ServiceProvider;
+use App\Domain\Notifications\Policies\NotificationPolicy;
+use App\Infrastructure\Abstracts\ServiceProvider;
 
 class DomainServiceProvider extends ServiceProvider
 {

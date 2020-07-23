@@ -1,6 +1,6 @@
 <?php
 
-namespace Preferred\Domain\Users\Entities;
+namespace App\Domain\Users\Entities;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -27,7 +27,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null                                $zipcode
  * @property \Illuminate\Support\Carbon                 $created_at
  * @property string                                     $user_id
- * @property-read \Preferred\Domain\Users\Entities\User $user
+ * @property-read \App\Domain\Users\Entities\User $user
  * @method static Builder|LoginHistory newModelQuery()
  * @method static Builder|LoginHistory newQuery()
  * @method static Builder|LoginHistory query()
