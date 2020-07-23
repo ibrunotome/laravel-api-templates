@@ -56,9 +56,6 @@ class LoginController extends Controller
      */
     protected function sendLoginResponse(Request $request)
     {
-        /**
-         * @var User $user
-         */
         $user = auth()->user();
 
         try {
@@ -172,9 +169,6 @@ class LoginController extends Controller
             return;
         }
 
-        /**
-         * @var AuthorizedDeviceService $authorizedDeviceService
-         */
         $authorizedDeviceService = app(AuthorizedDeviceService::class);
 
         $response = $authorizedDeviceService->store($user, $data);
@@ -186,9 +180,6 @@ class LoginController extends Controller
 
     private function createNewLoginHistory(User $user, array $data)
     {
-        /**
-         * @var LoginHistoryService $loginHistoryService
-         */
         $loginHistoryService = app(LoginHistoryService::class);
         $loginHistoryService->store($user, $data);
     }

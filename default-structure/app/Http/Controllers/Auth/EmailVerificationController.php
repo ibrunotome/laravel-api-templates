@@ -14,9 +14,6 @@ class EmailVerificationController extends Controller
     public function verify($token)
     {
         try {
-            /**
-             * @var User $user
-             */
             $user = app(UserRepository::class)->findOneBy(['email_token_confirmation' => $token]);
         } catch (Exception $exception) {
             $message = __('Invalid token for email verification');

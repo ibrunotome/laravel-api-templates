@@ -8,9 +8,9 @@ A Laravel API starter kit collection using different structures. Dockerized with
 
 <img width="100%" alt="Screenshot 2019-05-26 18 07 03" src="https://user-images.githubusercontent.com/4256471/58387178-177dcb80-7fe1-11e9-90ec-d1ec120ef4c4.png">
 
-<img width="100%" alt="Screen Shot 2019-05-26 at 11 29 40" src="https://user-images.githubusercontent.com/4256471/58383155-8e976d80-7fa9-11e9-9241-9a1e098e91e6.png">
+<img width="100%" alt="Screen Shot 2019-05-26 at 11 29 40" src="https://user-images.githubusercontent.com/4256471/88347604-7643ef80-cd21-11ea-8f4b-eecda9a6162d.png">
 
-<img width="100%" alt="Screen Shot 2019-05-26 at 11 24 15" src="https://user-images.githubusercontent.com/4256471/58383105-ce118a00-7fa8-11e9-8f87-d783652e3310.png">
+<img width="100%" alt="Screen Shot 2019-05-26 at 11 24 15" src="https://user-images.githubusercontent.com/4256471/88347704-c3c05c80-cd21-11ea-8ee8-baf05ab87c58.png">
 
 ## Features
 
@@ -44,16 +44,24 @@ Soon:
 
 ## Up and running
 
-The container used is created from Google Cloud Platform official php-docker + swoole and can be found here: https://github.com/ibrunotome/docker-laravel-appengine
+### Environment: develop
+
+~~The container used is created from Google Cloud Platform official php-docker + swoole and can be found here: https://github.com/ibrunotome/docker-laravel-appengine~~
+
+The oficial php image from Google Cloud Platform is updated once in a lifetime so I decided to manage my own php images at http://github.com/ibrunotome/php
 
 - Set the .env variables, see .env.example that is already configured to point to pgsql and redis services
-- Run the container with `docker-compose up`
-- Run the migrations with `docker-compose run app bash -c "php artisan migrate:fresh"`
+- Run the container with `docker-compose -f docker-compose.develop.yml up`
+- Enter into app container with `docker exec -it default-structure-app bash`
+- Run the migrations with `php artisan migrate:fresh`
 
 And it's up and running :)
 
-The container with xdebug installed is in another Dockerfile, the `Dockerfile.testing`, you can get into this container using: `docker-compose -f docker-compose.testing.yml run app-tests bash` and then:
+### Environment: testing
 
+The container with xdebug is in the `Dockerfile.testing`, you can get into this container using: `docker-compose -f docker-compose.testing.yml up -d app` and then:
+
+- Get into app container with `docker exec -it default-structure-app-testing bash` (off course, default-structure-app is for the default-structure) 
 - Run tests with `composer test`
 - Run "lint" (phpcs) with `composer lint`
 - Run "lint and fix" (phpcbf) with `composer lint:fix`
@@ -69,11 +77,11 @@ To see sonarqube analysis, simple run `docker-compose -f docker-compose.sonarqub
 
 ## Database structure
 
-<img width="100%" alt="Screen Shot 2019-05-26 at 17 55 32" src="https://user-images.githubusercontent.com/4256471/58387059-76dadc00-7fdf-11e9-92d0-adc73c630e52.png">
+<img width="100%" alt="Screen Shot 2019-05-26 at 17 55 32" src="https://user-images.githubusercontent.com/4256471/88346965-02551780-cd20-11ea-8b35-3d4f8568ad74.png">
 
 ## Routes
 
-<img width="100%" alt="Screen Shot 2019-05-26 at 17 56 41" src="https://user-images.githubusercontent.com/4256471/58387071-9ffb6c80-7fdf-11e9-8bd3-0b0086df73c7.png">
+<img width="100%" alt="Screen Shot 2019-05-26 at 17 56 41" src="https://user-images.githubusercontent.com/4256471/88347112-56f89280-cd20-11ea-867e-b8b11d0ee256.png">
 
 ## Author
 

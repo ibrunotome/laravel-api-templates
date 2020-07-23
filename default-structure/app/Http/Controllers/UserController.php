@@ -48,9 +48,6 @@ class UserController extends Controller
      */
     public function profile(Request $request)
     {
-        /**
-         * @var User $user
-         */
         $user = auth()->user();
         return $this->show($request, $user);
     }
@@ -93,9 +90,6 @@ class UserController extends Controller
      */
     public function updateMe(UserUpdateRequest $request)
     {
-        /**
-         * @var User $user
-         */
         $user = auth()->user();
         return $this->update($request, $user);
     }
@@ -123,9 +117,6 @@ class UserController extends Controller
      */
     public function updatePassword(PasswordUpdateRequest $request)
     {
-        /**
-         * @var User $user
-         */
         $user = auth()->user();
         $data = $request->only(['password']);
 

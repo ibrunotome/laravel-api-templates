@@ -30,9 +30,6 @@ class TwoFactorAuthenticationController extends Controller
     {
         $twoFactorAuthentication = new TwoFactorAuthenticator($request);
 
-        /**
-         * @var User $user
-         */
         $user = auth()->user();
 
         $user->google2fa_enable = false;
@@ -63,9 +60,6 @@ class TwoFactorAuthenticationController extends Controller
         $twoFactorAuthentication = new TwoFactorAuthenticator($request);
         $secret = $request->input('one_time_password');
 
-        /**
-         * @var User $user
-         */
         $user = auth()->user();
 
         try {
@@ -102,9 +96,6 @@ class TwoFactorAuthenticationController extends Controller
      */
     public function disable2fa(DisableTwoFactorAuthenticationRequest $request)
     {
-        /**
-         * @var User $user
-         */
         $user = auth()->user();
 
         if (!Hash::check($request->get('password'), $user->password)) {
@@ -119,10 +110,6 @@ class TwoFactorAuthenticationController extends Controller
         $user->google2fa_url = null;
         $user->save();
 
-        /**
-         * @var User $user
-         */
-        $user = auth()->user();
         event(new TwoFactorAuthenticationWasDisabled($user));
 
         return $this->respondWithCustomData([

@@ -27,8 +27,8 @@ use SlevomatCodingStandard\Sniffs\Functions\UnusedParameterSniff;
 use SlevomatCodingStandard\Sniffs\Namespaces\AlphabeticallySortedUsesSniff;
 use SlevomatCodingStandard\Sniffs\Namespaces\UnusedUsesSniff;
 use SlevomatCodingStandard\Sniffs\TypeHints\DeclareStrictTypesSniff;
+use SlevomatCodingStandard\Sniffs\TypeHints\DisallowArrayTypeHintSyntaxSniff;
 use SlevomatCodingStandard\Sniffs\TypeHints\DisallowMixedTypeHintSniff;
-use SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff;
 
 return [
 
@@ -81,6 +81,7 @@ return [
         DeclareStrictTypesSniff::class,
         DisallowMixedTypeHintSniff::class,
         DisallowEmptySniff::class,
+        DisallowArrayTypeHintSyntaxSniff::class,
         ForbiddenDefineFunctions::class,
         ForbiddenNormalClasses::class,
         ForbiddenTraits::class,
@@ -95,7 +96,6 @@ return [
         SpaceAfterNotSniff::class,
         SuperfluousExceptionNamingSniff::class,
         SuperfluousTraitNamingSniff::class,
-        TypeHintDeclarationSniff::class,
         UnnecessaryStringConcatSniff::class,
         UnusedFunctionParameterSniff::class,
         UnusedParameterSniff::class,

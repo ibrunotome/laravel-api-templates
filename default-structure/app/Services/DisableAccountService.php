@@ -20,11 +20,8 @@ class DisableAccountService
         $this->userRepository = $userRepository;
     }
 
-    public function handle($token)
+    public function handle(string $token)
     {
-        /**
-         * @var User $user
-         */
         $user = $this->userRepository->findOneBy(['email_token_disable_account' => $token]);
 
         try {
