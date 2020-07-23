@@ -2,28 +2,24 @@
 
 namespace Preferred\Domain\Users\Tests\Feature;
 
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 use Preferred\Domain\Users\Entities\AuthorizedDevice;
 use Preferred\Domain\Users\Entities\LoginHistory;
 use Preferred\Domain\Users\Entities\Permission;
-use Preferred\Domain\Users\Entities\Profile;
 use Preferred\Domain\Users\Entities\User;
 use Ramsey\Uuid\Uuid;
 use Tests\TestCase;
 
 class UserControllerTest extends TestCase
 {
-    /**
-     * @var User
-     */
-    private $user;
+    private User $user;
 
     public function setUp(): void
     {
         parent::setUp();
 
         $this->user = factory(User::class)->create();
-        factory(Profile::class)->create(['user_id' => $this->user->id]);
     }
 
     /**
@@ -36,7 +32,6 @@ class UserControllerTest extends TestCase
         $this->user->givePermissionTo('view any users');
 
         $includes = [
-            'profile',
             'loginhistories',
             'authorizeddevices',
             'notifications',
@@ -46,8 +41,7 @@ class UserControllerTest extends TestCase
         $this
             ->actingAs($this->user)
             ->getJson(route('api.users.index') . '?include=' . implode(',', $includes))
-            ->assertSuccessful()
-            ->assertSeeText('profile')
+            ->assertOk()
             ->assertSeeText('loginHistories')
             ->assertSeeText('authorizedDevices')
             ->assertSeeText('notifications')
@@ -70,7 +64,7 @@ class UserControllerTest extends TestCase
         $this
             ->actingAs($this->user)
             ->getJson(route('api.users.index') . '?include=' . implode(',', $includes))
-            ->assertStatus(400)
+            ->assertStatus(Response::HTTP_BAD_REQUEST)
             ->assertSeeText('Allowed include(s) are');
     }
 
@@ -83,7 +77,7 @@ class UserControllerTest extends TestCase
     {
         $this
             ->getJson(route('api.users.index'))
-            ->assertStatus(401);
+            ->assertStatus(Response::HTTP_UNAUTHORIZED);
     }
 
     /**
@@ -96,7 +90,7 @@ class UserControllerTest extends TestCase
         $this
             ->actingAs($this->user)
             ->getJson(route('api.users.index'))
-            ->assertStatus(403);
+            ->assertStatus(Response::HTTP_FORBIDDEN);
     }
 
     /**
@@ -106,7 +100,6 @@ class UserControllerTest extends TestCase
     public function testShowMe()
     {
         $includes = [
-            'profile',
             'loginhistories',
             'authorizeddevices',
             'notifications',
@@ -118,8 +111,7 @@ class UserControllerTest extends TestCase
 
         $this->actingAs($this->user)
             ->getJson(route('api.me') . '?include=' . implode(',', $includes))
-            ->assertSuccessful()
-            ->assertSeeText('profile')
+            ->assertOk()
             ->assertSeeText('loginHistories')
             ->assertSeeText('authorizedDevices')
             ->assertSeeText('notifications')
@@ -136,7 +128,6 @@ class UserControllerTest extends TestCase
         $this->user->givePermissionTo('view users');
 
         $includes = [
-            'profile',
             'loginhistories',
             'authorizeddevices',
             'notifications',
@@ -144,15 +135,13 @@ class UserControllerTest extends TestCase
         ];
 
         $user2 = factory(User::class)->create();
-        factory(Profile::class)->create(['user_id' => $user2->id]);
         factory(LoginHistory::class)->create(['user_id' => $user2->id]);
         factory(AuthorizedDevice::class)->create(['user_id' => $user2->id]);
 
         $this
             ->actingAs($this->user)
             ->getJson(route('api.users.show', $user2->id) . '?include=' . implode(',', $includes))
-            ->assertSuccessful()
-            ->assertSeeText('profile')
+            ->assertOk()
             ->assertSeeText('loginHistories')
             ->assertSeeText('authorizedDevices')
             ->assertSeeText('notifications')
@@ -171,7 +160,7 @@ class UserControllerTest extends TestCase
         $this
             ->actingAs($this->user)
             ->getJson(route('api.users.show', Uuid::uuid4()->toString()))
-            ->assertStatus(404)
+            ->assertStatus(Response::HTTP_NOT_FOUND)
             ->assertSeeText('The requested resource was not found');
     }
 
@@ -184,7 +173,7 @@ class UserControllerTest extends TestCase
     {
         $this
             ->getJson(route('api.users.show', $this->user->id))
-            ->assertStatus(401);
+            ->assertStatus(Response::HTTP_UNAUTHORIZED);
     }
 
     /**
@@ -195,12 +184,11 @@ class UserControllerTest extends TestCase
     public function testCannotShowBecauseUnauthorized()
     {
         $user2 = factory(User::class)->create();
-        factory(Profile::class)->create(['user_id' => $user2->id]);
 
         $this
             ->actingAs($this->user)
             ->getJson(route('api.users.show', $user2->id))
-            ->assertStatus(403);
+            ->assertStatus(Response::HTTP_FORBIDDEN);
     }
 
     /**
@@ -230,14 +218,13 @@ class UserControllerTest extends TestCase
         Permission::create(['name' => 'update users']);
 
         $user2 = factory(User::class)->create();
-        factory(Profile::class)->create(['user_id' => $user2->id]);
 
         $this
             ->actingAs($this->user)
             ->patchJson(route('api.users.update', $user2->id), [
                 'email' => 'test@test.com',
             ])
-            ->assertStatus(403);
+            ->assertStatus(Response::HTTP_FORBIDDEN);
     }
 
     /**
@@ -271,7 +258,7 @@ class UserControllerTest extends TestCase
                 'password'              => 'secretxxx',
                 'password_confirmation' => 'secretxxx',
             ])
-            ->assertStatus(422)
+            ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
             ->assertSee('Your current password is not valid');
     }
 
@@ -287,7 +274,7 @@ class UserControllerTest extends TestCase
                 'password'              => 'secret',
                 'password_confirmation' => 'secret',
             ])
-            ->assertStatus(422)
+            ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
             ->assertSee('The password must be at least 8 characters');
     }
 
@@ -303,7 +290,24 @@ class UserControllerTest extends TestCase
                 'password'              => 'secret1',
                 'password_confirmation' => 'secret2',
             ])
-            ->assertStatus(422)
+            ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
             ->assertSee('The password confirmation does not match');
+    }
+
+    /**
+     * @group update
+     * @group crud
+     */
+    public function testCannotUpdateAntiPhishingCodeBecauseNotAlphaDash()
+    {
+        Permission::create(['name' => 'update users']);
+        $this->user->givePermissionTo('update users');
+
+        $this
+            ->actingAs($this->user)
+            ->patchJson(route('api.me.update'), [
+                'anti_phishing_code' => 'Test ***',
+            ])
+            ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 }

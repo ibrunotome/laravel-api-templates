@@ -13,12 +13,16 @@ class UserFactory extends ModelFactory
     public function fields()
     {
         return [
-            'id'                => Uuid::uuid4()->toString(),
-            'email'             => strtolower(str_replace('-', '', Uuid::uuid4()->toString())) . '@gmail.com',
-            'password'          => bcrypt('secretxxx'),
-            'is_active'         => true,
-            'email_verified_at' => now(),
-            'locale'            => 'en_US',
+            'id'                          => Uuid::uuid4()->toString(),
+            'email'                       => strtolower(str_replace('-', '', Uuid::uuid4()->toString())) . '@gmail.com',
+            'password'                    => bcrypt('secretxxx'),
+            'is_active'                   => true,
+            'email_verified_at'           => now(),
+            'locale'                      => 'en_US',
+            'name'                        => $this->faker->name,
+            'anti_phishing_code'          => $this->faker->word,
+            'email_token_confirmation'    => Uuid::uuid4(),
+            'email_token_disable_account' => Uuid::uuid4(),
         ];
     }
 

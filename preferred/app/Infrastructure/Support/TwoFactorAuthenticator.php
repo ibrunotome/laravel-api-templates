@@ -8,7 +8,7 @@ class TwoFactorAuthenticator extends Authenticator
 {
     protected function canPassWithoutCheckingOTP(): bool
     {
-        return !$this->getUser()->profile->google2fa_enable ||
+        return !$this->getUser()->google2fa_enable ||
             !$this->isEnabled() ||
             $this->noUserIsAuthenticated() ||
             $this->twoFactorAuthStillValid();
@@ -16,6 +16,6 @@ class TwoFactorAuthenticator extends Authenticator
 
     protected function getGoogle2FASecretKey()
     {
-        return $this->getUser()->profile->{$this->config('otp_secret_column')};
+        return $this->getUser()->{$this->config('otp_secret_column')};
     }
 }

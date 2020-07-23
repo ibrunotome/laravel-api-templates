@@ -2,23 +2,19 @@
 
 namespace Preferred\Domain\Users\Tests\Feature;
 
-use Preferred\Domain\Users\Entities\Profile;
+use Illuminate\Http\Response;
 use Preferred\Domain\Users\Entities\User;
 use Tests\TestCase;
 
 class LoginControllerTest extends TestCase
 {
-    /**
-     * @var User
-     */
-    private $user;
+    private User $user;
 
     public function setUp(): void
     {
         parent::setUp();
 
         $this->user = factory(User::class)->create();
-        factory(Profile::class)->create(['user_id' => $this->user->id]);
     }
 
     public function testLogin()
@@ -44,7 +40,7 @@ class LoginControllerTest extends TestCase
         $this
             ->actingAs($this->user)
             ->getJson(route('api.me'))
-            ->assertSuccessful()
+            ->assertOk()
             ->assertJsonFragment([
                 'email'  => $this->user->email,
                 'locale' => $this->user->locale,
@@ -67,20 +63,19 @@ class LoginControllerTest extends TestCase
 
         $this
             ->getJson(route('api.me') . '?token=' . $token)
-            ->assertStatus(401);
+            ->assertUnauthorized();
     }
 
     public function testCannotLoginBecauseEmailIsNotVerified()
     {
         $this->user = factory(User::class)->states('email_unverified')->create();
-        factory(Profile::class)->create(['user_id' => $this->user->id]);
 
         $this
             ->postJson(route('api.auth.login'), [
                 'email'    => $this->user->email,
                 'password' => 'secretxxx',
             ])
-            ->assertStatus(423);
+            ->assertStatus(Response::HTTP_LOCKED);
     }
 
     public function testCannotLoginBecauseAccountIsInactive()
@@ -92,6 +87,6 @@ class LoginControllerTest extends TestCase
                 'email'    => $this->user->email,
                 'password' => 'secretxxx',
             ])
-            ->assertStatus(423);
+            ->assertStatus(Response::HTTP_LOCKED);
     }
 }

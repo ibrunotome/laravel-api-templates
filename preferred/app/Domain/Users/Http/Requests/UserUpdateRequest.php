@@ -33,6 +33,16 @@ class UserUpdateRequest extends FormRequest
                 'max:250',
                 'unique:users,email,' . $ignoreId,
             ],
+            'name'               => [
+                'string',
+                'max:250',
+            ],
+            'anti_phishing_code' => [
+                'nullable',
+                'alpha_dash',
+                'min:4',
+                'max:20',
+            ],
         ];
     }
 }

@@ -3,13 +3,15 @@
 namespace Preferred\Domain\Users\Listeners;
 
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Bus\Queueable;
 use Illuminate\Support\Facades\Notification;
-use Preferred\Domain\Users\Entities\Profile;
 use Preferred\Domain\Users\Notifications\VerifyEmailNotification;
 use Preferred\Infrastructure\Abstracts\Listener;
 
 class UserRegisteredListener extends Listener
 {
+    use Queueable;
+
     public function __construct()
     {
         $this->onQueue('notifications');
@@ -23,11 +25,6 @@ class UserRegisteredListener extends Listener
      */
     public function handle($event)
     {
-        /**
-         * @var Profile $profile
-         */
-        $profile = $event->user->profile;
-
-        Notification::send($event->user, new VerifyEmailNotification($profile->email_token_confirmation));
+        Notification::send($event->user, new VerifyEmailNotification($event->user->email_token_confirmation));
     }
 }

@@ -8,16 +8,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 /**
  * Class AuthorizedDeviceResource
  *
- * @property string $id
- * @property string $device
- * @property string $platform
- * @property string $platform_version
- * @property string $browser
- * @property string $browser_version
- * @property string $city
- * @property string $country_name
- * @property Carbon $authorized_at
- * @property Carbon $created_at
+ * @mixin \Preferred\Domain\Users\Entities\AuthorizedDevice
  */
 class AuthorizedDeviceResource extends JsonResource
 {

@@ -6,11 +6,9 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Notification;
 use Jenssegers\Agent\Agent;
-use Preferred\Domain\Users\Entities\Profile;
 use Preferred\Domain\Users\Entities\User;
 use Preferred\Domain\Users\Exceptions\LockedException;
 use Preferred\Domain\Users\Notifications\VerifyEmailNotification;
@@ -33,11 +31,6 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
-    }
-
-    public function wsAuth(Request $request)
-    {
-        Broadcast::auth($request);
     }
 
     /**
@@ -131,12 +124,7 @@ class LoginController extends Controller
     private function checkIfUserHasVerifiedEmail(User $user, Request $request)
     {
         if (!$user->hasVerifiedEmail()) {
-            /**
-             * @var Profile $profile
-             */
-            $profile = $user->profile;
-
-            Notification::send($user, new VerifyEmailNotification($profile->email_token_confirmation));
+            Notification::send($user, new VerifyEmailNotification($user->email_token_confirmation));
 
             $this->logout($request);
 

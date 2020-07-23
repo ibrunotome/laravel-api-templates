@@ -10,10 +10,7 @@ use Ramsey\Uuid\Uuid;
 
 class AuthorizedDeviceService
 {
-    /**
-     * @var AuthorizedDeviceRepository
-     */
-    private $authorizedDeviceRepository;
+    private AuthorizedDeviceRepository $authorizedDeviceRepository;
 
     public function __construct(AuthorizedDeviceRepository $authorizedDeviceRepository)
     {
@@ -38,7 +35,7 @@ class AuthorizedDeviceService
                     'city'                => $data['city'],
                     'country_name'        => $data['country_name'],
                     'authorization_token' => Uuid::uuid4()->toString(),
-                    'authorized_at'       => now()->format('Y-m-d H:i:s.u'),
+                    'authorized_at'       => now(),
                     'user_id'             => $data['user_id'],
                 ]);
 

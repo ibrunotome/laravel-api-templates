@@ -27,8 +27,8 @@ class ResetPasswordNotification extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        $antiPhishingCode = $notifiable->profile->anti_phishing_code ?? null;
-        $disableAccountToken = $notifiable->profile->email_token_disable_account ?? null;
+        $antiPhishingCode = $notifiable->anti_phishing_code ?? null;
+        $disableAccountToken = $notifiable->email_token_disable_account ?? null;
 
         return (new MailMessage())
             ->markdown('emails.default', [

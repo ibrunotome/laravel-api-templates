@@ -15,7 +15,6 @@ class CreateLoginHistoriesTable extends Migration
     {
         Schema::create('login_histories', function (Blueprint $table) {
             $table->uuid('id')->primary();
-
             $table->string('device', 30)->nullable();
             $table->string('platform', 30)->nullable();
             $table->string('platform_version', 30)->nullable();

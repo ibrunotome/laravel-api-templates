@@ -2,7 +2,6 @@
 
 namespace Preferred\Domain\Users\Tests\Unit;
 
-use Preferred\Domain\Users\Entities\Profile;
 use Preferred\Domain\Users\Entities\User;
 use Preferred\Domain\Users\Notifications\AccountDisabledNotification;
 use Preferred\Domain\Users\Notifications\AuthorizeDeviceNotification;
@@ -16,17 +15,13 @@ use Tests\TestCase;
 
 class NotificationsTest extends TestCase
 {
-    /**
-     * @var User
-     */
-    private $user;
+    private User $user;
 
     public function setUp(): void
     {
         parent::setUp();
 
         $this->user = factory(User::class)->create();
-        factory(Profile::class)->create(['user_id' => $this->user->id]);
     }
 
     public function testVerifyEmailNotification()

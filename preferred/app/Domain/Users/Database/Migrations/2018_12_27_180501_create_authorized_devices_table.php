@@ -15,7 +15,6 @@ class CreateAuthorizedDevicesTable extends Migration
     {
         Schema::create('authorized_devices', function (Blueprint $table) {
             $table->uuid('id')->primary();
-
             $table->string('device', 30);
             $table->string('platform', 30);
             $table->string('platform_version', 30)->nullable();

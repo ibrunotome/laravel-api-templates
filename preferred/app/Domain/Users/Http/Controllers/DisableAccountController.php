@@ -8,10 +8,7 @@ use Preferred\Interfaces\Http\Controllers\Controller;
 
 class DisableAccountController extends Controller
 {
-    /**
-     * @var DisableAccountService
-     */
-    public $disableAccountService;
+    public DisableAccountService $disableAccountService;
 
     public function __construct(DisableAccountService $disableAccountService)
     {

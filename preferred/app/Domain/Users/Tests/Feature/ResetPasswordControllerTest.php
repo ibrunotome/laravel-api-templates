@@ -3,10 +3,11 @@
 namespace Preferred\Domain\Users\Tests\Feature;
 
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Password;
-use Preferred\Domain\Users\Entities\Profile;
+use Illuminate\Support\Str;
 use Preferred\Domain\Users\Entities\User;
 use Preferred\Domain\Users\Notifications\ResetPasswordNotification;
 use Tests\TestCase;
@@ -15,17 +16,13 @@ class PasswordResetTest extends TestCase
 {
     use WithFaker;
 
-    /**
-     * @var User
-     */
-    private $user;
+    private User $user;
 
     public function setUp(): void
     {
         parent::setUp();
 
         $this->user = factory(User::class)->create();
-        factory(Profile::class)->create(['user_id' => $this->user->id]);
     }
 
     public function testSubmitPasswordReset()
@@ -54,7 +51,7 @@ class PasswordResetTest extends TestCase
             ->post(route('api.reset.email-link'), [
                 'email' => str_random(),
             ])
-            ->assertStatus(422);
+            ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     public function testSubmitPasswordResetRequestEmailNotFound()
@@ -63,7 +60,7 @@ class PasswordResetTest extends TestCase
             ->post(route('api.reset.email-link'), [
                 'email' => $this->faker->unique()->safeEmail,
             ])
-            ->assertStatus(400);
+            ->assertStatus(Response::HTTP_BAD_REQUEST);
     }
 
     /**
@@ -75,7 +72,7 @@ class PasswordResetTest extends TestCase
             ->post(route('api.reset.email-link'), [
                 'email' => $this->user->email,
             ])
-            ->assertSuccessful();
+            ->assertOk();
 
         Notification::assertSentTo($this->user, ResetPasswordNotification::class);
     }
@@ -88,16 +85,16 @@ class PasswordResetTest extends TestCase
     {
         $token = Password::broker()->createToken($this->user);
 
-        $password = str_random();
+        $password = Str::random();
 
         $this
             ->post(route('api.reset.password'), [
                 'token'                 => $token,
-                'email'                 => str_random(),
+                'email'                 => Str::random(),
                 'password'              => $password,
                 'password_confirmation' => $password,
             ])
-            ->assertStatus(422);
+            ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
 
         $this->user->refresh();
 
@@ -113,7 +110,7 @@ class PasswordResetTest extends TestCase
     {
         $token = Password::broker()->createToken($this->user);
 
-        $password = str_random();
+        $password = Str::random();
 
         $this
             ->post(route('api.reset.password'), [
@@ -122,7 +119,7 @@ class PasswordResetTest extends TestCase
                 'password'              => $password,
                 'password_confirmation' => $password,
             ])
-            ->assertStatus(400);
+            ->assertStatus(Response::HTTP_BAD_REQUEST);
 
         $this->user->refresh();
 
@@ -143,7 +140,7 @@ class PasswordResetTest extends TestCase
                 'password'              => $password,
                 'password_confirmation' => $password_confirmation,
             ])
-            ->assertStatus(422);
+            ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
 
         $this->user->refresh();
 
@@ -163,7 +160,7 @@ class PasswordResetTest extends TestCase
                 'password'              => $password,
                 'password_confirmation' => $password,
             ])
-            ->assertStatus(422);
+            ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
 
         $this->user->refresh();
 

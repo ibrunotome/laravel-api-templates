@@ -21,7 +21,6 @@ class PermissionsTableSeeder extends Seeder
             'companies',
             'login histories',
             'permissions',
-            'profiles',
             'roles',
             'users',
         ])->each(function ($type) {

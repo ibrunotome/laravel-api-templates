@@ -11,14 +11,14 @@ class AuthorizeDeviceController extends Controller
 {
     public function authorizeDevice(string $token)
     {
-        $authorizedDevice = AuthorizedDevice::with([])
+        $authorizedDevice = AuthorizedDevice::query()
             ->withoutGlobalScopes()
             ->where('authorization_token', '=', $token)
             ->first();
 
         if (!empty($authorizedDevice)) {
             if (empty($authorizedDevice->authorized_at)) {
-                $authorizedDevice->update(['authorized_at' => now()->format('Y-m-d H:i:s')]);
+                $authorizedDevice->update(['authorized_at' => now()]);
             }
 
             $message = __('Device/location successfully authorized');
@@ -33,7 +33,7 @@ class AuthorizeDeviceController extends Controller
 
     public function destroy(string $id)
     {
-        $model = AuthorizedDevice::with([])->findOrFail($id);
+        $model = AuthorizedDevice::findOrFail($id);
 
         try {
             $model->delete();

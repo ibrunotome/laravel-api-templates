@@ -4,7 +4,6 @@ namespace Preferred\Domain\Users\Tests\Feature;
 
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Notification;
-use Preferred\Domain\Users\Entities\Profile;
 use Preferred\Domain\Users\Entities\User;
 use Preferred\Domain\Users\Listeners\UserRegisteredListener;
 use Preferred\Domain\Users\Notifications\VerifyEmailNotification;
@@ -12,15 +11,9 @@ use Tests\TestCase;
 
 class UserRegisteredListenerTest extends TestCase
 {
-    /**
-     * @var UserRegisteredListener
-     */
-    private $userRegisteredListener;
+    private UserRegisteredListener $userRegisteredListener;
 
-    /**
-     * @var User
-     */
-    private $user;
+    private User $user;
 
     public function setUp(): void
     {
@@ -28,7 +21,6 @@ class UserRegisteredListenerTest extends TestCase
 
         $this->userRegisteredListener = $this->app->make(UserRegisteredListener::class);
         $this->user = factory(User::class)->create();
-        factory(Profile::class)->create(['user_id' => $this->user->id]);
     }
 
     public function testHandle()

@@ -9,10 +9,7 @@ use Preferred\Domain\Users\Notifications\SuccessfulLoginFromIpNotification;
 
 class LoginHistoryService
 {
-    /**
-     * @var LoginHistoryRepository
-     */
-    private $loginHistoryRepository;
+    private LoginHistoryRepository $loginHistoryRepository;
 
     public function __construct(LoginHistoryRepository $loginHistoryRepository)
     {

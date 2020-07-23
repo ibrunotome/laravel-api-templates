@@ -26,7 +26,6 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
  * @property Carbon                    $updated_at
  * @property-read AuthorizedDevice     $authorizedDevices
  * @property-read LoginHistory         $loginHistories
- * @property-read Profile              $profile
  * @property-read DatabaseNotification $notifications
  * @property-read DatabaseNotification $unreadNotificatinos
  */
@@ -50,6 +49,10 @@ class User extends Authenticatable implements JWTSubject, AuditableContract, Has
         'password',
         'locale',
         'email_verified_at',
+        'name',
+        'anti_phishing_code',
+        'email_token_confirmation',
+        'email_token_disable_account',
     ];
 
     protected $hidden = [
@@ -84,11 +87,6 @@ class User extends Authenticatable implements JWTSubject, AuditableContract, Has
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new ResetPasswordNotification($token));
-    }
-
-    public function profile()
-    {
-        return $this->hasOne(Profile::class);
     }
 
     public function loginHistories()

@@ -2,7 +2,7 @@
 
 namespace Preferred\Domain\Users\Tests\Feature;
 
-use Preferred\Domain\Users\Entities\Profile;
+use Illuminate\Http\Response;
 use Preferred\Domain\Users\Entities\User;
 use Tests\TestCase;
 
@@ -11,33 +11,30 @@ class DisableAccountControllerTest extends TestCase
     public function testDisableAccount()
     {
         $user = factory(User::class)->create();
-        $profile = factory(Profile::class)->create(['user_id' => $user->id]);
 
-        $this->postJson(route('api.account.disable', [$profile->email_token_disable_account]))
-            ->assertSuccessful()
+        $this->postJson(route('api.account.disable', [$user->email_token_disable_account]))
+            ->assertOk()
             ->assertSeeText('Your account was successfully disabled');
     }
 
     public function testDisableAccountWillFailBecauseMethodNotAllowed()
     {
         $user = factory(User::class)->create();
-        $profile = factory(Profile::class)->create(['user_id' => $user->id]);
 
-        $this->putJson(route('api.account.disable', [$profile->email_token_disable_account]))
-            ->assertStatus(405)
+        $this->putJson(route('api.account.disable', [$user->email_token_disable_account]))
+            ->assertStatus(Response::HTTP_METHOD_NOT_ALLOWED)
             ->assertSeeText('Method not allowed');
     }
 
     public function testTooManyRequests()
     {
         $user = factory(User::class)->create();
-        $profile = factory(Profile::class)->create(['user_id' => $user->id]);
 
-        $this->postJson(route('api.account.disable', [$profile->email_token_disable_account]))
-            ->assertSuccessful();
+        $this->postJson(route('api.account.disable', [$user->email_token_disable_account]))
+            ->assertOk();
 
-        $this->postJson(route('api.account.disable', [$profile->email_token_disable_account]))
-            ->assertStatus(429)
+        $this->postJson(route('api.account.disable', [$user->email_token_disable_account]))
+            ->assertStatus(Response::HTTP_TOO_MANY_REQUESTS)
             ->assertSeeText('Too many Requests');
     }
 }

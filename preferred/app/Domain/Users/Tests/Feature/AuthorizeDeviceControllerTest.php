@@ -2,8 +2,8 @@
 
 namespace Preferred\Domain\Users\Tests\Feature;
 
+use Illuminate\Http\Response;
 use Preferred\Domain\Users\Entities\AuthorizedDevice;
-use Preferred\Domain\Users\Entities\Profile;
 use Preferred\Domain\Users\Entities\User;
 use Ramsey\Uuid\Uuid;
 use Tests\TestCase;
@@ -36,7 +36,7 @@ class AuthorizeDeviceControllerTest extends TestCase
         ]);
 
         $this->postJson(route('api.device.authorize', $authorizedDevice->authorization_token))
-            ->assertStatus(200)
+            ->assertOk()
             ->assertSee('Device\/location successfully authorized');
     }
 
@@ -53,7 +53,7 @@ class AuthorizeDeviceControllerTest extends TestCase
         ]);
 
         $this->postJson(route('api.device.authorize', Uuid::uuid4()->toString()))
-            ->assertStatus(400)
+            ->assertStatus(Response::HTTP_BAD_REQUEST)
             ->assertSee('Invalid token for authorize new device\/location');
     }
 
@@ -68,8 +68,6 @@ class AuthorizeDeviceControllerTest extends TestCase
             'email'    => 'test@test.com',
             'password' => bcrypt('secretxxx'),
         ]);
-
-        factory(Profile::class)->create(['user_id' => $user->id]);
 
         /**
          * @var AuthorizedDevice $authorizedDevice
@@ -87,6 +85,6 @@ class AuthorizeDeviceControllerTest extends TestCase
         $this
             ->actingAs($user)
             ->deleteJson(route('api.device.destroy', $authorizedDevice->id))
-            ->assertStatus(204);
+            ->assertStatus(Response::HTTP_NO_CONTENT);
     }
 }

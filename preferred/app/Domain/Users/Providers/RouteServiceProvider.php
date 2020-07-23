@@ -83,27 +83,6 @@ class RouteServiceProvider extends ServiceProvider
                     ->name('api.verify2fa');
 
                 $router
-                    ->get('me/profile', 'ProfileController@profile')
-                    ->name('api.profile');
-
-                $router
-                    ->patch('me/profile', 'ProfileController@updateMe')
-                    ->name('api.profiles.me.update');
-
-                $router
-                    ->apiResource('profiles', 'ProfileController')
-                    ->only([
-                        'index',
-                        'show',
-                        'update',
-                    ])
-                    ->names([
-                        'index'  => 'api.profiles.index',
-                        'show'   => 'api.profiles.show',
-                        'update' => 'api.profiles.update',
-                    ]);
-
-                $router
                     ->get('me', 'UserController@profile')
                     ->name('api.me');
 

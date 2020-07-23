@@ -4,18 +4,15 @@ namespace Preferred\Domain\Users\Providers;
 
 use Preferred\Domain\Users\Database\Factories\AuthorizedDeviceFactory;
 use Preferred\Domain\Users\Database\Factories\LoginHistoryFactory;
-use Preferred\Domain\Users\Database\Factories\ProfileFactory;
 use Preferred\Domain\Users\Database\Factories\UserFactory;
 use Preferred\Domain\Users\Entities\AuthorizedDevice;
 use Preferred\Domain\Users\Entities\LoginHistory;
 use Preferred\Domain\Users\Entities\Permission;
-use Preferred\Domain\Users\Entities\Profile;
 use Preferred\Domain\Users\Entities\Role;
 use Preferred\Domain\Users\Entities\User;
 use Preferred\Domain\Users\Policies\AuthorizedDevicePolicy;
 use Preferred\Domain\Users\Policies\LoginHistoryPolicy;
 use Preferred\Domain\Users\Policies\PermissionPolicy;
-use Preferred\Domain\Users\Policies\ProfilePolicy;
 use Preferred\Domain\Users\Policies\RolePolicy;
 use Preferred\Domain\Users\Policies\UserPolicy;
 use Preferred\Infrastructure\Abstracts\ServiceProvider;
@@ -43,7 +40,6 @@ class DomainServiceProvider extends ServiceProvider
         AuthorizedDevice::class => AuthorizedDevicePolicy::class,
         LoginHistory::class     => LoginHistoryPolicy::class,
         Permission::class       => PermissionPolicy::class,
-        Profile::class          => ProfilePolicy::class,
         Role::class             => RolePolicy::class,
         User::class             => UserPolicy::class,
     ];
@@ -51,7 +47,6 @@ class DomainServiceProvider extends ServiceProvider
     protected $factories = [
         AuthorizedDeviceFactory::class,
         LoginHistoryFactory::class,
-        ProfileFactory::class,
         UserFactory::class,
     ];
 }

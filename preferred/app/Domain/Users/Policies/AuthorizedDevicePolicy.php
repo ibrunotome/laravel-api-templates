@@ -36,10 +36,9 @@ class AuthorizedDevicePolicy
     /**
      * Determine whether the user can create models.
      *
-     * @param \Preferred\Domain\Users\Entities\User $user
      * @return mixed
      */
-    public function create(User $user)
+    public function create()
     {
         return false;
     }
@@ -59,11 +58,10 @@ class AuthorizedDevicePolicy
     /**
      * Determine whether the user can delete the model.
      *
-     * @param \Preferred\Domain\Users\Entities\User             $user
-     * @param \Preferred\Domain\Users\Entities\AuthorizedDevice $model
+     * @param \Preferred\Domain\Users\Entities\User $user
      * @return mixed
      */
-    public function delete(User $user, AuthorizedDevice $model)
+    public function delete(User $user)
     {
         return $user->can('delete authorized devices');
     }
@@ -71,11 +69,10 @@ class AuthorizedDevicePolicy
     /**
      * Determine whether the user can restore the model.
      *
-     * @param \Preferred\Domain\Users\Entities\User             $user
-     * @param \Preferred\Domain\Users\Entities\AuthorizedDevice $model
+     * @param \Preferred\Domain\Users\Entities\User $user
      * @return mixed
      */
-    public function restore(User $user, AuthorizedDevice $model)
+    public function restore(User $user)
     {
         return $user->can('restore authorized devices');
     }
@@ -83,11 +80,10 @@ class AuthorizedDevicePolicy
     /**
      * Determine whether the user can permanently delete the model.
      *
-     * @param \Preferred\Domain\Users\Entities\User             $user
-     * @param \Preferred\Domain\Users\Entities\AuthorizedDevice $model
+     * @param \Preferred\Domain\Users\Entities\User $user
      * @return mixed
      */
-    public function forceDelete(User $user, AuthorizedDevice $model)
+    public function forceDelete(User $user)
     {
         return $user->can('force delete authorized devices');
     }

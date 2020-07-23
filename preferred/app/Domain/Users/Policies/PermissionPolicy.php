@@ -24,11 +24,10 @@ class PermissionPolicy
     /**
      * Determine whether the user can view the model.
      *
-     * @param \Preferred\Domain\Users\Entities\User       $user
-     * @param \Preferred\Domain\Users\Entities\Permission $model
+     * @param \Preferred\Domain\Users\Entities\User $user
      * @return mixed
      */
-    public function view(User $user, Permission $model)
+    public function view(User $user)
     {
         return $user->can('view permissions');
     }
@@ -47,11 +46,10 @@ class PermissionPolicy
     /**
      * Determine whether the user can update the model.
      *
-     * @param \Preferred\Domain\Users\Entities\User       $user
-     * @param \Preferred\Domain\Users\Entities\Permission $model
+     * @param \Preferred\Domain\Users\Entities\User $user
      * @return mixed
      */
-    public function update(User $user, Permission $model)
+    public function update(User $user)
     {
         return $user->can('update permissions');
     }
@@ -59,11 +57,10 @@ class PermissionPolicy
     /**
      * Determine whether the user can delete the model.
      *
-     * @param \Preferred\Domain\Users\Entities\User       $user
-     * @param \Preferred\Domain\Users\Entities\Permission $model
+     * @param \Preferred\Domain\Users\Entities\User $user
      * @return mixed
      */
-    public function delete(User $user, Permission $model)
+    public function delete(User $user)
     {
         return $user->can('delete permissions');
     }
@@ -71,11 +68,10 @@ class PermissionPolicy
     /**
      * Determine whether the user can restore the model.
      *
-     * @param \Preferred\Domain\Users\Entities\User       $user
-     * @param \Preferred\Domain\Users\Entities\Permission $model
+     * @param \Preferred\Domain\Users\Entities\User $user
      * @return mixed
      */
-    public function restore(User $user, Permission $model)
+    public function restore(User $user)
     {
         return $user->can('restore permissions');
     }
@@ -83,11 +79,10 @@ class PermissionPolicy
     /**
      * Determine whether the user can permanently delete the model.
      *
-     * @param \Preferred\Domain\Users\Entities\User       $user
-     * @param \Preferred\Domain\Users\Entities\Permission $model
+     * @param \Preferred\Domain\Users\Entities\User $user
      * @return mixed
      */
-    public function forceDelete(User $user, Permission $model)
+    public function forceDelete(User $user)
     {
         return $user->can('force delete permissions');
     }

@@ -8,13 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 use Preferred\Domain\Users\Contracts\UserRepository;
 use Preferred\Domain\Users\Entities\User;
 use Preferred\Infrastructure\Abstracts\EloquentRepository;
+use Ramsey\Uuid\Uuid;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class EloquentUserRepository extends EloquentRepository implements UserRepository
 {
-    private $defaultSort = '-created_at';
+    private string $defaultSort = '-created_at';
 
-    private $defaultSelect = [
+    private array $defaultSelect = [
         'id',
         'email',
         'is_active',
@@ -23,16 +24,16 @@ class EloquentUserRepository extends EloquentRepository implements UserRepositor
         'updated_at',
     ];
 
-    private $allowedFilters = [
+    private array $allowedFilters = [
         'is_active',
     ];
 
-    private $allowedSorts = [
+    private array $allowedSorts = [
         'updated_at',
         'created_at',
     ];
 
-    private $allowedIncludes = [
+    private array $allowedIncludes = [
         'profile',
         'authorizeddevices',
         'loginhistories',
@@ -63,5 +64,14 @@ class EloquentUserRepository extends EloquentRepository implements UserRepositor
         }
 
         return parent::update($model, $data);
+    }
+
+    public function setNewEmailTokenConfirmation($userId)
+    {
+        $this->withoutGlobalScopes()
+            ->findOneById($userId)
+            ->update([
+                'email_token_confirmation' => Uuid::uuid4()->toString(),
+            ]);
     }
 }
