@@ -8,7 +8,7 @@ use Ramsey\Uuid\Uuid;
 
 class UserFactory extends ModelFactory
 {
-    protected $model = User::class;
+    protected string $model = User::class;
 
     public function fields()
     {

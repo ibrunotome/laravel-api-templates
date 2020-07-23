@@ -8,7 +8,7 @@ use Ramsey\Uuid\Uuid;
 
 class AuthorizedDeviceFactory extends ModelFactory
 {
-    protected $model = AuthorizedDevice::class;
+    protected string $model = AuthorizedDevice::class;
 
     public function fields()
     {

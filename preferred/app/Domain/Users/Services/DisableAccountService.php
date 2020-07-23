@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
 use Preferred\Domain\Users\Contracts\UserRepository;
-use Preferred\Domain\Users\Entities\User;
 use Preferred\Domain\Users\Notifications\AccountDisabledNotification;
 use Preferred\Infrastructure\Support\TwoFactorAuthenticator;
 
@@ -22,9 +21,6 @@ class DisableAccountService
 
     public function handle($token)
     {
-        /**
-         * @var User $user
-         */
         $user = $this->userRepository->findOneBy(['email_token_disable_account' => $token]);
 
         try {

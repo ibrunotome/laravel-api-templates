@@ -28,7 +28,7 @@ class UserUpdateRequest extends FormRequest
         $ignoreId = $this->segment(2) === 'me' ? auth()->id() : $this->segment(3);
 
         return [
-            'email' => [
+            'email'              => [
                 'email',
                 'max:250',
                 'unique:users,email,' . $ignoreId,

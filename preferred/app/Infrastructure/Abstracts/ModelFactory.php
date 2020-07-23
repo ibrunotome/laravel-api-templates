@@ -11,20 +11,11 @@ use Illuminate\Database\Eloquent\Factory;
  */
 abstract class ModelFactory
 {
-    /**
-     * @var Factory
-     */
-    protected $factory;
+    protected Factory $factory;
 
-    /**
-     * @var string
-     */
-    protected $model;
+    protected string $model;
 
-    /**
-     * @var \Faker\Generator
-     */
-    protected $faker;
+    protected Generator $faker;
 
     /**
      * BaseFactory constructor.

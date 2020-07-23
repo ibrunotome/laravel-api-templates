@@ -8,7 +8,6 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
-use Preferred\Domain\Users\Entities\User;
 use Preferred\Domain\Users\Events\TwoFactorAuthenticationWasDisabled;
 use Preferred\Domain\Users\Http\Requests\DisableTwoFactorAuthenticationRequest;
 use Preferred\Domain\Users\Http\Requests\EnableTwoFactorAuthenticationRequest;
@@ -29,9 +28,6 @@ class TwoFactorAuthenticationController extends Controller
     {
         $twoFactorAuthentication = new TwoFactorAuthenticator($request);
 
-        /**
-         * @var User $user
-         */
         $user = auth()->user();
 
         $user->google2fa_enable = false;
@@ -62,9 +58,6 @@ class TwoFactorAuthenticationController extends Controller
         $twoFactorAuthentication = new TwoFactorAuthenticator($request);
         $secret = $request->input('one_time_password');
 
-        /**
-         * @var User $user
-         */
         $user = auth()->user();
 
         try {
@@ -97,13 +90,9 @@ class TwoFactorAuthenticationController extends Controller
      *
      * @param DisableTwoFactorAuthenticationRequest $request
      * @return \Illuminate\Http\JsonResponse
-     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function disable2fa(DisableTwoFactorAuthenticationRequest $request)
     {
-        /**
-         * @var User $user
-         */
         $user = auth()->user();
 
         if (!Hash::check($request->get('password'), $user->password)) {
@@ -118,10 +107,6 @@ class TwoFactorAuthenticationController extends Controller
         $user->google2fa_url = null;
         $user->save();
 
-        /**
-         * @var User $user
-         */
-        $user = auth()->user();
         event(new TwoFactorAuthenticationWasDisabled($user));
 
         return $this->respondWithCustomData([

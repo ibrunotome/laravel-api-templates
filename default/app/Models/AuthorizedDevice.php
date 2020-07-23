@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Query\Builder;
 use OwenIt\Auditing\Auditable;
 use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 
@@ -29,24 +29,24 @@ use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Audit[] $audits
  * @property-read int|null                                                     $audits_count
  * @property-read \App\Models\User                                             $user
- * @method static \Illuminate\Database\Eloquent\Builder|AuthorizedDevice newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|AuthorizedDevice newQuery()
+ * @method static Builder|AuthorizedDevice newModelQuery()
+ * @method static Builder|AuthorizedDevice newQuery()
  * @method static Builder|AuthorizedDevice onlyTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|AuthorizedDevice query()
- * @method static \Illuminate\Database\Eloquent\Builder|AuthorizedDevice whereAuthorizationToken($value)
- * @method static \Illuminate\Database\Eloquent\Builder|AuthorizedDevice whereAuthorizedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|AuthorizedDevice whereBrowser($value)
- * @method static \Illuminate\Database\Eloquent\Builder|AuthorizedDevice whereBrowserVersion($value)
- * @method static \Illuminate\Database\Eloquent\Builder|AuthorizedDevice whereCity($value)
- * @method static \Illuminate\Database\Eloquent\Builder|AuthorizedDevice whereCountryName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|AuthorizedDevice whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|AuthorizedDevice whereDeletedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|AuthorizedDevice whereDevice($value)
- * @method static \Illuminate\Database\Eloquent\Builder|AuthorizedDevice whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|AuthorizedDevice wherePlatform($value)
- * @method static \Illuminate\Database\Eloquent\Builder|AuthorizedDevice wherePlatformVersion($value)
- * @method static \Illuminate\Database\Eloquent\Builder|AuthorizedDevice whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|AuthorizedDevice whereUserId($value)
+ * @method static Builder|AuthorizedDevice query()
+ * @method static Builder|AuthorizedDevice whereAuthorizationToken($value)
+ * @method static Builder|AuthorizedDevice whereAuthorizedAt($value)
+ * @method static Builder|AuthorizedDevice whereBrowser($value)
+ * @method static Builder|AuthorizedDevice whereBrowserVersion($value)
+ * @method static Builder|AuthorizedDevice whereCity($value)
+ * @method static Builder|AuthorizedDevice whereCountryName($value)
+ * @method static Builder|AuthorizedDevice whereCreatedAt($value)
+ * @method static Builder|AuthorizedDevice whereDeletedAt($value)
+ * @method static Builder|AuthorizedDevice whereDevice($value)
+ * @method static Builder|AuthorizedDevice whereId($value)
+ * @method static Builder|AuthorizedDevice wherePlatform($value)
+ * @method static Builder|AuthorizedDevice wherePlatformVersion($value)
+ * @method static Builder|AuthorizedDevice whereUpdatedAt($value)
+ * @method static Builder|AuthorizedDevice whereUserId($value)
  * @method static Builder|AuthorizedDevice withTrashed()
  * @method static Builder|AuthorizedDevice withoutTrashed()
  * @mixin \Eloquent

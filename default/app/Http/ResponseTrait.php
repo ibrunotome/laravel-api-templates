@@ -10,14 +10,14 @@ use Illuminate\Http\Response;
 trait ResponseTrait
 {
     /**
-     * The current path of resource to respond
+     * The current class of resource to respond
      *
      * @var string
      */
     protected string $resourceItem;
 
     /**
-     * The current path of collection resource to respond
+     * The current class of collection resource to respond
      *
      * @var string
      */

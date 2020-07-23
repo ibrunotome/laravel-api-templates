@@ -8,7 +8,7 @@ use Ramsey\Uuid\Uuid;
 
 class LoginHistoryFactory extends ModelFactory
 {
-    protected $model = LoginHistory::class;
+    protected string $model = LoginHistory::class;
 
     public function fields()
     {

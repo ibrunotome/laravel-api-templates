@@ -12,9 +12,6 @@ class AuthorizeDeviceControllerTest extends TestCase
 {
     public function testAuthorizeDevice()
     {
-        /**
-         * @var User $user
-         */
         $user = factory(User::class)->states([
             'email_unverified',
         ])->create([
@@ -22,9 +19,6 @@ class AuthorizeDeviceControllerTest extends TestCase
             'password' => bcrypt('secretxxx'),
         ]);
 
-        /**
-         * @var AuthorizedDevice $authorizedDevice
-         */
         $authorizedDevice = factory(AuthorizedDevice::class)->create([
             'device'           => 'device',
             'platform'         => 'platform',
@@ -42,9 +36,6 @@ class AuthorizeDeviceControllerTest extends TestCase
 
     public function testCannotAuthorizeDeviceBecauseItsAlreadyAuthorized()
     {
-        /**
-         * @var User $user
-         */
         factory(User::class)->states([
             'email_unverified',
         ])->create([
@@ -59,9 +50,6 @@ class AuthorizeDeviceControllerTest extends TestCase
 
     public function testDestroyAuthorizedDevice()
     {
-        /**
-         * @var User $user
-         */
         $user = factory(User::class)->states([
             'email_unverified',
         ])->create([
@@ -69,9 +57,6 @@ class AuthorizeDeviceControllerTest extends TestCase
             'password' => bcrypt('secretxxx'),
         ]);
 
-        /**
-         * @var AuthorizedDevice $authorizedDevice
-         */
         $authorizedDevice = factory(AuthorizedDevice::class)->create([
             'device'           => 'device',
             'platform'         => 'platform',

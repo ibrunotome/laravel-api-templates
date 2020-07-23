@@ -10,30 +10,15 @@ abstract class Notification extends \Illuminate\Notifications\Notification imple
 {
     use Queueable;
 
-    /**
-     * @var array
-     */
-    public $data;
+    public array $data;
 
-    /**
-     * @var string
-     */
-    protected $title;
+    protected string $title;
 
-    /**
-     * @var string
-     */
-    protected $message;
+    protected string $message;
 
-    /**
-     * @var string
-     */
-    protected $url;
+    protected string $url;
 
-    /**
-     * @var string
-     */
-    protected $color;
+    protected string $color;
 
     /**
      * Create a new notification instance.

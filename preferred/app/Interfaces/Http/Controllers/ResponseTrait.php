@@ -14,14 +14,14 @@ trait ResponseTrait
      *
      * @var string
      */
-    protected $resourceItem;
+    protected string $resourceItem;
 
     /**
      * The current path of collection resource to respond
      *
      * @var string
      */
-    protected $resourceCollection;
+    protected string $resourceCollection;
 
     protected function respondWithCustomData($data, $status = 200): JsonResponse
     {

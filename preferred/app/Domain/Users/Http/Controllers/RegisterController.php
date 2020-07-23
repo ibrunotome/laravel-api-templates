@@ -103,10 +103,7 @@ class RegisterController extends Controller
     {
         $userRepository = app(UserRepository::class);
 
-        /**
-         * @var User $user
-         */
-        $user = $userRepository->store([
+        return $userRepository->store([
             'email'                       => $data['email'],
             'name'                        => $data['name'],
             'email_token_confirmation'    => Uuid::uuid4()->toString(),
@@ -116,7 +113,5 @@ class RegisterController extends Controller
             'email_verified_at'           => null,
             'locale'                      => $data['locale'] ?? 'pt_BR',
         ]);
-
-        return $user;
     }
 }

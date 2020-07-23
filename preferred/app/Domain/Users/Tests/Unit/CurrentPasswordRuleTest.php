@@ -8,15 +8,9 @@ use Tests\TestCase;
 
 class CurrentPasswordRuleTest extends TestCase
 {
-    /**
-     * @var CurrentPasswordRule
-     */
-    private $rule;
+    private CurrentPasswordRule $rule;
 
-    /**
-     * @var User
-     */
-    private $user;
+    private User $user;
 
     public function setUp(): void
     {

@@ -75,9 +75,6 @@ class RegisterControllerTest extends TestCase
 
     public function testVerifyEmail()
     {
-        /**
-         * @var User $user
-         */
         $user = factory(User::class)->create([
             'is_active'                => 1,
             'email_verified_at'        => null,

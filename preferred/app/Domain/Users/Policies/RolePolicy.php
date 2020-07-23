@@ -3,7 +3,6 @@
 namespace Preferred\Domain\Users\Policies;
 
 use Illuminate\Auth\Access\HandlesAuthorization;
-use Preferred\Domain\Users\Entities\Role;
 use Preferred\Domain\Users\Entities\User;
 
 class RolePolicy
