@@ -1,6 +1,6 @@
 # laravel-api-templates
 
-A Laravel API starter kit collection using different structures. Dockerized with Google App Engine container + swoole.
+A Laravel API starter kit collection using different structures.
 
 [![Build Status](https://semaphoreci.com/api/v1/ibrunotome/laravel-api-templates/branches/master/badge.svg)](https://semaphoreci.com/ibrunotome/laravel-api-templates)
 

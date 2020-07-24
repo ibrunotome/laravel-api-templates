@@ -1,9 +1,3 @@
 # Default Laravel structure
 
-This is Laravel's default structure. 
-
-<img width="295" src="https://user-images.githubusercontent.com/4256471/51738321-07c39a00-2076-11e9-830f-b9479b7980d6.png">
-
-## Routes
-
-<img width="100%" alt="Screen Shot 2019-05-26 at 17 56 41" src="https://user-images.githubusercontent.com/4256471/58387071-9ffb6c80-7fdf-11e9-8bd3-0b0086df73c7.png">
+This API uses the default Laravel structure with all features explained [here](https://github.com/ibrunotome/laravel-api-templates#features).
