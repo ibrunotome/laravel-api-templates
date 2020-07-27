@@ -1,0 +1,85 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app
+  namespace: laravelapitemplates
+  labels:
+    name: app
+  annotations:
+    secret.reloader.stakater.com/reload: "env"
+spec:
+  replicas: 1
+  revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      name: app
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 50%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        name: app
+    spec:
+      containers:
+        - name: app
+          image: gcr.io/yourproject/laravelapitemplates:SHORT_SHA
+          command: ["/bin/bash"]
+          args:
+            - -c
+            - |
+              sleep 12
+              php artisan optimize
+              php artisan view:cache
+              ln -s public html
+              ln -s /var/www /usr/share/nginx
+              /usr/local/sbin/php-fpm
+          envFrom:
+            - secretRef:
+                name: env
+          ports:
+            - containerPort: 9000
+          readinessProbe:
+            initialDelaySeconds: 20
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+            successThreshold: 1
+            tcpSocket:
+              port: 9000
+          resources:
+            requests:
+              cpu: 50m
+              memory: 320Mi
+          volumeMounts:
+            - name: static
+              mountPath: /static
+          lifecycle:
+            postStart:
+              exec:
+                command: ["/bin/bash", "-c", "cp -r /var/www/public/. /static"]
+
+        - name: cloudsql-proxy
+          image: gcr.io/cloudsql-docker/gce-proxy:latest
+          command: ["/cloud_sql_proxy",
+                    "-instances=yourproject:us-central1:yourproject=tcp:5432",
+                    "-credential_file=/secrets/cloudsql/cloudsqlproxy.json"]
+          resources:
+            requests:
+              cpu: 2m
+              memory: 8Mi
+          volumeMounts:
+            - name: cloudsql-instance-credentials
+              mountPath: /secrets/cloudsql
+              readOnly: true
+
+      volumes:
+        - name: static
+          nfs:
+            server: nfs-server.laravelapitemplates.svc.cluster.local
+            path: "/static"
+        - name: cloudsql-instance-credentials
+          secret:
+            secretName: cloudsql-instance-credentials

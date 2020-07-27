@@ -1,0 +1,12 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: nginx
+  namespace: laravelapitemplates
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: laravelapitemplates-static-ip
+    networking.gke.io/managed-certificates: laravelapitemplates-com-br
+spec:
+  backend:
+    serviceName: nginx
+    servicePort: 80

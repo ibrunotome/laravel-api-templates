@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: schedule
+  namespace: laravelapitemplates
+  labels:
+    name: schedule
+  annotations:
+    secret.reloader.stakater.com/reload: "env"
+spec:
+  replicas: 1
+  revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      name: schedule
+  template:
+    metadata:
+      labels:
+        name: schedule
+    spec:
+      containers:
+        - name: schedule
+          image: gcr.io/yourproject/laravelapitemplates:SHORT_SHA
+          command: ["/bin/bash"]
+          args:
+            - -c
+            - |
+              php artisan config:cache
+              chmod +x schedule.sh
+              /var/www/schedule.sh
+          envFrom:
+            - secretRef:
+                name: env
+          resources:
+            requests:
+              cpu: 10m
+              memory: 32Mi
+
+        - name: cloudsql-proxy
+          image: gcr.io/cloudsql-docker/gce-proxy:latest
+          command: ["/cloud_sql_proxy",
+                    "-instances=yourproject:us-central1:yourproject=tcp:5432",
+                    "-credential_file=/secrets/cloudsql/cloudsqlproxy.json"]
+          resources:
+            requests:
+              cpu: 1m
+              memory: 8Mi
+          volumeMounts:
+            - name: cloudsql-instance-credentials
+              mountPath: /secrets/cloudsql
+              readOnly: true
+
+      volumes:
+        - name: cloudsql-instance-credentials
+          secret:
+            secretName: cloudsql-instance-credentials

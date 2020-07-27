@@ -1,6 +1,8 @@
-# laravel-api-templates
-
+<p align="center">
+<img src="https://user-images.githubusercontent.com/4256471/88491449-4131da00-cf79-11ea-8620-04928cf52bf8.png" width="400px">
+<br>
 A Laravel API starter kit collection using different structures.
+</p>
 
 [![Build Status](https://semaphoreci.com/api/v1/ibrunotome/laravel-api-templates/branches/master/badge.svg)](https://semaphoreci.com/ibrunotome/laravel-api-templates)
 
@@ -11,6 +13,10 @@ A Laravel API starter kit collection using different structures.
 <img width="100%" alt="Screen Shot 2019-05-26 at 11 29 40" src="https://user-images.githubusercontent.com/4256471/88347604-7643ef80-cd21-11ea-8f4b-eecda9a6162d.png">
 
 <img width="100%" alt="Screen Shot 2019-05-26 at 11 24 15" src="https://user-images.githubusercontent.com/4256471/88347704-c3c05c80-cd21-11ea-8ee8-baf05ab87c58.png">
+
+## What is it
+
+This is a starter kit for your next API using Laravel, implemented with more than one structure, all battle-tested with the same features listed below.
 
 ## Features
 
@@ -37,10 +43,7 @@ A Laravel API starter kit collection using different structures.
 
 Soon:
 
-- Job example
-- Schedule example
-- Websockets example
-- Graphql example
+- Background job example
 
 ## Up and running
 
@@ -70,6 +73,10 @@ The container with xdebug is in the `Dockerfile.testing`, you can get into this 
 - Run nunomaduro/phpinsights with `php artisan insights`
 
 To see sonarqube analysis, simple run `docker-compose -f docker-compose.sonarqube.yml up`, the quality profile used is PSR-2.
+
+### Environment: production
+
+See the contents of the `k8s` folder :)
 
 ## Email layout
 

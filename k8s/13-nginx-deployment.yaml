@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+  namespace: laravelapitemplates
+  annotations:
+    configmap.reloader.stakater.com/reload: "nginx-configmap"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: nginx
+  template:
+    metadata:
+      labels:
+        name: nginx
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:1.17-alpine
+          command: ["/bin/sh", "-c", "touch /usr/share/nginx/html/index.php; nginx -g 'daemon off;'"]
+          resources:
+            requests:
+              cpu: 4m
+              memory: 28Mi
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: nginx-configmap
+              mountPath: /etc/nginx/nginx.conf
+              subPath: nginx.conf
+              readOnly: true
+            - name: static
+              mountPath: /static
+
+      volumes:
+        - name: nginx-configmap
+          configMap:
+            name: nginx-configmap
+            items:
+              - key: nginx.conf
+                path: nginx.conf
+        - name: static
+          nfs:
+            server: nfs-server.laravelapitemplates.svc.cluster.local
+            path: "/static"
