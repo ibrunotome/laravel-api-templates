@@ -56,7 +56,7 @@ The oficial php image from Google Cloud Platform is updated once in a lifetime s
 - Set the .env variables, see .env.example that is already configured to point to pgsql and redis services
 - Run the container with `docker-compose -f docker-compose.develop.yml up`.
   Alternatively, if you have an older laptop, try running remotely with
-  Blimp](kelda.io/blimp).
+  [Blimp](https://kelda.io/blimp).
 - Enter into app container with `docker exec -it default-structure-app bash`
 - Run the migrations with `php artisan migrate:fresh`
 
