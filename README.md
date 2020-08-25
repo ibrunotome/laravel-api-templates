@@ -78,7 +78,7 @@ To see sonarqube analysis, simple run `docker-compose -f docker-compose.sonarqub
 
 ### Environment: production
 
-See the contents of the `k8s` folder :)
+See the contents of the `.k8s` folder :)
 
 ## Email layout
 
@@ -99,9 +99,7 @@ See the contents of the `k8s` folder :)
     <tr>
       <td align="center" valign="middle">
         <a href="https://github.com/ibrunotome" target="_blank">
-          <img width="115px" src="https://avatars3.githubusercontent.com/u/4256471?v=4">
-          <br>
-          @ibrunotome
+          <img width="115px" src="https://avatars3.githubusercontent.com/u/4256471?v=4" alt="ibrunotome"><br>@ibrunotome
         </a>
       </td>
     </tr>
@@ -115,16 +113,12 @@ See the contents of the `k8s` folder :)
     <tr>
       <td align="center" valign="middle">
         <a href="https://github.com/crcms" target="_blank">
-          <img width="115px" src="https://avatars1.githubusercontent.com/u/22486914?v=4">
-          <br>
-          @crcms
+          <img width="115px" src="https://avatars1.githubusercontent.com/u/22486914?v=4" alt="crcms"><br>@crcms
         </a>
       </td>
       <td align="center" valign="middle">
         <a href="https://github.com/ejj" target="_blank">
-          <img width="115px" src="https://avatars3.githubusercontent.com/u/620438?s=460&v=4">
-          <br>
-          @ejj
+          <img width="115px" src="https://avatars3.githubusercontent.com/u/620438?s=460&v=4" alt="ejj"><br>@ejj
         </a>
       </td>
     </tr>
