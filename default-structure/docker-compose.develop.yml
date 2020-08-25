@@ -92,6 +92,7 @@ services:
       - 6379:6379
     volumes:
       - redis-data:/data
+      
 volumes:
   pg-data:
   redis-data:
