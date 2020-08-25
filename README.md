@@ -94,10 +94,39 @@ See the contents of the `k8s` folder :)
 
 ## Author
 
-| [<img src="https://avatars3.githubusercontent.com/u/4256471?v=4" width=115><br><sub>@ibrunotome</sub>](https://github.com/ibrunotome) |
-| :---: |
+<table>
+  <tbody>
+    <tr>
+      <td align="center" valign="middle">
+        <a href="https://github.com/ibrunotome" target="_blank">
+          <img width="115px" src="https://avatars3.githubusercontent.com/u/4256471?v=4">
+          <br>
+          @ibrunotome
+        </a>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 ## Contributors
 
-| [<img src="https://avatars1.githubusercontent.com/u/22486914?v=4" width=115><br><sub>@crcms</sub>](https://github.com/crcms) |
-| :---: |
+<table>
+  <tbody>
+    <tr>
+      <td align="center" valign="middle">
+        <a href="https://github.com/crcms" target="_blank">
+          <img width="115px" src="https://avatars1.githubusercontent.com/u/22486914?v=4">
+          <br>
+          @crcms
+        </a>
+      </td>
+      <td align="center" valign="middle">
+        <a href="https://github.com/ejj" target="_blank">
+          <img width="115px" src="https://avatars3.githubusercontent.com/u/620438?s=460&v=4">
+          <br>
+          @ejj
+        </a>
+      </td>
+    </tr>
+  </tbody>
+</table>
