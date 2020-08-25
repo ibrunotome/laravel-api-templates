@@ -82,7 +82,7 @@ services:
       POSTGRES_USER: default
       POSTGRES_PASSWORD: default
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - pg-data:/var/lib/postgresql/data
 
   redis:
     image: redis:5.0.5-alpine
