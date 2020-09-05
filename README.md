@@ -2,7 +2,6 @@
 <img src="https://user-images.githubusercontent.com/4256471/88491449-4131da00-cf79-11ea-8620-04928cf52bf8.png" width="400px">
 <br>
 A Laravel API starter kit collection using different structures.
-<br>
 </p>
 
 ![CI](https://github.com/ibrunotome/laravel-api-templates/workflows/CI/badge.svg)
