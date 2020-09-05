@@ -5,6 +5,7 @@ declare(strict_types=1);
 use NunoMaduro\PhpInsights\Domain\Insights\ForbiddenDefineFunctions;
 use NunoMaduro\PhpInsights\Domain\Insights\ForbiddenNormalClasses;
 use NunoMaduro\PhpInsights\Domain\Insights\ForbiddenPrivateMethods;
+use NunoMaduro\PhpInsights\Domain\Insights\ForbiddenSecurityIssues;
 use NunoMaduro\PhpInsights\Domain\Insights\ForbiddenTraits;
 use NunoMaduro\PhpInsights\Domain\Metrics\Architecture\Classes;
 use ObjectCalisthenics\Sniffs\Classes\ForbiddenPublicPropertySniff;
@@ -27,8 +28,8 @@ use SlevomatCodingStandard\Sniffs\Functions\UnusedParameterSniff;
 use SlevomatCodingStandard\Sniffs\Namespaces\AlphabeticallySortedUsesSniff;
 use SlevomatCodingStandard\Sniffs\Namespaces\UnusedUsesSniff;
 use SlevomatCodingStandard\Sniffs\TypeHints\DeclareStrictTypesSniff;
+use SlevomatCodingStandard\Sniffs\TypeHints\DisallowArrayTypeHintSyntaxSniff;
 use SlevomatCodingStandard\Sniffs\TypeHints\DisallowMixedTypeHintSniff;
-use SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff;
 
 return [
 
@@ -90,10 +91,12 @@ return [
         DeclareStrictTypesSniff::class,
         DisallowMixedTypeHintSniff::class,
         DisallowEmptySniff::class,
+        DisallowArrayTypeHintSyntaxSniff::class,
         ForbiddenDefineFunctions::class,
         ForbiddenNormalClasses::class,
         ForbiddenTraits::class,
         ForbiddenPublicPropertySniff::class,
+        ForbiddenSecurityIssues::class,
         FunctionLengthSniff::class,
         LineLengthSniff::class,
         MethodPerClassLimitSniff::class,
@@ -104,7 +107,6 @@ return [
         SpaceAfterNotSniff::class,
         SuperfluousExceptionNamingSniff::class,
         SuperfluousTraitNamingSniff::class,
-        TypeHintDeclarationSniff::class,
         UnnecessaryStringConcatSniff::class,
         UnusedFunctionParameterSniff::class,
         UnusedParameterSniff::class,

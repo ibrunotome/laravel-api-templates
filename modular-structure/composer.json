@@ -68,14 +68,11 @@
       "@php artisan package:discover --ansi"
     ],
     "test": "phpunit --no-coverage",
-    "phpcpd": "phpcpd app/ --fuzzy --progress",
+    "phpcpd": "php phpcpd.phar app/ --fuzzy --progress",
     "static:analysis": "php artisan code:analyse --level=5",
-    "insights": "php artisan insights --no-interaction --min-quality=100 --min-complexity=85 --min-architecture=100 --min-style=100",
-    "lint": [
-      "phpcs",
-      "phpcs app/ -sp --standard=vendor/object-calisthenics/phpcs-calisthenics-rules/src/ObjectCalisthenics/ruleset.xml --sniffs=ObjectCalisthenics.Metrics.MaxNestingLevel,ObjectCalisthenics.ControlStructures.NoElse,ObjectCalisthenics.NamingConventions.ElementNameMinimalLength"
-    ],
-    "lint:fix": "phpcbf"
+    "insights": "php artisan insights --no-interaction --min-quality=90 --min-complexity=85 --min-architecture=90 --min-style=90",
+    "lint": "php phpcs.phar",
+    "lint:fix": "php phpcbf.phar"
   },
   "config": {
     "preferred-install": "dist",
