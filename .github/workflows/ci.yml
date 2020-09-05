@@ -1,0 +1,41 @@
+name: CI
+
+on: [push]
+
+jobs:
+  default-structure:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 1
+
+    - name: Shutdown Databases
+      run: |
+        sudo service mysql stop
+        sudo service postgresql stop
+
+    - name: Run the containers
+      run: |
+        docker-compose -f default-structure/docker-compose.testing.yml up -d app
+        docker exec -t default-structure-app-testing composer install --no-interaction --no-ansi --no-progress --prefer-dist --optimize-autoloader
+
+    - name: Duplicated code analysis
+      run: docker exec -t default-structure-app-testing composer phpcpd
+
+    - name: Lint analysis
+      run: docker exec -t default-structure-app-testing composer lint
+
+    - name: Code quality and code style analysis
+      run: docker exec -t default-structure-app-testing composer insights
+
+    - name: Run tests
+      run: docker exec -t default-structure-app-testing composer test
+
+    # - uses: yanzay/notify-telegram@v0.1.0
+    #   if: always()
+    #   with:
+    #     chat: ${{ secrets.chat }}
+    #     token: ${{ secrets.token }}
+    #     status: ${{ job.status }}

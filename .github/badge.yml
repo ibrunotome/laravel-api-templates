@@ -1,0 +1,12 @@
+types:
+  build: build
+  chore: chore
+  ci: ci
+  docs: docs
+  feat: feature
+  fix: fix
+  perf: perf
+  refactor: refactor
+  revert: revert
+  style: style
+  test: test

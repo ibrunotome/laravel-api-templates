@@ -1,7 +1,6 @@
 .idea
 .env
 .env.prod
-.env.testing
 .phpunit.result.cache
 .DS_Store
 .config
