@@ -2,9 +2,13 @@
 <img src="https://user-images.githubusercontent.com/4256471/88491449-4131da00-cf79-11ea-8620-04928cf52bf8.png" width="400px">
 <br>
 A Laravel API starter kit collection using different structures.
+<br>
 </p>
 
-[![Build Status](https://semaphoreci.com/api/v1/ibrunotome/laravel-api-templates/branches/master/badge.svg)](https://semaphoreci.com/ibrunotome/laravel-api-templates)
+![CI](https://github.com/ibrunotome/laravel-api-templates/workflows/CI/badge.svg)
+[![Build Status](https://img.shields.io/github/stars/ibrunotome/laravel-api-templates.svg)](https://github.com/ibrunotome/laravel-api-templates)
+[![Build Status](https://img.shields.io/github/forks/ibrunotome/laravel-api-templates.svg)](https://github.com/ibrunotome/laravel-api-templates)
+[![License](https://img.shields.io/github/license/ibrunotome/laravel-api-templates.svg)](https://github.com/ibrunotome/laravel-api-templates)
 
 <img width="100%" alt="Screen Shot 2019-05-26 at 18 17 08" src="https://user-images.githubusercontent.com/4256471/58387277-7b54c400-7fe2-11e9-8f1b-9e78e6cf3205.png">
 
