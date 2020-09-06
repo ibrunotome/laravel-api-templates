@@ -26,6 +26,7 @@
     "laravel/horizon": "^4.0",
     "laravel/slack-notification-channel": "^2.0",
     "laravel/tinker": "^2.0",
+    "laravel/ui": "^2.2",
     "league/flysystem-aws-s3-v3": "^1.0",
     "owen-it/laravel-auditing": "^10.0",
     "spatie/laravel-permission": "^3.0",
@@ -39,7 +40,6 @@
     "fzaninotto/faker": "^1.9.1",
     "mockery/mockery": "^1.0",
     "nunomaduro/collision": "^4.1",
-    "nunomaduro/larastan": "^0.3.16",
     "nunomaduro/phpinsights": "^1.0",
     "phpunit/phpunit": "^9.0"
   },
