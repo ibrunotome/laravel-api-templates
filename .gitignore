@@ -1,3 +1,8 @@
 .idea
 .vscode
+.env
+.env.prod
+.phpunit.result.cache
 .DS_Store
+.config
+auth.json
