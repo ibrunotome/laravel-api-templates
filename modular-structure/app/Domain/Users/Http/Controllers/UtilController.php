@@ -2,8 +2,8 @@
 
 namespace App\Domain\Users\Http\Controllers;
 
-use Illuminate\Http\Response;
 use App\Interfaces\Http\Controllers\Controller;
+use Illuminate\Http\Response;
 
 class UtilController extends Controller
 {

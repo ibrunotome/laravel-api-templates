@@ -2,10 +2,10 @@
 
 namespace App\Domain\Users\Http\Controllers;
 
-use Exception;
-use Illuminate\Http\Response;
 use App\Domain\Users\Entities\AuthorizedDevice;
 use App\Interfaces\Http\Controllers\Controller;
+use Exception;
+use Illuminate\Http\Response;
 
 class AuthorizeDeviceController extends Controller
 {

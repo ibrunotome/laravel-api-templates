@@ -33,7 +33,7 @@ class DomainServiceProvider extends ServiceProvider
         RouteServiceProvider::class,
         RepositoryServiceProvider::class,
         EventServiceProvider::class,
-        BroadcastServiceProvider::class,
+        //        BroadcastServiceProvider::class,
     ];
 
     protected $policies = [

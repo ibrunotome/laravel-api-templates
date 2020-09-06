@@ -2,10 +2,10 @@
 
 namespace App\Domain\Users\Services;
 
-use Illuminate\Support\Facades\Notification;
 use App\Domain\Users\Contracts\LoginHistoryRepository;
 use App\Domain\Users\Entities\User;
 use App\Domain\Users\Notifications\SuccessfulLoginFromIpNotification;
+use Illuminate\Support\Facades\Notification;
 
 class LoginHistoryService
 {

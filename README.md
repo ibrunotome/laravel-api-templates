@@ -31,7 +31,7 @@ This is a starter kit for your next API using Laravel, implemented with more tha
 - Device authorization
 - Etag
 - Horizon
-- Laravel 5.8
+- Laravel [6.x](https://github.com/ibrunotome/laravel-api-templates/tree/v6.x), [5.8](https://github.com/ibrunotome/laravel-api-templates/tree/v5.8)
 - Login
 - Login history
 - Multiple localizations, preconfigured with en_US and pt_BR

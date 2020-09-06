@@ -34,6 +34,9 @@ class DisableAccountControllerTest extends TestCase
             ->assertOk();
 
         $this->postJson(route('api.account.disable', [$user->email_token_disable_account]))
+            ->assertOk();
+
+        $this->postJson(route('api.account.disable', [$user->email_token_disable_account]))
             ->assertStatus(Response::HTTP_TOO_MANY_REQUESTS)
             ->assertSeeText('Too many Requests');
     }

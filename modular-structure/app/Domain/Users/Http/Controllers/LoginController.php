@@ -2,13 +2,6 @@
 
 namespace App\Domain\Users\Http\Controllers;
 
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Notification;
-use Jenssegers\Agent\Agent;
 use App\Domain\Users\Entities\User;
 use App\Domain\Users\Exceptions\LockedException;
 use App\Domain\Users\Notifications\VerifyEmailNotification;
@@ -16,6 +9,13 @@ use App\Domain\Users\Services\AuthorizedDeviceService;
 use App\Domain\Users\Services\LoginHistoryService;
 use App\Infrastructure\Support\TwoFactorAuthenticator;
 use App\Interfaces\Http\Controllers\Controller;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Notification;
+use Jenssegers\Agent\Agent;
 use Sujip\Ipstack\Ipstack;
 
 class LoginController extends Controller

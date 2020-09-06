@@ -2,12 +2,12 @@
 
 namespace App\Domain\Users\Repositories;
 
-use Illuminate\Auth\Events\PasswordReset;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
-use Illuminate\Database\Eloquent\Model;
 use App\Domain\Users\Contracts\UserRepository;
 use App\Domain\Users\Entities\User;
 use App\Infrastructure\Abstracts\EloquentRepository;
+use Illuminate\Auth\Events\PasswordReset;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Model;
 use Ramsey\Uuid\Uuid;
 use Spatie\QueryBuilder\QueryBuilder;
 

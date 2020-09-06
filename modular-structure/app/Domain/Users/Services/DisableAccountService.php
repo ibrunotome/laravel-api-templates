@@ -2,13 +2,13 @@
 
 namespace App\Domain\Users\Services;
 
+use App\Domain\Users\Contracts\UserRepository;
+use App\Domain\Users\Notifications\AccountDisabledNotification;
+use App\Infrastructure\Support\TwoFactorAuthenticator;
 use Exception;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
-use App\Domain\Users\Contracts\UserRepository;
-use App\Domain\Users\Notifications\AccountDisabledNotification;
-use App\Infrastructure\Support\TwoFactorAuthenticator;
 
 class DisableAccountService
 {

@@ -2,10 +2,10 @@
 
 namespace App\Domain\Users\Listeners\Observers;
 
+use App\Domain\Users\Entities\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
 use Neves\Events\Contracts\TransactionalEvent;
-use App\Domain\Users\Entities\User;
 use Ramsey\Uuid\Uuid;
 
 class UserObserver implements TransactionalEvent

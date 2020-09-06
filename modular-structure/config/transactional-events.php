@@ -14,18 +14,12 @@ return [
     |
     */
 
-    'enable' => false,
+    'enable' => true,
 
-    'transactional' => [],
-
-    'excluded' => [
-        // 'eloquent.*',
-        'eloquent.booted',
-        'eloquent.retrieved',
-        'eloquent.saved',
-        'eloquent.updated',
-        'eloquent.created',
-        'eloquent.deleted',
-        'eloquent.restored',
+    'transactional' => [
+        'App\Domain\Users\Events',
+        'App\Domain\Users\Listeners\Observers',
     ],
+
+    'excluded' => [],
 ];

@@ -2,10 +2,10 @@
 
 namespace App\Domain\Users\Services;
 
-use Illuminate\Support\Facades\Notification;
 use App\Domain\Users\Contracts\AuthorizedDeviceRepository;
 use App\Domain\Users\Entities\User;
 use App\Domain\Users\Notifications\AuthorizeDeviceNotification;
+use Illuminate\Support\Facades\Notification;
 use Ramsey\Uuid\Uuid;
 
 class AuthorizedDeviceService

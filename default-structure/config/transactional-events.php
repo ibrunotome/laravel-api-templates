@@ -18,7 +18,7 @@ return [
 
     'transactional' => [
         'App\Events',
-        'App\Observers',
+        'App\Listeners\Observers',
     ],
 
     'excluded' => [],

@@ -2,12 +2,12 @@
 
 namespace App\Domain\Users\Tests\Feature;
 
-use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Hash;
 use App\Domain\Users\Entities\AuthorizedDevice;
 use App\Domain\Users\Entities\LoginHistory;
 use App\Domain\Users\Entities\Permission;
 use App\Domain\Users\Entities\User;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Hash;
 use Ramsey\Uuid\Uuid;
 use Tests\TestCase;
 

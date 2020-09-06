@@ -2,11 +2,11 @@
 
 namespace App\Domain\Users\Http\Controllers;
 
-use Exception;
-use Illuminate\Http\Response;
 use App\Domain\Users\Contracts\UserRepository;
 use App\Domain\Users\Events\EmailWasVerifiedEvent;
 use App\Interfaces\Http\Controllers\Controller;
+use Exception;
+use Illuminate\Http\Response;
 
 class EmailVerificationController extends Controller
 {

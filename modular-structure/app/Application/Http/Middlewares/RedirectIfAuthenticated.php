@@ -2,8 +2,8 @@
 
 namespace App\Application\Http\Middlewares;
 
-use Closure;
 use App\Interfaces\Http\Controllers\ResponseTrait;
+use Closure;
 
 class RedirectIfAuthenticated
 {

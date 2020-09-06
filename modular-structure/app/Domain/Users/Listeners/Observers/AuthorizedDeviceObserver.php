@@ -2,10 +2,10 @@
 
 namespace App\Domain\Users\Listeners\Observers;
 
+use App\Domain\Users\Entities\AuthorizedDevice;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
 use Neves\Events\Contracts\TransactionalEvent;
-use App\Domain\Users\Entities\AuthorizedDevice;
 use Ramsey\Uuid\Uuid;
 
 class AuthorizedDeviceObserver implements TransactionalEvent

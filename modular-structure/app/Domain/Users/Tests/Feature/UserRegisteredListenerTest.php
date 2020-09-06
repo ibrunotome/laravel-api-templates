@@ -2,11 +2,11 @@
 
 namespace App\Domain\Users\Tests\Feature;
 
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Support\Facades\Notification;
 use App\Domain\Users\Entities\User;
 use App\Domain\Users\Listeners\UserRegisteredListener;
 use App\Domain\Users\Notifications\VerifyEmailNotification;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Notification;
 use Tests\TestCase;
 
 class UserRegisteredListenerTest extends TestCase

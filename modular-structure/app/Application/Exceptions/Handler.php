@@ -2,6 +2,8 @@
 
 namespace App\Application\Exceptions;
 
+use App\Domain\Users\Exceptions\LockedException;
+use App\Interfaces\Http\Controllers\ResponseTrait;
 use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
@@ -11,8 +13,6 @@ use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Foundation\Http\Exceptions\MaintenanceModeException;
 use Illuminate\Http\Exceptions\ThrottleRequestsException;
 use Illuminate\Http\Response;
-use App\Domain\Users\Exceptions\LockedException;
-use App\Interfaces\Http\Controllers\ResponseTrait;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 

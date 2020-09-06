@@ -12,12 +12,15 @@ use App\Http\Middleware\TrustProxies;
 use Illuminate\Auth\Middleware\Authenticate;
 use Illuminate\Auth\Middleware\AuthenticateWithBasicAuth;
 use Illuminate\Auth\Middleware\Authorize;
+use Illuminate\Auth\Middleware\EnsureEmailIsVerified;
+use Illuminate\Auth\Middleware\RequirePassword;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 use Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull;
 use Illuminate\Foundation\Http\Middleware\ValidatePostSize;
 use Illuminate\Http\Middleware\SetCacheHeaders;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Routing\Middleware\ThrottleRequests;
+use Illuminate\Routing\Middleware\ValidateSignature;
 
 class Kernel extends HttpKernel
 {
@@ -45,7 +48,8 @@ class Kernel extends HttpKernel
      */
     protected $middlewareGroups = [
         'api' => [
-            'bindings',
+            'throttle:60,1',
+            SubstituteBindings::class,
         ],
     ];
 
@@ -56,13 +60,17 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'auth'       => Authenticate::class,
-        'auth.basic' => AuthenticateWithBasicAuth::class,
-        'bindings'   => SubstituteBindings::class,
-        'throttle'   => ThrottleRequests::class,
-        'can'        => Authorize::class,
-        'guest'      => RedirectIfAuthenticated::class,
-        '2fa'        => CheckTwoFactorAuthentication::class,
+        'auth'             => Middleware\Authenticate::class,
+        'auth.basic'       => AuthenticateWithBasicAuth::class,
+        'bindings'         => SubstituteBindings::class,
+        'cache.headers'    => SetCacheHeaders::class,
+        'can'              => Authorize::class,
+        'guest'            => RedirectIfAuthenticated::class,
+        'password.confirm' => RequirePassword::class,
+        'signed'           => ValidateSignature::class,
+        'throttle'         => ThrottleRequests::class,
+        'verified'         => EnsureEmailIsVerified::class,
+        '2fa'              => CheckTwoFactorAuthentication::class,
     ];
 
     /**
