@@ -28,7 +28,7 @@ class PasswordResetTest extends TestCase
     public function testSubmitPasswordReset()
     {
         $token = Password::broker()->createToken($this->user);
-        $password = str_random();
+        $password = $this->faker->password;
 
         $this
             ->post(route('api.reset.password'), [
@@ -49,7 +49,7 @@ class PasswordResetTest extends TestCase
     {
         $this
             ->post(route('api.reset.email-link'), [
-                'email' => str_random(),
+                'email' => $this->faker->word,
             ])
             ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
@@ -130,8 +130,8 @@ class PasswordResetTest extends TestCase
     public function testSubmitPasswordResetPasswordMismatch()
     {
         $token = Password::broker()->createToken($this->user);
-        $password = str_random();
-        $password_confirmation = str_random();
+        $password = $this->faker->password;
+        $password_confirmation = $this->faker->password;
 
         $this
             ->post(route('api.reset.password'), [
@@ -151,7 +151,7 @@ class PasswordResetTest extends TestCase
     public function testSubmitPasswordResetPasswordTooShort()
     {
         $token = Password::broker()->createToken($this->user);
-        $password = str_random(5);
+        $password = $this->faker->lexify('?????');
 
         $this
             ->post(route('api.reset.password'), [

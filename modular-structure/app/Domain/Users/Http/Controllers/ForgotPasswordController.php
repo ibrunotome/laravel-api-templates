@@ -24,10 +24,11 @@ class ForgotPasswordController extends Controller
     /**
      * Get the response for a successful password reset link.
      *
-     * @param string $response
+     * @param \Illuminate\Http\Request $request
+     * @param string                   $response
      * @return \Illuminate\Http\JsonResponse
      */
-    protected function sendResetLinkResponse($response)
+    protected function sendResetLinkResponse(Request $request, $response)
     {
         $message = __('Email sent, please check your email to continue');
 

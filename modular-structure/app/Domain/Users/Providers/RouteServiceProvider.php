@@ -46,12 +46,12 @@ class RouteServiceProvider extends ServiceProvider
             ->group(['middleware' => 'guest'], function () use ($router) {
                 $router
                     ->post('email/verify/{token}', [EmailVerificationController::class, 'verify'])
-                    ->middleware('throttle:3,1')
+                    ->middleware('throttle:5,1')
                     ->name('api.email.verify');
 
                 $router
                     ->post('devices/authorize/{token}', [AuthorizeDeviceController::class, 'authorizeDevice'])
-                    ->middleware('throttle:3,1')
+                    ->middleware('throttle:5,1')
                     ->name('api.device.authorize');
 
                 $router
@@ -128,7 +128,7 @@ class RouteServiceProvider extends ServiceProvider
 
                 $router
                     ->delete('devices/{id}', [AuthorizeDeviceController::class, 'destroy'])
-                    ->middleware('throttle:3,1')
+                    ->middleware('throttle:5,1')
                     ->name('api.device.destroy');
             });
     }
@@ -155,7 +155,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         $router
             ->post('account/disable/{token}', [DisableAccountController::class, 'disable'])
-            ->middleware('throttle:1,1')
+            ->middleware('throttle:5,1')
             ->name('api.account.disable');
 
         $router
