@@ -1,34 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit backupGlobals="false"
-         backupStaticAttributes="false"
-         bootstrap="vendor/autoload.php"
-         colors="true"
-         convertErrorsToExceptions="true"
-         convertNoticesToExceptions="true"
-         convertWarningsToExceptions="true"
-         processIsolation="false"
-         stopOnFailure="false">
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" backupGlobals="false" backupStaticAttributes="false"
+         bootstrap="vendor/autoload.php" colors="true" convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true" convertWarningsToExceptions="true" processIsolation="false"
+         stopOnFailure="false" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd">
+    <coverage processUncoveredFiles="true">
+        <include>
+            <directory suffix=".php">./app</directory>
+        </include>
+        <report>
+            <clover outputFile="./tests/coverage/coverage.xml"/>
+            <html outputDirectory="./tests/coverage" lowUpperBound="50" highLowerBound="80"/>
+        </report>
+    </coverage>
     <testsuites>
         <testsuite name="Unit">
             <directory suffix="Test.php">./tests/Unit</directory>
         </testsuite>
-
         <testsuite name="Feature">
             <directory suffix="Test.php">./tests/Feature</directory>
         </testsuite>
     </testsuites>
-    <filter>
-        <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">./app</directory>
-        </whitelist>
-    </filter>
     <logging>
-        <log type="coverage-html"
-             target="./tests/coverage"
-             lowUpperBound="50"
-             highLowerBound="80"/>
-        <log type="coverage-clover" target="./tests/coverage/coverage.xml"/>
-        <log type="junit" target="./tests/coverage/logfile.xml"/>
+        <junit outputFile="./tests/coverage/logfile.xml"/>
     </logging>
     <php>
         <env name="APP_ENV" value="testing"/>

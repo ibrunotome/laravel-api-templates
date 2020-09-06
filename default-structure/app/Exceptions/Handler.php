@@ -3,7 +3,6 @@
 namespace App\Exceptions;
 
 use App\Http\ResponseTrait;
-use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -14,6 +13,7 @@ use Illuminate\Http\Exceptions\ThrottleRequestsException;
 use Illuminate\Http\Response;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Throwable;
 
 class Handler extends ExceptionHandler
 {
@@ -23,10 +23,11 @@ class Handler extends ExceptionHandler
      * Render an exception into an HTTP response.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \Exception               $exception
+     * @param \Throwable               $exception
      * @return \Illuminate\Http\Response|\Symfony\Component\HttpFoundation\Response
+     * @throws \Exception
      */
-    public function render($request, Exception $exception)
+    public function render($request, Throwable $exception)
     {
         $exceptionInstance = get_class($exception);
 
