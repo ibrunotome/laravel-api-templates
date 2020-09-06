@@ -1,42 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit backupGlobals="false"
-         backupStaticAttributes="false"
-         bootstrap="vendor/autoload.php"
-         colors="true"
-         convertErrorsToExceptions="true"
-         convertNoticesToExceptions="true"
-         convertWarningsToExceptions="true"
-         processIsolation="false"
-         stopOnFailure="false">
-    <testsuites>
-        <testsuite name="Feature">
-            <directory suffix="Test.php">./app/Domain/*/Tests/Feature</directory>
-        </testsuite>
-
-        <testsuite name="Unit">
-            <directory suffix="Test.php">./app/Domain/*/Tests/Unit</directory>
-        </testsuite>
-    </testsuites>
-    <filter>
-        <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">./app</directory>
-            <exclude>
-                <directory suffix="Seed.php">./app/Domain</directory>
-                <directory suffix="Policy.php">./app/Domain</directory>
-                <directory suffix="Test.php">./app/Domain</directory>
-                <directory suffix="OpenCensusTraceProvider.php">./app/Application</directory>
-            </exclude>
-        </whitelist>
-    </filter>
-    <logging>
-        <log type="coverage-html"
-             target="./tests/coverage"
-             lowUpperBound="50"
-             highLowerBound="80"/>
-        <log type="coverage-clover" target="./tests/coverage/coverage.xml"/>
-        <log type="junit" target="./tests/coverage/logfile.xml"/>
-    </logging>
-    <php>
-        <env name="APP_ENV" value="testing"/>
-    </php>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" backupGlobals="false" backupStaticAttributes="false" bootstrap="vendor/autoload.php" colors="true" convertErrorsToExceptions="true" convertNoticesToExceptions="true" convertWarningsToExceptions="true" processIsolation="false" stopOnFailure="false" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd">
+  <coverage processUncoveredFiles="true">
+    <include>
+      <directory suffix=".php">./app</directory>
+    </include>
+    <exclude>
+      <directory suffix="Seed.php">./app/Domain</directory>
+      <directory suffix="Policy.php">./app/Domain</directory>
+      <directory suffix="Test.php">./app/Domain</directory>
+      <directory suffix="OpenCensusTraceProvider.php">./app/Application</directory>
+    </exclude>
+    <report>
+      <clover outputFile="./tests/coverage/coverage.xml"/>
+      <html outputDirectory="./tests/coverage" lowUpperBound="50" highLowerBound="80"/>
+    </report>
+  </coverage>
+  <testsuites>
+    <testsuite name="Feature">
+      <directory suffix="Test.php">./app/Domain/*/Tests/Feature</directory>
+    </testsuite>
+    <testsuite name="Unit">
+      <directory suffix="Test.php">./app/Domain/*/Tests/Unit</directory>
+    </testsuite>
+  </testsuites>
+  <logging>
+    <junit outputFile="./tests/coverage/logfile.xml"/>
+  </logging>
+  <php>
+    <env name="APP_ENV" value="testing"/>
+  </php>
 </phpunit>
