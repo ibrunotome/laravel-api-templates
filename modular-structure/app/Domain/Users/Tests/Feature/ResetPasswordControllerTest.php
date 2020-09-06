@@ -27,7 +27,7 @@ class PasswordResetTest extends TestCase
     public function testSubmitPasswordReset()
     {
         $token = Password::broker()->createToken($this->user);
-        $password = $this->faker->password;
+        $password = $this->faker->password(12);
 
         $this
             ->post(route('api.reset.password'), [
@@ -84,7 +84,7 @@ class PasswordResetTest extends TestCase
     {
         $token = Password::broker()->createToken($this->user);
 
-        $password = $this->faker->password;
+        $password = $this->faker->password(12);
 
         $this
             ->post(route('api.reset.password'), [
@@ -109,7 +109,7 @@ class PasswordResetTest extends TestCase
     {
         $token = Password::broker()->createToken($this->user);
 
-        $password = $this->faker->password;
+        $password = $this->faker->password(12);
 
         $this
             ->post(route('api.reset.password'), [
@@ -129,8 +129,8 @@ class PasswordResetTest extends TestCase
     public function testSubmitPasswordResetPasswordMismatch()
     {
         $token = Password::broker()->createToken($this->user);
-        $password = $this->faker->password;
-        $password_confirmation = $this->faker->password;
+        $password = $this->faker->password(12);
+        $password_confirmation = $this->faker->password(12);
 
         $this
             ->post(route('api.reset.password'), [
