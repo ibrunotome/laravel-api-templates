@@ -2,11 +2,11 @@
 
 namespace App\Domain\Users\Database\Seeds;
 
-use Illuminate\Database\Seeder;
 use App\Domain\Users\Entities\AuthorizedDevice;
 use App\Domain\Users\Entities\LoginHistory;
 use App\Domain\Users\Entities\Role;
 use App\Domain\Users\Entities\User;
+use Illuminate\Database\Seeder;
 
 class UsersTableSeed extends Seeder
 {

@@ -2,9 +2,9 @@
 
 namespace App\Domain\Users\Tests\Feature;
 
-use Illuminate\Http\Response;
 use App\Domain\Users\Entities\User;
 use App\Infrastructure\Support\TwoFactorAuthenticator;
+use Illuminate\Http\Response;
 use Tests\TestCase;
 
 class TwoFactorAuthenticationControllerTest extends TestCase

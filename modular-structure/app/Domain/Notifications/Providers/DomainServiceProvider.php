@@ -2,9 +2,9 @@
 
 namespace App\Domain\Notifications\Providers;
 
-use Illuminate\Notifications\DatabaseNotification;
 use App\Domain\Notifications\Policies\NotificationPolicy;
 use App\Infrastructure\Abstracts\ServiceProvider;
+use Illuminate\Notifications\DatabaseNotification;
 
 class DomainServiceProvider extends ServiceProvider
 {

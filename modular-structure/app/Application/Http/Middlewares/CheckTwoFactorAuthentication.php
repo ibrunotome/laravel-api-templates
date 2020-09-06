@@ -2,10 +2,10 @@
 
 namespace App\Application\Http\Middlewares;
 
-use Closure;
-use Illuminate\Http\Response;
 use App\Infrastructure\Support\TwoFactorAuthenticator;
 use App\Interfaces\Http\Controllers\ResponseTrait;
+use Closure;
+use Illuminate\Http\Response;
 
 class CheckTwoFactorAuthentication
 {

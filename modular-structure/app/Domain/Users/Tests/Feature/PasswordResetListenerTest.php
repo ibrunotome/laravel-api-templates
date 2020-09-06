@@ -2,9 +2,9 @@
 
 namespace App\Domain\Users\Tests\Feature;
 
-use Illuminate\Auth\Events\PasswordReset;
 use App\Domain\Users\Entities\User;
 use App\Domain\Users\Listeners\PasswordResetListener;
+use Illuminate\Auth\Events\PasswordReset;
 use Tests\TestCase;
 
 class PasswordResetListenerTest extends TestCase

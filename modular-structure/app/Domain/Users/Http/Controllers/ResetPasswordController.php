@@ -2,11 +2,11 @@
 
 namespace App\Domain\Users\Http\Controllers;
 
+use App\Domain\Users\Rules\WeakPasswordRule;
+use App\Interfaces\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use App\Domain\Users\Rules\WeakPasswordRule;
-use App\Interfaces\Http\Controllers\Controller;
 
 class ResetPasswordController extends Controller
 {

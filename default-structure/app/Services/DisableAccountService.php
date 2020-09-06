@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Contracts\UserRepository;
-use App\Models\User;
 use App\Notifications\AccountDisabledNotification;
 use App\Support\TwoFactorAuthenticator;
 use Exception;

@@ -2,11 +2,11 @@
 
 namespace App\Domain\Users\Listeners;
 
-use Illuminate\Bus\Queueable;
-use Illuminate\Support\Facades\Notification;
 use App\Domain\Users\Contracts\UserRepository;
 use App\Domain\Users\Notifications\PasswordChangedNotification;
 use App\Infrastructure\Abstracts\Listener;
+use Illuminate\Bus\Queueable;
+use Illuminate\Support\Facades\Notification;
 
 class PasswordResetListener extends Listener
 {

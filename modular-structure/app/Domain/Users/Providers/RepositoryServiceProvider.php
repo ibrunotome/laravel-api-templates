@@ -2,7 +2,6 @@
 
 namespace App\Domain\Users\Providers;
 
-use Illuminate\Support\ServiceProvider;
 use App\Domain\Users\Contracts\AuthorizedDeviceRepository;
 use App\Domain\Users\Contracts\LoginHistoryRepository;
 use App\Domain\Users\Contracts\UserRepository;
@@ -12,6 +11,7 @@ use App\Domain\Users\Entities\User;
 use App\Domain\Users\Repositories\EloquentAuthorizedDevicesRepository;
 use App\Domain\Users\Repositories\EloquentLoginHistoryRepository;
 use App\Domain\Users\Repositories\EloquentUserRepository;
+use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
 {

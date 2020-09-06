@@ -2,9 +2,9 @@
 
 namespace App\Domain\Users\Listeners\Observers;
 
+use App\Domain\Users\Entities\Permission;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
-use App\Domain\Users\Entities\Permission;
 use Ramsey\Uuid\Uuid;
 
 class PermissionObserver

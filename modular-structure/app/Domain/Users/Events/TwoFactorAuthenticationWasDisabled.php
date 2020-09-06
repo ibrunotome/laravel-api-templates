@@ -2,8 +2,8 @@
 
 namespace App\Domain\Users\Events;
 
-use Illuminate\Queue\SerializesModels;
 use App\Domain\Users\Entities\User;
+use Illuminate\Queue\SerializesModels;
 
 class TwoFactorAuthenticationWasDisabled
 {

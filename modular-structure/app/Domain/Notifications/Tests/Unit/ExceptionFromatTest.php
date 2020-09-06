@@ -2,8 +2,8 @@
 
 namespace App\Domain\Notifications\Tests\Unit;
 
-use Exception;
 use App\Infrastructure\Support\ExceptionFormat;
+use Exception;
 use Tests\TestCase;
 
 class ExceptionFromatTest extends TestCase

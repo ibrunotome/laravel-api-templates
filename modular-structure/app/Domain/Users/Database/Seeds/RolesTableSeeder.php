@@ -2,9 +2,9 @@
 
 namespace App\Domain\Users\Database\Seeds;
 
-use Illuminate\Database\Seeder;
 use App\Domain\Users\Entities\Permission;
 use App\Domain\Users\Entities\Role;
+use Illuminate\Database\Seeder;
 
 class RolesTableSeeder extends Seeder
 {

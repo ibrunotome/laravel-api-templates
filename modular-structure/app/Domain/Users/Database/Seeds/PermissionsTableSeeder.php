@@ -2,8 +2,8 @@
 
 namespace App\Domain\Users\Database\Seeds;
 
-use Illuminate\Database\Seeder;
 use App\Domain\Users\Entities\Permission;
+use Illuminate\Database\Seeder;
 
 class PermissionsTableSeeder extends Seeder
 {

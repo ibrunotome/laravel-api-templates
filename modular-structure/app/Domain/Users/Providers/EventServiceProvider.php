@@ -2,10 +2,6 @@
 
 namespace App\Domain\Users\Providers;
 
-use Illuminate\Auth\Events\PasswordReset;
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use Neves\Events\Contracts\TransactionalEvent;
 use App\Domain\Users\Entities\AuthorizedDevice;
 use App\Domain\Users\Entities\LoginHistory;
 use App\Domain\Users\Entities\Permission;
@@ -20,6 +16,10 @@ use App\Domain\Users\Listeners\Observers\UserObserver;
 use App\Domain\Users\Listeners\PasswordResetListener;
 use App\Domain\Users\Listeners\TwoFactorAuthenticationWasDisabledListener;
 use App\Domain\Users\Listeners\UserRegisteredListener;
+use Illuminate\Auth\Events\PasswordReset;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use Neves\Events\Contracts\TransactionalEvent;
 
 class EventServiceProvider extends ServiceProvider implements TransactionalEvent
 {

@@ -2,14 +2,13 @@
 
 namespace App\Domain\Users\Tests\Feature;
 
+use App\Domain\Users\Entities\User;
+use App\Domain\Users\Notifications\ResetPasswordNotification;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Password;
-use Illuminate\Support\Str;
-use App\Domain\Users\Entities\User;
-use App\Domain\Users\Notifications\ResetPasswordNotification;
 use Tests\TestCase;
 
 class PasswordResetTest extends TestCase
@@ -85,12 +84,12 @@ class PasswordResetTest extends TestCase
     {
         $token = Password::broker()->createToken($this->user);
 
-        $password = Str::random();
+        $password = $this->faker->password;
 
         $this
             ->post(route('api.reset.password'), [
                 'token'                 => $token,
-                'email'                 => Str::random(),
+                'email'                 => $this->faker->word,
                 'password'              => $password,
                 'password_confirmation' => $password,
             ])
@@ -110,7 +109,7 @@ class PasswordResetTest extends TestCase
     {
         $token = Password::broker()->createToken($this->user);
 
-        $password = Str::random();
+        $password = $this->faker->password;
 
         $this
             ->post(route('api.reset.password'), [

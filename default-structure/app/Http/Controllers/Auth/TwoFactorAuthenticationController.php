@@ -7,7 +7,6 @@ use App\Events\TwoFactorAuthenticationWasDisabled;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DisableTwoFactorAuthenticationRequest;
 use App\Http\Requests\EnableTwoFactorAuthenticationRequest;
-use App\Models\User;
 use App\Support\ExceptionFormat;
 use App\Support\TwoFactorAuthenticator;
 use Exception;

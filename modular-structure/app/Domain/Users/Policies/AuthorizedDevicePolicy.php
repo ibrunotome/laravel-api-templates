@@ -2,9 +2,9 @@
 
 namespace App\Domain\Users\Policies;
 
-use Illuminate\Auth\Access\HandlesAuthorization;
 use App\Domain\Users\Entities\AuthorizedDevice;
 use App\Domain\Users\Entities\User;
+use Illuminate\Auth\Access\HandlesAuthorization;
 
 class AuthorizedDevicePolicy
 {

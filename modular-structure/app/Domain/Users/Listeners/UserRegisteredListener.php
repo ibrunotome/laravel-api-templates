@@ -2,11 +2,11 @@
 
 namespace App\Domain\Users\Listeners;
 
+use App\Domain\Users\Notifications\VerifyEmailNotification;
+use App\Infrastructure\Abstracts\Listener;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Bus\Queueable;
 use Illuminate\Support\Facades\Notification;
-use App\Domain\Users\Notifications\VerifyEmailNotification;
-use App\Infrastructure\Abstracts\Listener;
 
 class UserRegisteredListener extends Listener
 {

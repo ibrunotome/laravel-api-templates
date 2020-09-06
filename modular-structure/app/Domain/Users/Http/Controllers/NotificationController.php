@@ -2,9 +2,9 @@
 
 namespace App\Domain\Users\Http\Controllers;
 
+use App\Interfaces\Http\Controllers\Controller;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Cache;
-use App\Interfaces\Http\Controllers\Controller;
 
 class NotificationController extends Controller
 {

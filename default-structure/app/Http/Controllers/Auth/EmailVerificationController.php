@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Auth;
 use App\Contracts\UserRepository;
 use App\Events\EmailWasVerifiedEvent;
 use App\Http\Controllers\Controller;
-use App\Models\User;
 use Exception;
 use Illuminate\Http\Response;
 

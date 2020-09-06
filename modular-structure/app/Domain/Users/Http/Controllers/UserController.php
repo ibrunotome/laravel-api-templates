@@ -2,8 +2,6 @@
 
 namespace App\Domain\Users\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
 use App\Domain\Users\Contracts\UserRepository;
 use App\Domain\Users\Entities\User;
 use App\Domain\Users\Http\Requests\PasswordUpdateRequest;
@@ -11,6 +9,8 @@ use App\Domain\Users\Http\Requests\UserUpdateRequest;
 use App\Domain\Users\Http\Resources\UserCollection;
 use App\Domain\Users\Http\Resources\UserResource;
 use App\Interfaces\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class UserController extends Controller
 {
