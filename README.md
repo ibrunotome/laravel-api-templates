@@ -9,9 +9,9 @@ A Laravel API starter kit collection using different structures.
 [![Build Status](https://img.shields.io/github/forks/ibrunotome/laravel-api-templates.svg)](https://github.com/ibrunotome/laravel-api-templates)
 [![License](https://img.shields.io/github/license/ibrunotome/laravel-api-templates.svg)](https://github.com/ibrunotome/laravel-api-templates)
 
-<img width="100%" alt="Screen Shot 2019-05-26 at 18 17 08" src="https://user-images.githubusercontent.com/4256471/58387277-7b54c400-7fe2-11e9-8f1b-9e78e6cf3205.png">
+<img width="100%" alt="Screen Shot 2020-09-05 at 21 38 49" src="https://user-images.githubusercontent.com/4256471/92316055-02a22d00-efc5-11ea-9eb4-0ee66fdcf76b.png">
 
-<img width="100%" alt="Screenshot 2019-05-26 18 07 03" src="https://user-images.githubusercontent.com/4256471/58387178-177dcb80-7fe1-11e9-90ec-d1ec120ef4c4.png">
+<img width="100%" alt="Screen Shot 2020-09-05 at 22 12 44" src="https://user-images.githubusercontent.com/4256471/92316054-00d86980-efc5-11ea-9e54-8346074b03d3.png">
 
 <img width="100%" alt="Screen Shot 2019-05-26 at 11 29 40" src="https://user-images.githubusercontent.com/4256471/88347604-7643ef80-cd21-11ea-8f4b-eecda9a6162d.png">
 
