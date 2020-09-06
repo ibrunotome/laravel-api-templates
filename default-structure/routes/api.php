@@ -30,11 +30,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => 'guest'], function () {
     Route::post('email/verify/{token}', [EmailVerificationController::class, 'verify'])
-        ->middleware('throttle:3,1')
+        ->middleware('throttle:5,1')
         ->name('api.email.verify');
 
     Route::post('devices/authorize/{token}', [AuthorizeDeviceController::class, 'authorizeDevice'])
-        ->middleware('throttle:3,1')
+        ->middleware('throttle:5,1')
         ->name('api.device.authorize');
 
     Route::post('login', [LoginController::class, 'login'])
@@ -113,7 +113,7 @@ Route::group([
         ->name('api.notifications.visualize');
 
     Route::delete('devices/{id}', [AuthorizeDeviceController::class, 'destroy'])
-        ->middleware('throttle:3,1')
+        ->middleware('throttle:5,1')
         ->name('api.device.destroy');
 });
 
@@ -121,5 +121,5 @@ Route::get('ping', [UtilController::class, 'serverTime'])
     ->name('api.server.ping');
 
 Route::post('/account/disable/{token}', [DisableAccountController::class, 'disable'])
-    ->middleware('throttle:1,1')
+    ->middleware('throttle:5,1')
     ->name('api.account.disable');
