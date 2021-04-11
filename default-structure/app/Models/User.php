@@ -10,10 +10,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 use OwenIt\Auditing\Auditable;
 use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 use Spatie\Permission\Traits\HasRoles;
-use Tymon\JWTAuth\Contracts\JWTSubject;
 
 /**
  * App\Models\User
@@ -69,9 +69,10 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
  * @method static Builder|User whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class User extends Authenticatable implements JWTSubject, AuditableContract, HasLocalePreference, MustVerifyEmail
+class User extends Authenticatable implements AuditableContract, HasLocalePreference, MustVerifyEmail
 {
     use Auditable;
+    use HasApiTokens;
     use HasRoles;
     use Notifiable;
 
@@ -99,22 +100,6 @@ class User extends Authenticatable implements JWTSubject, AuditableContract, Has
         'password',
         'remember_token',
     ];
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getJWTIdentifier()
-    {
-        return $this->getKey();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getJWTCustomClaims()
-    {
-        return [];
-    }
 
     public function receivesBroadcastNotificationsOn()
     {

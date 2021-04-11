@@ -1,4 +1,4 @@
-FROM ibrunotome/php:7.4-fpm
+FROM ibrunotome/php:8.0-fpm
 
 ARG COMPOSER_FLAGS
 
@@ -12,8 +12,8 @@ RUN composer install $COMPOSER_FLAGS \
     && chown -R 0:www-data /var/www \
     && find /var/www -type f -exec chmod 664 {} \; \
     && find /var/www -type d -exec chmod 775 {} \; \
-    && chgrp -R www-data storage bootstrap/cache \
-    && chmod -R ug+rwx storage bootstrap/cache
+    && chgrp -R www-data public/cache-html storage bootstrap/cache \
+    && chmod -R ug+rwx public/cache-html storage bootstrap/cache
 
 CMD ["/usr/local/sbin/php-fpm"]
 

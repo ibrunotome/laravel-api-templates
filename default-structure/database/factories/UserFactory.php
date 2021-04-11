@@ -1,43 +1,48 @@
 <?php
 
-use Faker\Generator as Faker;
+namespace Database\Factories;
+
+use App\Models\User;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Ramsey\Uuid\Uuid;
 
-$factory->define(App\Models\User::class, function (Faker $faker) {
-    return [
-        'id'                          => Uuid::uuid4(),
-        'name'                        => $faker->name,
-        'anti_phishing_code'          => $faker->word,
-        'email_token_confirmation'    => Uuid::uuid4(),
-        'email_token_disable_account' => Uuid::uuid4(),
-        'email'                       => strtolower(str_replace('-', '', Uuid::uuid4())) . '@gmail.com',
-        'password'                    => bcrypt('secretxxx'),
-        'is_active'                   => 1,
-        'email_verified_at'           => now(),
-        'locale'                      => 'en_US',
-    ];
-});
+class UserFactory extends Factory
+{
+    protected $model = User::class;
 
-$factory->state(App\Models\User::class, 'active', function () {
-    return [
-        'is_active' => true,
-    ];
-});
+    public function definition(): array
+    {
+        return [
+            'id'                          => Uuid::uuid4(),
+            'name'                        => $this->faker->name,
+            'anti_phishing_code'          => $this->faker->word,
+            'email_token_confirmation'    => Uuid::uuid4(),
+            'email_token_disable_account' => Uuid::uuid4(),
+            'email'                       => $this->faker->unique()->email,
+            'password'                    => bcrypt('secretxxx'),
+            'is_active'                   => 1,
+            'email_verified_at'           => now(),
+            'locale'                      => 'en_US',
+        ];
+    }
 
-$factory->state(App\Models\User::class, 'inactive', function () {
-    return [
-        'is_active' => false,
-    ];
-});
+    public function active(): UserFactory
+    {
+        return $this->state(fn() => ['is_active' => true]);
+    }
 
-$factory->state(App\Models\User::class, 'email_verified', function () {
-    return [
-        'email_verified_at' => now()->format('Y-m-d H:i:s'),
-    ];
-});
+    public function inactive(): UserFactory
+    {
+        return $this->state(fn() => ['is_active' => false]);
+    }
 
-$factory->state(App\Models\User::class, 'email_unverified', function () {
-    return [
-        'email_verified_at' => null,
-    ];
-});
+    public function emailVerified(): UserFactory
+    {
+        return $this->state(fn() => ['email_verified_at' => now()->format('Y-m-d H:i:s')]);
+    }
+
+    public function emailUnverified(): UserFactory
+    {
+        return $this->state(fn() => ['email_verified_at' => null]);
+    }
+}

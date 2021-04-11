@@ -23,7 +23,7 @@ services:
       - redis
 
   pgsql:
-    image: launcher.gcr.io/google/postgresql11
+    image: launcher.gcr.io/google/postgresql13
     container_name: default-structure-pgsql-testing
     ports:
       - 5432:5432
@@ -35,7 +35,7 @@ services:
       - pg-testing-data:/var/lib/postgresql/data
 
   redis:
-    image: redis:5.0.5-alpine
+    image: library/redis:6.0.10-alpine
     container_name: default-structure-redis-testing
     restart: always
     ports:
