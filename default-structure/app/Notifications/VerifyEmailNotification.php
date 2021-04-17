@@ -19,12 +19,12 @@ class VerifyEmailNotification extends Notification implements ShouldQueue
         $this->onQueue('notifications');
     }
 
-    public function via()
+    public function via(): array
     {
         return ['mail'];
     }
 
-    public function toMail($notifiable)
+    public function toMail($notifiable): MailMessage
     {
         return (new MailMessage())
             ->markdown('emails.default')

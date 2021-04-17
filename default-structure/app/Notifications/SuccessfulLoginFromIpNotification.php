@@ -19,12 +19,12 @@ class SuccessfulLoginFromIpNotification extends Notification implements ShouldQu
         $this->onQueue('notifications');
     }
 
-    public function via()
+    public function via(): array
     {
         return ['mail'];
     }
 
-    public function toMail($notifiable)
+    public function toMail($notifiable): MailMessage
     {
         $antiPhishingCode = $notifiable->anti_phishing_code;
         $disableAccountToken = $notifiable->email_token_disable_account;

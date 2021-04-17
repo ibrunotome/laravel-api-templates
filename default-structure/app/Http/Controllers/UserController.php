@@ -13,11 +13,8 @@ use Illuminate\Support\Facades\Cache;
 
 class UserController extends Controller
 {
-    private UserRepository $userRepository;
-
-    public function __construct(UserRepository $userRepository)
+    public function __construct(private UserRepository $userRepository)
     {
-        $this->userRepository = $userRepository;
         $this->resourceItem = UserResource::class;
         $this->resourceCollection = UserCollection::class;
         $this->authorizeResource(User::class);
@@ -25,10 +22,8 @@ class UserController extends Controller
 
     /**
      * List all users.
-     *
-     * @return \Illuminate\Http\JsonResponse
      */
-    public function index()
+    public function index(): UserCollection
     {
         $cacheTag = 'users';
         $cacheKey = 'users:' . auth()->id() . json_encode(request()->all());
@@ -42,24 +37,17 @@ class UserController extends Controller
 
     /**
      * Show a current logged user.
-     *
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
      */
-    public function profile(Request $request)
+    public function profile(Request $request): UserResource
     {
-        $user = auth()->user();
+        $user = $request->user();
         return $this->show($request, $user);
     }
 
     /**
      * Show an user.
-     *
-     * @param Request $request
-     * @param User    $user
-     * @return \Illuminate\Http\JsonResponse
      */
-    public function show(Request $request, User $user)
+    public function show(Request $request, User $user): UserResource
     {
         $allowedIncludes = [
             'loginhistories',
@@ -84,24 +72,17 @@ class UserController extends Controller
 
     /**
      * Update the current logged user.
-     *
-     * @param UserUpdateRequest $request
-     * @return \Illuminate\Http\JsonResponse
      */
-    public function updateMe(UserUpdateRequest $request)
+    public function updateMe(UserUpdateRequest $request): UserResource
     {
-        $user = auth()->user();
+        $user = $request->user();
         return $this->update($request, $user);
     }
 
     /**
      * Update an user.
-     *
-     * @param UserUpdateRequest $request
-     * @param User              $user
-     * @return \Illuminate\Http\JsonResponse
      */
-    public function update(UserUpdateRequest $request, User $user)
+    public function update(UserUpdateRequest $request, User $user): UserResource
     {
         $data = $request->validated();
         $response = $this->userRepository->update($user, $data);
@@ -111,13 +92,10 @@ class UserController extends Controller
 
     /**
      * Update password of logged user.
-     *
-     * @param PasswordUpdateRequest $request
-     * @return \Illuminate\Http\JsonResponse
      */
-    public function updatePassword(PasswordUpdateRequest $request)
+    public function updatePassword(PasswordUpdateRequest $request): UserResource
     {
-        $user = auth()->user();
+        $user = $request->user();
         $data = $request->only(['password']);
 
         $response = $this->userRepository->update($user, $data);

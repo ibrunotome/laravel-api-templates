@@ -19,7 +19,7 @@ class UserResource extends JsonResource
      * @param \Illuminate\Http\Request $request
      * @return array
      */
-    public function toArray($request)
+    public function toArray($request): array
     {
         if ($this->email_verified_at instanceof Carbon) {
             $this->email_verified_at = $this->email_verified_at->format('Y-m-d\TH:i:s');

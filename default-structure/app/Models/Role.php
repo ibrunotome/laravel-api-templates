@@ -9,20 +9,20 @@ use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 /**
  * App\Models\Role
  *
- * @property string                                                                 $id
- * @property string                                                                 $name
- * @property string                                                                 $guard_name
- * @property \Illuminate\Support\Carbon|null                                        $created_at
- * @property \Illuminate\Support\Carbon|null                                        $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Audit[]      $audits
- * @property-read int|null                                                          $audits_count
+ * @property string $id
+ * @property string $name
+ * @property string $guard_name
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Audit[] $audits
+ * @property-read int|null $audits_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Permission[] $permissions
- * @property-read int|null                                                          $permissions_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[]       $users
- * @property-read int|null                                                          $users_count
+ * @property-read int|null $permissions_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $users
+ * @property-read int|null $users_count
  * @method static Builder|Role newModelQuery()
  * @method static Builder|Role newQuery()
- * @method static Builder|\Spatie\Permission\Models\Role permission($permissions)
+ * @method static \Illuminate\Database\Eloquent\Builder|Role permission($permissions)
  * @method static Builder|Role query()
  * @method static Builder|Role whereCreatedAt($value)
  * @method static Builder|Role whereGuardName($value)

@@ -9,7 +9,7 @@ class UserUpdateRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         $id = $this->segment(2) === 'me' ? auth()->id() : $this->segment(3);
 
@@ -21,7 +21,7 @@ class UserUpdateRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         $ignoreId = $this->segment(2) === 'me' ? auth()->id() : $this->segment(3);
 

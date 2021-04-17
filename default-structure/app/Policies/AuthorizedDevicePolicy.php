@@ -12,78 +12,56 @@ class AuthorizedDevicePolicy
 
     /**
      * Determine whether the user can view a list of model.
-     *
-     * @param \App\Models\User $user
-     * @return mixed
      */
-    public function viewAny(User $user)
+    public function viewAny(User $user): bool
     {
         return $user->can('view any authorized devices');
     }
 
     /**
      * Determine whether the user can view the model.
-     *
-     * @param \App\Models\User             $user
-     * @param \App\Models\AuthorizedDevice $model
-     * @return mixed
      */
-    public function view(User $user, AuthorizedDevice $model)
+    public function view(User $user, AuthorizedDevice $model): bool
     {
         return $user->can('view authorized devices') || $user->id === $model->user_id;
     }
 
     /**
      * Determine whether the user can create models.
-     *
-     * @return mixed
      */
-    public function create()
+    public function create(): bool
     {
         return false;
     }
 
     /**
      * Determine whether the user can update the model.
-     *
-     * @param \App\Models\User             $user
-     * @param \App\Models\AuthorizedDevice $model
-     * @return mixed
      */
-    public function update(User $user, AuthorizedDevice $model)
+    public function update(User $user, AuthorizedDevice $model): bool
     {
         return $user->can('update authorized devices') || $user->id === $model->user_id;
     }
 
     /**
      * Determine whether the user can delete the model.
-     *
-     * @param \App\Models\User $user
-     * @return mixed
      */
-    public function delete(User $user)
+    public function delete(User $user): bool
     {
         return $user->can('delete authorized devices');
     }
 
     /**
      * Determine whether the user can restore the model.
-     *
-     * @param \App\Models\User $user
-     * @return mixed
      */
-    public function restore(User $user)
+    public function restore(User $user): bool
     {
         return $user->can('restore authorized devices');
     }
 
     /**
      * Determine whether the user can permanently delete the model.
-     *
-     * @param \App\Models\User $user
-     * @return mixed
      */
-    public function forceDelete(User $user)
+    public function forceDelete(User $user): bool
     {
         return $user->can('force delete authorized devices');
     }

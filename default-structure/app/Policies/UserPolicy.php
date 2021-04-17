@@ -11,79 +11,56 @@ class UserPolicy
 
     /**
      * Determine whether the user can view a list of model.
-     *
-     * @param \App\Models\User $user
-     * @return mixed
      */
-    public function viewAny(User $user)
+    public function viewAny(User $user): bool
     {
         return $user->can('view any users');
     }
 
     /**
      * Determine whether the user can view the model.
-     *
-     * @param \App\Models\User $user
-     * @param \App\Models\User $model
-     * @return mixed
      */
-    public function view(User $user, User $model)
+    public function view(User $user, User $model): bool
     {
         return $user->can('view users') || $user->id === $model->id;
     }
 
     /**
      * Determine whether the user can create models.
-     *
-     * @param \App\Models\User $user
-     * @return mixed
      */
-    public function create(User $user)
+    public function create(User $user): bool
     {
         return $user->can('create users');
     }
 
     /**
      * Determine whether the user can update the model.
-     *
-     * @param \App\Models\User $user
-     * @param \App\Models\User $model
-     * @return mixed
      */
-    public function update(User $user, User $model)
+    public function update(User $user, User $model): bool
     {
         return $user->can('update users') || $user->id === $model->id;
     }
 
     /**
      * Determine whether the user can delete the model.
-     *
-     * @param \App\Models\User $user
-     * @return mixed
      */
-    public function delete(User $user)
+    public function delete(User $user): bool
     {
         return $user->can('delete users');
     }
 
     /**
      * Determine whether the user can restore the model.
-     *
-     * @param \App\Models\User $user
-     * @return mixed
      */
-    public function restore(User $user)
+    public function restore(User $user): bool
     {
         return $user->can('restore users');
     }
 
     /**
      * Determine whether the user can permanently delete the model.
-     *
-     * @param \App\Models\User $user
-     * @return mixed
      */
-    public function forceDelete(User $user)
+    public function forceDelete(User $user): bool
     {
         return $user->can('force delete users');
     }

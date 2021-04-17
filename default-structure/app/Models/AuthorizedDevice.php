@@ -13,26 +13,27 @@ use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 /**
  * App\Models\AuthorizedDevice
  *
- * @property string                                                            $id
- * @property string                                                            $device
- * @property string                                                            $platform
- * @property string|null                                                       $platform_version
- * @property string                                                            $browser
- * @property string|null                                                       $browser_version
- * @property string|null                                                       $city
- * @property string|null                                                       $country_name
- * @property string                                                            $authorization_token
- * @property string|null                                                       $authorized_at
- * @property \Illuminate\Support\Carbon|null                                   $created_at
- * @property \Illuminate\Support\Carbon|null                                   $updated_at
- * @property \Illuminate\Support\Carbon|null                                   $deleted_at
- * @property string                                                            $user_id
+ * @property string $id
+ * @property string $device
+ * @property string $platform
+ * @property string|null $platform_version
+ * @property string $browser
+ * @property string|null $browser_version
+ * @property string|null $city
+ * @property string|null $country_name
+ * @property string $authorization_token
+ * @property string|null $authorized_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property string $user_id
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Audit[] $audits
- * @property-read int|null                                                     $audits_count
- * @property-read \App\Models\User                                             $user
+ * @property-read int|null $audits_count
+ * @property-read \App\Models\User $user
+ * @method static \Database\Factories\AuthorizedDeviceFactory factory(...$parameters)
  * @method static Builder|AuthorizedDevice newModelQuery()
  * @method static Builder|AuthorizedDevice newQuery()
- * @method static Builder|AuthorizedDevice onlyTrashed()
+ * @method static \Illuminate\Database\Query\Builder|AuthorizedDevice onlyTrashed()
  * @method static Builder|AuthorizedDevice query()
  * @method static Builder|AuthorizedDevice whereAuthorizationToken($value)
  * @method static Builder|AuthorizedDevice whereAuthorizedAt($value)
@@ -48,8 +49,8 @@ use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
  * @method static Builder|AuthorizedDevice wherePlatformVersion($value)
  * @method static Builder|AuthorizedDevice whereUpdatedAt($value)
  * @method static Builder|AuthorizedDevice whereUserId($value)
- * @method static Builder|AuthorizedDevice withTrashed()
- * @method static Builder|AuthorizedDevice withoutTrashed()
+ * @method static \Illuminate\Database\Query\Builder|AuthorizedDevice withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|AuthorizedDevice withoutTrashed()
  * @mixin \Eloquent
  */
 class AuthorizedDevice extends Model implements AuditableContract

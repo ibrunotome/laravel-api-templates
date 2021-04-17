@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 
 class UtilController extends Controller
 {
-    public function serverTime()
+    public function serverTime(): JsonResponse
     {
         $now = now();
         $milliseconds = substr((string)$now->micro, 0, 3);

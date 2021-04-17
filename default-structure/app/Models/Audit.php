@@ -8,21 +8,21 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\Audit
  *
- * @property string                                             $id
- * @property string|null                                        $user_id
- * @property string|null                                        $user_type
- * @property string                                             $event
- * @property string                                             $auditable_id
- * @property string                                             $auditable_type
- * @property array|null                                         $old_values
- * @property array|null                                         $new_values
- * @property string|null                                        $url
- * @property string|null                                        $ip_address
- * @property string|null                                        $user_agent
- * @property string|null                                        $tags
- * @property \Illuminate\Support\Carbon                         $created_at
- * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $auditable
- * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $user
+ * @property string $id
+ * @property string|null $user_id
+ * @property string|null $user_type
+ * @property string $event
+ * @property string $auditable_id
+ * @property string $auditable_type
+ * @property array|null $old_values
+ * @property array|null $new_values
+ * @property string|null $url
+ * @property string|null $ip_address
+ * @property string|null $user_agent
+ * @property string|null $tags
+ * @property \Illuminate\Support\Carbon $created_at
+ * @property-read Model|\Eloquent $auditable
+ * @property-read Model|\Eloquent $user
  * @method static Builder|Audit newModelQuery()
  * @method static Builder|Audit newQuery()
  * @method static Builder|Audit query()
