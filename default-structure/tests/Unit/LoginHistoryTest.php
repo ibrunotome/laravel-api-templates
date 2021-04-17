@@ -14,8 +14,8 @@ class LoginHistoryTest extends TestCase
     {
         parent::setUp();
 
-        $user = factory(User::class)->create();
-        $this->loginHistory = factory(LoginHistory::class)->make(['user_id' => $user->id]);
+        $user = User::factory()->create();
+        $this->loginHistory = LoginHistory::factory()->make(['user_id' => $user->id]);
     }
 
     public function testUserRelationship()

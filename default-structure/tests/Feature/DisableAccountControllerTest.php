@@ -10,7 +10,7 @@ class DisableAccountControllerTest extends TestCase
 {
     public function testDisableAccount()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $this->postJson(route('api.account.disable', [$user->email_token_disable_account]))
             ->assertOk()
@@ -19,7 +19,7 @@ class DisableAccountControllerTest extends TestCase
 
     public function testDisableAccountWillFailBecauseMethodNotAllowed()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $this->putJson(route('api.account.disable', [$user->email_token_disable_account]))
             ->assertStatus(Response::HTTP_METHOD_NOT_ALLOWED)
@@ -28,7 +28,7 @@ class DisableAccountControllerTest extends TestCase
 
     public function testTooManyRequests()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $this->postJson(route('api.account.disable', [$user->email_token_disable_account]))
             ->assertOk();

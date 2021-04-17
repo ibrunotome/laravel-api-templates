@@ -15,18 +15,18 @@ class UserTest extends TestCase
     {
         parent::setUp();
 
-        $this->user = factory(User::class)->create();
+        $this->user = User::factory()->create();
     }
 
     public function testLoginHistoriesRelationship()
     {
-        factory(LoginHistory::class)->create(['user_id' => $this->user->id]);
+        LoginHistory::factory()->create(['user_id' => $this->user->id]);
         $this->assertNotNull($this->user->loginHistories);
     }
 
     public function testAuthorizedDevicesRelationship()
     {
-        factory(AuthorizedDevice::class)->create(['user_id' => $this->user->id]);
+        AuthorizedDevice::factory()->create(['user_id' => $this->user->id]);
         $this->assertNotNull($this->user->authorizedDevices);
     }
 }

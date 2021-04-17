@@ -20,7 +20,7 @@ class UserRegisteredListenerTest extends TestCase
         parent::setUp();
 
         $this->userRegisteredListener = $this->app->make(UserRegisteredListener::class);
-        $this->user = factory(User::class)->create();
+        $this->user = User::factory()->create();
     }
 
     public function testHandle()

@@ -18,7 +18,7 @@ class TwoFactorAuthenticationWasDisabledListenerTest extends TestCase
         parent::setUp();
 
         $this->twoFactorAuthenticationWasDisabledListener = $this->app->make(TwoFactorAuthenticationWasDisabledListener::class);
-        $this->user = factory(User::class)->create();
+        $this->user = User::factory()->create();
     }
 
     public function testHandle()

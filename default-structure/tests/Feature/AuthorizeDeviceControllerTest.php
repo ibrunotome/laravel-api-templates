@@ -12,20 +12,12 @@ class AuthorizeDeviceControllerTest extends TestCase
 {
     public function testAuthorizeDevice()
     {
-        /**
-         * @var User $user
-         */
-        $user = factory(User::class)->states([
-            'email_unverified',
-        ])->create([
+        $user = User::factory()->emailUnverified()->create([
             'email'    => 'test@test.com',
             'password' => bcrypt('secretxxx'),
         ]);
 
-        /**
-         * @var AuthorizedDevice $authorizedDevice
-         */
-        $authorizedDevice = factory(AuthorizedDevice::class)->create([
+        $authorizedDevice = AuthorizedDevice::factory()->create([
             'device'           => 'device',
             'platform'         => 'platform',
             'platform_version' => 'platform_version',
@@ -42,12 +34,8 @@ class AuthorizeDeviceControllerTest extends TestCase
 
     public function testCannotAuthorizeDeviceBecauseItsAlreadyAuthorized()
     {
-        /**
-         * @var User $user
-         */
-        factory(User::class)->states([
-            'email_unverified',
-        ])->create([
+
+        User::factory()->emailUnverified()->create([
             'email'    => 'test@test.com',
             'password' => bcrypt('secretxxx'),
         ]);
@@ -59,20 +47,12 @@ class AuthorizeDeviceControllerTest extends TestCase
 
     public function testDestroyAuthorizedDevice()
     {
-        /**
-         * @var User $user
-         */
-        $user = factory(User::class)->states([
-            'email_unverified',
-        ])->create([
+        $user = User::factory()->emailUnverified()->create([
             'email'    => 'test@test.com',
             'password' => bcrypt('secretxxx'),
         ]);
 
-        /**
-         * @var AuthorizedDevice $authorizedDevice
-         */
-        $authorizedDevice = factory(AuthorizedDevice::class)->create([
+        $authorizedDevice = AuthorizedDevice::factory()->create([
             'device'           => 'device',
             'platform'         => 'platform',
             'platform_version' => 'platform_version',

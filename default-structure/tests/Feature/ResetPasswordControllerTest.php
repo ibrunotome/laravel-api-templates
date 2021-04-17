@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Password;
 use Tests\TestCase;
 
-class PasswordResetTest extends TestCase
+class ResetPasswordControllerTest extends TestCase
 {
     use WithFaker;
 
@@ -21,7 +21,7 @@ class PasswordResetTest extends TestCase
     {
         parent::setUp();
 
-        $this->user = factory(User::class)->create();
+        $this->user = User::factory()->create();
     }
 
     public function testSubmitPasswordReset()

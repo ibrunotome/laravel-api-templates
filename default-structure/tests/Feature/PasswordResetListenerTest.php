@@ -18,7 +18,7 @@ class PasswordResetListenerTest extends TestCase
         parent::setUp();
 
         $this->passwordResetListener = $this->app->make(PasswordResetListener::class);
-        $this->user = factory(User::class)->create();
+        $this->user = User::factory()->create();
     }
 
     public function testHandle()
