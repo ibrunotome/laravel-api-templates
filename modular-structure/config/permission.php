@@ -1,5 +1,8 @@
 <?php
 
+use App\Domain\Users\Entities\Permission;
+use App\Domain\Users\Entities\Role;
+
 return [
 
     'models' => [
@@ -13,7 +16,7 @@ return [
          * `Spatie\Permission\Contracts\Permission` contract.
          */
 
-        'permission' => \App\Domain\Users\Entities\Permission::class,
+        'permission' => Permission::class,
 
         /*
          * When using the "HasRoles" trait from this package, we need to know which
@@ -24,7 +27,7 @@ return [
          * `Spatie\Permission\Contracts\Role` contract.
          */
 
-        'role' => \App\Domain\Users\Entities\Role::class,
+        'role' => Role::class,
 
     ],
 
@@ -112,7 +115,7 @@ return [
          * instance to the check, this key determines what attribute on the
          * Permissions model is used to cache against.
          *
-         * Ideally, this should match your modular-structure way of checking permissions, eg:
+         * Ideally, this should match your preferred way of checking permissions, eg:
          * `$user->can('view-posts')` would be 'name'.
          */
 

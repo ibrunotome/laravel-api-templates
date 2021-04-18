@@ -12,14 +12,12 @@ class AuthorizeDeviceControllerTest extends TestCase
 {
     public function testAuthorizeDevice()
     {
-        $user = factory(User::class)->states([
-            'email_unverified',
-        ])->create([
+        $user = User::factory()->emailUnverified()->create([
             'email'    => 'test@test.com',
             'password' => bcrypt('secretxxx'),
         ]);
 
-        $authorizedDevice = factory(AuthorizedDevice::class)->create([
+        $authorizedDevice = AuthorizedDevice::factory()->create([
             'device'           => 'device',
             'platform'         => 'platform',
             'platform_version' => 'platform_version',
@@ -36,9 +34,7 @@ class AuthorizeDeviceControllerTest extends TestCase
 
     public function testCannotAuthorizeDeviceBecauseItsAlreadyAuthorized()
     {
-        factory(User::class)->states([
-            'email_unverified',
-        ])->create([
+        User::factory()->emailUnverified()->create([
             'email'    => 'test@test.com',
             'password' => bcrypt('secretxxx'),
         ]);
@@ -50,14 +46,12 @@ class AuthorizeDeviceControllerTest extends TestCase
 
     public function testDestroyAuthorizedDevice()
     {
-        $user = factory(User::class)->states([
-            'email_unverified',
-        ])->create([
+        $user = User::factory()->emailUnverified()->create([
             'email'    => 'test@test.com',
             'password' => bcrypt('secretxxx'),
         ]);
 
-        $authorizedDevice = factory(AuthorizedDevice::class)->create([
+        $authorizedDevice = AuthorizedDevice::factory()->create([
             'device'           => 'device',
             'platform'         => 'platform',
             'platform_version' => 'platform_version',

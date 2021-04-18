@@ -59,7 +59,7 @@ class RegisterControllerTest extends TestCase
 
     public function testCannotRegisterBecauseEmailAlreadyRegistered()
     {
-        factory(User::class)->create([
+        User::factory()->create([
             'email'    => 'test@test.com',
             'password' => bcrypt('secretxxx'),
         ]);
@@ -75,7 +75,7 @@ class RegisterControllerTest extends TestCase
 
     public function testVerifyEmail()
     {
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'is_active'                => 1,
             'email_verified_at'        => null,
             'email_token_confirmation' => Uuid::uuid4(),
@@ -90,7 +90,7 @@ class RegisterControllerTest extends TestCase
 
     public function testInvalidVerifyEmailToken()
     {
-        factory(User::class)->create([
+        User::factory()->create([
             'is_active'         => 1,
             'email_verified_at' => null,
             'email'             => 'test@test.com',

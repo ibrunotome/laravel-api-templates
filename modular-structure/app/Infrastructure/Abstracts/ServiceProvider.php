@@ -67,7 +67,6 @@ abstract class ServiceProvider extends LaravelServiceProvider
     {
         $this->registerPolicies();
         $this->registerCommands();
-        $this->registerFactories();
         $this->registerMigrations();
         $this->registerTranslations();
     }
@@ -93,18 +92,6 @@ abstract class ServiceProvider extends LaravelServiceProvider
     {
         if ($this->hasCommands && config('register.commands')) {
             $this->commands($this->commands);
-        }
-    }
-
-    /**
-     * Register Model Factories.
-     */
-    protected function registerFactories()
-    {
-        if ($this->hasFactories && config('register.factories')) {
-            collect($this->factories)->each(function ($factoryName) {
-                (new $factoryName())->define();
-            });
         }
     }
 

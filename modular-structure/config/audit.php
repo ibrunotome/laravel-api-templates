@@ -12,6 +12,9 @@
  * please view the LICENSE.md file that was distributed
  * with this source code.
  */
+
+use App\Domain\Audits\Entities\Audit;
+
 return [
 
     /*
@@ -23,7 +26,7 @@ return [
     |
     */
 
-    'implementation' => App\Domain\Audits\Entities\Audit::class,
+    'implementation' => Audit::class,
 
     /*
     |--------------------------------------------------------------------------

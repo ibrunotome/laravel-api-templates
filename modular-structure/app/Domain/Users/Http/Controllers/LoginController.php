@@ -16,7 +16,6 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Notification;
 use Jenssegers\Agent\Agent;
-use Sujip\Ipstack\Ipstack;
 
 class LoginController extends Controller
 {
@@ -140,7 +139,7 @@ class LoginController extends Controller
         $agent->setUserAgent($request->userAgent());
         $agent->setHttpHeaders($request->headers);
 
-        $ipstack = new Ipstack($request->ip());
+        $geoip = geoip($request->ip());
 
         return [
             'user_id'          => auth()->id(),
@@ -150,16 +149,15 @@ class LoginController extends Controller
             'platform_version' => $agent->version($agent->platform()),
             'browser'          => $agent->browser(),
             'browser_version'  => $agent->version($agent->browser()),
-            'city'             => $ipstack->city(),
-            'region_code'      => $ipstack->regionCode(),
-            'region_name'      => $ipstack->region(),
-            'country_code'     => $ipstack->countryCode(),
-            'country_name'     => $ipstack->country(),
-            'continent_code'   => $ipstack->continentCode(),
-            'continent_name'   => $ipstack->continent(),
-            'latitude'         => $ipstack->latitude(),
-            'longitude'        => $ipstack->longitude(),
-            'zipcode'          => $ipstack->zip(),
+            'city'             => $geoip->getAttribute('city'),
+            'region_code'      => $geoip->getAttribute('state'),
+            'region_name'      => $geoip->getAttribute('state_name'),
+            'country_code'     => $geoip->getAttribute('iso_code'),
+            'country_name'     => $geoip->getAttribute('country'),
+            'continent_code'   => $geoip->getAttribute('continent'),
+            'latitude'         => $geoip->getAttribute('lat'),
+            'longitude'        => $geoip->getAttribute('lon'),
+            'zipcode'          => $geoip->getAttribute('postal_code'),
         ];
     }
 

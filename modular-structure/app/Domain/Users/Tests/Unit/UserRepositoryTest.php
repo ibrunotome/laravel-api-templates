@@ -16,7 +16,7 @@ class UserRepositoryTest extends TestCase
     {
         parent::setUp();
 
-        $this->user = factory(User::class)->create();
+        $this->user = User::factory()->create();
         $this->userRepository = $this->app->make(UserRepository::class);
     }
 

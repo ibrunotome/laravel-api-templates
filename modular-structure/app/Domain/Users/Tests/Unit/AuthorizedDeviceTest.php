@@ -14,8 +14,8 @@ class AuthorizedDeviceTest extends TestCase
     {
         parent::setUp();
 
-        $user = factory(User::class)->create();
-        $this->authorizedDevice = factory(AuthorizedDevice::class)->make(['user_id' => $user->id]);
+        $user = User::factory()->create();
+        $this->authorizedDevice = AuthorizedDevice::factory()->make(['user_id' => $user->id]);
     }
 
     public function testUserRelationship()

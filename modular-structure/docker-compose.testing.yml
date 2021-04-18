@@ -23,19 +23,19 @@ services:
       - redis
 
   pgsql:
-    image: launcher.gcr.io/google/postgresql11
+    image: launcher.gcr.io/google/postgresql13
     container_name: modular-structure-pgsql-testing
     ports:
       - 5432:5432
     environment:
-      POSTGRES_DB: default_testing
-      POSTGRES_USER: default_testing
-      POSTGRES_PASSWORD: default_testing
+      POSTGRES_DB: modular_testing
+      POSTGRES_USER: modular_testing
+      POSTGRES_PASSWORD: modular_testing
     volumes:
       - pg-testing-data:/var/lib/postgresql/data
 
   redis:
-    image: redis:5.0.5-alpine
+    image: library/redis:6.0.10-alpine
     container_name: modular-structure-redis-testing
     restart: always
     ports:
