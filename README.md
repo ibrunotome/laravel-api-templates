@@ -1,5 +1,5 @@
 <p align="center">
-<img src="https://user-images.githubusercontent.com/4256471/88491449-4131da00-cf79-11ea-8620-04928cf52bf8.png" width="400px">
+<img src="https://user-images.githubusercontent.com/4256471/115145753-888d5880-a029-11eb-9d26-37c8638823e7.png" width="400px">
 <br>
 A Laravel API starter kit collection using different structures.
 </p>
@@ -31,7 +31,7 @@ This is a starter kit for your next API using Laravel, implemented with more tha
 - Device authorization
 - Etag
 - Horizon
-- Laravel [7.x](https://github.com/ibrunotome/laravel-api-templates/tree/v7.x), [6.x](https://github.com/ibrunotome/laravel-api-templates/tree/v6.x), [5.8](https://github.com/ibrunotome/laravel-api-templates/tree/v5.8)
+- Laravel [8.x](https://github.com/ibrunotome/laravel-api-templates/tree/v8.x), [7.x](https://github.com/ibrunotome/laravel-api-templates/tree/v7.x), [6.x](https://github.com/ibrunotome/laravel-api-templates/tree/v6.x), [5.8](https://github.com/ibrunotome/laravel-api-templates/tree/v5.8)
 - Login
 - Login history
 - Multiple localizations, preconfigured with en_US and pt_BR

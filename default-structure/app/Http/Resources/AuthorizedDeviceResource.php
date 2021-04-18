@@ -12,7 +12,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
  */
 class AuthorizedDeviceResource extends JsonResource
 {
-    public function toArray($request)
+    public function toArray($request): array
     {
         if ($this->authorized_at instanceof Carbon) {
             $this->authorized_at = $this->authorized_at->format('Y-m-d\TH:i:s');

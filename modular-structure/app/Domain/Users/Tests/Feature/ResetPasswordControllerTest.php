@@ -21,7 +21,7 @@ class PasswordResetTest extends TestCase
     {
         parent::setUp();
 
-        $this->user = factory(User::class)->create();
+        $this->user = User::factory()->create();
     }
 
     public function testSubmitPasswordReset()

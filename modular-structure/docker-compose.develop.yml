@@ -78,9 +78,9 @@ services:
     ports:
       - 5432:5432
     environment:
-      POSTGRES_DB: default
-      POSTGRES_USER: default
-      POSTGRES_PASSWORD: default
+      POSTGRES_DB: modular
+      POSTGRES_USER: modular
+      POSTGRES_PASSWORD: modular
     volumes:
       - pg-data:/var/lib/postgresql/data
 

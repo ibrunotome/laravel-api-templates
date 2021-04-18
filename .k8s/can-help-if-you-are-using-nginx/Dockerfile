@@ -1,4 +1,4 @@
-FROM ibrunotome/php:7.4-fpm
+FROM ibrunotome/php:8.0-fpm
 
 ARG COMPOSER_FLAGS
 

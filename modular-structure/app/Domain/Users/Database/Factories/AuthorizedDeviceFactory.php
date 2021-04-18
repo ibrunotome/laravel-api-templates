@@ -3,18 +3,18 @@
 namespace App\Domain\Users\Database\Factories;
 
 use App\Domain\Users\Entities\AuthorizedDevice;
-use App\Infrastructure\Abstracts\ModelFactory;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Ramsey\Uuid\Uuid;
 
-class AuthorizedDeviceFactory extends ModelFactory
+class AuthorizedDeviceFactory extends Factory
 {
-    protected string $model = AuthorizedDevice::class;
+    protected $model = AuthorizedDevice::class;
 
-    public function fields()
+    public function definition(): array
     {
         return [
-            'id'                  => Uuid::uuid4(),
-            'authorization_token' => Uuid::uuid4(),
+            'id'                  => Uuid::uuid4()->toString(),
+            'authorization_token' => Uuid::uuid4()->toString(),
             'device'              => $this->faker->phoneNumber,
             'platform'            => $this->faker->phoneNumber,
             'browser'             => $this->faker->randomElement([
@@ -24,9 +24,5 @@ class AuthorizedDeviceFactory extends ModelFactory
                 'brave',
             ]),
         ];
-    }
-
-    public function states()
-    {
     }
 }

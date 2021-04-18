@@ -30,17 +30,24 @@ spec:
           args:
             - -c
             - |
-              sleep 12
+              sleep 5
               php artisan migrate --force
-              php artisan config:cache
+              php artisan optimize
+              php artisan view:cache
+              ln -s public html
+              ln -s /var/www /usr/share/nginx
+              cp -r /var/www/public/. /static
               php artisan horizon --quiet
           envFrom:
             - secretRef:
                 name: env
           resources:
             requests:
-              cpu: 50m
-              memory: 320Mi
+              cpu: 100m
+              memory: 512Mi
+          volumeMounts:
+            - name: static
+              mountPath: /static
 
         - name: cloudsql-proxy
           image: gcr.io/cloudsql-docker/gce-proxy:latest
@@ -49,14 +56,18 @@ spec:
                     "-credential_file=/secrets/cloudsql/cloudsqlproxy.json"]
           resources:
             requests:
-              cpu: 2m
-              memory: 8Mi
+              cpu: 10m
+              memory: 12Mi
           volumeMounts:
             - name: cloudsql-instance-credentials
               mountPath: /secrets/cloudsql
               readOnly: true
 
       volumes:
+        - name: static
+          nfs:
+            server: nfs-server.seguidores.svc.cluster.local
+            path: "/static"
         - name: cloudsql-instance-credentials
           secret:
             secretName: cloudsql-instance-credentials

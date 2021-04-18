@@ -17,14 +17,14 @@ class UsersTableSeed extends Seeder
      */
     public function run()
     {
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'email'             => 'test@test.com',
             'email_verified_at' => now(),
         ]);
 
         $user->assignRole(Role::ADMIN);
 
-        factory(LoginHistory::class)->create(['user_id' => $user]);
-        factory(AuthorizedDevice::class)->create(['user_id' => $user]);
+        LoginHistory::factory()->create(['user_id' => $user]);
+        AuthorizedDevice::factory()->create(['user_id' => $user]);
     }
 }

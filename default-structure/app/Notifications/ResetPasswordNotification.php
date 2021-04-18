@@ -17,7 +17,7 @@ class ResetPasswordNotification extends Notification implements ShouldQueue
         $this->onQueue('notifications');
     }
 
-    public function via($notifiable)
+    public function via($notifiable): array
     {
         return ['mail'];
     }
@@ -25,7 +25,7 @@ class ResetPasswordNotification extends Notification implements ShouldQueue
     /**
      * {@inheritdoc}
      */
-    public function toMail($notifiable)
+    public function toMail($notifiable): MailMessage
     {
         $antiPhishingCode = $notifiable->anti_phishing_code ?? null;
         $disableAccountToken = $notifiable->email_token_disable_account ?? null;

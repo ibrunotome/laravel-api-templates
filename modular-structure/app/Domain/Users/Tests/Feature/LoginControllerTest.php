@@ -14,7 +14,7 @@ class LoginControllerTest extends TestCase
     {
         parent::setUp();
 
-        $this->user = factory(User::class)->create();
+        $this->user = User::factory()->create();
     }
 
     public function testLogin()
@@ -68,7 +68,7 @@ class LoginControllerTest extends TestCase
 
     public function testCannotLoginBecauseEmailIsNotVerified()
     {
-        $this->user = factory(User::class)->states('email_unverified')->create();
+        $this->user = User::factory()->emailUnverified()->create();
 
         $this
             ->postJson(route('api.auth.login'), [
@@ -80,7 +80,7 @@ class LoginControllerTest extends TestCase
 
     public function testCannotLoginBecauseAccountIsInactive()
     {
-        $this->user = factory(User::class)->states('inactive')->create();
+        $this->user = User::factory()->inactive()->create();
 
         $this
             ->postJson(route('api.auth.login'), [

@@ -5,11 +5,12 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\AuthorizedDevice;
 use Exception;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 
 class AuthorizeDeviceController extends Controller
 {
-    public function authorizeDevice(string $token)
+    public function authorizeDevice(string $token): JsonResponse
     {
         $authorizedDevice = AuthorizedDevice::query()
             ->withoutGlobalScopes()
@@ -31,7 +32,7 @@ class AuthorizeDeviceController extends Controller
         return $this->respondWithCustomData(['message' => $message], Response::HTTP_BAD_REQUEST);
     }
 
-    public function destroy(string $id)
+    public function destroy(string $id): JsonResponse
     {
         $model = AuthorizedDevice::findOrFail($id);
 

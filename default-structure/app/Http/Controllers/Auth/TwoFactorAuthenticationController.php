@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Contracts\ProfileRepository;
 use App\Events\TwoFactorAuthenticationWasDisabled;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DisableTwoFactorAuthenticationRequest;
@@ -29,7 +28,7 @@ class TwoFactorAuthenticationController extends Controller
     {
         $twoFactorAuthentication = new TwoFactorAuthenticator($request);
 
-        $user = auth()->user();
+        $user = $request->user();
 
         $user->google2fa_enable = false;
         $user->google2fa_secret = $twoFactorAuthentication->generateSecretKey(32);
@@ -59,7 +58,7 @@ class TwoFactorAuthenticationController extends Controller
         $twoFactorAuthentication = new TwoFactorAuthenticator($request);
         $secret = $request->input('one_time_password');
 
-        $user = auth()->user();
+        $user = $request->user();
 
         try {
             $valid = $twoFactorAuthentication->verifyKey($user->google2fa_secret, $secret);
@@ -95,7 +94,7 @@ class TwoFactorAuthenticationController extends Controller
      */
     public function disable2fa(DisableTwoFactorAuthenticationRequest $request)
     {
-        $user = auth()->user();
+        $user = $request->user();
 
         if (!Hash::check($request->get('password'), $user->password)) {
             return $this->respondWithCustomData(

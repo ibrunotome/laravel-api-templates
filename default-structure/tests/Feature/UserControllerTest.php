@@ -19,7 +19,7 @@ class UserControllerTest extends TestCase
     {
         parent::setUp();
 
-        $this->user = factory(User::class)->create();
+        $this->user = User::factory()->create();
     }
 
     /**
@@ -106,8 +106,8 @@ class UserControllerTest extends TestCase
             'unreadnotifications',
         ];
 
-        factory(LoginHistory::class)->create(['user_id' => $this->user->id]);
-        factory(AuthorizedDevice::class)->create(['user_id' => $this->user->id]);
+        LoginHistory::factory()->create(['user_id' => $this->user->id]);
+        AuthorizedDevice::factory()->create(['user_id' => $this->user->id]);
 
         $this->actingAs($this->user)
             ->getJson(route('api.me') . '?include=' . implode(',', $includes))
@@ -134,9 +134,9 @@ class UserControllerTest extends TestCase
             'unreadnotifications',
         ];
 
-        $user2 = factory(User::class)->create();
-        factory(LoginHistory::class)->create(['user_id' => $user2->id]);
-        factory(AuthorizedDevice::class)->create(['user_id' => $user2->id]);
+        $user2 = User::factory()->create();
+        LoginHistory::factory()->create(['user_id' => $user2->id]);
+        AuthorizedDevice::factory()->create(['user_id' => $user2->id]);
 
         $this
             ->actingAs($this->user)
@@ -183,7 +183,7 @@ class UserControllerTest extends TestCase
      */
     public function testCannotShowBecauseUnauthorized()
     {
-        $user2 = factory(User::class)->create();
+        $user2 = User::factory()->create();
 
         $this
             ->actingAs($this->user)
@@ -217,7 +217,7 @@ class UserControllerTest extends TestCase
     {
         Permission::create(['name' => 'update users']);
 
-        $user2 = factory(User::class)->create();
+        $user2 = User::factory()->create();
 
         $this
             ->actingAs($this->user)

@@ -2,20 +2,21 @@
 
 namespace App\Domain\Audits\Policies;
 
+use App\Domain\Users\Entities\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class AuditPolicy
 {
     use HandlesAuthorization;
 
-    public function viewAny(): bool
+    public function viewAny(User $user): bool
     {
-        return auth()->user()->hasPermissionTo('audits_list');
+        return $user->hasPermissionTo('audits_list');
     }
 
-    public function view(): bool
+    public function view(User $user): bool
     {
-        return auth()->user()->hasPermissionTo('audits_view');
+        return $user->hasPermissionTo('audits_view');
     }
 
     public function create(): bool

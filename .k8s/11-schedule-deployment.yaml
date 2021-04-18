@@ -34,7 +34,7 @@ spec:
           resources:
             requests:
               cpu: 10m
-              memory: 32Mi
+              memory: 64Mi
 
         - name: cloudsql-proxy
           image: gcr.io/cloudsql-docker/gce-proxy:latest
@@ -43,8 +43,8 @@ spec:
                     "-credential_file=/secrets/cloudsql/cloudsqlproxy.json"]
           resources:
             requests:
-              cpu: 1m
-              memory: 8Mi
+              cpu: 10m
+              memory: 12Mi
           volumeMounts:
             - name: cloudsql-instance-credentials
               mountPath: /secrets/cloudsql

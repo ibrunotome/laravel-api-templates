@@ -9,6 +9,7 @@ use App\Infrastructure\Support\ExceptionFormat;
 use App\Infrastructure\Support\TwoFactorAuthenticator;
 use App\Interfaces\Http\Controllers\Controller;
 use Exception;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Cache;
@@ -20,15 +21,13 @@ class TwoFactorAuthenticationController extends Controller
     /**
      * Generate a new 2fa entry for current logged user.
      *
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
      * @throws \Exception
      */
-    public function generate2faSecret(Request $request)
+    public function generate2faSecret(Request $request): JsonResponse
     {
         $twoFactorAuthentication = new TwoFactorAuthenticator($request);
 
-        $user = auth()->user();
+        $user = $request->user();
 
         $user->google2fa_enable = false;
         $user->google2fa_secret = $twoFactorAuthentication->generateSecretKey(32);
@@ -49,16 +48,13 @@ class TwoFactorAuthenticationController extends Controller
 
     /**
      * Enable the previously generated 2fa.
-     *
-     * @param EnableTwoFactorAuthenticationRequest $request
-     * @return \Illuminate\Http\JsonResponse
      */
-    public function enable2fa(EnableTwoFactorAuthenticationRequest $request)
+    public function enable2fa(EnableTwoFactorAuthenticationRequest $request): JsonResponse
     {
         $twoFactorAuthentication = new TwoFactorAuthenticator($request);
         $secret = $request->input('one_time_password');
 
-        $user = auth()->user();
+        $user = $request->user();
 
         try {
             $valid = $twoFactorAuthentication->verifyKey($user->google2fa_secret, $secret);
@@ -87,13 +83,10 @@ class TwoFactorAuthenticationController extends Controller
 
     /**
      * Disable the 2fa of current logged user.
-     *
-     * @param DisableTwoFactorAuthenticationRequest $request
-     * @return \Illuminate\Http\JsonResponse
      */
-    public function disable2fa(DisableTwoFactorAuthenticationRequest $request)
+    public function disable2fa(DisableTwoFactorAuthenticationRequest $request): JsonResponse
     {
-        $user = auth()->user();
+        $user = $request->user();
 
         if (!Hash::check($request->get('password'), $user->password)) {
             return $this->respondWithCustomData(
@@ -117,11 +110,8 @@ class TwoFactorAuthenticationController extends Controller
 
     /**
      * If request pass of middleware, the OTP was successfully verified.
-     *
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
      */
-    public function verify2fa(Request $request)
+    public function verify2fa(Request $request): JsonResponse
     {
         Cache::tags('users:' . auth()->id())->flush();
 

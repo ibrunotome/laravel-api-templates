@@ -2,6 +2,8 @@
 
 namespace App\Domain\Users\Entities;
 
+use App\Domain\Users\Database\Factories\AuthorizedDeviceFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Query\Builder;
@@ -9,25 +11,25 @@ use OwenIt\Auditing\Auditable;
 use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 
 /**
- * Class AuthorizedDevice
+ * App\Domain\Users\Entities\AuthorizedDevice
  *
- * @property string                                                                                  $id
- * @property string                                                                                  $device
- * @property string                                                                                  $platform
- * @property string|null                                                                             $platform_version
- * @property string                                                                                  $browser
- * @property string|null                                                                             $browser_version
- * @property string|null                                                                             $city
- * @property string|null                                                                             $country_name
- * @property string                                                                                  $authorization_token
- * @property string|null                                                                             $authorized_at
- * @property \Illuminate\Support\Carbon|null                                                         $created_at
- * @property \Illuminate\Support\Carbon|null                                                         $updated_at
- * @property \Illuminate\Support\Carbon|null                                                         $deleted_at
- * @property string                                                                                  $user_id
+ * @property string $id
+ * @property string $device
+ * @property string $platform
+ * @property string|null $platform_version
+ * @property string $browser
+ * @property string|null $browser_version
+ * @property string|null $city
+ * @property string|null $country_name
+ * @property string $authorization_token
+ * @property string|null $authorized_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property string $user_id
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Domain\Audits\Entities\Audit[] $audits
- * @property-read int|null                                                                           $audits_count
- * @property-read \App\Domain\Users\Entities\User                                              $user
+ * @property-read int|null $audits_count
+ * @property-read \App\Domain\Users\Entities\User $user
  * @method static \Illuminate\Database\Eloquent\Builder|AuthorizedDevice newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|AuthorizedDevice newQuery()
  * @method static Builder|AuthorizedDevice onlyTrashed()
@@ -53,6 +55,7 @@ use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 class AuthorizedDevice extends Model implements AuditableContract
 {
     use Auditable;
+    use HasFactory;
     use SoftDeletes;
 
     protected static $unguarded = true;
@@ -66,6 +69,11 @@ class AuthorizedDevice extends Model implements AuditableContract
     protected $casts = [
         'id' => 'string',
     ];
+
+    protected static function newFactory()
+    {
+        return AuthorizedDeviceFactory::new();
+    }
 
     ################
     # Relationships

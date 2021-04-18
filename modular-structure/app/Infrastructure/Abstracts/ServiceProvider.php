@@ -11,52 +11,42 @@ abstract class ServiceProvider extends LaravelServiceProvider
     /**
      * @var string Alias for load tranlations and views
      */
-    protected $alias;
+    protected string $alias;
 
     /**
      * @var bool Set if will load commands
      */
-    protected $hasCommands = false;
-
-    /**
-     * @var bool Set if will load factories
-     */
-    protected $hasFactories = false;
+    protected bool $hasCommands = false;
 
     /**
      * @var bool Set if will load migrations
      */
-    protected $hasMigrations = false;
+    protected bool $hasMigrations = false;
 
     /**
      * @var bool Set if will load translations
      */
-    protected $hasTranslations = false;
+    protected bool $hasTranslations = false;
 
     /**
      * @var bool Set if will load policies
      */
-    protected $hasPolicies = false;
+    protected bool $hasPolicies = false;
 
     /**
      * @var array List of custom Artisan commands
      */
-    protected $commands = [];
-
-    /**
-     * @var array List of model factories to load
-     */
-    protected $factories = [];
+    protected array $commands = [];
 
     /**
      * @var array List of providers to load
      */
-    protected $providers = [];
+    protected array $providers = [];
 
     /**
      * @var array List of policies to load
      */
-    protected $policies = [];
+    protected array $policies = [];
 
     /**
      * Boot required registering of views and translations.
@@ -67,7 +57,6 @@ abstract class ServiceProvider extends LaravelServiceProvider
     {
         $this->registerPolicies();
         $this->registerCommands();
-        $this->registerFactories();
         $this->registerMigrations();
         $this->registerTranslations();
     }
@@ -97,18 +86,6 @@ abstract class ServiceProvider extends LaravelServiceProvider
     }
 
     /**
-     * Register Model Factories.
-     */
-    protected function registerFactories()
-    {
-        if ($this->hasFactories && config('register.factories')) {
-            collect($this->factories)->each(function ($factoryName) {
-                (new $factoryName())->define();
-            });
-        }
-    }
-
-    /**
      * Register domain migrations.
      *
      * @throws \ReflectionException
@@ -127,7 +104,7 @@ abstract class ServiceProvider extends LaravelServiceProvider
      * @return string
      * @throws \ReflectionException
      */
-    protected function domainPath($append = null)
+    protected function domainPath($append = null): string
     {
         $reflection = new ReflectionClass($this);
 

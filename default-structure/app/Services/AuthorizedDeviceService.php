@@ -17,7 +17,7 @@ class AuthorizedDeviceService
         $this->authorizedDeviceRepository = $authorizedDeviceRepository;
     }
 
-    public function store(User $user, array $data)
+    public function store(User $user, array $data): bool|array
     {
         $device = $this->authorizedDeviceRepository->findDeviceByCriteria($data);
 
@@ -50,7 +50,7 @@ class AuthorizedDeviceService
         return $this->storeAndAskAuthorizationForNewDevice($user, $data);
     }
 
-    private function storeAndAskAuthorizationForNewDevice(User $user, array $data)
+    private function storeAndAskAuthorizationForNewDevice(User $user, array $data): array
     {
         $device = $this->authorizedDeviceRepository->store([
             'device'              => $data['device'],

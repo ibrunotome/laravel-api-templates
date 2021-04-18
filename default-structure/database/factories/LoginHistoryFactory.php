@@ -1,10 +1,19 @@
 <?php
 
-use Faker\Generator as Faker;
+namespace Database\Factories;
+
+use App\Models\LoginHistory;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Ramsey\Uuid\Uuid;
 
-$factory->define(App\Models\LoginHistory::class, function (Faker $faker) {
-    return [
-        'id' => Uuid::uuid4(),
-    ];
-});
+class LoginHistoryFactory extends Factory
+{
+    protected $model = LoginHistory::class;
+
+    public function definition(): array
+    {
+        return [
+            'id' => Uuid::uuid4()->toString(),
+        ];
+    }
+}

@@ -3,21 +3,17 @@
 namespace App\Domain\Users\Database\Factories;
 
 use App\Domain\Users\Entities\LoginHistory;
-use App\Infrastructure\Abstracts\ModelFactory;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Ramsey\Uuid\Uuid;
 
-class LoginHistoryFactory extends ModelFactory
+class LoginHistoryFactory extends Factory
 {
-    protected string $model = LoginHistory::class;
+    protected $model = LoginHistory::class;
 
-    public function fields()
+    public function definition(): array
     {
         return [
-            'id' => Uuid::uuid4(),
+            'id' => Uuid::uuid4()->toString(),
         ];
-    }
-
-    public function states()
-    {
     }
 }

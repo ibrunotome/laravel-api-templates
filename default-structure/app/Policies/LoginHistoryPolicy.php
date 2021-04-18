@@ -12,73 +12,56 @@ class LoginHistoryPolicy
 
     /**
      * Determine whether the user can view a list of model.
-     *
-     * @param \App\Models\User $user
-     * @return mixed
      */
-    public function viewAny(User $user)
+    public function viewAny(User $user): bool
     {
         return $user->can('view any login histories');
     }
 
     /**
      * Determine whether the user can view the model.
-     *
-     * @param \App\Models\User         $user
-     * @param \App\Models\LoginHistory $model
-     * @return mixed
      */
-    public function view(User $user, LoginHistory $model)
+    public function view(User $user, LoginHistory $model): bool
     {
         return $user->can('view login histories') || $user->id === $model->user_id;
     }
 
     /**
      * Determine whether the user can create models.
-     *
-     * @return mixed
      */
-    public function create()
+    public function create(): bool
     {
         return false;
     }
 
     /**
      * Determine whether the user can update the model.
-     *
-     * @return mixed
      */
-    public function update()
+    public function update(): bool
     {
         return false;
     }
 
     /**
      * Determine whether the user can delete the model.
-     *
-     * @return mixed
      */
-    public function delete()
+    public function delete(): bool
     {
         return false;
     }
 
     /**
      * Determine whether the user can restore the model.
-     *
-     * @return mixed
      */
-    public function restore()
+    public function restore(): bool
     {
         return false;
     }
 
     /**
      * Determine whether the user can permanently delete the model.
-     *
-     * @return mixed
      */
-    public function forceDelete()
+    public function forceDelete(): bool
     {
         return false;
     }

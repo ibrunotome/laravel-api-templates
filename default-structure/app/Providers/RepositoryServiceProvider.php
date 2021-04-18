@@ -17,10 +17,8 @@ class RepositoryServiceProvider extends ServiceProvider
 {
     /**
      * Indicates if loading of the provider is deferred.
-     *
-     * @var bool
      */
-    protected $defer = true;
+    protected bool $defer = true;
 
     /**
      * Register the application services.
@@ -40,8 +38,6 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->singleton(UserRepository::class, function () {
             return new EloquentUserRepository(new User());
         });
-
-        //:end-bindings:
     }
 
     /**

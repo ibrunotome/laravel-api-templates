@@ -7,26 +7,26 @@ use OwenIt\Auditing\Auditable;
 use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 
 /**
- * Class Permission
+ * App\Domain\Users\Entities\Permission
  *
- * @property string                                                                                      $id
- * @property string                                                                                      $name
- * @property string                                                                                      $guard_name
- * @property \Illuminate\Support\Carbon|null                                                             $created_at
- * @property \Illuminate\Support\Carbon|null                                                             $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Domain\Audits\Entities\Audit[]     $audits
- * @property-read int|null                                                                               $audits_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Domain\Users\Entities\Permission[] $permissions
- * @property-read int|null                                                                               $permissions_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Domain\Users\Entities\Role[]       $roles
- * @property-read int|null                                                                               $roles_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Domain\Users\Entities\User[]       $users
- * @property-read int|null                                                                               $users_count
+ * @property string $id
+ * @property string $name
+ * @property string $guard_name
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Domain\Audits\Entities\Audit[] $audits
+ * @property-read int|null $audits_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|Permission[] $permissions
+ * @property-read int|null $permissions_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Domain\Users\Entities\Role[] $roles
+ * @property-read int|null $roles_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Domain\Users\Entities\User[] $users
+ * @property-read int|null $users_count
  * @method static Builder|Permission newModelQuery()
  * @method static Builder|Permission newQuery()
- * @method static Builder|\Spatie\Permission\Models\Permission permission($permissions)
+ * @method static \Illuminate\Database\Eloquent\Builder|Permission permission($permissions)
  * @method static Builder|Permission query()
- * @method static Builder|\Spatie\Permission\Models\Permission role($roles, $guard = null)
+ * @method static \Illuminate\Database\Eloquent\Builder|Permission role($roles, $guard = null)
  * @method static Builder|Permission whereCreatedAt($value)
  * @method static Builder|Permission whereGuardName($value)
  * @method static Builder|Permission whereId($value)

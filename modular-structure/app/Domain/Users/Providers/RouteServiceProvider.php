@@ -13,11 +13,19 @@ use App\Domain\Users\Http\Controllers\ResetPasswordController;
 use App\Domain\Users\Http\Controllers\TwoFactorAuthenticationController;
 use App\Domain\Users\Http\Controllers\UserController;
 use App\Domain\Users\Http\Controllers\UtilController;
+use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Router;
+use Illuminate\Support\Facades\RateLimiter;
 
 class RouteServiceProvider extends ServiceProvider
 {
+    public function boot()
+    {
+        $this->configureRateLimiting();
+    }
+
     public function map(Router $router): void
     {
         if (config('register.api_routes')) {
@@ -46,12 +54,12 @@ class RouteServiceProvider extends ServiceProvider
             ->group(['middleware' => 'guest'], function () use ($router) {
                 $router
                     ->post('email/verify/{token}', [EmailVerificationController::class, 'verify'])
-                    ->middleware('throttle:5,1')
+                    ->middleware('throttle:hard')
                     ->name('api.email.verify');
 
                 $router
                     ->post('devices/authorize/{token}', [AuthorizeDeviceController::class, 'authorizeDevice'])
-                    ->middleware('throttle:5,1')
+                    ->middleware('throttle:hard')
                     ->name('api.device.authorize');
 
                 $router
@@ -64,12 +72,12 @@ class RouteServiceProvider extends ServiceProvider
 
                 $router
                     ->post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])
-                    ->middleware('throttle:5,1')
+                    ->middleware('throttle:hard')
                     ->name('api.reset.email-link');
 
                 $router
                     ->post('password/reset', [ResetPasswordController::class, 'reset'])
-                    ->middleware('throttle:5,1')
+                    ->middleware('throttle:hard')
                     ->name('api.reset.password');
             });
     }
@@ -128,7 +136,7 @@ class RouteServiceProvider extends ServiceProvider
 
                 $router
                     ->delete('devices/{id}', [AuthorizeDeviceController::class, 'destroy'])
-                    ->middleware('throttle:5,1')
+                    ->middleware('throttle:hard')
                     ->name('api.device.destroy');
             });
     }
@@ -155,11 +163,25 @@ class RouteServiceProvider extends ServiceProvider
     {
         $router
             ->post('account/disable/{token}', [DisableAccountController::class, 'disable'])
-            ->middleware('throttle:5,1')
+            ->middleware('throttle:hard')
             ->name('api.account.disable');
 
         $router
             ->get('ping', [UtilController::class, 'serverTime'])
             ->name('api.server.ping');
+    }
+
+    /**
+     * Configure the rate limiters for the application.
+     */
+    protected function configureRateLimiting(): void
+    {
+        RateLimiter::for('api', function (Request $request) {
+            return Limit::perMinute(60)->by(optional($request->user())->id ?: $request->ip());
+        });
+
+        RateLimiter::for('hard', function (Request $request) {
+            return Limit::perMinute(2)->by(optional($request->user())->id ?: $request->ip());
+        });
     }
 }

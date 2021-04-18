@@ -3,6 +3,8 @@
 namespace App\Repositories;
 
 use App\Contracts\AuthorizedDeviceRepository;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 
 class EloquentAuthorizedDevicesRepository extends EloquentRepository implements AuthorizedDeviceRepository
 {
@@ -11,7 +13,7 @@ class EloquentAuthorizedDevicesRepository extends EloquentRepository implements 
         return $this->model::query()->where('user_id', '=', $userId)->count('id') === 0;
     }
 
-    public function findDeviceByCriteria(array $data)
+    public function findDeviceByCriteria(array $data): Model|Builder|null
     {
         return $this->model::query()
             ->where('user_id', '=', $data['user_id'])

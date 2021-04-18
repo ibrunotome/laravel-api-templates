@@ -2,20 +2,21 @@
 
 namespace App\Domain\Notifications\Policies;
 
+use App\Domain\Users\Entities\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class NotificationPolicy
 {
     use HandlesAuthorization;
 
-    public function viewAny(): bool
+    public function viewAny(User $user): bool
     {
-        return auth()->user()->hasPermissionTo('notifications_list');
+        return $user->can('notifications_list');
     }
 
-    public function view(): bool
+    public function view(User $user): bool
     {
-        return auth()->user()->hasPermissionTo('notifications_view');
+        return $user->can('notifications_view');
     }
 
     public function create(): bool
