@@ -1,9 +1,9 @@
-FROM composer:1.9.0 as build 
+FROM composer:2.0.12 as build
 WORKDIR /app 
 COPY . /app 
 RUN composer install --prefer-dist --classmap-authoritative --no-dev
 
-FROM php:7.4.3-apache-buster
+FROM php:8.0.3-apache-buster
 RUN docker-php-ext-install pdo pdo_pgsql pdo_mysql && pecl install redis
 
 COPY --from=build /app /var/www/
