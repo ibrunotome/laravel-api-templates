@@ -2,9 +2,6 @@
 
 namespace App\Domain\Users\Providers;
 
-use App\Domain\Users\Database\Factories\AuthorizedDeviceFactory;
-use App\Domain\Users\Database\Factories\LoginHistoryFactory;
-use App\Domain\Users\Database\Factories\UserFactory;
 use App\Domain\Users\Entities\AuthorizedDevice;
 use App\Domain\Users\Entities\LoginHistory;
 use App\Domain\Users\Entities\Permission;
@@ -19,34 +16,26 @@ use App\Infrastructure\Abstracts\ServiceProvider;
 
 class DomainServiceProvider extends ServiceProvider
 {
-    protected $alias = 'users';
+    protected string $alias = 'users';
 
-    protected $hasMigrations = true;
+    protected bool $hasMigrations = true;
 
-    protected $hasTranslations = true;
+    protected bool $hasTranslations = true;
 
-    protected $hasFactories = true;
+    protected bool $hasPolicies = true;
 
-    protected $hasPolicies = true;
-
-    protected $providers = [
+    protected array $providers = [
         RouteServiceProvider::class,
         RepositoryServiceProvider::class,
         EventServiceProvider::class,
         //        BroadcastServiceProvider::class,
     ];
 
-    protected $policies = [
+    protected array $policies = [
         AuthorizedDevice::class => AuthorizedDevicePolicy::class,
         LoginHistory::class     => LoginHistoryPolicy::class,
         Permission::class       => PermissionPolicy::class,
         Role::class             => RolePolicy::class,
         User::class             => UserPolicy::class,
-    ];
-
-    protected $factories = [
-        AuthorizedDeviceFactory::class,
-        LoginHistoryFactory::class,
-        UserFactory::class,
     ];
 }

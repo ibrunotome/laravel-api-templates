@@ -38,8 +38,6 @@ trait ResponseTrait
 
     /**
      * Return no content for delete requests
-     *
-     * @return JsonResponse
      */
     protected function respondWithNoContent(): JsonResponse
     {
@@ -51,9 +49,6 @@ trait ResponseTrait
 
     /**
      * Return collection response from the application
-     *
-     * @param LengthAwarePaginator $collection
-     * @return mixed
      */
     protected function respondWithCollection(LengthAwarePaginator $collection)
     {
@@ -64,9 +59,6 @@ trait ResponseTrait
 
     /**
      * Return single item response from the application
-     *
-     * @param Model $item
-     * @return mixed
      */
     protected function respondWithItem(Model $item)
     {

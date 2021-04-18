@@ -16,7 +16,6 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Notification;
 use Jenssegers\Agent\Agent;
-use Sujip\Ipstack\Ipstack;
 
 class LoginController extends Controller
 {

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Services\DisableAccountService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 
 class DisableAccountController extends Controller
@@ -15,7 +16,7 @@ class DisableAccountController extends Controller
         $this->disableAccountService = $disableAccountService;
     }
 
-    public function disable($token)
+    public function disable($token): JsonResponse
     {
         $response = $this->disableAccountService->handle($token);
 

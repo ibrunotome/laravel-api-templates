@@ -8,17 +8,17 @@ use App\Infrastructure\Abstracts\ServiceProvider;
 
 class DomainServiceProvider extends ServiceProvider
 {
-    protected $alias = 'audits';
+    protected string $alias = 'audits';
 
-    protected $hasMigrations = true;
+    protected bool $hasMigrations = true;
 
-    protected $hasPolicies = true;
+    protected bool $hasPolicies = true;
 
-    protected $policies = [
+    protected array $policies = [
         Audit::class => AuditPolicy::class,
     ];
 
-    protected $providers = [
+    protected array $providers = [
         EventServiceProvider::class,
     ];
 }

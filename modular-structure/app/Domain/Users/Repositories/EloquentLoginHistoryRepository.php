@@ -9,7 +9,7 @@ class EloquentLoginHistoryRepository extends EloquentRepository implements Login
 {
     public function loginsWithThisIpExists(array $data): bool
     {
-        return $this->model->with([])
+        return $this->model->query()
             ->where('user_id', '=', $data['user_id'])
             ->where('ip', '=', $data['ip'])
             ->exists();

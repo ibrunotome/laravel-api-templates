@@ -55,7 +55,7 @@ class LoginController extends Controller
      */
     protected function sendLoginResponse(Request $request)
     {
-        $user = auth()->user();
+        $user = $request->user();
 
         try {
             $this->checkUserIfIsActive($user, $request);
@@ -114,7 +114,7 @@ class LoginController extends Controller
         Cache::forget($id);
         Cache::tags('users:' . $id)->flush();
 
-        $this->guard()->logout(true);
+        $this->guard()->logout();
     }
 
     private function checkIfUserHasVerifiedEmail(User $user, Request $request)

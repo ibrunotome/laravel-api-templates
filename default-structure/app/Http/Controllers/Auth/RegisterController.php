@@ -6,6 +6,7 @@ use App\Contracts\UserRepository;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Rules\WeakPasswordRule;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -32,7 +33,7 @@ class RegisterController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(private UserRepository $userRepository)
     {
         $this->middleware('guest');
     }
@@ -94,16 +95,10 @@ class RegisterController extends Controller
 
     /**
      * Create a new user instance after a valid registration.
-     *
-     * @param array $data
-     * @return User
-     * @throws \Exception
      */
-    protected function create(array $data)
+    protected function create(array $data): Model
     {
-        $userRepository = app(UserRepository::class);
-
-        return $userRepository->store([
+        return $this->userRepository->store([
             'email'                       => $data['email'],
             'name'                        => $data['name'],
             'email_token_confirmation'    => Uuid::uuid4()->toString(),

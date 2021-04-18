@@ -38,8 +38,6 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->singleton(UserRepository::class, function () {
             return new EloquentUserRepository(new User());
         });
-
-        //:end-bindings:
     }
 
     /**

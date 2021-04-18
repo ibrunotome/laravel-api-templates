@@ -11,9 +11,9 @@ class UserUpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        $id = $this->segment(2) === 'me' ? auth()->id() : $this->segment(3);
+        $id = $this->segment(2) === 'me' ? $this->user()->id : $this->segment(3);
 
-        return $this->user()->can('update users') || $id === auth()->id();
+        return $this->user()->can('update users') || $id === $this->user()->id;
     }
 
     /**
@@ -23,7 +23,7 @@ class UserUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        $ignoreId = $this->segment(2) === 'me' ? auth()->id() : $this->segment(3);
+        $ignoreId = $this->segment(2) === 'me' ? $this->user()->id : $this->segment(3);
 
         return [
             'email'              => [

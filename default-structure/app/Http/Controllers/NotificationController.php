@@ -3,14 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Cache;
 
 class NotificationController extends Controller
 {
-    public function visualizeAllNotifications(): JsonResponse
+    public function visualizeAllNotifications(Request $request): JsonResponse
     {
-        $user = auth()->user();
+        $user = $request->user();
 
         $user->unreadNotifications->markAsRead();
 
@@ -19,9 +20,9 @@ class NotificationController extends Controller
         return $this->respondWithCustomData(['message' => 'OK'], Response::HTTP_OK);
     }
 
-    public function visualizeNotification(string $id): JsonResponse
+    public function visualizeNotification(Request $request, string $id): JsonResponse
     {
-        $user = auth()->user();
+        $user = $request->user();
 
         $user->unreadNotifications()->findOrFail($id)->update(['read_at' => now()]);
 

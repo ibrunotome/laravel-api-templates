@@ -8,13 +8,13 @@ use Illuminate\Notifications\DatabaseNotification;
 
 class DomainServiceProvider extends ServiceProvider
 {
-    protected $alias = 'notifications';
+    protected string $alias = 'notifications';
 
-    protected $hasMigrations = true;
+    protected bool $hasMigrations = true;
 
-    protected $hasPolicies = true;
+    protected bool $hasPolicies = true;
 
-    protected $policies = [
+    protected array $policies = [
         DatabaseNotification::class => NotificationPolicy::class,
     ];
 }

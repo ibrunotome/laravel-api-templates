@@ -2,7 +2,6 @@
 
 return [
     'commands'                        => env('REGISTER_COMMANDS', true),
-    'factories'                       => env('REGISTER_FACTORIES', true),
     'migrations'                      => env('REGISTER_MIGRATIONS', true),
     'translations'                    => env('REGISTER_TRANSLATIONS', true),
     'views'                           => env('REGISTER_VIEWS', true),

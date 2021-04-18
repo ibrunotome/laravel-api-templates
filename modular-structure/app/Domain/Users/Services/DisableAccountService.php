@@ -47,7 +47,7 @@ class DisableAccountService
         if (auth()->check()) {
             (new TwoFactorAuthenticator(request()))->logout();
             Cache::forget(auth()->id());
-            Cache::tags('users:' . auth()->id());
+            Cache::tags('users:' . auth()->id())->flush();
             auth()->logout();
         }
     }
