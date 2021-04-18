@@ -79,6 +79,7 @@ return [
     'remove' => [
         AlphabeticallySortedUsesSniff::class,
         ArrayIndentSniff::class,
+        ClassDeclaration::class,
         DeclareStrictTypesSniff::class,
         DisallowMixedTypeHintSniff::class,
         DisallowEmptySniff::class,
