@@ -11,11 +11,8 @@ class VerifyEmailNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    private string $token;
-
-    public function __construct(string $token)
+    public function __construct(private string $token)
     {
-        $this->token = $token;
         $this->onQueue('notifications');
     }
 
