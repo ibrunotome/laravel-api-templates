@@ -17,7 +17,12 @@ A Laravel API starter kit collection using different structures.
 
 <img width="100%" alt="Screen Shot 2019-05-26 at 11 24 15" src="https://user-images.githubusercontent.com/4256471/88347704-c3c05c80-cd21-11ea-8ee8-baf05ab87c58.png">
 
+---------------
+> Not maintained anymore. Today Laravel has almost all these features natively, and I just use the standard skeleton/structure.
+---------------
+
 ## What is it
+
 
 This is a starter kit for your next API using Laravel, implemented with more than one structure, all battle-tested with the same features listed below.
 
