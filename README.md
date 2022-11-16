@@ -2,6 +2,8 @@
 <img src="https://user-images.githubusercontent.com/4256471/115145753-888d5880-a029-11eb-9d26-37c8638823e7.png" width="400px">
 <br>
 A Laravel API starter kit collection using different structures.
+<br>
+<a href="https://github.com/ibrunotome/laravel-api-templates/#not-maintained-anymore">Not maintained anymore</a>
 </p>
 
 ![CI](https://github.com/ibrunotome/laravel-api-templates/workflows/CI/badge.svg)
@@ -17,13 +19,12 @@ A Laravel API starter kit collection using different structures.
 
 <img width="100%" alt="Screen Shot 2019-05-26 at 11 24 15" src="https://user-images.githubusercontent.com/4256471/88347704-c3c05c80-cd21-11ea-8ee8-baf05ab87c58.png">
 
----------------
-> Not maintained anymore. Today Laravel has almost all these features natively, and I just use the standard skeleton/structure.
----------------
+## Not maintained anymore
+Today Laravel has almost all these features natively, and I just use the standard skeleton/structure.
+
+I would recommend you to use the standard structure too. Taylor too: https://twitter.com/taylorotwell/status/1590332496767586307
 
 ## What is it
-
-
 This is a starter kit for your next API using Laravel, implemented with more than one structure, all battle-tested with the same features listed below.
 
 ## Features
